@@ -1,0 +1,91 @@
+{
+  "version": "1.2",
+  "eligibility": {
+    "allowed_statuses": [
+      "Conf"
+    ],
+    "require_ignore_reporting_false": true
+  },
+  "exclusion_rules": [
+    {
+      "id": "MERCADO_LIBRE",
+      "enabled": true,
+      "action": "EXCLUDE",
+      "description": "Excluir Mercado Libre y MELI",
+      "fields": [
+        "client_name",
+        "project_name"
+      ],
+      "match_type": "contains_any",
+      "patterns": [
+        "mercado libre",
+        "meli"
+      ]
+    },
+    {
+      "id": "POD",
+      "enabled": true,
+      "action": "EXCLUDE",
+      "description": "Excluir PODs",
+      "fields": [
+        "project_name",
+        "project_sub_type"
+      ],
+      "match_type": "regex_any",
+      "patterns": [
+        "\\bpod\\b"
+      ]
+    },
+    {
+      "id": "COACHING",
+      "enabled": true,
+      "action": "EXCLUDE",
+      "description": "Excluir Group Coaching, POD Coaching y coaching individual",
+      "fields": [
+        "project_name",
+        "project_sub_type"
+      ],
+      "match_type": "contains_any",
+      "patterns": [
+        "group coaching",
+        "pod coaching",
+        "1:1 coaching",
+        "1-1 coaching",
+        "one to one coaching",
+        "individual coaching"
+      ]
+    },
+    {
+      "id": "REVENUE_ADMIN",
+      "enabled": true,
+      "action": "REVIEW",
+      "description": "Revisión manual para posibles registros administrativos o de revenue",
+      "fields": [
+        "project_name",
+        "project_sub_type"
+      ],
+      "match_type": "contains_any",
+      "patterns": [
+        "revenue",
+        "administrative",
+        "administrativo",
+        "admin only"
+      ]
+    },
+    {
+      "id": "BTS_CLIENT",
+      "enabled": true,
+      "action": "EXCLUDE",
+      "description": "Excluir clientes cuyo nombre empieza con BTS",
+      "fields": [
+        "client_name"
+      ],
+      "match_type": "starts_with_any",
+      "patterns": [
+        "bts ",
+        "bts-",
+        "bts_"
+      ]
+    }
+  ]
+}

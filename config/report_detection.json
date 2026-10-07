@@ -1,0 +1,84 @@
+{
+  "version": "1.2",
+  "sender_validation": {
+    "enabled": false,
+    "allowed_senders": [
+      "kristina.siakina@bts.com"
+    ]
+  },
+  "report_patterns": [
+    {
+      "country": "Argentina",
+      "report_type": "Upcoming",
+      "patterns": [
+        "Argentina Upcoming Deliveries/NPS"
+      ]
+    },
+    {
+      "country": "Brazil",
+      "report_type": "Upcoming",
+      "patterns": [
+        "Brazil Upcoming Deliveries/NPS"
+      ]
+    },
+    {
+      "country": "Mexico",
+      "report_type": "Upcoming",
+      "patterns": [
+        "Mexico Upcoming Deliveries/NPS"
+      ]
+    },
+    {
+      "country": "Argentina",
+      "report_type": "Last Results",
+      "patterns": [
+        "Argentina Last 30 days Deliveries/NPS"
+      ]
+    },
+    {
+      "country": "Brazil",
+      "report_type": "Last Results",
+      "patterns": [
+        "Brazil Last 30 days Deliveries/NPS"
+      ]
+    },
+    {
+      "country": "Mexico",
+      "report_type": "Last Results",
+      "patterns": [
+        "Mexico Last 30 days Deliveries/NPS"
+      ]
+    }
+  ],
+  "fallback": {
+    "enabled": true,
+    "countries": {
+      "Argentina": [
+        "argentina"
+      ],
+      "Brazil": [
+        "brazil",
+        "brasil"
+      ],
+      "Mexico": [
+        "mexico",
+        "méxico"
+      ]
+    },
+    "report_types": {
+      "Upcoming": [
+        "upcoming deliveries/nps",
+        "upcoming deliveries"
+      ],
+      "Last Results": [
+        "last 30 days deliveries/nps",
+        "last 30 days deliveries"
+      ]
+    }
+  },
+  "detection_sources": [
+    "subject",
+    "body",
+    "filename"
+  ]
+}

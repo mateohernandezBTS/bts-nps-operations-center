@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "source_groups": {
+    "weekly_upcoming": {
+      "enabled": true,
+      "description": "Reportes utilizados para la corrida semanal de creación de NPS",
+      "required_for_completion": true,
+      "allow_partial_run": false,
+      "sources": [
+        {
+          "source_id": "upcoming_argentina",
+          "enabled": true,
+          "country": "Argentina",
+          "report_type": "upcoming",
+          "required": true
+        },
+        {
+          "source_id": "upcoming_brazil",
+          "enabled": true,
+          "country": "Brazil",
+          "report_type": "upcoming",
+          "required": true
+        },
+        {
+          "source_id": "upcoming_mexico",
+          "enabled": true,
+          "country": "Mexico",
+          "report_type": "upcoming",
+          "required": true
+        }
+      ]
+    },
+    "last_results": {
+      "enabled": true,
+      "description": "Reportes históricos de resultados, conservados para un módulo posterior",
+      "required_for_completion": false,
+      "allow_partial_run": true,
+      "sources": [
+        {
+          "source_id": "last_results_argentina",
+          "enabled": true,
+          "country": "Argentina",
+          "report_type": "last_results",
+          "required": false
+        },
+        {
+          "source_id": "last_results_brazil",
+          "enabled": true,
+          "country": "Brazil",
+          "report_type": "last_results",
+          "required": false
+        },
+        {
+          "source_id": "last_results_mexico",
+          "enabled": true,
+          "country": "Mexico",
+          "report_type": "last_results",
+          "required": false
+        }
+      ]
+    }
+  }
+}

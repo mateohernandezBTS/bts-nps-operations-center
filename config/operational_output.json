@@ -1,0 +1,40 @@
+{
+  "version": "1.1",
+  "weekly_window": {
+    "enabled": true,
+    "reference_monday": "7/27/2026",
+    "start_offset_days": 1,
+    "end_offset_days": 7
+  },
+  "results": {
+    "default_status": "NO",
+    "base_url": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode="
+  },
+  "defaults": {
+    "qr_code": "",
+    "nps_survey_link": "",
+    "facilitator_insights_link": ""
+  },
+  "facilitators": {
+    "empty_values": [
+      "",
+      "-",
+      "n/a",
+      "none",
+      "tbd"
+    ],
+    "separator": ","
+  },
+  "slack_output": {
+    "group_by": "Client",
+    "sort_by": [
+      "Client",
+      "Date",
+      "Session"
+    ],
+    "results_link_text": "Home",
+    "empty_display": "",
+    "include_weekly_heading": true,
+    "weekly_heading_template": "Upcoming NPS | {country} | {window_start} to {window_end}"
+  }
+}

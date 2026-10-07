@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "weekly_schedule": {
+    "execution_weekday": "monday",
+    "window_start_offset_days": 1,
+    "window_length_days": 7
+  }
+}

@@ -1,0 +1,66 @@
+# ============================================================
+# BTS SELAM NPS Operations Center
+# ============================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.coverage
+coverage.xml
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build artifacts
+build/
+dist/
+
+# Operational installation
+BTS SELAM NPS Operations Center/
+
+# Production operational data
+input/
+output/
+logs/
+runtime/
+
+# Certified release artifacts
+certification/
+
+# TEST generated / operational data
+tests/input/
+tests/output/
+tests/logs/
+tests/runtime/
+
+# Generated Slack lab artifacts
+tests/slack_lab/generated/
+
+# Real email / Outlook data
+*.eml
+*.msg
+
+# Secrets / local environment
+.env
+.env.*
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Temporary files
+~$*
+*.tmp
+*.temp
+*.bak

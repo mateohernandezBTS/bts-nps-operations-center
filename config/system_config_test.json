@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "environment": "TEST",
+  "input_lifecycle": {
+    "pending_directory": "tests/input/power_automate/upcoming",
+    "processing_directory": "tests/runtime/weekly_pipeline/processing",
+    "processed_directory": "tests/runtime/weekly_pipeline/processed",
+    "error_directory": "tests/runtime/weekly_pipeline/error"
+  },
+  "output": {
+    "runs_directory": "tests/output/runs"
+  },
+  "logs": {
+    "directory": "tests/logs"
+  },
+  "retention": {
+    "enabled": false,
+    "processed_days": 30,
+    "error_days": 90,
+    "output_runs_days": 90,
+    "log_days": 90,
+    "dry_run": true
+  }
+}
