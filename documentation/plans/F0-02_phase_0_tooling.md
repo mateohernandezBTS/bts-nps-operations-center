@@ -44,6 +44,28 @@ Out of scope:
 - Record ruff and mypy totals as debt, without fixing existing code.
 - Review the final diff for prohibited directory changes and verify pushed branch state.
 
+### Recorded results (2026-10-28)
+
+- Python 3.14.6; Ruff 0.17.3, pytest 9.2.0, pytest-cov 7.1.0 and mypy 2.4.0.
+- Pin selection used PyPI metadata: [Ruff](https://pypi.org/project/ruff/0.17.3/),
+  [pytest](https://pypi.org/project/pytest/9.2.0/),
+  [pytest-cov](https://pypi.org/project/pytest-cov/7.1.0/) and
+  [mypy](https://pypi.org/project/mypy/2.4.0/). Each advertised Python 3.14 support.
+- Compilation: passed inside the sandbox.
+- Approved exact unittest command: 69 run, 63 passed, no failures, six errors,
+  no skips; exit 1. This reproduces F0-01's Windows baseline.
+- Approved exact pytest command: 69 cases, 63 passed, six failed, no skips;
+  exit 1. The same six missing-fixture exceptions are classified as failures by
+  pytest and errors by unittest. No additional tests or collection errors appeared;
+  norecursedirs was not needed.
+- Ruff check inside the sandbox: 152 violations; exit 1. No fixes applied.
+- Mypy app/engine check inside the sandbox: 32 errors in 11 files, with 74 source
+  files checked; exit 1. This is a debt baseline, not an enforced module scope.
+- TOML parsing passed; pyproject.toml contains tool configuration only.
+- No changes under app/, engine/, config/, packaging/ or tests/.
+- The earlier sandbox run's permission failures are explained by NPS-019; the
+  baseline above comes from the subsequently approved exact test commands.
+
 ## 7. Risks and mitigations
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
@@ -59,8 +81,8 @@ use new revert commits; do not rewrite published history or delete branches.
 - [x] Step 1: documents moved with git mv (7d6e32a).
 - [x] Step 2: agent instructions updated (696b6e0).
 - [x] Step 3: register evidence recorded; recursive inventory confirms 11 of 29 files contribute cases.
-- [x] Step 3b: NPS-019 diagnosed without escalation; test exception documented.
-- [ ] Step 4: tooling installed, validation recorded and branch pushed.
+- [x] Step 3b: NPS-019 diagnosed without escalation; test exception documented (86d0c6c).
+- [x] Step 4: tooling installed and validation recorded; branch prepared for the final push.
 
 ## 10. Decision log
 | Date | Decision | Reason | Decided by |
@@ -68,3 +90,4 @@ use new revert commits; do not rewrite published history or delete branches.
 | 2026-10-28 | Keep existing application and test code unchanged | Explicit F0-02 scope | User |
 | 2026-10-28 | Run tests only inside the sandbox with repository-local temporary files | Additional step 4b | User |
 | 2026-10-28 | Replace the test escalation prohibition after confirming NPS-019; approve only exact unittest and pytest commands | Resume F0-02 supersedes the earlier test escalation prohibition | User |
+| 2026-10-28 | Allow a scoped Git exception for staging, committing the requested files and pushing chore/phase-0-tooling | Sandbox denies .git/index.lock writes; user explicitly approved the scoped Git exception after automatic review rejected the initial escalation | User |
