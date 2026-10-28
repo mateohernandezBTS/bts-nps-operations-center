@@ -89,6 +89,23 @@ class FixtureCatalogTest(unittest.TestCase):
         self.assertEqual(len(self.family("weekly")), 3)
         for spec in self.family("weekly"):
             with self.subTest(fixture=spec["id"]):
+                message = BytesParser(policy=policy.default).parsebytes(
+                    fixture_path(spec["id"]).read_bytes()
+                )
+                self.assertEqual(message.get_content_type(), "multipart/alternative")
+                self.assertEqual(
+                    message.get_boundary(), "fixture-boundary-" + spec["id"]
+                )
+                parts = list(message.iter_parts())
+                self.assertEqual(
+                    [part.get_content_type() for part in parts],
+                    ["text/plain", "text/html"],
+                )
+                for part in parts:
+                    self.assertEqual(part.get_content_charset(), "utf-8")
+                    self.assertEqual(part["Content-Transfer-Encoding"], "base64")
+                    self.assertIsNone(part.get_content_disposition())
+                self.assertTrue(parts[0].get_content().strip())
                 self.assert_row_contract(spec)
                 raw = parse_eml_report(fixture_path(spec["id"]))
                 self.assertEqual(len(raw), 2)

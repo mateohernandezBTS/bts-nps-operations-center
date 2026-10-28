@@ -3,6 +3,17 @@ To: Fixture Operator <operator@example.invalid>
 Date: Mon, 03 Aug 2026 09:00:00 +0000
 Message-ID: <weekly_Argentina_upcoming@example.invalid>
 Subject: Report results (Argentina Upcoming Deliveries/NPS)
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="fixture-boundary-weekly_Argentina_upcoming"
+
+--fixture-boundary-weekly_Argentina_upcoming
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+U3ludGhldGljIHBsYWluIHRleHQuDQo=
+
+--fixture-boundary-weekly_Argentina_upcoming
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: base64
 MIME-Version: 1.0
@@ -27,3 +38,5 @@ MDAwMDAwMDAyIj5GaXh0dXJlIFNlc3Npb24gMDAyPC9hPjwvdGQ+PHRkPkZpeHR1cmUgVHlwZSBX
 b3Jrc2hvcDwvdGQ+PHRkPkNvbmY8L3RkPjx0ZD44LzEwLzIwMjY8L3RkPjx0ZD5GaXh0dXJlIEZh
 Y2lsaXRhdG9yIEx1bWVuPC90ZD48dGQ+NC41PC90ZD48dGQ+NzU8L3RkPjx0ZD40Ljg8L3RkPjx0
 ZD7inJU8L3RkPjx0ZD48L3RkPjx0ZD48L3RkPjwvdHI+PC90YWJsZT48L2JvZHk+PC9odG1sPg0K
+
+--fixture-boundary-weekly_Argentina_upcoming--

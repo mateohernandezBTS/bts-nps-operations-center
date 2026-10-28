@@ -145,6 +145,10 @@ def render_fixture(spec: dict[str, Any], inputs: FixtureInputs) -> bytes:
     html = report_html(spec, inputs)
     if spec["mime"] == "plain":
         message.set_content("Synthetic plain text only.", charset="utf-8", cte="base64")
+    elif spec["mime"] == "alternative":
+        message.set_content("Synthetic plain text.", charset="utf-8", cte="base64")
+        message.add_alternative(html, subtype="html", charset="utf-8", cte="base64")
+        message.set_boundary("fixture-boundary-" + spec["id"])
     elif spec["mime"] == "multipart":
         message.make_mixed(boundary="fixture-boundary-" + spec["id"])
         for content, subtype, attachment in (
