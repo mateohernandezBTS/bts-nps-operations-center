@@ -6,7 +6,7 @@ Agents must include this checklist, with results, in their final report.
 ## A. Task level (every branch / PR)
 
 - [ ] Scope matches the task exactly; out-of-scope findings listed, not fixed.
-- [ ] Work is on the correct branch; the agent ran no Git write operations.
+- [ ] Work is on the correct branch; no direct commits on `main` or `develop`.
 - [ ] Behavior: preserved (refactor) or changed exactly as specified (fix/feature).
 - [ ] Bug fixes include a test that failed before the fix and passes after it.
 - [ ] Refactors: characterization / golden-master tests pass with identical outputs.
