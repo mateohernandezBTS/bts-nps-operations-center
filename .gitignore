@@ -49,6 +49,12 @@ tests/slack_lab/generated/
 
 # Real email / Outlook data
 *.eml
+!/tests/fixtures/eml/weekly/*.eml
+!/tests/fixtures/eml/parser/*.eml
+!/tests/fixtures/eml/detection/*.eml
+!/tests/fixtures/eml/classification/*.eml
+!/tests/fixtures/eml/scenarios/*.eml
+!/tests/fixtures/eml/malformed/*.eml
 *.msg
 
 # Secrets / local environment

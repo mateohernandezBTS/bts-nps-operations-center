@@ -1,0 +1,10 @@
+From: Fixture Sender <reports@example.invalid>
+To: Fixture Operator <operator@example.invalid>
+Date: Mon, 03 Aug 2026 09:00:00 +0000
+Message-ID: <malformed_Brazil_no_html@example.invalid>
+Subject: Report results (Brazil Upcoming Deliveries/NPS)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+
+U3ludGhldGljIHBsYWluIHRleHQgb25seS4NCg==
