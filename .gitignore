@@ -60,6 +60,9 @@ tests/slack_lab/generated/
 *.p12
 
 # Temporary files
+.tmp/
+.codex-log/
+local_acceptance/
 ~$*
 *.tmp
 *.temp

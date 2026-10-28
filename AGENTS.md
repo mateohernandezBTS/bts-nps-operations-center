@@ -45,8 +45,11 @@ UI (app/views, app/widgets)
 
 1. Never read from, write to, run, move or delete anything in the operational installation
    `..\BTS SELAM NPS Operations Center\` or any OneDrive `NPS_AUTOMATION` folder.
-2. Never kill processes (`Stop-Process`, `taskkill`, etc.) and never delete `.exe` files.
-   If a running process blocks a file, STOP and ask the human to close it.
+2. Never kill processes (`Stop-Process`, `taskkill`, etc.). The test suite may create
+   and delete only its own empty `.exe` placeholders inside temporary directories
+   managed by `tempfile.TemporaryDirectory`. Never delete any other `.exe` file,
+   and never delete `.exe` files via PowerShell. If a running process blocks a file,
+   STOP and ask the human to close it.
 3. Never commit directly to `main` or `develop`, except when the task explicitly asks you
    to create the `develop` branch or a release tag. Work on the branch named in the task.
 4. Never force-push, rewrite published history (`rebase`, `reset --hard`, `commit --amend`
@@ -64,17 +67,17 @@ UI (app/views, app/widgets)
 ## 4. Environment and commands
 
 Two execution environments exist:
-- **Codex cloud (Linux container, preferred for code work).** Dependencies are installed
+- **Local Windows clone (primary, outside OneDrive).** Use for development, baseline
+  validation and Windows-only work: packaging, packaged E2E and visual UI checks.
+- **Codex cloud (optional Linux container).** Dependencies are installed
   by the environment setup script. Do not install anything else. Never attempt PyInstaller
   builds or Windows packaging here. In the cloud, ALWAYS run Python through the wrapper
   `/workspace/.setup/bts/headless.sh` (it uses `.venv`, sets the headless Qt variables and
   PYTHONPATH). Example: `/workspace/.setup/bts/headless.sh -m unittest discover -s tests -p "test*.py"`.
   GUI smoke check: `/workspace/.setup/bts/headless.sh /workspace/.setup/bts/smoke.py`.
   Cloud tasks start from `develop` (the repository default branch).
-- **Local Windows clone** (`C:\dev\nps-operations-center`, outside OneDrive). Used for
-  Windows-only work: packaging, packaged E2E, visual UI checks.
 
-```bash
+```powershell
 # environment (local Windows only; cloud is preinstalled)
 py -3.14 -m venv .venv
 .\.venv\Scripts\Activate.ps1
@@ -83,13 +86,24 @@ python -m pip install -r requirements.txt
 # validation (always run before declaring a task done; in the cloud replace
 # `python` with /workspace/.setup/bts/headless.sh)
 python -m compileall -q app engine packaging
+
+# local tests: keep temporary files inside the repository
+$env:TMP = "$PWD\.tmp"; $env:TEMP = "$PWD\.tmp"; New-Item -ItemType Directory -Force .tmp | Out-Null
 python -m unittest discover -s tests -p "test*.py"   # current baseline runner
+python -m pytest -q
 
 # run the application from source
 python -m app.nps_operations_center
 ```
 
 Notes:
+- Local test runs must set `TMP` and `TEMP` to the repository's `.tmp` directory
+  before starting Python, as shown above.
+- Because of a known incompatibility between Python's tempfile ACLs and the Windows
+  sandbox (NPS-019), ONLY the exact test commands (`python -m unittest discover -s
+  tests -p "test*.py" -v`, `python -m pytest -q`, using the local virtual environment)
+  may run outside the sandbox, always with explicit human approval. Every other
+  command stays inside the sandbox.
 - Always run modules with `python -m ...` from the root. `python app/x.py` breaks imports.
 - Tests must be platform-neutral (Linux and Windows). Platform-specific assertions are
   defects (NPS-018) unless explicitly marked and skipped on other platforms.
