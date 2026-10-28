@@ -13,30 +13,19 @@ from engine.session_manager import (
 )
 
 
-class ControllerSessionIntegrationTest(
-    unittest.TestCase
-):
+class ControllerSessionIntegrationTest(unittest.TestCase):
     """
     Validate automatic session updates from the controller.
     """
 
     def setUp(self) -> None:
-        self.temp_directory = (
-            tempfile.TemporaryDirectory()
-        )
+        self.temp_directory = tempfile.TemporaryDirectory()
 
-        session_file = (
-            Path(self.temp_directory.name)
-            / "current_session.json"
-        )
+        session_file = Path(self.temp_directory.name) / "current_session.json"
 
-        self.session_manager = SessionManager(
-            session_file=session_file
-        )
+        self.session_manager = SessionManager(session_file=session_file)
 
-        self.controller = NPSApplicationController(
-            session_manager=self.session_manager
-        )
+        self.controller = NPSApplicationController(session_manager=self.session_manager)
 
     def tearDown(self) -> None:
         self.temp_directory.cleanup()
@@ -49,9 +38,7 @@ class ControllerSessionIntegrationTest(
             "reference_date": "8/3/2026",
             "window_start": "8/4/2026",
             "window_end": "8/10/2026",
-            "weekly_run_id": (
-                "NPS_WEEK_2026-08-04_2026-08-10"
-            ),
+            "weekly_run_id": ("NPS_WEEK_2026-08-04_2026-08-10"),
             "status": "READY_TO_PROCESS",
             "issues": [],
             "inventory": {
@@ -65,8 +52,7 @@ class ControllerSessionIntegrationTest(
         }
 
         with patch(
-            "engine.application_controller."
-            "run_weekly_preflight",
+            "engine.application_controller.run_weekly_preflight",
             return_value=fake_preflight,
         ):
             result = self.controller.run_preflight(
@@ -74,9 +60,7 @@ class ControllerSessionIntegrationTest(
                 test_mode=True,
             )
 
-        session = (
-            self.controller.get_current_session("TEST")
-        )
+        session = self.controller.get_current_session("TEST")
 
         self.assertTrue(result.success)
         self.assertIsNotNone(session)
@@ -101,13 +85,9 @@ class ControllerSessionIntegrationTest(
             "reference_date": "8/3/2026",
             "window_start": "8/4/2026",
             "window_end": "8/10/2026",
-            "weekly_run_id": (
-                "NPS_WEEK_2026-08-04_2026-08-10"
-            ),
+            "weekly_run_id": ("NPS_WEEK_2026-08-04_2026-08-10"),
             "status": "BLOCKED",
-            "issues": [
-                "Missing required source: Brazil upcoming"
-            ],
+            "issues": ["Missing required source: Brazil upcoming"],
             "inventory": {
                 "files_scanned": 2,
                 "matched_files": 2,
@@ -119,20 +99,15 @@ class ControllerSessionIntegrationTest(
         }
 
         with patch(
-            "engine.application_controller."
-            "run_weekly_preflight",
+            "engine.application_controller.run_weekly_preflight",
             return_value=fake_preflight,
         ):
-            result = (
-                self.controller.run_weekly_process(
-                    reference_date="8/3/2026",
-                    test_mode=True,
-                )
+            result = self.controller.run_weekly_process(
+                reference_date="8/3/2026",
+                test_mode=True,
             )
 
-        session = (
-            self.controller.get_current_session("TEST")
-        )
+        session = self.controller.get_current_session("TEST")
 
         self.assertFalse(result.success)
         self.assertEqual(
@@ -149,9 +124,9 @@ class ControllerSessionIntegrationTest(
         )
 
         self.assertEqual(
-    session.weekly_run_id,
-    "NPS_WEEK_2026-08-04_2026-08-10",
-)
+            session.weekly_run_id,
+            "NPS_WEEK_2026-08-04_2026-08-10",
+        )
 
     def test_completed_process_updates_session(
         self,
@@ -161,9 +136,7 @@ class ControllerSessionIntegrationTest(
             "reference_date": "8/3/2026",
             "window_start": "8/4/2026",
             "window_end": "8/10/2026",
-            "weekly_run_id": (
-                "NPS_WEEK_2026-08-04_2026-08-10"
-            ),
+            "weekly_run_id": ("NPS_WEEK_2026-08-04_2026-08-10"),
             "status": "READY_TO_PROCESS",
             "issues": [],
             "inventory": {
@@ -187,46 +160,30 @@ class ControllerSessionIntegrationTest(
                 "clients": 10,
                 "duplicate_issues": 0,
             },
-            "weekly_excel_path": (
-                "output/report.xlsx"
-            ),
-            "slack_canvas_path": (
-                "output/report.html"
-            ),
+            "weekly_excel_path": ("output/report.xlsx"),
+            "slack_canvas_path": ("output/report.html"),
             "csv_path": "output/report.csv",
-            "manual_review_csv_path": (
-                "output/review.csv"
-            ),
-            "summary_path": (
-                "output/summary.json"
-            ),
-            "manifest_path": (
-                "output/manifest.json"
-            ),
+            "manual_review_csv_path": ("output/review.csv"),
+            "summary_path": ("output/summary.json"),
+            "manifest_path": ("output/manifest.json"),
         }
 
         with (
             patch(
-                "engine.application_controller."
-                "run_weekly_preflight",
+                "engine.application_controller.run_weekly_preflight",
                 return_value=fake_preflight,
             ),
             patch(
-                "engine.application_controller."
-                "execute_weekly_end_to_end",
+                "engine.application_controller.execute_weekly_end_to_end",
                 return_value=fake_processing,
             ),
         ):
-            result = (
-                self.controller.run_weekly_process(
-                    reference_date="8/3/2026",
-                    test_mode=True,
-                )
+            result = self.controller.run_weekly_process(
+                reference_date="8/3/2026",
+                test_mode=True,
             )
 
-        session = (
-            self.controller.get_current_session("TEST")
-        )
+        session = self.controller.get_current_session("TEST")
 
         self.assertTrue(result.success)
         self.assertEqual(
@@ -243,7 +200,7 @@ class ControllerSessionIntegrationTest(
         )
         self.assertEqual(
             session.outputs["excel"],
-            "output\\report.xlsx",
+            str(Path("output") / "report.xlsx"),
         )
 
 
