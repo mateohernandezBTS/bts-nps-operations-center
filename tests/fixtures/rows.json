@@ -1,0 +1,3376 @@
+{
+  "schema_version": 1,
+  "provenance": "Literal invented entities and independently authored expected outcomes.",
+  "rows": {
+    "weekly_argentina_1": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 001",
+        "project_name": "Fixture Session 001",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000001"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "weekly_argentina_2": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/10/2026",
+        "client_name": "Fixture Client Aurora 002",
+        "project_name": "Fixture Session 002",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/10/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000000002"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "weekly_brazil_1": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 003",
+        "project_name": "Fixture Session 003",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "-",
+        "nps": "feature not included",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000003"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "weekly_brazil_2": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/10/2026",
+        "client_name": "Fixture Client Aurora 004",
+        "project_name": "Fixture Session 004",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/10/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "/FXT000000000000004"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "weekly_mexico_1": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 005",
+        "project_name": "Fixture Session 005",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000005"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "weekly_mexico_2": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/10/2026",
+        "client_name": "Fixture Client Aurora 006",
+        "project_name": "Fixture Session 006",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/10/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000000006"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "invitation": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 007",
+        "project_name": "Fixture Session 007",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "Fixture Invitation 001",
+        "survey_invitation_link": "Fixture Invitation Link"
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000007",
+        "survey_invitation": "https://example.invalid/invitation/first",
+        "survey_invitation_link": "https://example.invalid/invitation/last"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "brazil_office_2a": {
+      "values": {
+        "billing_office": "Brazil / Nexo",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 008",
+        "project_name": "Fixture Session 008",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000008"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "brazil_office_2b": {
+      "values": {
+        "billing_office": "Brazil / Nexo",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 009",
+        "project_name": "Fixture Session 009",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000009"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "rule_mercado_libre_client_name_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client mercado libre",
+        "project_name": "Fixture Session 010",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000010"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "MERCADO_LIBRE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "MERCADO_LIBRE",
+        "field": "client_name",
+        "pattern": "mercado libre"
+      }
+    },
+    "rule_mercado_libre_client_name_1": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client meli",
+        "project_name": "Fixture Session 011",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000011"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "MERCADO_LIBRE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "MERCADO_LIBRE",
+        "field": "client_name",
+        "pattern": "meli"
+      }
+    },
+    "rule_mercado_libre_project_name_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 012",
+        "project_name": "Fixture Session mercado libre",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000012"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "MERCADO_LIBRE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "MERCADO_LIBRE",
+        "field": "project_name",
+        "pattern": "mercado libre"
+      }
+    },
+    "rule_mercado_libre_project_name_1": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 013",
+        "project_name": "Fixture Session meli",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000013"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "MERCADO_LIBRE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "MERCADO_LIBRE",
+        "field": "project_name",
+        "pattern": "meli"
+      }
+    },
+    "rule_pod_project_name_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 014",
+        "project_name": "Fixture Session POD",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000014"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "POD"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "POD",
+        "field": "project_name",
+        "pattern": "\\bpod\\b"
+      }
+    },
+    "rule_pod_project_sub_type_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 015",
+        "project_name": "Fixture Session 015",
+        "project_sub_type": "Fixture Type POD",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000015"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "POD"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "POD",
+        "field": "project_sub_type",
+        "pattern": "\\bpod\\b"
+      }
+    },
+    "rule_coaching_project_name_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 016",
+        "project_name": "Fixture Session group coaching",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000016"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_name",
+        "pattern": "group coaching"
+      }
+    },
+    "rule_coaching_project_name_1": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 017",
+        "project_name": "Fixture Session pod coaching",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000017"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "POD",
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_name",
+        "pattern": "pod coaching"
+      }
+    },
+    "rule_coaching_project_name_2": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 018",
+        "project_name": "Fixture Session 1:1 coaching",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000018"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_name",
+        "pattern": "1:1 coaching"
+      }
+    },
+    "rule_coaching_project_name_3": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 019",
+        "project_name": "Fixture Session 1-1 coaching",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000019"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_name",
+        "pattern": "1-1 coaching"
+      }
+    },
+    "rule_coaching_project_name_4": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 020",
+        "project_name": "Fixture Session one to one coaching",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000020"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_name",
+        "pattern": "one to one coaching"
+      }
+    },
+    "rule_coaching_project_name_5": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 021",
+        "project_name": "Fixture Session individual coaching",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000021"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_name",
+        "pattern": "individual coaching"
+      }
+    },
+    "rule_coaching_project_sub_type_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 022",
+        "project_name": "Fixture Session 022",
+        "project_sub_type": "Fixture Type group coaching",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000022"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_sub_type",
+        "pattern": "group coaching"
+      }
+    },
+    "rule_coaching_project_sub_type_1": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 023",
+        "project_name": "Fixture Session 023",
+        "project_sub_type": "Fixture Type pod coaching",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000023"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "POD",
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_sub_type",
+        "pattern": "pod coaching"
+      }
+    },
+    "rule_coaching_project_sub_type_2": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 024",
+        "project_name": "Fixture Session 024",
+        "project_sub_type": "Fixture Type 1:1 coaching",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000024"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_sub_type",
+        "pattern": "1:1 coaching"
+      }
+    },
+    "rule_coaching_project_sub_type_3": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 025",
+        "project_name": "Fixture Session 025",
+        "project_sub_type": "Fixture Type 1-1 coaching",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000025"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_sub_type",
+        "pattern": "1-1 coaching"
+      }
+    },
+    "rule_coaching_project_sub_type_4": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 026",
+        "project_name": "Fixture Session 026",
+        "project_sub_type": "Fixture Type one to one coaching",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000026"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_sub_type",
+        "pattern": "one to one coaching"
+      }
+    },
+    "rule_coaching_project_sub_type_5": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 027",
+        "project_name": "Fixture Session 027",
+        "project_sub_type": "Fixture Type individual coaching",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000027"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "COACHING",
+        "field": "project_sub_type",
+        "pattern": "individual coaching"
+      }
+    },
+    "rule_revenue_admin_project_name_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 028",
+        "project_name": "Fixture Session revenue",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000028"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "REVENUE_ADMIN",
+        "field": "project_name",
+        "pattern": "revenue"
+      }
+    },
+    "rule_revenue_admin_project_name_1": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 029",
+        "project_name": "Fixture Session administrative",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000029"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "REVENUE_ADMIN",
+        "field": "project_name",
+        "pattern": "administrative"
+      }
+    },
+    "rule_revenue_admin_project_name_2": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 030",
+        "project_name": "Fixture Session administrativo",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000030"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "REVENUE_ADMIN",
+        "field": "project_name",
+        "pattern": "administrativo"
+      }
+    },
+    "rule_revenue_admin_project_name_3": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 031",
+        "project_name": "Fixture Session admin only",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000031"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "REVENUE_ADMIN",
+        "field": "project_name",
+        "pattern": "admin only"
+      }
+    },
+    "rule_revenue_admin_project_sub_type_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 032",
+        "project_name": "Fixture Session 032",
+        "project_sub_type": "Fixture Type revenue",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000032"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "REVENUE_ADMIN",
+        "field": "project_sub_type",
+        "pattern": "revenue"
+      }
+    },
+    "rule_revenue_admin_project_sub_type_1": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 033",
+        "project_name": "Fixture Session 033",
+        "project_sub_type": "Fixture Type administrative",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000033"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "REVENUE_ADMIN",
+        "field": "project_sub_type",
+        "pattern": "administrative"
+      }
+    },
+    "rule_revenue_admin_project_sub_type_2": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 034",
+        "project_name": "Fixture Session 034",
+        "project_sub_type": "Fixture Type administrativo",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000034"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "REVENUE_ADMIN",
+        "field": "project_sub_type",
+        "pattern": "administrativo"
+      }
+    },
+    "rule_revenue_admin_project_sub_type_3": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 035",
+        "project_name": "Fixture Session 035",
+        "project_sub_type": "Fixture Type admin only",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000035"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "REVENUE_ADMIN",
+        "field": "project_sub_type",
+        "pattern": "admin only"
+      }
+    },
+    "rule_bts_client_client_name_0": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "bts Fixture Client Invented",
+        "project_name": "Fixture Session 036",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000036"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "BTS_CLIENT"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "BTS_CLIENT",
+        "field": "client_name",
+        "pattern": "bts "
+      }
+    },
+    "rule_bts_client_client_name_1": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "bts-Fixture Client Invented",
+        "project_name": "Fixture Session 037",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000037"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "BTS_CLIENT"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "BTS_CLIENT",
+        "field": "client_name",
+        "pattern": "bts-"
+      }
+    },
+    "rule_bts_client_client_name_2": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "bts_Fixture Client Invented",
+        "project_name": "Fixture Session 038",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000038"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "BTS_CLIENT"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": {
+        "rule_id": "BTS_CLIENT",
+        "field": "client_name",
+        "pattern": "bts_"
+      }
+    },
+    "control_substring": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Ameliara",
+        "project_name": "Fixture Session 039",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000039"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "MERCADO_LIBRE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_plural": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 040",
+        "project_name": "Fixture Session PODs",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000040"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_embedded": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 041",
+        "project_name": "Fixture Session antipodular",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000041"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_empoderamiento": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 042",
+        "project_name": "Fixture Session Empoderamiento",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000042"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_generic_coaching": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 043",
+        "project_name": "Fixture Session coaching sessions",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000043"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_generic_meeting": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 044",
+        "project_name": "Fixture Session 1:1 meetings",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000044"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_nonprefix_bts": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client bts internal",
+        "project_name": "Fixture Session 045",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000045"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_accent_contains": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client MÉRCADO LÍBRE",
+        "project_name": "Fixture Session 046",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000046"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "MERCADO_LIBRE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_uppercase": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 047",
+        "project_name": "Fixture Session GROUP COACHING",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000047"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "COACHING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "control_accent_regex": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 048",
+        "project_name": "Fixture Session PÓD",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000048"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "multi_exclude_review": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 049",
+        "project_name": "Fixture Session revenue POD",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Prelim",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✔",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000049"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Prelim",
+        "ignore_reporting": true,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "STATUS_NOT_ELIGIBLE",
+          "IGNORE_REPORTING",
+          "POD",
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "review_inside": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 050",
+        "project_name": "Fixture Session revenue inside",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000050"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "review_outside": {
+      "values": {
+        "billing_office": "Argentina",
+        "start_date": "8/11/2026",
+        "client_name": "Fixture Client Aurora 051",
+        "project_name": "Fixture Session revenue outside",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/11/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000051"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "out"
+      },
+      "rule_case": null
+    },
+    "boolean_0": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 052",
+        "project_name": "Fixture Session 052",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✔",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000052"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": true,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "IGNORE_REPORTING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_1": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 053",
+        "project_name": "Fixture Session 053",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✓",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000053"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": true,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "IGNORE_REPORTING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_2": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 054",
+        "project_name": "Fixture Session 054",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "true",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000054"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": true,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "IGNORE_REPORTING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_3": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 055",
+        "project_name": "Fixture Session 055",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "yes",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000055"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": true,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "IGNORE_REPORTING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_4": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 056",
+        "project_name": "Fixture Session 056",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "y",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000056"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": true,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "IGNORE_REPORTING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_5": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 057",
+        "project_name": "Fixture Session 057",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "1",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000057"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": true,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "IGNORE_REPORTING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_6": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 058",
+        "project_name": "Fixture Session 058",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "x",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000058"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": true,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "IGNORE_REPORTING"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_7": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 059",
+        "project_name": "Fixture Session 059",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000059"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_8": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 060",
+        "project_name": "Fixture Session 060",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✖",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000060"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_9": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 061",
+        "project_name": "Fixture Session 061",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "false",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000061"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_10": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 062",
+        "project_name": "Fixture Session 062",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "no",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000062"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_11": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 063",
+        "project_name": "Fixture Session 063",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "n",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000063"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_12": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 064",
+        "project_name": "Fixture Session 064",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "0",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000064"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boolean_13": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 065",
+        "project_name": "Fixture Session 065",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000065"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "status_0": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 066",
+        "project_name": "Fixture Session 066",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000066"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "status_1": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 067",
+        "project_name": "Fixture Session 067",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Prelim",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000067"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Prelim",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "STATUS_NOT_ELIGIBLE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "status_2": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 068",
+        "project_name": "Fixture Session 068",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Tent",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000068"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Tent",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "STATUS_NOT_ELIGIBLE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "status_3": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 069",
+        "project_name": "Fixture Session 069",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Cancelled",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000069"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Cancelled",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "STATUS_NOT_ELIGIBLE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "status_4": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 070",
+        "project_name": "Fixture Session 070",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Confirmed",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000070"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "status_5": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 071",
+        "project_name": "Fixture Session 071",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Tentative",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000071"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Tent",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "STATUS_NOT_ELIGIBLE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "status_6": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 072",
+        "project_name": "Fixture Session 072",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "cOnF",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000072"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "status_7": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 073",
+        "project_name": "Fixture Session 073",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "canceled",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000073"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Cancelled",
+        "ignore_reporting": false,
+        "decision": "EXCLUDED",
+        "decision_codes": [
+          "STATUS_NOT_ELIGIBLE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "unknown_status": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 074",
+        "project_name": "Fixture Session 074",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "FixtureUnknown",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000074"
+      },
+      "expected": {
+        "validation_status": "REVIEW",
+        "validation_issues": [
+          "Status no reconocido: FixtureUnknown"
+        ],
+        "status": "FixtureUnknown",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "VALIDATION_ISSUE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "unknown_boolean": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 075",
+        "project_name": "Fixture Session 075",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "?",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000075"
+      },
+      "expected": {
+        "validation_status": "REVIEW",
+        "validation_issues": [
+          "Valor booleano no reconocido: ?"
+        ],
+        "status": "Conf",
+        "ignore_reporting": null,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "VALIDATION_ISSUE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "missing_start_date": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "",
+        "client_name": "Fixture Client Aurora 076",
+        "project_name": "Fixture Session 076",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000076"
+      },
+      "expected": {
+        "validation_status": "REVIEW",
+        "validation_issues": [
+          "Campo obligatorio vacío: start_date"
+        ],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "VALIDATION_ISSUE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "missing_client_name": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "",
+        "project_name": "Fixture Session 077",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000077"
+      },
+      "expected": {
+        "validation_status": "REVIEW",
+        "validation_issues": [
+          "Campo obligatorio vacío: client_name"
+        ],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "VALIDATION_ISSUE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "missing_project_name": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 078",
+        "project_name": "",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000078"
+      },
+      "expected": {
+        "validation_status": "REVIEW",
+        "validation_issues": [
+          "Campo obligatorio vacío: project_name"
+        ],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "VALIDATION_ISSUE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "missing_status": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 079",
+        "project_name": "Fixture Session 079",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000079"
+      },
+      "expected": {
+        "validation_status": "REVIEW",
+        "validation_issues": [
+          "Status vacío",
+          "Campo obligatorio vacío: status"
+        ],
+        "status": "",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "VALIDATION_ISSUE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "invalid_start_date": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "not-a-date",
+        "client_name": "Fixture Client Aurora 080",
+        "project_name": "Fixture Session 080",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000080"
+      },
+      "expected": {
+        "validation_status": "REVIEW",
+        "validation_issues": [
+          "Fecha inválida: not-a-date"
+        ],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "VALIDATION_ISSUE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "invalid_end_date": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 081",
+        "project_name": "Fixture Session 081",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "not-a-date",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000081"
+      },
+      "expected": {
+        "validation_status": "REVIEW",
+        "validation_issues": [
+          "Fecha inválida: not-a-date"
+        ],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "VALIDATION_ISSUE"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "short_date": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "08/04/26",
+        "client_name": "Fixture Client Aurora 082",
+        "project_name": "Fixture Session 082",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/26",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000082"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "whitespace_entities": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "  Fixture Client Áurora & Nebula  ",
+        "project_name": " Fixture   Session <Glow> ",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": " Conf ",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lúmen,Fixture Facilitator Lúmen,n/a",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": " ✕ ",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000083"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boundary_0": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/3/2026",
+        "client_name": "Fixture Client Aurora 084",
+        "project_name": "Fixture Session 084",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/3/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000084"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "out"
+      },
+      "rule_case": null
+    },
+    "boundary_1": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 085",
+        "project_name": "Fixture Session 085",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000085"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boundary_2": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/10/2026",
+        "client_name": "Fixture Client Aurora 086",
+        "project_name": "Fixture Session 086",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/10/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000086"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "boundary_3": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/11/2026",
+        "client_name": "Fixture Client Aurora 087",
+        "project_name": "Fixture Session 087",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/11/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000087"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "out"
+      },
+      "rule_case": null
+    },
+    "missing_project_url": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 088",
+        "project_name": "Fixture Session 088",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": ""
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "REVIEW",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "bad_project_url": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 089",
+        "project_name": "Fixture Session 089",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/not-an-id"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "REVIEW",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "encoded_project_url": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 090",
+        "project_name": "Fixture Session 090",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/%46XT000000000001"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "facilitators": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 091",
+        "project_name": "Fixture Session 091",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen,fixture facilitator lumen,-,tbd,Fixture Facilitator Nova",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000091"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "special_email": {
+      "values": {
+        "billing_office": "Mexico",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 092",
+        "project_name": "Fixture Session 092",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator MaiderToken",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000092"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "duplicate_ready": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 001",
+        "project_name": "Fixture Session 001",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000001"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "duplicate_review": {
+      "values": {
+        "billing_office": "Brazil",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 050",
+        "project_name": "Fixture Session revenue inside",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000050"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "REVIEW",
+        "decision_codes": [
+          "REVENUE_ADMIN"
+        ],
+        "worklist_status": "not_applicable",
+        "window": "in"
+      },
+      "rule_case": null
+    },
+    "chile": {
+      "values": {
+        "billing_office": "Chile",
+        "start_date": "8/4/2026",
+        "client_name": "Fixture Client Aurora 093",
+        "project_name": "Fixture Session 093",
+        "project_sub_type": "Fixture Type Workshop",
+        "status": "Conf",
+        "end_date": "8/4/2026",
+        "all_staffings": "Fixture Facilitator Lumen",
+        "evaluation_programme": "4.5",
+        "nps": "75",
+        "evaluation_avg_facilitator": "4.8",
+        "ignore_reporting": "✕",
+        "survey_invitation": "",
+        "survey_invitation_link": ""
+      },
+      "links": {
+        "project_name": "https://example.invalid/project/FXT000000000093"
+      },
+      "expected": {
+        "validation_status": "VALID",
+        "validation_issues": [],
+        "status": "Conf",
+        "ignore_reporting": false,
+        "decision": "ELIGIBLE",
+        "decision_codes": [
+          "ALL_RULES_PASSED"
+        ],
+        "worklist_status": "READY",
+        "window": "in"
+      },
+      "rule_case": null
+    }
+  }
+}

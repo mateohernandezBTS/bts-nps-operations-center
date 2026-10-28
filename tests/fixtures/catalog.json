@@ -1,0 +1,1464 @@
+{
+  "schema_version": 1,
+  "provenance": "All entities invented; no operational emails or records used.",
+  "reference_monday": "8/3/2026",
+  "window_start": "8/4/2026",
+  "window_end": "8/10/2026",
+  "email_date": "Mon, 03 Aug 2026 09:00:00 +0000",
+  "headers": {
+    "billing_office": "Billing Office",
+    "start_date": "Start Date",
+    "client_name": "Client_Name",
+    "project_name": "Project: Project Name",
+    "project_sub_type": "Project Sub Type",
+    "status": "Status",
+    "end_date": "End Date",
+    "all_staffings": "All Staffings",
+    "evaluation_programme": "Evaluation Programme",
+    "nps": "NPS",
+    "evaluation_avg_facilitator": "Evaluation Avg Facilitator",
+    "ignore_reporting": "Ignore Reporting",
+    "survey_invitation": "Survey Invitation",
+    "survey_invitation_link": "Survey Invitation Link"
+  },
+  "fixtures": [
+    {
+      "id": "weekly_Argentina_upcoming",
+      "path": "weekly/weekly_Argentina_upcoming.eml",
+      "family": "weekly",
+      "country": "Argentina",
+      "report_type": "upcoming",
+      "subject": "Report results (Argentina Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_argentina_1",
+        "weekly_argentina_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Conf/✕",
+        "window start/end",
+        "synthetic 15/18-character project links",
+        "14 td cells"
+      ],
+      "scenarios": [
+        "complete_weekly",
+        "missing_sources",
+        "existing_run",
+        "controlled_parser_failure"
+      ]
+    },
+    {
+      "id": "weekly_Brazil_upcoming",
+      "path": "weekly/weekly_Brazil_upcoming.eml",
+      "family": "weekly",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": true,
+      "grouped": true,
+      "omit_office_rows": [
+        1
+      ],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Conf/✕",
+        "window start/end",
+        "synthetic 15/18-character project links",
+        "grouped th + inherited 13-cell row",
+        "Sum-suffixed headers",
+        "Billing Office up / Survey Invitation down sort indicators",
+        "ignored groupHeader/subtotal/grandTotal rows",
+        "evaluation placeholders - / feature not included",
+        "relative 18-character project anchor"
+      ],
+      "scenarios": [
+        "complete_weekly",
+        "missing_sources",
+        "existing_run",
+        "controlled_parser_failure"
+      ],
+      "header_indicators": {
+        "billing_office": "↑",
+        "survey_invitation": "↓"
+      },
+      "non_data_rows": [
+        {
+          "class": "groupHeader",
+          "after_row": 0,
+          "cells": [
+            "Fixture Brazil group",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-",
+            "feature not included",
+            "0",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "class": "subtotal",
+          "after_row": 2,
+          "cells": [
+            "Fixture Brazil subtotal",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-",
+            "feature not included",
+            "0",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "class": "grandTotal",
+          "after_row": 2,
+          "cells": [
+            "Fixture grand total",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-",
+            "feature not included",
+            "0",
+            "",
+            "",
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "weekly_Mexico_upcoming",
+      "path": "weekly/weekly_Mexico_upcoming.eml",
+      "family": "weekly",
+      "country": "Mexico",
+      "report_type": "upcoming",
+      "subject": "Report results (Mexico Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_mexico_1",
+        "weekly_mexico_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Conf/✕",
+        "window start/end",
+        "synthetic 15/18-character project links",
+        "14 td cells"
+      ],
+      "scenarios": [
+        "complete_weekly",
+        "missing_sources",
+        "existing_run",
+        "controlled_parser_failure"
+      ]
+    },
+    {
+      "id": "parser_Brazil_plain_headers",
+      "path": "parser/parser_Brazil_plain_headers.eml",
+      "family": "parser",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": true,
+      "omit_office_rows": [
+        1
+      ],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Project: Project Name",
+        "Client_Name",
+        "plain/Sum header equivalence",
+        "grouped office inheritance"
+      ],
+      "scenarios": [
+        "parser_equivalence"
+      ]
+    },
+    {
+      "id": "parser_Brazil_sum_headers",
+      "path": "parser/parser_Brazil_sum_headers.eml",
+      "family": "parser",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": true,
+      "grouped": true,
+      "omit_office_rows": [
+        1
+      ],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Project: Project Name",
+        "Client_Name",
+        "plain/Sum header equivalence",
+        "grouped office inheritance"
+      ],
+      "scenarios": [
+        "parser_equivalence"
+      ]
+    },
+    {
+      "id": "parser_Mexico_14_td",
+      "path": "parser/parser_Mexico_14_td.eml",
+      "family": "parser",
+      "country": "Mexico",
+      "report_type": "upcoming",
+      "subject": "Report results (Mexico Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_mexico_1",
+        "weekly_mexico_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "14 plain td cells",
+        "plain headers",
+        "Conf/✕",
+        "quoted-printable UTF-8 HTML"
+      ],
+      "scenarios": [
+        "parser_equivalence"
+      ],
+      "html_cte": "quoted-printable"
+    },
+    {
+      "id": "parser_Argentina_invitation_first",
+      "path": "parser/parser_Argentina_invitation_first.eml",
+      "family": "parser",
+      "country": "Argentina",
+      "report_type": "upcoming",
+      "subject": "Report results (Argentina Upcoming Deliveries/NPS)",
+      "rows": [
+        "invitation"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "first",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "invitation link in first",
+        "last-column link precedence"
+      ],
+      "scenarios": [
+        "invitation_presence"
+      ]
+    },
+    {
+      "id": "parser_Argentina_invitation_last",
+      "path": "parser/parser_Argentina_invitation_last.eml",
+      "family": "parser",
+      "country": "Argentina",
+      "report_type": "upcoming",
+      "subject": "Report results (Argentina Upcoming Deliveries/NPS)",
+      "rows": [
+        "invitation"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "last",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "invitation link in last",
+        "last-column link precedence"
+      ],
+      "scenarios": [
+        "invitation_presence"
+      ]
+    },
+    {
+      "id": "parser_Argentina_invitation_both",
+      "path": "parser/parser_Argentina_invitation_both.eml",
+      "family": "parser",
+      "country": "Argentina",
+      "report_type": "upcoming",
+      "subject": "Report results (Argentina Upcoming Deliveries/NPS)",
+      "rows": [
+        "invitation"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "both",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "invitation link in both",
+        "last-column link precedence"
+      ],
+      "scenarios": [
+        "invitation_presence"
+      ]
+    },
+    {
+      "id": "parser_Brazil_forwarded_multipart",
+      "path": "parser/parser_Brazil_forwarded_multipart.eml",
+      "family": "parser",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Fw: Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": true,
+      "omit_office_rows": [
+        1
+      ],
+      "invitation": "row",
+      "mime": "multipart",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Fw: subject",
+        "multipart text/plain + HTML",
+        "longest non-attachment HTML",
+        "larger HTML attachment ignored"
+      ],
+      "scenarios": [
+        "parser_equivalence",
+        "forwarded_detection"
+      ]
+    },
+    {
+      "id": "parser_Brazil_multiple_offices",
+      "path": "parser/parser_Brazil_multiple_offices.eml",
+      "family": "parser",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2",
+        "brazil_office_2a",
+        "brazil_office_2b"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": true,
+      "omit_office_rows": [
+        1,
+        3
+      ],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "two th office groups",
+        "13-cell inherited rows",
+        "Brazil / Nexo office"
+      ],
+      "scenarios": [
+        "office_grouping"
+      ]
+    },
+    {
+      "id": "detection_Chile_upcoming",
+      "path": "detection/detection_Chile_upcoming.eml",
+      "family": "detection",
+      "country": "Chile",
+      "report_type": "upcoming",
+      "subject": "Report results (Chile Upcoming Deliveries/NPS)",
+      "rows": [
+        "chile"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "unconfigured country",
+        "stock detector REVIEW; injected detection seam required for DETECTED"
+      ],
+      "scenarios": [
+        "unconfigured_source"
+      ]
+    },
+    {
+      "id": "detection_unknown_subject",
+      "path": "detection/detection_unknown_subject.eml",
+      "family": "detection",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Fixture unrecognized report",
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "unrecognized subject",
+        "no report type"
+      ],
+      "scenarios": [
+        "unknown_report"
+      ]
+    },
+    {
+      "id": "detection_Argentina_last30",
+      "path": "detection/detection_Argentina_last30.eml",
+      "family": "detection",
+      "country": "Argentina",
+      "report_type": "last_results",
+      "subject": "Report results (Argentina Last 30 days Deliveries/NPS)",
+      "rows": [
+        "weekly_argentina_1"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Last 30 days subject",
+        "known out of scope for weekly_upcoming"
+      ],
+      "scenarios": [
+        "complete_six_reports"
+      ]
+    },
+    {
+      "id": "detection_Brazil_last30",
+      "path": "detection/detection_Brazil_last30.eml",
+      "family": "detection",
+      "country": "Brazil",
+      "report_type": "last_results",
+      "subject": "Report results (Brazil Last 30 days Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Last 30 days subject",
+        "known out of scope for weekly_upcoming"
+      ],
+      "scenarios": [
+        "complete_six_reports"
+      ]
+    },
+    {
+      "id": "detection_Mexico_last30",
+      "path": "detection/detection_Mexico_last30.eml",
+      "family": "detection",
+      "country": "Mexico",
+      "report_type": "last_results",
+      "subject": "Report results (Mexico Last 30 days Deliveries/NPS)",
+      "rows": [
+        "weekly_mexico_1"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "Last 30 days subject",
+        "known out of scope for weekly_upcoming"
+      ],
+      "scenarios": [
+        "complete_six_reports"
+      ]
+    },
+    {
+      "id": "classification_Argentina_rules",
+      "path": "classification/classification_Argentina_rules.eml",
+      "family": "classification",
+      "country": "Argentina",
+      "report_type": "upcoming",
+      "subject": "Report results (Argentina Upcoming Deliveries/NPS)",
+      "rows": [
+        "rule_mercado_libre_client_name_0",
+        "rule_mercado_libre_client_name_1",
+        "rule_mercado_libre_project_name_0",
+        "rule_mercado_libre_project_name_1",
+        "rule_pod_project_name_0",
+        "rule_pod_project_sub_type_0",
+        "rule_coaching_project_name_0",
+        "rule_coaching_project_name_1",
+        "rule_coaching_project_name_2",
+        "rule_coaching_project_name_3",
+        "rule_coaching_project_name_4",
+        "rule_coaching_project_name_5",
+        "rule_coaching_project_sub_type_0",
+        "rule_coaching_project_sub_type_1",
+        "rule_coaching_project_sub_type_2",
+        "rule_coaching_project_sub_type_3",
+        "rule_coaching_project_sub_type_4",
+        "rule_coaching_project_sub_type_5",
+        "rule_revenue_admin_project_name_0",
+        "rule_revenue_admin_project_name_1",
+        "rule_revenue_admin_project_name_2",
+        "rule_revenue_admin_project_name_3",
+        "rule_revenue_admin_project_sub_type_0",
+        "rule_revenue_admin_project_sub_type_1",
+        "rule_revenue_admin_project_sub_type_2",
+        "rule_revenue_admin_project_sub_type_3",
+        "rule_bts_client_client_name_0",
+        "rule_bts_client_client_name_1",
+        "rule_bts_client_client_name_2",
+        "control_substring",
+        "control_plural",
+        "control_embedded",
+        "control_empoderamiento",
+        "control_generic_coaching",
+        "control_generic_meeting",
+        "control_nonprefix_bts",
+        "control_accent_contains",
+        "control_uppercase",
+        "control_accent_regex",
+        "multi_exclude_review",
+        "review_inside",
+        "review_outside",
+        "weekly_argentina_1"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "every configured pattern/field",
+        "exclusion/review precedence",
+        "negative/substring/plural/accent controls",
+        "manual review inside/outside window",
+        "ready and review cross-source duplicate identities"
+      ],
+      "scenarios": [
+        "rule_matrix",
+        "review",
+        "cross_source_duplicates"
+      ]
+    },
+    {
+      "id": "classification_Brazil_normalization",
+      "path": "classification/classification_Brazil_normalization.eml",
+      "family": "classification",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "boolean_0",
+        "boolean_1",
+        "boolean_2",
+        "boolean_3",
+        "boolean_4",
+        "boolean_5",
+        "boolean_6",
+        "boolean_7",
+        "boolean_8",
+        "boolean_9",
+        "boolean_10",
+        "boolean_11",
+        "boolean_12",
+        "boolean_13",
+        "status_0",
+        "status_1",
+        "status_2",
+        "status_3",
+        "status_4",
+        "status_5",
+        "status_6",
+        "status_7",
+        "unknown_status",
+        "unknown_boolean",
+        "missing_start_date",
+        "missing_client_name",
+        "missing_project_name",
+        "missing_status",
+        "invalid_start_date",
+        "invalid_end_date",
+        "short_date",
+        "whitespace_entities"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "all boolean tokens",
+        "statuses/aliases",
+        "missing required fields",
+        "invalid/short dates",
+        "whitespace/entities/accented fictional names"
+      ],
+      "scenarios": [
+        "normalization_review"
+      ]
+    },
+    {
+      "id": "classification_Mexico_worklist_review",
+      "path": "classification/classification_Mexico_worklist_review.eml",
+      "family": "classification",
+      "country": "Mexico",
+      "report_type": "upcoming",
+      "subject": "Report results (Mexico Upcoming Deliveries/NPS)",
+      "rows": [
+        "boundary_0",
+        "boundary_1",
+        "boundary_2",
+        "boundary_3",
+        "missing_project_url",
+        "bad_project_url",
+        "encoded_project_url",
+        "facilitators",
+        "special_email",
+        "invitation"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "both window edges and outside dates",
+        "missing/bad/encoded project links",
+        "facilitator deduplication",
+        "invented special-email matcher alias",
+        "invitation presence"
+      ],
+      "scenarios": [
+        "worklist_review",
+        "window_boundaries",
+        "slack_warning"
+      ]
+    },
+    {
+      "id": "scenarios_Mexico_duplicate_source",
+      "path": "scenarios/scenarios_Mexico_duplicate_source.eml",
+      "family": "scenarios",
+      "country": "Mexico",
+      "report_type": "upcoming",
+      "subject": "Report results (Mexico Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_mexico_1",
+        "weekly_mexico_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "second report for the same source",
+        "distinct filename/message ID"
+      ],
+      "scenarios": [
+        "duplicate_source"
+      ]
+    },
+    {
+      "id": "scenarios_Brazil_duplicate_project",
+      "path": "scenarios/scenarios_Brazil_duplicate_project.eml",
+      "family": "scenarios",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "duplicate_ready",
+        "duplicate_review"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "",
+      "properties": [
+        "same project/date/session in two sources",
+        "ready and business-review duplicates"
+      ],
+      "scenarios": [
+        "cross_source_duplicates"
+      ]
+    },
+    {
+      "id": "malformed_Brazil_no_html",
+      "path": "malformed/malformed_Brazil_no_html.eml",
+      "family": "malformed",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "plain",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "No se encontró contenido HTML",
+      "properties": [
+        "plain-text MIME without HTML"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ]
+    },
+    {
+      "id": "malformed_Brazil_no_table",
+      "path": "malformed/malformed_Brazil_no_table.eml",
+      "family": "malformed",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": true,
+      "cell_counts": [],
+      "expected_parse_error": "No se encontró la tabla principal",
+      "properties": [
+        "HTML without reportTable"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ]
+    },
+    {
+      "id": "malformed_Brazil_missing_header",
+      "path": "malformed/malformed_Brazil_missing_header.eml",
+      "family": "malformed",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "nps",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "Faltan columnas requeridas",
+      "properties": [
+        "13 recognized headers; NPS absent"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ]
+    },
+    {
+      "id": "malformed_Brazil_bad_cells",
+      "path": "malformed/malformed_Brazil_bad_cells.eml",
+      "family": "malformed",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [
+        12,
+        15
+      ],
+      "expected_parse_error": "celdas",
+      "properties": [
+        "12-cell and 15-cell malformed data rows"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ]
+    },
+    {
+      "id": "malformed_Brazil_orphan_group",
+      "path": "malformed/malformed_Brazil_orphan_group.eml",
+      "family": "malformed",
+      "country": "Brazil",
+      "report_type": "upcoming",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)",
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "header_order": [
+        "billing_office",
+        "start_date",
+        "client_name",
+        "project_name",
+        "project_sub_type",
+        "status",
+        "end_date",
+        "all_staffings",
+        "evaluation_programme",
+        "nps",
+        "evaluation_avg_facilitator",
+        "ignore_reporting",
+        "survey_invitation",
+        "survey_invitation_link"
+      ],
+      "sum_headers": false,
+      "grouped": false,
+      "omit_office_rows": [
+        0
+      ],
+      "invitation": "row",
+      "mime": "html",
+      "missing_header": "",
+      "no_table": false,
+      "cell_counts": [],
+      "expected_parse_error": "cantidad de celdas no reconocida",
+      "properties": [
+        "13-cell first row without office to inherit"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ]
+    }
+  ],
+  "bundles": {
+    "complete_weekly": {
+      "fixtures": [
+        "weekly_Argentina_upcoming",
+        "weekly_Brazil_upcoming",
+        "weekly_Mexico_upcoming"
+      ],
+      "expect": "READY_TO_PROCESS"
+    },
+    "complete_six_reports": {
+      "fixtures": [
+        "weekly_Argentina_upcoming",
+        "weekly_Brazil_upcoming",
+        "weekly_Mexico_upcoming",
+        "detection_Argentina_last30",
+        "detection_Brazil_last30",
+        "detection_Mexico_last30"
+      ],
+      "expect": "3 matched; 3 known out of scope"
+    },
+    "duplicate_source": {
+      "fixtures": [
+        "weekly_Argentina_upcoming",
+        "weekly_Brazil_upcoming",
+        "weekly_Mexico_upcoming",
+        "scenarios_Mexico_duplicate_source"
+      ],
+      "expect": "BLOCKED"
+    },
+    "cross_source_duplicates": {
+      "fixtures": [
+        "classification_Argentina_rules",
+        "scenarios_Brazil_duplicate_project",
+        "weekly_Mexico_upcoming"
+      ],
+      "expect": "ready and manual-review duplicate issues"
+    },
+    "partial_failure": {
+      "fixtures": [
+        "weekly_Argentina_upcoming",
+        "malformed_Brazil_no_table",
+        "weekly_Mexico_upcoming"
+      ],
+      "expect": "COMPLETED_WITH_REVIEW; current NPS-001 behavior"
+    },
+    "existing_run": {
+      "fixtures": [
+        "weekly_Argentina_upcoming",
+        "weekly_Brazil_upcoming",
+        "weekly_Mexico_upcoming"
+      ],
+      "expect": "BLOCKED after TEST output directory precreated"
+    },
+    "controlled_parser_failure": {
+      "fixtures": [
+        "weekly_Brazil_upcoming"
+      ],
+      "expect": "injected parser exception; preserved error lifecycle"
+    },
+    "unknown_report": {
+      "fixtures": [
+        "detection_unknown_subject"
+      ],
+      "expect": "REVIEW"
+    },
+    "unconfigured_source": {
+      "fixtures": [
+        "detection_Chile_upcoming"
+      ],
+      "expect": "stock REVIEW; DETECTED seam for unconfigured-source test"
+    },
+    "review_and_boundaries": {
+      "fixtures": [
+        "classification_Argentina_rules",
+        "classification_Brazil_normalization",
+        "classification_Mexico_worklist_review"
+      ],
+      "expect": "classified review and window partitions"
+    },
+    "missing_argentina": {
+      "fixtures": [
+        "weekly_Brazil_upcoming",
+        "weekly_Mexico_upcoming"
+      ],
+      "expect": "BLOCKED"
+    },
+    "missing_brazil": {
+      "fixtures": [
+        "weekly_Argentina_upcoming",
+        "weekly_Mexico_upcoming"
+      ],
+      "expect": "BLOCKED"
+    },
+    "missing_mexico": {
+      "fixtures": [
+        "weekly_Argentina_upcoming",
+        "weekly_Brazil_upcoming"
+      ],
+      "expect": "BLOCKED"
+    }
+  }
+}

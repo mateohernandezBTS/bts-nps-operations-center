@@ -1,0 +1,588 @@
+{
+  "fixtures": [
+    {
+      "data_rows": 2,
+      "family": "weekly",
+      "id": "weekly_Argentina_upcoming",
+      "path": "eml/weekly/weekly_Argentina_upcoming.eml",
+      "properties": [
+        "Conf/✕",
+        "window start/end",
+        "synthetic 15/18-character project links",
+        "14 td cells"
+      ],
+      "rows": [
+        "weekly_argentina_1",
+        "weekly_argentina_2"
+      ],
+      "scenarios": [
+        "complete_weekly",
+        "missing_sources",
+        "existing_run",
+        "controlled_parser_failure"
+      ],
+      "sha256": "f72d34c2e23eaf1158d795920d17e7b8e907451ea7f2d13cf8a8f54a0ccd9f92"
+    },
+    {
+      "data_rows": 2,
+      "family": "weekly",
+      "id": "weekly_Brazil_upcoming",
+      "path": "eml/weekly/weekly_Brazil_upcoming.eml",
+      "properties": [
+        "Conf/✕",
+        "window start/end",
+        "synthetic 15/18-character project links",
+        "grouped th + inherited 13-cell row",
+        "Sum-suffixed headers",
+        "Billing Office up / Survey Invitation down sort indicators",
+        "ignored groupHeader/subtotal/grandTotal rows",
+        "evaluation placeholders - / feature not included",
+        "relative 18-character project anchor"
+      ],
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "scenarios": [
+        "complete_weekly",
+        "missing_sources",
+        "existing_run",
+        "controlled_parser_failure"
+      ],
+      "sha256": "7be5d0a2699f4bce1ce6fa410b399c62108782d87abd9c7261a3662969fd2039"
+    },
+    {
+      "data_rows": 2,
+      "family": "weekly",
+      "id": "weekly_Mexico_upcoming",
+      "path": "eml/weekly/weekly_Mexico_upcoming.eml",
+      "properties": [
+        "Conf/✕",
+        "window start/end",
+        "synthetic 15/18-character project links",
+        "14 td cells"
+      ],
+      "rows": [
+        "weekly_mexico_1",
+        "weekly_mexico_2"
+      ],
+      "scenarios": [
+        "complete_weekly",
+        "missing_sources",
+        "existing_run",
+        "controlled_parser_failure"
+      ],
+      "sha256": "1f59786780b5dd51d7c8fd82aaf75eaf79c3f04fe07f06dc5c1060819d6548af"
+    },
+    {
+      "data_rows": 2,
+      "family": "parser",
+      "id": "parser_Brazil_plain_headers",
+      "path": "eml/parser/parser_Brazil_plain_headers.eml",
+      "properties": [
+        "Project: Project Name",
+        "Client_Name",
+        "plain/Sum header equivalence",
+        "grouped office inheritance"
+      ],
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "scenarios": [
+        "parser_equivalence"
+      ],
+      "sha256": "95d8938dc5d72f7ade9de0aa9f7fd403ed52d493df10df272e38a9f39f8e9b96"
+    },
+    {
+      "data_rows": 2,
+      "family": "parser",
+      "id": "parser_Brazil_sum_headers",
+      "path": "eml/parser/parser_Brazil_sum_headers.eml",
+      "properties": [
+        "Project: Project Name",
+        "Client_Name",
+        "plain/Sum header equivalence",
+        "grouped office inheritance"
+      ],
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "scenarios": [
+        "parser_equivalence"
+      ],
+      "sha256": "56b833e473cfb43c891d9ad5bbd859032d094ee6f4f0088a6b3cb968efcd99c9"
+    },
+    {
+      "data_rows": 2,
+      "family": "parser",
+      "id": "parser_Mexico_14_td",
+      "path": "eml/parser/parser_Mexico_14_td.eml",
+      "properties": [
+        "14 plain td cells",
+        "plain headers",
+        "Conf/✕",
+        "quoted-printable UTF-8 HTML"
+      ],
+      "rows": [
+        "weekly_mexico_1",
+        "weekly_mexico_2"
+      ],
+      "scenarios": [
+        "parser_equivalence"
+      ],
+      "sha256": "11dbdf7b5b1b2f0a10858ec3e1ac6cce403b8c307228338de2cc04d58acdf022"
+    },
+    {
+      "data_rows": 1,
+      "family": "parser",
+      "id": "parser_Argentina_invitation_first",
+      "path": "eml/parser/parser_Argentina_invitation_first.eml",
+      "properties": [
+        "invitation link in first",
+        "last-column link precedence"
+      ],
+      "rows": [
+        "invitation"
+      ],
+      "scenarios": [
+        "invitation_presence"
+      ],
+      "sha256": "6b56a41004eae8a0e6a439fe2f8fa554c98dc37c50124290623b7fe396ffddae"
+    },
+    {
+      "data_rows": 1,
+      "family": "parser",
+      "id": "parser_Argentina_invitation_last",
+      "path": "eml/parser/parser_Argentina_invitation_last.eml",
+      "properties": [
+        "invitation link in last",
+        "last-column link precedence"
+      ],
+      "rows": [
+        "invitation"
+      ],
+      "scenarios": [
+        "invitation_presence"
+      ],
+      "sha256": "6cc4c7fa3036a036ddd7b315ed4128d86d78c74e01f72d05776cd7c24b3da281"
+    },
+    {
+      "data_rows": 1,
+      "family": "parser",
+      "id": "parser_Argentina_invitation_both",
+      "path": "eml/parser/parser_Argentina_invitation_both.eml",
+      "properties": [
+        "invitation link in both",
+        "last-column link precedence"
+      ],
+      "rows": [
+        "invitation"
+      ],
+      "scenarios": [
+        "invitation_presence"
+      ],
+      "sha256": "b8b4553d9ed45bdf323bef14ec202499ff554914a9db3055db0ab318626f0c30"
+    },
+    {
+      "data_rows": 2,
+      "family": "parser",
+      "id": "parser_Brazil_forwarded_multipart",
+      "path": "eml/parser/parser_Brazil_forwarded_multipart.eml",
+      "properties": [
+        "Fw: subject",
+        "multipart text/plain + HTML",
+        "longest non-attachment HTML",
+        "larger HTML attachment ignored"
+      ],
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "scenarios": [
+        "parser_equivalence",
+        "forwarded_detection"
+      ],
+      "sha256": "f9aa243ce928535bcd9c9627c3dc6de480a8cbe03bd9506cead678d7dee1ec47"
+    },
+    {
+      "data_rows": 4,
+      "family": "parser",
+      "id": "parser_Brazil_multiple_offices",
+      "path": "eml/parser/parser_Brazil_multiple_offices.eml",
+      "properties": [
+        "two th office groups",
+        "13-cell inherited rows",
+        "Brazil / Nexo office"
+      ],
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2",
+        "brazil_office_2a",
+        "brazil_office_2b"
+      ],
+      "scenarios": [
+        "office_grouping"
+      ],
+      "sha256": "fc758ed311f83df5f64a75339a1065905215cbddfac3b039e0e048cffef05b19"
+    },
+    {
+      "data_rows": 1,
+      "family": "detection",
+      "id": "detection_Chile_upcoming",
+      "path": "eml/detection/detection_Chile_upcoming.eml",
+      "properties": [
+        "unconfigured country",
+        "stock detector REVIEW; injected detection seam required for DETECTED"
+      ],
+      "rows": [
+        "chile"
+      ],
+      "scenarios": [
+        "unconfigured_source"
+      ],
+      "sha256": "a737b818573a2576b504c571c21b39019ba9fc337ef22e9aac7be80bff23c0a5"
+    },
+    {
+      "data_rows": 1,
+      "family": "detection",
+      "id": "detection_unknown_subject",
+      "path": "eml/detection/detection_unknown_subject.eml",
+      "properties": [
+        "unrecognized subject",
+        "no report type"
+      ],
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "scenarios": [
+        "unknown_report"
+      ],
+      "sha256": "2d15dc1c07b4415783ffa404b2160f31a85030ed4b1a22e78624ec0afd2157b3"
+    },
+    {
+      "data_rows": 1,
+      "family": "detection",
+      "id": "detection_Argentina_last30",
+      "path": "eml/detection/detection_Argentina_last30.eml",
+      "properties": [
+        "Last 30 days subject",
+        "known out of scope for weekly_upcoming"
+      ],
+      "rows": [
+        "weekly_argentina_1"
+      ],
+      "scenarios": [
+        "complete_six_reports"
+      ],
+      "sha256": "f81d81ea088873ad4fed484cc5710b56106b8d45cbe9dfb70c0e4024b4b5e1c1"
+    },
+    {
+      "data_rows": 1,
+      "family": "detection",
+      "id": "detection_Brazil_last30",
+      "path": "eml/detection/detection_Brazil_last30.eml",
+      "properties": [
+        "Last 30 days subject",
+        "known out of scope for weekly_upcoming"
+      ],
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "scenarios": [
+        "complete_six_reports"
+      ],
+      "sha256": "58f542bca788a1fb194b7034b86c903aa8f6492b3e89a20369b537b0cfd8c346"
+    },
+    {
+      "data_rows": 1,
+      "family": "detection",
+      "id": "detection_Mexico_last30",
+      "path": "eml/detection/detection_Mexico_last30.eml",
+      "properties": [
+        "Last 30 days subject",
+        "known out of scope for weekly_upcoming"
+      ],
+      "rows": [
+        "weekly_mexico_1"
+      ],
+      "scenarios": [
+        "complete_six_reports"
+      ],
+      "sha256": "3ee03cb3cd939f65b96867eba80ff177ca96d718269d3c11bbf1c3be8c3864d9"
+    },
+    {
+      "data_rows": 43,
+      "family": "classification",
+      "id": "classification_Argentina_rules",
+      "path": "eml/classification/classification_Argentina_rules.eml",
+      "properties": [
+        "every configured pattern/field",
+        "exclusion/review precedence",
+        "negative/substring/plural/accent controls",
+        "manual review inside/outside window",
+        "ready and review cross-source duplicate identities"
+      ],
+      "rows": [
+        "rule_mercado_libre_client_name_0",
+        "rule_mercado_libre_client_name_1",
+        "rule_mercado_libre_project_name_0",
+        "rule_mercado_libre_project_name_1",
+        "rule_pod_project_name_0",
+        "rule_pod_project_sub_type_0",
+        "rule_coaching_project_name_0",
+        "rule_coaching_project_name_1",
+        "rule_coaching_project_name_2",
+        "rule_coaching_project_name_3",
+        "rule_coaching_project_name_4",
+        "rule_coaching_project_name_5",
+        "rule_coaching_project_sub_type_0",
+        "rule_coaching_project_sub_type_1",
+        "rule_coaching_project_sub_type_2",
+        "rule_coaching_project_sub_type_3",
+        "rule_coaching_project_sub_type_4",
+        "rule_coaching_project_sub_type_5",
+        "rule_revenue_admin_project_name_0",
+        "rule_revenue_admin_project_name_1",
+        "rule_revenue_admin_project_name_2",
+        "rule_revenue_admin_project_name_3",
+        "rule_revenue_admin_project_sub_type_0",
+        "rule_revenue_admin_project_sub_type_1",
+        "rule_revenue_admin_project_sub_type_2",
+        "rule_revenue_admin_project_sub_type_3",
+        "rule_bts_client_client_name_0",
+        "rule_bts_client_client_name_1",
+        "rule_bts_client_client_name_2",
+        "control_substring",
+        "control_plural",
+        "control_embedded",
+        "control_empoderamiento",
+        "control_generic_coaching",
+        "control_generic_meeting",
+        "control_nonprefix_bts",
+        "control_accent_contains",
+        "control_uppercase",
+        "control_accent_regex",
+        "multi_exclude_review",
+        "review_inside",
+        "review_outside",
+        "weekly_argentina_1"
+      ],
+      "scenarios": [
+        "rule_matrix",
+        "review",
+        "cross_source_duplicates"
+      ],
+      "sha256": "a993a5352f72aec07581b93da8ee00760d2e1b7c78a2cf08b5997fa5b2caff13"
+    },
+    {
+      "data_rows": 32,
+      "family": "classification",
+      "id": "classification_Brazil_normalization",
+      "path": "eml/classification/classification_Brazil_normalization.eml",
+      "properties": [
+        "all boolean tokens",
+        "statuses/aliases",
+        "missing required fields",
+        "invalid/short dates",
+        "whitespace/entities/accented fictional names"
+      ],
+      "rows": [
+        "boolean_0",
+        "boolean_1",
+        "boolean_2",
+        "boolean_3",
+        "boolean_4",
+        "boolean_5",
+        "boolean_6",
+        "boolean_7",
+        "boolean_8",
+        "boolean_9",
+        "boolean_10",
+        "boolean_11",
+        "boolean_12",
+        "boolean_13",
+        "status_0",
+        "status_1",
+        "status_2",
+        "status_3",
+        "status_4",
+        "status_5",
+        "status_6",
+        "status_7",
+        "unknown_status",
+        "unknown_boolean",
+        "missing_start_date",
+        "missing_client_name",
+        "missing_project_name",
+        "missing_status",
+        "invalid_start_date",
+        "invalid_end_date",
+        "short_date",
+        "whitespace_entities"
+      ],
+      "scenarios": [
+        "normalization_review"
+      ],
+      "sha256": "a9e1255ced6e8659fc4d98c6f8a37d884d0986b9cf3393d623d5f9840e26eba6"
+    },
+    {
+      "data_rows": 10,
+      "family": "classification",
+      "id": "classification_Mexico_worklist_review",
+      "path": "eml/classification/classification_Mexico_worklist_review.eml",
+      "properties": [
+        "both window edges and outside dates",
+        "missing/bad/encoded project links",
+        "facilitator deduplication",
+        "invented special-email matcher alias",
+        "invitation presence"
+      ],
+      "rows": [
+        "boundary_0",
+        "boundary_1",
+        "boundary_2",
+        "boundary_3",
+        "missing_project_url",
+        "bad_project_url",
+        "encoded_project_url",
+        "facilitators",
+        "special_email",
+        "invitation"
+      ],
+      "scenarios": [
+        "worklist_review",
+        "window_boundaries",
+        "slack_warning"
+      ],
+      "sha256": "5ed5894bf23b9367c87c5afe81f292292488a33f662e351df52485d88ce220c4"
+    },
+    {
+      "data_rows": 2,
+      "family": "scenarios",
+      "id": "scenarios_Mexico_duplicate_source",
+      "path": "eml/scenarios/scenarios_Mexico_duplicate_source.eml",
+      "properties": [
+        "second report for the same source",
+        "distinct filename/message ID"
+      ],
+      "rows": [
+        "weekly_mexico_1",
+        "weekly_mexico_2"
+      ],
+      "scenarios": [
+        "duplicate_source"
+      ],
+      "sha256": "f70c7cda0a768a46a71b53e48ef4f63389e7d14337b185cd736bab1b0ff58a78"
+    },
+    {
+      "data_rows": 2,
+      "family": "scenarios",
+      "id": "scenarios_Brazil_duplicate_project",
+      "path": "eml/scenarios/scenarios_Brazil_duplicate_project.eml",
+      "properties": [
+        "same project/date/session in two sources",
+        "ready and business-review duplicates"
+      ],
+      "rows": [
+        "duplicate_ready",
+        "duplicate_review"
+      ],
+      "scenarios": [
+        "cross_source_duplicates"
+      ],
+      "sha256": "1feddbe774002241ec80c5ca77c70404090c82e9cfed3c7c054a1d75e15a032e"
+    },
+    {
+      "data_rows": 0,
+      "family": "malformed",
+      "id": "malformed_Brazil_no_html",
+      "path": "eml/malformed/malformed_Brazil_no_html.eml",
+      "properties": [
+        "plain-text MIME without HTML"
+      ],
+      "rows": [],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ],
+      "sha256": "1684a84060794fcc508a7ccc9a99feae3d353e93600b1f99e5bbbf5455f74975"
+    },
+    {
+      "data_rows": 1,
+      "family": "malformed",
+      "id": "malformed_Brazil_no_table",
+      "path": "eml/malformed/malformed_Brazil_no_table.eml",
+      "properties": [
+        "HTML without reportTable"
+      ],
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ],
+      "sha256": "739a687e784cc6a38e27ed4c12ffcbc69e7d9497774835d182b1464d5a3f8e90"
+    },
+    {
+      "data_rows": 1,
+      "family": "malformed",
+      "id": "malformed_Brazil_missing_header",
+      "path": "eml/malformed/malformed_Brazil_missing_header.eml",
+      "properties": [
+        "13 recognized headers; NPS absent"
+      ],
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ],
+      "sha256": "863f0a9173f1e91653cb895c4cad45b1f96294bcb43dc914fb6f8bde5afca102"
+    },
+    {
+      "data_rows": 2,
+      "family": "malformed",
+      "id": "malformed_Brazil_bad_cells",
+      "path": "eml/malformed/malformed_Brazil_bad_cells.eml",
+      "properties": [
+        "12-cell and 15-cell malformed data rows"
+      ],
+      "rows": [
+        "weekly_brazil_1",
+        "weekly_brazil_2"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ],
+      "sha256": "f575a067b0c9b81cefc6ec34abbe0e70f72070a5bb36bcd24022a933e73a0237"
+    },
+    {
+      "data_rows": 1,
+      "family": "malformed",
+      "id": "malformed_Brazil_orphan_group",
+      "path": "eml/malformed/malformed_Brazil_orphan_group.eml",
+      "properties": [
+        "13-cell first row without office to inherit"
+      ],
+      "rows": [
+        "weekly_brazil_1"
+      ],
+      "scenarios": [
+        "parser_failure",
+        "failed_file_lifecycle"
+      ],
+      "sha256": "754f411a6ee32d89e165d8bce23700cee8e233dfede6440c3760e9d7d948091d"
+    }
+  ],
+  "inputs": {
+    "catalog.json": "6132ad631d345beafb353d23613cef6bd20d707c045b6b7adde76629be015bb9",
+    "rows.json": "796e3a608c35123f2e0c573cc986d5e0a3431c9f7ef76ebceb988c896d63d11e"
+  },
+  "provenance": "Invented entities; generated only from catalog.json and rows.json.",
+  "schema_version": 1
+}

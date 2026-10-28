@@ -446,7 +446,15 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
 - [x] Human approves plan with directory families and the 151-case estimate.
 - [x] NPS-019: option A on Windows; option B Linux evidence at F1-03/F1-05 closures;
   option C deferred to optional F1-06. Windows local owns every package's primary run.
-- [ ] F1-02: first commit aligns the DoD Git rule; then synthetic catalog and generator.
+- [x] F1-02: DoD correction (280fecf), synthetic catalog/generator (18e985a), and
+  12 contract methods completed on Windows. The catalog has 26 emails and 95
+  invented literal rows. Two scratch generations and the versioned inputs matched
+  byte-for-byte, including the manifest and all SHA-256 hashes. Unittest: 81 run,
+  75 passed, 0 failures, 6 known errors, 0 skipped; pytest: 75 passed and the same
+  6 missing-fixture exceptions classified as failures (340 subtests passed).
+  Compileall and scoped Ruff check/format-check passed; scoped mypy checked four
+  new modules with no issues, using --follow-imports=skip for untouched imports.
+  Frozen-tree checks passed; no Linux evidence is required for this package.
 - [ ] F1-03: six repaired tests and portable path assertion; Linux closure evidence
   launched by the human and engine/ line-coverage baseline recorded.
 - [ ] F1-04: all 18 file dispositions completed.

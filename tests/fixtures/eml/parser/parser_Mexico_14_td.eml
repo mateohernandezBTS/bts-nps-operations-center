@@ -1,0 +1,24 @@
+From: Fixture Sender <reports@example.invalid>
+To: Fixture Operator <operator@example.invalid>
+Date: Mon, 03 Aug 2026 09:00:00 +0000
+Message-ID: <parser_Mexico_14_td@example.invalid>
+Subject: Report results (Mexico Upcoming Deliveries/NPS)
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<html><body><p>Synthetic fixture; all entities invented.</p><table class=3D"r=
+eportTable"><tr><th>Billing Office</th><th>Start Date</th><th>Client_Name</th=
+><th>Project: Project Name</th><th>Project Sub Type</th><th>Status</th><th>En=
+d Date</th><th>All Staffings</th><th>Evaluation Programme</th><th>NPS</th><th=
+>Evaluation Avg Facilitator</th><th>Ignore Reporting</th><th>Survey Invitatio=
+n</th><th>Survey Invitation Link</th></tr><tr class=3D"dataRow"><td>Mexico</t=
+d><td>8/4/2026</td><td>Fixture Client Aurora 005</td><td><a href=3D"https://e=
+xample.invalid/project/FXT000000000005">Fixture Session 005</a></td><td>Fixtu=
+re Type Workshop</td><td>Conf</td><td>8/4/2026</td><td>Fixture Facilitator Lu=
+men</td><td>4.5</td><td>75</td><td>4.8</td><td>=E2=9C=95</td><td></td><td></t=
+d></tr><tr class=3D"dataRow"><td>Mexico</td><td>8/10/2026</td><td>Fixture Cli=
+ent Aurora 006</td><td><a href=3D"https://example.invalid/project/FXT00000000=
+0000006">Fixture Session 006</a></td><td>Fixture Type Workshop</td><td>Conf</=
+td><td>8/10/2026</td><td>Fixture Facilitator Lumen</td><td>4.5</td><td>75</td=
+><td>4.8</td><td>=E2=9C=95</td><td></td><td></td></tr></table></body></html>
