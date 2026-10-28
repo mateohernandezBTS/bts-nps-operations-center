@@ -40,6 +40,7 @@ Status: OPEN, DECISION (needs business approval), PLANNED (assigned to a phase),
 | NPS-016 | High | DECISION | — | Business rule for an existing Survey Invitation (duplicate prevention) undefined. | PARTIALLY: parsed at `engine/stages/email_parser.py:508`, with no invitation-based decision in `engine/stages/business_rules.py:102`; operational finding 2026-10-19 not independently available |
 | NPS-017 | Low | OPEN | 3 | Import-time path constants (e.g. `PRODUCTION_INPUT`) ignore later environment changes; hinders dependency injection. | CONFIRMED: resolution at `engine/weekly_preflight.py:21`, reuse at `:104`, environment lookup at `engine/paths.py:44` |
 | NPS-018 | Medium | PLANNED | 1 | Test suite is platform-dependent: one path assertion fails on Linux (Codex cloud). Tests must pass on Linux and Windows. | CONFIRMED: `tests/test_controller_session_integration.py:246` expects `output\\report.xlsx`; affected test passes on Windows. F0-01: Linux 69/62/1/6/0 versus Windows 69/63/0/6/0 (run/passed/failures/errors/skipped) |
+| NPS-019 | Medium | PLANNED | 1 | Python tempfile directory ACLs are incompatible with the Windows restricted-token sandbox, even when TMP and TEMP point inside the repository. | CONFIRMED: F0-02 sandbox probes below; ordinary mkdir succeeds, mkdtemp child creation fails with WinError 5; installed Python 3.14.6 `Lib/tempfile.py:381` uses `os.mkdir(file, 0o700)` |
 
 ## F0-01 verification evidence
 
@@ -88,3 +89,39 @@ the test setup; the first missing lookup stops execution.
 `selam_slack_ready.md` is excluded from the dead-code candidates: it is still
 generated at `engine/selam_output.py:665` and consumed by the load at
 `engine/weekly_excel.py:1342`. F0-02 does not change that behavior.
+
+## F0-02 NPS-019 sandbox diagnosis
+
+On 2026-10-28, both probes ran from the repository root inside the Windows sandbox
+using `.venv/Scripts/python` (Python 3.14.6), without escalation:
+
+```text
+python -c "import os,tempfile; os.makedirs('.tmp/plain/x', exist_ok=True); print('plain OK')"
+plain OK
+exit: 0
+
+python -c "import os,tempfile; d=tempfile.mkdtemp(dir='.tmp'); print(d); os.makedirs(os.path.join(d,'x')); print('mkdtemp OK')"
+<repository>\.tmp\tmpjthvgs3y (absolute path)
+PermissionError: [WinError 5] Access is denied: '<repository>\\.tmp\\tmpjthvgs3y\\x'
+exit: 1; "mkdtemp OK" was not reached
+
+icacls .tmp\tmpjthvgs3y
+.tmp\tmpjthvgs3y: Access is denied.
+Successfully processed 0 files; Failed processing 1 files
+```
+
+For comparison, `icacls .tmp` and `icacls .tmp/plain/x` both succeeded. Both listed
+two inherited sandbox SID entries with `(I)(OI)(CI)(M)` and inherited SYSTEM,
+Administrators and current-user entries with `(I)(OI)(CI)(F)`. The new mkdtemp
+directory's ACL could not be read from the sandbox; no ACL was changed or bypassed.
+
+Inspection of the installed `Lib/tempfile.py:381` confirmed that `mkdtemp` invokes
+`_os.mkdir(file, 0o700)`. The [Python 3.14 os.mkdir documentation](https://docs.python.org/3.14/library/os.html#os.mkdir)
+states that Windows gives mode 0o700 special access control for the current user
+and administrators (introduced in Python 3.13). Together, the control probe, denied
+mkdtemp access and installed source confirm the tempfile ACL incompatibility in
+this Python 3.14 environment; they do not establish the full unreadable DACL.
+
+Redirecting TMP/TEMP alone therefore does not resolve this issue. The approved
+exception in AGENTS.md is limited to the exact unittest and pytest commands with
+explicit human approval; application behavior, ACLs and test code remain unchanged.
