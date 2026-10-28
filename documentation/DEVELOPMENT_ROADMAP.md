@@ -22,21 +22,69 @@ Status: OPEN, DECISION (needs business approval), PLANNED (assigned to a phase),
 
 | ID | Severity | Status | Phase | Summary | Evidence |
 |---|---|---|---|---|---|
-| NPS-001 | Critical | PLANNED | 2 | A failed source yields `COMPLETED_WITH_REVIEW`, reported as success with empty issues; outputs omit that country silently. `COMPLETED_WITH_REVIEW` currently means "a source failed", not "manual review exists". | `engine/weekly_orchestrator.py` (`determine_final_weekly_status`), `engine/application_controller.py` (`run_weekly_process`) |
-| NPS-002 | High | PLANNED | 2 | `survey_invitation` and `survey_invitation_link` are parsed but dropped from worklist, Excel and HTML, hiding possible duplicates. Surface only; no rule change. | `engine/stages/worklist.py` (`create_worklist_record`), `engine/weekly_excel.py` |
-| NPS-003 | Medium | PLANNED | 2 | "Copy for Slack" copies the Mariano/Maider warning row because it is inside the client `<table>`. | `engine/slack_canvas_renderer.py` (`render_client_table`) |
-| NPS-004 | Medium | DECISION | — | MERCADO_LIBRE rule matches `meli` as substring (e.g. "Amelia", "Melissa"). | `config/business_rules.json` |
-| NPS-005 | Low | DECISION | — | POD regex `\bpod\b` does not match plural "PODs". | `config/business_rules.json` |
-| NPS-006 | Medium | DECISION | — | Empty Ignore Reporting becomes False (eligible); letter `x` becomes True while `✕` is False. | `engine/stages/normalize.py` (`TRUE_VALUES`, `FALSE_VALUES`) |
-| NPS-007 | Medium | PLANNED | 3 | Weekly window computed in four places; changing `weekly_schedule.json` breaks preflight. | `engine/weekly_preflight.py`, `engine/weekly_run.py`, `engine/stages/worklist.py`, `app/views/weekly_run/configuration_card.py` |
-| NPS-008 | High | PLANNED | 1 | Several `tests/test_*.py` are print scripts without TestCase; the engine pipeline is not in the automated suite. | `tests/test_weekly_orchestrator.py`, `test_source_inventory.py`, `test_six_reports_manifest.py`, `test_selam_aggregator.py`, `test_selam_output.py`, `test_inventory_manifest_integration.py` |
-| NPS-009 | High | PLANNED | 1 | Tests depend on real `.eml` files that are git-ignored; in a clean clone 6 tests error (Codex cloud onboarding, 2026-10-28: 62 passed, 6 errors, 1 failure). | `tests/test_processing_error_lifecycle.py`, `.gitignore` |
-| NPS-010 | High | DONE (Phase 0) | 0 | `AGENTS.md` missing from repository. | repository root |
-| NPS-011 | Low | PLANNED | 2 | Dead code: legacy `app/views/weekly_run_view.py`; unregistered `app/views/manual_review/`; legacy `tests/scripts/*`; `selam_slack_ready.md` output superseded by HTML. Preview files to be moved, not deleted, if still useful. | `app/main_window.py` registers 5 views only |
-| NPS-012 | Low | PLANNED | 2 | Documentation drift: README says 64/64, VERSION 69/69; Power Automate integration listed as future; WEEKLY_OPERATION says 1.0.0 and mentions a Manual Review screen. | `documentation/*` |
-| NPS-013 | Low | PLANNED | 3 | Hardcoded `EXPECTED_SOURCE_COUNT = 3` and country order contradict N-source extensibility. | `app/controllers/ui_controller.py`, `engine/slack_canvas_renderer.py` |
-| NPS-014 | Low | OPEN | — | Retention never executes; operational config is a copy that can drift from the repo. | `config/system_config.json`, release layout |
-| NPS-015 | Medium | DECISION | — | Coaching exclusion narrower than business rule (generic "coaching sessions", 1:1 meetings). | `config/business_rules.json` |
-| NPS-016 | High | DECISION | — | Business rule for an existing Survey Invitation (duplicate prevention) undefined. | operational finding 2026-10-19 |
-| NPS-017 | Low | OPEN | 3 | Import-time path constants (e.g. `PRODUCTION_INPUT`) ignore later environment changes; hinders dependency injection. | `engine/weekly_preflight.py` and others |
-| NPS-018 | Medium | PLANNED | 1 | Test suite is platform-dependent: one path assertion fails on Linux (Codex cloud). Tests must pass on Linux and Windows. | Codex cloud onboarding report, 2026-10-28 |
+| NPS-001 | Critical | PLANNED | 2 | A failed source yields `COMPLETED_WITH_REVIEW`, reported as success with empty issues; outputs omit that country silently. `COMPLETED_WITH_REVIEW` currently means "a source failed", not "manual review exists". | CONFIRMED: `engine/weekly_orchestrator.py:141`, `engine/application_controller.py:472` and `:510`, `engine/selam_aggregator.py:302` |
+| NPS-002 | High | PLANNED | 2 | `survey_invitation` and `survey_invitation_link` are parsed but dropped from worklist, Excel and HTML, hiding possible duplicates. Surface only; no rule change. | CONFIRMED: parsed at `engine/stages/email_parser.py:508`; omitted by `engine/stages/worklist.py:368`, `engine/weekly_excel.py:1403`, `engine/slack_canvas_renderer.py:15` |
+| NPS-003 | Medium | PLANNED | 2 | "Copy for Slack" copies the Mariano/Maider warning row because it is inside the client `<table>`. | CONFIRMED: warning inserted at `engine/slack_canvas_renderer.py:516`; whole-table copying at `engine/slack_canvas_renderer.py:1090` |
+| NPS-004 | Medium | DECISION | — | MERCADO_LIBRE rule matches `meli` as substring (e.g. "Amelia", "Melissa"). | CONFIRMED: `config/business_rules.json:22`, substring matcher at `engine/stages/business_rules.py:76` |
+| NPS-005 | Low | DECISION | — | POD regex `\bpod\b` does not match plural "PODs". | CONFIRMED: `config/business_rules.json:36`, regex matcher at `engine/stages/business_rules.py:88` |
+| NPS-006 | Medium | DECISION | — | Empty Ignore Reporting becomes False (eligible); letter `x` becomes True while `✕` is False. | CONFIRMED: `engine/stages/normalize.py:4` and `:14`; False passes this eligibility condition at `engine/stages/business_rules.py:176`, subject to other rules |
+| NPS-007 | Medium | PLANNED | 3 | Weekly window computed in four places; changing `weekly_schedule.json` breaks preflight. | CONFIRMED: `engine/weekly_preflight.py:75`, `engine/weekly_run.py:90`, `engine/stages/worklist.py:65`, `app/views/weekly_run/configuration_card.py:402`; only weekly-run creation reads schedule offsets at `engine/weekly_run.py:147` |
+| NPS-008 | High | PLANNED | 1 | Several `tests/test_*.py` are print scripts without TestCase; the engine pipeline is not in the automated suite. Only 11 of 29 `test_*.py` files under tests/ contribute test cases. `tests/test_pod_rule.py` cannot fail the runner for a wrong match: its failure branch only prints. | CONFIRMED: manual main routines at `tests/test_weekly_orchestrator.py:62`, `tests/test_source_inventory.py:17`, `tests/test_six_reports_manifest.py:30`, `tests/test_selam_aggregator.py:21`, `tests/test_selam_output.py:23`, `tests/test_inventory_manifest_integration.py:31`; print-only result at `tests/test_pod_rule.py:34` and `:40`; F0-01/F0-02 discovery inventory below |
+| NPS-009 | High | PLANNED | 1 | Tests depend on previously processed `.eml` files that are git-ignored; six tests error in both clean-clone baselines. The six affected tests and their required fixture sets are listed below. | CONFIRMED: fixture lookup at `tests/test_backend_blocking_scenarios.py:31` and `tests/test_processing_error_lifecycle.py:26`; ignore rules at `.gitignore:45` and `:51`; Windows: 69 run / 63 passed / 0 failures / 6 errors / 0 skipped |
+| NPS-010 | High | DONE (Phase 0) | 0 | `AGENTS.md` missing from repository. | Historical defect resolved: tracked root `AGENTS.md:1` exists |
+| NPS-011 | Low | PLANNED | 2 | Dead-code candidates: legacy `app/views/weekly_run_view.py`; unregistered `app/views/manual_review/`; legacy `tests/scripts/*`. Preview files to be moved, not deleted, if still useful. | PARTIALLY: `app/main_window.py:282` registers only five views; legacy classes at `app/views/weekly_run_view.py:31` and `app/views/manual_review/manual_review_view.py:25`. Individual script usefulness remains unverified |
+| NPS-012 | Low | PLANNED | 2 | Documentation drift: README says 64/64, VERSION 69/69; Power Automate integration listed as future; WEEKLY_OPERATION says 1.0.0 and mentions a Manual Review screen. | CONFIRMED: `documentation/README.md:69` and `:78`, `documentation/VERSION.md:37`, `documentation/WEEKLY_OPERATION.md:5` and `:315` |
+| NPS-013 | Low | PLANNED | 3 | Hardcoded `EXPECTED_SOURCE_COUNT = 3` and country order contradict N-source extensibility. | CONFIRMED: `app/controllers/ui_controller.py:197`, `engine/slack_canvas_renderer.py:27` |
+| NPS-014 | Low | OPEN | — | Retention never executes; operational config is a copy that can drift from the repo. | PARTIALLY: retention enabled in dry-run mode at `config/system_config.json:16`; no call found in app/engine; standalone routine at `tests/scripts/cleanup_retention.py:114`; config copy at `packaging/build_release.py:74`. Operational drift was not inspected |
+| NPS-015 | Medium | DECISION | — | Coaching exclusion narrower than business rule (generic "coaching sessions", 1:1 meetings). | PARTIALLY: finite phrases at `config/business_rules.json:50` omit those generic forms; intended broader business policy not independently established |
+| NPS-016 | High | DECISION | — | Business rule for an existing Survey Invitation (duplicate prevention) undefined. | PARTIALLY: parsed at `engine/stages/email_parser.py:508`, with no invitation-based decision in `engine/stages/business_rules.py:102`; operational finding 2026-10-19 not independently available |
+| NPS-017 | Low | OPEN | 3 | Import-time path constants (e.g. `PRODUCTION_INPUT`) ignore later environment changes; hinders dependency injection. | CONFIRMED: resolution at `engine/weekly_preflight.py:21`, reuse at `:104`, environment lookup at `engine/paths.py:44` |
+| NPS-018 | Medium | PLANNED | 1 | Test suite is platform-dependent: one path assertion fails on Linux (Codex cloud). Tests must pass on Linux and Windows. | CONFIRMED: `tests/test_controller_session_integration.py:246` expects `output\\report.xlsx`; affected test passes on Windows. F0-01: Linux 69/62/1/6/0 versus Windows 69/63/0/6/0 (run/passed/failures/errors/skipped) |
+
+## F0-01 verification evidence
+
+Verified on 2026-10-28 against develop at `7931ec0`. Application and test code were
+unchanged. The Windows run used Python 3.14.6, PySide6 6.11.1, openpyxl 3.1.5 and
+beautifulsoup4 4.15.0. Compilation passed. The completed Windows unittest run had
+69 tests: 63 passed, no failures, six errors and no skips. The Linux reference had
+69 tests: 62 passed, one failure, six errors and no skips. The only outcome difference
+was the Windows path assertion in NPS-018. No missing fixtures were created.
+
+### NPS-008 discovery inventory
+
+F0-02 rechecked the recursive inventory: 29 files named `test_*.py` under `tests/`,
+of which these 11 define the TestCase classes contributing the 69 unittest cases:
+
+- `tests/test_application_controller_failure.py`
+- `tests/test_backend_blocking_scenarios.py`
+- `tests/test_controller_session_integration.py`
+- `tests/test_operational_logging.py`
+- `tests/test_packaging_release.py`
+- `tests/test_paths.py`
+- `tests/test_preflight_session_weekly_run_id.py`
+- `tests/test_processing_error_lifecycle.py`
+- `tests/test_prod_safeguards.py`
+- `tests/test_session_isolation.py`
+- `tests/test_session_manager.py`
+
+### NPS-009 missing fixture sets
+
+All six errors occur before the intended scenario can be exercised. Both fixture
+helpers search `tests/runtime/weekly_pipeline/processed/*.eml`. Country-specific
+lookups match the country name in the filename. The required sets below come from
+the test setup; the first missing lookup stops execution.
+
+| Test | Required existing fixture set | First missing lookup | Evidence |
+|---|---|---|---|
+| `test_duplicate_source_is_blocked` | Argentina, Brazil, Mexico; Mexico copied twice | Argentina | `tests/test_backend_blocking_scenarios.py:298` |
+| `test_existing_weekly_run_is_blocked` | Argentina, Brazil, Mexico | Argentina | `tests/test_backend_blocking_scenarios.py:346` |
+| `test_missing_argentina_is_blocked` | Brazil, Mexico | Brazil | `tests/test_backend_blocking_scenarios.py:181` |
+| `test_missing_brazil_is_blocked` | Argentina, Mexico | Argentina | `tests/test_backend_blocking_scenarios.py:220` |
+| `test_missing_mexico_is_blocked` | Argentina, Brazil | Argentina | `tests/test_backend_blocking_scenarios.py:259` |
+| `test_failed_report_is_moved_to_error` | Any valid previously processed Upcoming .eml | Any valid .eml | `tests/test_processing_error_lifecycle.py:62` |
+
+### NPS-011 retained output
+
+`selam_slack_ready.md` is excluded from the dead-code candidates: it is still
+generated at `engine/selam_output.py:665` and consumed by the load at
+`engine/weekly_excel.py:1342`. F0-02 does not change that behavior.
