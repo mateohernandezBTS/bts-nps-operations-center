@@ -65,8 +65,12 @@ UI (app/views, app/widgets)
 
 Two execution environments exist:
 - **Codex cloud (Linux container, preferred for code work).** Dependencies are installed
-  by the environment setup script. Do not install anything else. The UI runs headless
-  (`QT_QPA_PLATFORM=offscreen`). Never attempt PyInstaller builds or Windows packaging here.
+  by the environment setup script. Do not install anything else. Never attempt PyInstaller
+  builds or Windows packaging here. In the cloud, ALWAYS run Python through the wrapper
+  `/workspace/.setup/bts/headless.sh` (it uses `.venv`, sets the headless Qt variables and
+  PYTHONPATH). Example: `/workspace/.setup/bts/headless.sh -m unittest discover -s tests -p "test*.py"`.
+  GUI smoke check: `/workspace/.setup/bts/headless.sh /workspace/.setup/bts/smoke.py`.
+  Cloud tasks start from `develop` (the repository default branch).
 - **Local Windows clone** (`C:\dev\nps-operations-center`, outside OneDrive). Used for
   Windows-only work: packaging, packaged E2E, visual UI checks.
 
@@ -76,7 +80,8 @@ py -3.14 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 
-# validation (both environments; always run before declaring a task done)
+# validation (always run before declaring a task done; in the cloud replace
+# `python` with /workspace/.setup/bts/headless.sh)
 python -m compileall -q app engine packaging
 python -m unittest discover -s tests -p "test*.py"   # current baseline runner
 
