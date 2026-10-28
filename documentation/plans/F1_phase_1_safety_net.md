@@ -1,6 +1,6 @@
 # Execution Plan — F1 Phase 1 safety net
 
-Status: PROPOSED — PLAN ONLY; implementation requires human approval.
+Status: APPROVED WITH AMENDMENTS — review decisions recorded; this task is plan-only.
 Prepared: 2026-10-28. Base: develop at `70ad957` (merged Phase 0 tooling).
 Planning branch: `test/phase-1-plan`. This task writes only this plan.
 
@@ -38,9 +38,9 @@ and turn print scripts into assertions without changing application behavior.
 - Execution IDs contain clock time and a UUID in `engine/execution_manager.py`;
   manifests and summaries contain timestamps and paths. Workbook serialization is
   not byte-stable. These require narrow test-side canonicalization.
-- F/P/U/C/S/M shorthand has no definitions in the committed Phase 0 documents.
-  Section 5.1 gives explicit proposed meanings rather than attributing invented
-  definitions to F0 findings. Confirm these labels during plan review.
+- Retire the letter labels used for missing operational sets in F0-01. Synthetic
+  fixture families use weekly/, parser/, detection/, classification/, scenarios/
+  and malformed/ directories with matching filename prefixes (section 5.1).
 
 ## 3. Scope
 
@@ -50,7 +50,9 @@ In scope for later approved F1-02 through F1-05:
   test harnesses, assertions, snapshots and test documentation.
 - Replace the six missing-fixture lookups; make the Windows path assertion portable.
 - Resolve the disposition of all 18 non-executed files in section 5.3.
-- Present NPS-019 choices; implement none without the human's selection.
+- Apply the approved NPS-019 execution policy: option A for Windows, supplemented
+  by option B Linux evidence at F1-03 and F1-05 closure; defer option C to optional F1-06.
+- Align the DoD Git rule in the first F1-02 commit (section 5.6).
 
 Out of scope:
 
@@ -86,9 +88,11 @@ override. Assert all resulting paths stay beneath the designated test root.
 Patch path constants before use as well as setting the environment: import-time
 constants are a known limitation (NPS-017). Inject an isolated SessionManager.
 
-Approvals needed before implementation: this plan, the initial snapshot review
-process in section 5.2, the catalog/count allocation, and an NPS-019 operating
-choice in section 5.5. No business-rule approval is requested or assumed.
+The product owner approved this plan with the amendments recorded here, including
+the snapshot review process, directory families, the 151-case estimate and the
+NPS-019 execution policy. This review task does not start implementation. Individual
+Windows test escalations and acceptance of actual snapshot candidates still require
+the approvals described below. No business-rule approval is requested or assumed.
 
 ## 5. Steps
 
@@ -115,17 +119,18 @@ Reference Monday: 8/3/2026. Main window: 8/4/2026 through 8/10/2026 inclusive.
 Generator timestamps are fixed independently of business dates. Boundary rows on
 8/3, 8/4, 8/10 and 8/11 pin both inclusive edges and outside-window behavior.
 
-All filenames below are under `tests/fixtures/eml/`. F/P/U/C/S/M are proposed
-catalog families; scenario bundles reference files rather than duplicating bytes.
+All paths below are under `tests/fixtures/eml/`. Each family has a directory and
+matching filename prefix, such as `weekly/weekly_Argentina_upcoming.eml`.
+Scenario bundles reference files rather than duplicating bytes.
 
-| Set | Versioned files / declarations | Scenarios and Salesforce properties reproduced |
+| Directory / family | Versioned files / declarations | Scenarios and Salesforce properties reproduced |
 |---|---|---|
-| F — foundational weekly inputs | `F_Argentina_upcoming.eml`, `F_Brazil_upcoming.eml`, `F_Mexico_upcoming.eml` | Three required source subjects; neutral Conf/✕ rows inside the window; synthetic project anchors/IDs. Brazil has an initial Billing Office th in a 14-cell row and a following 13-cell inherited-office row; Mexico has 14 plain td cells; Argentina has explicit office cells. F inputs all include a valid HTML reportTable and dataRow rows. |
-| P — parser compatibility | `P_Brazil_plain_headers.eml`, `P_Brazil_sum_headers.eml`, `P_Mexico_14_td.eml`, `P_Argentina_invitation_first.eml`, `P_Argentina_invitation_last.eml`, `P_Argentina_invitation_both.eml`, `P_Brazil_forwarded_multipart.eml`, `P_Brazil_multiple_offices.eml` | Plain versus Sum headers for evaluation programme, NPS, evaluation average facilitator and Ignore Reporting; Project: Project Name and Client_Name punctuation/underscores; glyphs ✔/✕; identical record expectations across equivalent layouts. Link in Survey Invitation, Survey Invitation Link, or both (last-column anchor takes precedence). Fw: subject, multipart text+HTML, HTML attachment ignored, longest non-attachment HTML part selected; grouped office transitions and inherited rows. |
-| U — detection and scope | `U_Chile_upcoming.eml`, `U_unknown_subject.eml`, `U_Argentina_last30.eml`, `U_Brazil_last30.eml`, `U_Mexico_last30.eml` | Detected but unconfigured country (using the existing detection seam where necessary), unknown/unrecognized report, and each configured Last 30 days subject. Last Results inputs are known out of scope for weekly_upcoming, not missing required sources and not parser errors. Unknown detection expectations follow inspected current detector behavior, not an invented new status. |
-| C — classification and review | `C_Argentina_rules.eml`, `C_Brazil_normalization.eml`, `C_Mexico_worklist_review.eml` | Rule rows and normalization cases below; same 14-header structure with synthetic entities. Missing Project URL produces worklist REVIEW after eligibility; malformed/missing required fields or unknown boolean/status produce normalization REVIEW; invitation presence remains eligible when other current checks pass. |
-| S — scenario bundles | `S_Mexico_duplicate_source.eml`, `S_Brazil_duplicate_project.eml`; bundle membership in catalog.json | Complete weekly = F trio; each missing-country bundle = F minus that country; duplicate-source bundle = F plus a second Mexico report under another filename; cross-source duplicate = same synthetic Project ID/date/session in two otherwise valid sources. Include complete six-report bundle = F plus three U_last30 files; out-of-window, business review and worklist review bundles use C rows. Existing-run uses complete F with a precreated isolated run; partial processing failure combines two F inputs with one M input. |
-| M — malformed / failing input | `M_Brazil_no_html.eml`, `M_Brazil_no_table.eml`, `M_Brazil_missing_header.eml`, `M_Brazil_bad_cells.eml`, `M_Brazil_orphan_group.eml` | Valid detectable Upcoming envelope but no HTML; HTML without reportTable; recognizable header row missing a required column; wrong data-row width (12/15); 13-cell row before an office exists. Assert current parser exceptions and failed-file lifecycle. A second failure mode injects a controlled parser exception after a valid F report enters processing. |
+| weekly/ — foundational weekly inputs | `weekly/weekly_Argentina_upcoming.eml`, `weekly/weekly_Brazil_upcoming.eml`, `weekly/weekly_Mexico_upcoming.eml` | Three required source subjects; neutral Conf/✕ rows inside the window; synthetic project anchors/IDs. Brazil has an initial Billing Office th in a 14-cell row and a following 13-cell inherited-office row; Mexico has 14 plain td cells; Argentina has explicit office cells. Weekly inputs all include a valid HTML reportTable and dataRow rows. |
+| parser/ — parser compatibility | `parser/parser_Brazil_plain_headers.eml`, `parser/parser_Brazil_sum_headers.eml`, `parser/parser_Mexico_14_td.eml`, `parser/parser_Argentina_invitation_first.eml`, `parser/parser_Argentina_invitation_last.eml`, `parser/parser_Argentina_invitation_both.eml`, `parser/parser_Brazil_forwarded_multipart.eml`, `parser/parser_Brazil_multiple_offices.eml` | Plain versus Sum headers for evaluation programme, NPS, evaluation average facilitator and Ignore Reporting; Project: Project Name and Client_Name punctuation/underscores; glyphs ✔/✕; identical record expectations across equivalent layouts. Link in Survey Invitation, Survey Invitation Link, or both (last-column anchor takes precedence). Fw: subject, multipart text+HTML, HTML attachment ignored, longest non-attachment HTML part selected; grouped office transitions and inherited rows. |
+| detection/ — detection and scope | `detection/detection_Chile_upcoming.eml`, `detection/detection_unknown_subject.eml`, `detection/detection_Argentina_last30.eml`, `detection/detection_Brazil_last30.eml`, `detection/detection_Mexico_last30.eml` | Detected but unconfigured country (using the existing detection seam where necessary), unknown/unrecognized report, and each configured Last 30 days subject. Last Results inputs are known out of scope for weekly_upcoming, not missing required sources and not parser errors. Unknown detection expectations follow inspected current detector behavior, not an invented new status. |
+| classification/ — classification and review | `classification/classification_Argentina_rules.eml`, `classification/classification_Brazil_normalization.eml`, `classification/classification_Mexico_worklist_review.eml` | Rule rows and normalization cases below; same 14-header structure with synthetic entities. Missing Project URL produces worklist REVIEW after eligibility; malformed/missing required fields or unknown boolean/status produce normalization REVIEW; invitation presence remains eligible when other current checks pass. |
+| scenarios/ — scenario bundles | `scenarios/scenarios_Mexico_duplicate_source.eml`, `scenarios/scenarios_Brazil_duplicate_project.eml`; bundle membership in catalog.json | Complete weekly = weekly trio; each missing-country bundle = weekly inputs minus that country; duplicate-source bundle = weekly inputs plus a second Mexico report under another filename; cross-source duplicate = same synthetic Project ID/date/session in two otherwise valid sources. Include complete six-report bundle = weekly inputs plus three detection Last 30 days files; out-of-window, business review and worklist review bundles use classification rows. Existing-run uses the complete weekly trio with a precreated isolated run; partial processing failure combines two weekly inputs with one malformed input. |
+| malformed/ — malformed / failing input | `malformed/malformed_Brazil_no_html.eml`, `malformed/malformed_Brazil_no_table.eml`, `malformed/malformed_Brazil_missing_header.eml`, `malformed/malformed_Brazil_bad_cells.eml`, `malformed/malformed_Brazil_orphan_group.eml` | Valid detectable Upcoming envelope but no HTML; HTML without reportTable; recognizable header row missing a required column; wrong data-row width (12/15); 13-cell row before an office exists. Assert current parser exceptions and failed-file lifecycle. A second failure mode injects a controlled parser exception after a valid weekly report enters processing. |
 
 The catalog lists each concrete row and expected stage outcome. It must include:
 
@@ -156,9 +161,10 @@ The catalog lists each concrete row and expected stage outcome. It must include:
   never a real full name. Confirm the warning remains inside the copied table
   (NPS-003); preserve copy markup, ordering and links.
 
-Versioned .eml tracking: F1-02 may add a narrow `.gitignore` allow rule for
-`tests/fixtures/eml/*.eml` only, including any required parent unignore. No global
-removal of the .eml prohibition and no force-adding unknown emails. Review every
+Versioned .eml tracking: F1-02 may add six narrow `.gitignore` allow rules, one for
+`tests/fixtures/eml/<family>/*.eml` in each approved directory, including any required
+parent unignore. No global removal of the .eml prohibition and no force-adding
+unknown emails. Review every
 fixture's catalog provenance before staging explicit paths. Actual generated run
 artifacts remain ignored; only synthetic source fixtures/snapshots are versioned.
 
@@ -218,12 +224,17 @@ Approval workflow for both initial creation and updates:
 2. Compare candidates with catalog facts and independent semantic assertions;
    expected records are not obtained solely by re-running the same production helper.
    Review complete diffs, not only hashes or counts. Record runtime and config hashes.
-3. Architect/reviewer reviews parser fidelity and projections; product owner explicitly
-   approves the initial baseline and any business-visible difference. Initial approval
-   must identify preserved NPS defects. No snapshot update can authorize a rule change.
+3. The architect reviews the full candidate diffs, parser fidelity and projections.
+   Prepare `tests/snapshots/phase1/v1/APPROVAL.md` with per-scenario input/output
+   counts and a list of preserved known defects: NPS-xxx ID, observed behavior and
+   the scenario/snapshot path where each appears. Record candidate/config hashes,
+   architect review reference, product-owner approval reference and date. The product
+   owner approves this document for the initial baseline and each later update.
+   No snapshot approval can authorize a business-rule change.
 4. Only after approval copy named candidates to tests/snapshots and commit them in a
-   separate `test: approve phase 1 golden master snapshots` commit, with approval
-   reference and reason in the commit/PR description. Never bulk-accept unexpected diffs.
+   separate `test: approve phase 1 golden master snapshots` commit together with the
+   approved APPROVAL.md, with approval reference and reason in the commit/PR
+   description. Never bulk-accept unexpected diffs.
 5. A second run in a different TEST root must match. Targeted mutation controls change
    a business date, decision and link in a copied projection and must fail comparison;
    runtime-only token changes must compare equal. Restore only scratch copies.
@@ -270,15 +281,15 @@ test method and its assertions; remove dependency on prior runs or execution ord
 
 | Existing broken test | Synthetic inputs / setup |
 |---|---|
-| test_duplicate_source_is_blocked | F trio plus a second copy of F Mexico under a distinct filename; expect source duplicate blocking, not cross-project deduplication |
-| test_existing_weekly_run_is_blocked | F trio plus the expected weekly output directory under a fresh TEST root |
-| test_missing_argentina_is_blocked | F Brazil and F Mexico only |
-| test_missing_brazil_is_blocked | F Argentina and F Mexico only |
-| test_missing_mexico_is_blocked | F Argentina and F Brazil only |
-| test_failed_report_is_moved_to_error | F Brazil, with the existing controlled parser exception injected after the lifecycle enters processing; assert error move/details/manifest/log and propagated exception |
+| test_duplicate_source_is_blocked | weekly trio plus a second copy of weekly Mexico under a distinct filename; expect source duplicate blocking, not cross-project deduplication |
+| test_existing_weekly_run_is_blocked | weekly trio plus the expected weekly output directory under a fresh TEST root |
+| test_missing_argentina_is_blocked | weekly Brazil and weekly Mexico only |
+| test_missing_brazil_is_blocked | weekly Argentina and weekly Mexico only |
+| test_missing_mexico_is_blocked | weekly Argentina and weekly Brazil only |
+| test_failed_report_is_moved_to_error | weekly Brazil, with the existing controlled parser exception injected after the lifecycle enters processing; assert error move/details/manifest/log and propagated exception |
 
 These six tests must become passing assertions, never skipped, xfailed or converted
-to expected failures. Retain a separate actual malformed-M parser test later so
+to expected failures. Retain a separate actual malformed-input parser test later so
 controlled injection does not stand in for malformed-input coverage.
 
 At tests/test_controller_session_integration.py:246 replace the literal Windows
@@ -287,7 +298,7 @@ Path comparison). Keep the exact relative location assertion; do not assert only
 the filename. Run the same 69 original test IDs on Windows and Linux. NPS-018 is
 closed only after both operating systems have evidence, not merely a local edit.
 
-### 5.5 NPS-019 choices — human decision required
+### 5.5 NPS-019 decision and deferred option
 
 The F0-02 diagnosis established that mkdtemp's 0o700 ACL is unusable by the Windows
 restricted token; setting TMP/TEMP inside the repository did not fix it. Do not
@@ -296,14 +307,16 @@ change ACLs or monkeypatch global tempfile/os functions to get a green run.
 | Option | Pros | Cons / limits |
 |---|---|---|
 | A. Retain the current explicit-approval exception for exact Windows unittest/pytest commands | Exercises the actual Windows environment without altering tests or production code; supported by F0-02 baseline | Every elevated run requires explicit approval and runs outside token confinement; does not repair the sandbox. Exact-command limitation complicates alternate tooling/coverage commands |
-| B. Run automated suite in the configured Linux cloud; human also runs Windows locally | Linux isolation avoids the observed Windows ACL incompatibility and tests NPS-018 portability | Linux alone cannot certify Windows. Cloud dependencies/wrapper must already be available; no automatic installs or packaging. Requires a separately recorded Windows run |
+| B. Human-launched Linux cloud evidence at F1-03 and F1-05 closures | Linux isolation avoids the observed Windows ACL incompatibility and tests NPS-018 portability | Linux alone cannot certify Windows. Cloud dependencies/wrapper must already be available; no automatic installs or packaging. Requires a separately recorded Windows run |
 | C. Introduce a portable test-only temporary-root helper using ordinary inherited-permission directories | Can keep test-created roots inside the sandbox without weakening production code or the stdlib; explicit containment/cleanup contracts | Touches many existing test setups, needs careful unique allocation and cleanup validation, and may not control Qt/third-party tempfile usage. Could mask isolation mistakes; must preserve temporary .exe cleanup constraints |
 
-No option is selected by this plan. NPS-019 remains PLANNED until the human selects
-an approach and its acceptance criteria are verified. Option C is not included in
-the case-count budget below: if selected, revise this plan before implementation to
-identify every affected test and additional helper tests. A/B do not change counts.
-A manually approved exception is an operating accommodation, not an underlying fix.
+Approved decision: option A applies to all Windows runs, limited to the exact test
+commands with explicit approval. Windows local is primary for every package.
+Option B supplies required Linux evidence only at F1-03 and F1-05 closure; the human
+launches a Codex cloud task for each closure. No Linux run is required for F1-02 or
+F1-04. Option C is deferred to optional F1-06 after F1-05, not selected for current
+implementation. The 151-case estimate excludes F1-06. NPS-019 remains PLANNED because
+the approved operating accommodation does not repair the underlying incompatibility.
 
 ### 5.6 Sequenced execution work packages
 
@@ -312,18 +325,41 @@ merged. No implementation starts from an unapproved plan or unapproved snapshot.
 Publish task branches only; PRs target develop. Record actual counts and explain any
 variance before changing the budget; never remove useful tests to meet a number.
 
+The first F1-02 commit changes only documentation/DEFINITION_OF_DONE.md: replace
+"Work is on the correct branch; the agent ran no Git write operations." with
+"Work is on the correct branch; no direct commits on `main` or `develop`."
+Commit exactly `docs(dod): align git rule with AGENTS.md`, before fixture commits.
+This correction is planned here; the DoD file is unchanged by the review task.
+
 | # | Task / branch | Files | Planned commits, in order | Validation / expected counts |
 |---|---|---|---|---|
-| F1-02 | Synthetic inputs; test/phase-1-fixtures | tests/support generator/path helpers, tests/fixtures catalog/rows/eml/manifest, tests/test_fixture_catalog.py, narrow .gitignore exception | `test: add deterministic synthetic report fixtures`; `test: validate synthetic fixture catalog contracts` | Two generations to separate scratch roots have identical bytes/hashes; catalog schema/provenance, six families and structural signatures checked; no operational names/paths. Add 12 TestCase methods: six family contract tests plus determinism, byte/MIME stability, invented-entity schema, safe links/IDs, catalog/hash completeness and immutable-copy behavior. Total 81: Windows 75 pass + 6 known errors; Linux 74 pass + 1 known path failure + 6 errors |
-| F1-03 | Restore clean-clone baseline; test/phase-1-baseline | tests/test_backend_blocking_scenarios.py, tests/test_processing_error_lifecycle.py, tests/test_controller_session_integration.py, tests/support/fixture_paths.py | `test: replace missing operational fixture dependencies`; `test: make controller output path assertion portable` | Original six tests pass using F inputs, original 69 test IDs retained; no new methods. Both runners: 81 collected/run, 81 pass, 0 failures/errors/skips on Windows and Linux; no tests require a prior run |
-| F1-04 | Convert inventory; test/phase-1-test-conversion | The 18-file disposition map and its named destinations; tests/manual frontend preview; test-only harness support | `test: convert stage and rule print scripts to assertions`; `test: convert weekly integration scripts to isolated cases`; `test: move interactive failure preview out of discovery` | Add exactly 60 proposed methods from section 5.3; total 141/141 pass on both runners and operating systems. All retained test_*.py files contribute cases; importing modules does not run scenarios or print pass/fail verdicts. Confirm intentional wrong POD expectation fails the test, then restore the scratch expectation before committing |
-| F1-05 | Golden master and closure evidence; test/phase-1-golden-master | tests/support projections/candidate helper, tests/test_pipeline_golden_master.py, tests/snapshots/phase1/v1, tests/README.md; update only Phase 1 evidence in documentation | `test: add semantic pipeline golden master comparisons`; after explicit review `test: approve phase 1 golden master snapshots`; `docs: record phase 1 safety net validation` | Add 10 methods: complete pipeline, parser-equivalence variants, rule/review matrix, window edges, source-blocking bundles, cross-source duplicates, partial processing failure, canonicalization repeatability, meaningful-field mutation detection, snapshot/catalog/config provenance. Total 151/151 pass, 0 failures/errors/skips on both runners/OSes; compare complete projections including Excel/Slack; assert frozen production tree unchanged |
+| F1-02 | Synthetic inputs; test/phase-1-fixtures | documentation/DEFINITION_OF_DONE.md first; then tests/support generator/path helpers, tests/fixtures catalog/rows/eml/manifest, tests/test_fixture_catalog.py, narrow .gitignore exception | FIRST `docs(dod): align git rule with AGENTS.md`; then `test: add deterministic synthetic report fixtures`; `test: validate synthetic fixture catalog contracts` | Windows local primary; no Linux evidence required. Two scratch generations have identical bytes/hashes; check catalog provenance, six directory families, structural signatures and absence of operational data. Estimate 12 new TestCase methods: six family contracts plus determinism, byte/MIME stability, invented entities, safe links/IDs, catalog/hash completeness and immutable copies. Estimate 81 total: 75 pass + 6 known errors (pytest labels these failures) |
+| F1-03 | Restore clean-clone baseline; test/phase-1-baseline | tests/test_backend_blocking_scenarios.py, tests/test_processing_error_lifecycle.py, tests/test_controller_session_integration.py, tests/support/fixture_paths.py | `test: replace missing operational fixture dependencies`; `test: make controller output path assertion portable` | Windows local primary; human launches the Linux cloud task at closure. Original six tests pass with weekly inputs, original 69 IDs retained; no new methods. Estimate 81/81 pass on both runners and both OSes, zero failures/errors/skips; no prior-run dependency. Record engine/ pytest-cov line coverage from Linux closure as a baseline, not a gate |
+| F1-04 | Convert inventory; test/phase-1-test-conversion | The 18-file disposition map and its named destinations; tests/manual frontend preview; test-only harness support | `test: convert stage and rule print scripts to assertions`; `test: convert weekly integration scripts to isolated cases`; `test: move interactive failure preview out of discovery` | Windows local primary; no Linux evidence required. Estimate 60 new methods from section 5.3 and 141/141 pass on both runners. All retained test_*.py files contribute cases; imports do not execute scenarios or print verdicts. Confirm a deliberately wrong POD expectation fails, then restore the scratch expectation before committing |
+| F1-05 | Golden master and closure evidence; test/phase-1-golden-master | tests/support projections/candidate helper, tests/test_pipeline_golden_master.py, tests/snapshots/phase1/v1 including APPROVAL.md, tests/README.md; Phase 1 documentation evidence only | `test: add semantic pipeline golden master comparisons`; after architect full-diff review and product-owner approval of APPROVAL.md, `test: approve phase 1 golden master snapshots`; `docs: record phase 1 safety net validation` | Windows local primary; human launches the Linux cloud task at closure. Estimate 10 new methods: complete pipeline, parser equivalence, rule/review matrix, window edges, source blocking, cross-source duplicates, partial failure, canonicalization repeatability, mutation detection and provenance. Estimate 151/151 pass on both runners/OSes, zero failures/errors/skips. Record engine/ pytest-cov line coverage as a baseline, not a gate; compare Excel/Slack projections, verify APPROVAL.md counts/defect locations and frozen production tree |
 
 Count budget: 69 original + 12 fixture contracts + 60 converted cases + 10 golden
 master methods = 151. Matrix rows use subtests and do not multiply collected cases.
-Counts are implementation targets, not results claimed by F1-01. Any extra needed
-test must be justified and the expected counts revised openly. Phase 1's success is
+The product owner approved 151 as an estimate, not a gate or a result claimed by
+F1-01. Any extra needed test must be justified and the expected counts revised
+openly. Phase 1's success is
 meaningful asserted coverage and clean-clone parity, not the exact number 151.
+
+### 5.7 Optional F1-06 stub — deferred temporary-root helper
+
+After F1-05, a separately authorized `test/phase-1-temp-helper` package may explore
+option C. Scope: test-only portable temporary-root allocation and contained cleanup,
+plus conversion of explicitly inventoried test setups; no app/, engine/, config/
+or packaging/ changes. Do not change ACLs or patch global tempfile/os functions.
+
+Risks: shared-directory collisions, leaked files, unsafe cleanup, and third-party/Qt
+tempfile calls that bypass the helper. Validation must exercise containment,
+uniqueness and cleanup, including only tests' own empty .exe placeholders, then run
+the full suite against the already approved F1-05 golden master with no snapshot
+updates. Compare Windows sandbox behavior with the approved Windows baseline and
+record any residual permission failures. Keep option A until replacement is proven.
+Additional helper tests and their count are defined in the future package; they are
+outside the approved 151-case estimate. This stub authorizes no F1-06 implementation.
 
 ## 6. Validation strategy
 
@@ -332,10 +368,19 @@ For each approved implementation package:
 - Run compileall for app/engine/packaging and new test/support modules.
 - Run unittest discovery and `python -m pytest -q` from the root using the local
   virtual environment; record run/passed/failures/errors/skips and collected IDs.
-  Set TMP/TEMP to repository .tmp before Python starts. Under option A request
+  Windows local is primary for every package. Set TMP/TEMP to repository .tmp before
+  Python starts. Under approved option A request
   approval for the exact test commands only; no compound elevated scripts.
-- On configured Linux, use `/workspace/.setup/bts/headless.sh` for Python and Qt
-  headless settings. Do not launch the interactive manual preview on either platform.
+- At F1-03 and F1-05 closure only, the human launches a Codex cloud task for Linux
+  evidence. Use `/workspace/.setup/bts/headless.sh` for Python and Qt headless settings.
+  Do not launch the interactive manual preview on either platform.
+- At those two closures, record pytest-cov line coverage for engine/ as a baseline,
+  not a gate: covered/total statements, missed lines, percentage, platform and tool
+  versions. Collect it in the human-launched Linux task with
+  `/workspace/.setup/bts/headless.sh -m pytest -q --cov=engine --cov-report=term-missing --cov-report=json:.codex-log/engine-coverage.json`.
+  Keep the machine report ignored and record its summary in the closure evidence.
+  This does not broaden the exact-command Windows escalation exception. Required
+  cloud tooling must be provisioned by the environment; stop and report if absent.
 - Inspect unittest and pytest collection inventories without executing legacy mains;
   no silent skips, expected-failure labels or reliance on import-time print checks.
 - Run Ruff check/format-check on new or converted Python test modules; baseline
@@ -346,7 +391,8 @@ For each approved implementation package:
   independent roots, and compare snapshots. Never require tests/runtime to be
   populated before a clean-clone run. No network or real-data dependency.
 - Human review: synthetic fidelity, rule/row coverage matrix, known-defect labels,
-  canonicalization allowlist, initial snapshots and explicit NPS-019 selection.
+  canonicalization allowlist, full candidate diffs and product-owner approval of
+  APPROVAL.md. NPS-019 operating policy and execution ownership are already approved.
 
 ### Frozen-tree verification
 
@@ -379,7 +425,7 @@ validate a prose plan; compileall/full-suite implementation gates remain for F1-
 | Golden master blesses known bugs or hides business changes | High | Regression net protects the wrong assumption | Label NPS-001..007 behavior, independent semantic assertions, explicit approval and no automatic snapshot acceptance |
 | Canonicalization hides meaningful differences | Medium | False-green snapshots | Narrow field allowlist, containment checks and mutation/repeatability tests |
 | Tests mutate inputs or shared sessions | Medium | Order dependence and data loss | Copy immutable inputs; TEST-only overrides; isolated sessions; containment assertions and independent roots |
-| tempfile ACL incompatibility persists | Confirmed | Windows sandbox cannot complete suite | Human selects NPS-019 option; no implicit sandbox workaround |
+| tempfile ACL incompatibility persists | Confirmed | Windows sandbox cannot complete suite | Approved option A for exact Windows tests; option B at two closures; no implicit sandbox workaround |
 | Fixture files remain ignored or expose real data | Medium | Clean clone fails or data leaks | Narrow ignore exception, explicit catalog/manifest tracking and invented-entity review |
 | Open approvals delay F1-05 | Medium | Snapshots cannot be committed | Prepare reviewable candidates; stop before acceptance and report human action |
 | Actual test design needs more than the budget | Medium | Misleading collection target | Retain useful tests, update arithmetic with reasons and obtain review; never trade coverage for a number |
@@ -397,21 +443,29 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
 
 - [x] F1-01: inspect Phase 0 documents, parser/normalizer and all 18 file dispositions.
 - [x] F1-01: prepare this plan for review; no implementation performed.
-- [ ] Human approves plan, family labels and count allocation.
-- [ ] Human selects NPS-019 option and confirms cross-platform execution ownership.
-- [ ] F1-02: synthetic fixture catalog and generator.
-- [ ] F1-03: six repaired tests and portable path assertion.
+- [x] Human approves plan with directory families and the 151-case estimate.
+- [x] NPS-019: option A on Windows; option B Linux evidence at F1-03/F1-05 closures;
+  option C deferred to optional F1-06. Windows local owns every package's primary run.
+- [ ] F1-02: first commit aligns the DoD Git rule; then synthetic catalog and generator.
+- [ ] F1-03: six repaired tests and portable path assertion; Linux closure evidence
+  launched by the human and engine/ line-coverage baseline recorded.
 - [ ] F1-04: all 18 file dispositions completed.
-- [ ] Human approves initial golden master candidates with architect review.
-- [ ] F1-05: approved snapshots and cross-platform closure evidence.
+- [ ] Architect reviews full candidate diffs; product owner approves APPROVAL.md with
+  per-scenario counts and preserved known-defect locations.
+- [ ] F1-05: approved snapshots/APPROVAL.md, human-launched Linux closure evidence
+  and engine/ line-coverage baseline recorded.
+- [ ] Optional F1-06: separately authorize and scope the deferred temporary-root helper.
 
 ## 10. Decision log
 
 | Date | Decision / open item | Reason | Owner |
 |---|---|---|---|
-| 2026-10-28 | F1-01 writes only this plan; implementation waits for approval | Explicit PLAN ONLY request | User |
+| 2026-10-28 | Phase 1 plan approved with amendments; this review changes only the plan | Explicit plan review; no implementation requested in this task | User |
 | 2026-10-28 | Freeze app/, engine/, config/, packaging/ for all Phase 1 work | Safety net must precede behavior fixes/refactors | User |
-| 2026-10-28 | Proposed F/P/U/C/S/M family meanings and 151-case budget need review | Shorthand was not defined in committed F0 evidence; counts are design targets | Product owner / architect |
-| 2026-10-28 | NPS-019 option A/B/C remains undecided | Explicit instruction that the human decides | Product owner |
-| 2026-10-28 | Initial and later snapshots require explicit acceptance, including known-defect annotations | Prevent silent changes to the behavioral contract | Product owner / architect |
-| 2026-10-28 | Confirm Windows/Linux execution ownership and evidence availability | NPS-018 cannot be closed from a single-platform run | Product owner |
+| 2026-10-28 | Use weekly/, parser/, detection/, classification/, scenarios/, malformed/ directories and matching filename prefixes | Retired letters named missing operational sets in F0-01 | Product owner |
+| 2026-10-28 | Approve 151 cases as an estimate; explain useful changes rather than enforcing the count | Coverage quality takes precedence over an exact total | Product owner |
+| 2026-10-28 | Select option A for every Windows run and option B at F1-03/F1-05 closures; defer option C to optional F1-06 | Approved NPS-019 execution policy | Product owner |
+| 2026-10-28 | Architect reviews full candidate diffs; product owner approves APPROVAL.md with per-scenario counts and preserved known-defect IDs/locations | Make snapshot acceptance explicit and reviewable | Product owner / architect |
+| 2026-10-28 | Windows local is primary for all packages; human launches Linux cloud tasks only at F1-03/F1-05 closures | Required cross-platform closure evidence | Product owner |
+| 2026-10-28 | Record engine/ pytest-cov line coverage at both closures as a baseline, not a gate | Quantify the safety net without a coverage threshold | Product owner |
+| 2026-10-28 | F1-02 starts with docs(dod): align git rule with AGENTS.md | Correct contradictory DoD wording before fixture work | Product owner |
