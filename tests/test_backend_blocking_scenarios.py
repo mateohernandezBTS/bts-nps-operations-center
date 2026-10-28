@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -10,47 +9,18 @@ from unittest.mock import patch
 from engine.application_controller import (
     NPSApplicationController,
 )
+from engine.session_manager import SessionManager
 from engine.weekly_preflight import (
     build_weekly_run_id,
     calculate_weekly_window,
     parse_reference_date,
 )
-
-
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-
-FIXTURE_DIRECTORY = (
-    PROJECT_ROOT
-    / "tests"
-    / "runtime"
-    / "weekly_pipeline"
-    / "processed"
-)
-
-
-def find_report_fixture(country: str) -> Path:
-    """
-    Locate a previously processed EML fixture by country.
-    """
-    country_key = country.casefold()
-
-    matches = [
-        path
-        for path in FIXTURE_DIRECTORY.glob("*.eml")
-        if country_key in path.name.casefold()
-    ]
-
-    if not matches:
-        raise FileNotFoundError(
-            f"No processed fixture found for {country}: "
-            f"{FIXTURE_DIRECTORY}"
-        )
-
-    return sorted(matches)[0]
+from tests.support.fixture_paths import copy_fixture as copy_catalog_fixture
+from tests.support.fixture_paths import fixture_path
 
 
 def copy_fixture(
-    country: str,
+    fixture_id: str,
     destination: Path,
     *,
     filename: str | None = None,
@@ -58,20 +28,11 @@ def copy_fixture(
     """
     Copy one known EML fixture into an isolated test folder.
     """
-    source = find_report_fixture(country)
+    source = fixture_path(fixture_id)
 
-    target = destination / (
-        filename
-        if filename is not None
-        else source.name
-    )
+    target = destination / (filename if filename is not None else source.name)
 
-    shutil.copy2(
-        source,
-        target,
-    )
-
-    return target
+    return copy_catalog_fixture(fixture_id, target)
 
 
 class BackendBlockingScenariosTest(unittest.TestCase):
@@ -81,7 +42,13 @@ class BackendBlockingScenariosTest(unittest.TestCase):
     """
 
     def setUp(self) -> None:
-        self.controller = NPSApplicationController()
+        session_root = tempfile.TemporaryDirectory()
+        self.addCleanup(session_root.cleanup)
+        self.controller = NPSApplicationController(
+            session_manager=SessionManager(
+                session_file=Path(session_root.name) / "current_session.json"
+            )
+        )
 
     def run_isolated_preflight(
         self,
@@ -131,12 +98,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             result.status,
             "FAILED",
         )
-        self.assertTrue(
-            any(
-                "must be a Monday" in issue
-                for issue in result.issues
-            )
-        )
+        self.assertTrue(any("must be a Monday" in issue for issue in result.issues))
 
     def test_missing_input_directory_is_blocked(self) -> None:
         """
@@ -160,10 +122,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             "FAILED",
         )
         self.assertTrue(
-            any(
-                "Input directory does not exist" in issue
-                for issue in result.issues
-            )
+            any("Input directory does not exist" in issue for issue in result.issues)
         )
 
     def test_missing_argentina_is_blocked(self) -> None:
@@ -179,11 +138,11 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             output_directory.mkdir()
 
             copy_fixture(
-                "Brazil",
+                "weekly_Brazil_upcoming",
                 input_directory,
             )
             copy_fixture(
-                "Mexico",
+                "weekly_Mexico_upcoming",
                 input_directory,
             )
 
@@ -199,8 +158,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                "Missing required source: Argentina upcoming"
-                in issue
+                "Missing required source: Argentina upcoming" in issue
                 for issue in result.issues
             )
         )
@@ -218,11 +176,11 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             output_directory.mkdir()
 
             copy_fixture(
-                "Argentina",
+                "weekly_Argentina_upcoming",
                 input_directory,
             )
             copy_fixture(
-                "Mexico",
+                "weekly_Mexico_upcoming",
                 input_directory,
             )
 
@@ -238,8 +196,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                "Missing required source: Brazil upcoming"
-                in issue
+                "Missing required source: Brazil upcoming" in issue
                 for issue in result.issues
             )
         )
@@ -257,11 +214,11 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             output_directory.mkdir()
 
             copy_fixture(
-                "Argentina",
+                "weekly_Argentina_upcoming",
                 input_directory,
             )
             copy_fixture(
-                "Brazil",
+                "weekly_Brazil_upcoming",
                 input_directory,
             )
 
@@ -277,8 +234,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                "Missing required source: Mexico upcoming"
-                in issue
+                "Missing required source: Mexico upcoming" in issue
                 for issue in result.issues
             )
         )
@@ -296,19 +252,19 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             output_directory.mkdir()
 
             copy_fixture(
-                "Argentina",
+                "weekly_Argentina_upcoming",
                 input_directory,
             )
             copy_fixture(
-                "Brazil",
+                "weekly_Brazil_upcoming",
                 input_directory,
             )
             copy_fixture(
-                "Mexico",
+                "weekly_Mexico_upcoming",
                 input_directory,
             )
             copy_fixture(
-                "Mexico",
+                "weekly_Mexico_upcoming",
                 input_directory,
                 filename="DUPLICATE_Mexico.eml",
             )
@@ -324,11 +280,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             "BLOCKED",
         )
         self.assertTrue(
-            any(
-                "Duplicate source: Mexico upcoming"
-                in issue
-                for issue in result.issues
-            )
+            any("Duplicate source: Mexico upcoming" in issue for issue in result.issues)
         )
 
     def test_existing_weekly_run_is_blocked(self) -> None:
@@ -344,35 +296,26 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             output_directory.mkdir()
 
             copy_fixture(
-                "Argentina",
+                "weekly_Argentina_upcoming",
                 input_directory,
             )
             copy_fixture(
-                "Brazil",
+                "weekly_Brazil_upcoming",
                 input_directory,
             )
             copy_fixture(
-                "Mexico",
+                "weekly_Mexico_upcoming",
                 input_directory,
             )
 
-            reference_date = parse_reference_date(
-                "8/3/2026"
-            )
-            window_start, window_end = (
-                calculate_weekly_window(
-                    reference_date
-                )
-            )
+            reference_date = parse_reference_date("8/3/2026")
+            window_start, window_end = calculate_weekly_window(reference_date)
             weekly_run_id = build_weekly_run_id(
                 window_start,
                 window_end,
             )
 
-            (
-                output_directory
-                / weekly_run_id
-            ).mkdir()
+            (output_directory / weekly_run_id).mkdir()
 
             result = self.run_isolated_preflight(
                 input_directory,
@@ -385,10 +328,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             "BLOCKED",
         )
         self.assertTrue(
-            any(
-                "A weekly run already exists" in issue
-                for issue in result.issues
-            )
+            any("A weekly run already exists" in issue for issue in result.issues)
         )
 
     def test_unknown_report_is_blocked(self) -> None:
@@ -407,13 +347,8 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             detected_contexts = [
                 SimpleNamespace(
                     source_file="Argentina.eml",
-                    source_path=str(
-                        input_directory / "Argentina.eml"
-                    ),
-                    subject=(
-                        "Report results "
-                        "(Argentina Upcoming Deliveries/NPS)"
-                    ),
+                    source_path=str(input_directory / "Argentina.eml"),
+                    subject=("Report results (Argentina Upcoming Deliveries/NPS)"),
                     sender_email="test@example.com",
                     received_at="2026-08-03T09:00:00",
                     country="Argentina",
@@ -423,13 +358,8 @@ class BackendBlockingScenariosTest(unittest.TestCase):
                 ),
                 SimpleNamespace(
                     source_file="Brazil.eml",
-                    source_path=str(
-                        input_directory / "Brazil.eml"
-                    ),
-                    subject=(
-                        "Report results "
-                        "(Brazil Upcoming Deliveries/NPS)"
-                    ),
+                    source_path=str(input_directory / "Brazil.eml"),
+                    subject=("Report results (Brazil Upcoming Deliveries/NPS)"),
                     sender_email="test@example.com",
                     received_at="2026-08-03T09:01:00",
                     country="Brazil",
@@ -439,13 +369,8 @@ class BackendBlockingScenariosTest(unittest.TestCase):
                 ),
                 SimpleNamespace(
                     source_file="Mexico.eml",
-                    source_path=str(
-                        input_directory / "Mexico.eml"
-                    ),
-                    subject=(
-                        "Report results "
-                        "(Mexico Upcoming Deliveries/NPS)"
-                    ),
+                    source_path=str(input_directory / "Mexico.eml"),
+                    subject=("Report results (Mexico Upcoming Deliveries/NPS)"),
                     sender_email="test@example.com",
                     received_at="2026-08-03T09:02:00",
                     country="Mexico",
@@ -455,13 +380,8 @@ class BackendBlockingScenariosTest(unittest.TestCase):
                 ),
                 SimpleNamespace(
                     source_file="Chile.eml",
-                    source_path=str(
-                        input_directory / "Chile.eml"
-                    ),
-                    subject=(
-                        "Report results "
-                        "(Chile Upcoming Deliveries/NPS)"
-                    ),
+                    source_path=str(input_directory / "Chile.eml"),
+                    subject=("Report results (Chile Upcoming Deliveries/NPS)"),
                     sender_email="test@example.com",
                     received_at="2026-08-03T09:03:00",
                     country="Chile",
@@ -472,8 +392,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
             ]
 
             with patch(
-                "engine.source_inventory."
-                "detect_pending_reports",
+                "engine.source_inventory.detect_pending_reports",
                 return_value=detected_contexts,
             ):
                 result = self.run_isolated_preflight(
@@ -489,10 +408,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
 
         self.assertTrue(
             any(
-                (
-                    "Unknown or unconfigured reports "
-                    "detected: 1"
-                ) in issue
+                ("Unknown or unconfigured reports detected: 1") in issue
                 for issue in result.issues
             )
         )
@@ -503,9 +419,7 @@ class BackendBlockingScenariosTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            inventory.get(
-                "unconfigured_files"
-            ),
+            inventory.get("unconfigured_files"),
             1,
         )
 
