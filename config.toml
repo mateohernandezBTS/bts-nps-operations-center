@@ -1,0 +1,14 @@
+# Project-level Codex configuration for BTS SELAM NPS Operations Center.
+# Codex only applies a project .codex/config.toml when the project is marked as trusted.
+# Personal defaults belong in %USERPROFILE%\.codex\config.toml.
+
+# Codex may edit files and run commands inside the repository only.
+sandbox_mode = "workspace-write"
+
+# Codex works inside the sandbox and asks before going beyond it
+# (network, writes outside the repo, escalated commands).
+approval_policy = "on-request"
+
+[sandbox_workspace_write]
+# No network by default. pip installs must be requested and approved explicitly.
+network_access = false
