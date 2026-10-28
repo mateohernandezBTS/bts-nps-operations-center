@@ -80,8 +80,8 @@
         "status": "Conf",
         "end_date": "8/4/2026",
         "all_staffings": "Fixture Facilitator Lumen",
-        "evaluation_programme": "4.5",
-        "nps": "75",
+        "evaluation_programme": "-",
+        "nps": "feature not included",
         "evaluation_avg_facilitator": "4.8",
         "ignore_reporting": "✕",
         "survey_invitation": "",
@@ -122,7 +122,7 @@
         "survey_invitation_link": ""
       },
       "links": {
-        "project_name": "https://example.invalid/project/FXT000000000000004"
+        "project_name": "/FXT000000000000004"
       },
       "expected": {
         "validation_status": "VALID",

@@ -98,7 +98,7 @@
         "survey_invitation",
         "survey_invitation_link"
       ],
-      "sum_headers": false,
+      "sum_headers": true,
       "grouped": true,
       "omit_office_rows": [
         1
@@ -113,13 +113,84 @@
         "Conf/✕",
         "window start/end",
         "synthetic 15/18-character project links",
-        "grouped th + inherited 13-cell row"
+        "grouped th + inherited 13-cell row",
+        "Sum-suffixed headers",
+        "Billing Office up / Survey Invitation down sort indicators",
+        "ignored groupHeader/subtotal/grandTotal rows",
+        "evaluation placeholders - / feature not included",
+        "relative 18-character project anchor"
       ],
       "scenarios": [
         "complete_weekly",
         "missing_sources",
         "existing_run",
         "controlled_parser_failure"
+      ],
+      "header_indicators": {
+        "billing_office": "↑",
+        "survey_invitation": "↓"
+      },
+      "non_data_rows": [
+        {
+          "class": "groupHeader",
+          "after_row": 0,
+          "cells": [
+            "Fixture Brazil group",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-",
+            "feature not included",
+            "0",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "class": "subtotal",
+          "after_row": 2,
+          "cells": [
+            "Fixture Brazil subtotal",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-",
+            "feature not included",
+            "0",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "class": "grandTotal",
+          "after_row": 2,
+          "cells": [
+            "Fixture grand total",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-",
+            "feature not included",
+            "0",
+            "",
+            "",
+            ""
+          ]
+        }
       ]
     },
     {
@@ -306,11 +377,13 @@
       "properties": [
         "14 plain td cells",
         "plain headers",
-        "Conf/✕"
+        "Conf/✕",
+        "quoted-printable UTF-8 HTML"
       ],
       "scenarios": [
         "parser_equivalence"
-      ]
+      ],
+      "html_cte": "quoted-printable"
     },
     {
       "id": "parser_Argentina_invitation_first",

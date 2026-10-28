@@ -25,6 +25,7 @@ from engine.stages.normalize import FALSE_VALUES, TRUE_VALUES, normalize_records
 from engine.stages.worklist import generate_worklist
 from tests.support.fixture_generator import (
     FAMILIES,
+    SUM_FIELDS,
     FixtureInputs,
     fixture_root,
     generate,
@@ -106,6 +107,38 @@ class FixtureCatalogTest(unittest.TestCase):
                     for r in table.select("tr.dataRow")
                 ]
                 self.assertEqual(widths, [14, 13] if spec["grouped"] else [14, 14])
+                labels = [cell.get_text() for cell in table.find("tr").find_all("th")]
+                if spec["country"] == "Brazil":
+                    for field in SUM_FIELDS:
+                        self.assertIn(
+                            self.inputs.catalog["headers"][field] + " Sum", labels
+                        )
+                    self.assertIn("Billing Office \u2191", labels)
+                    self.assertIn("Survey Invitation \u2193", labels)
+                    ignored = table.select("tr.groupHeader, tr.subtotal, tr.grandTotal")
+                    self.assertEqual(
+                        [r.get("class") for r in ignored],
+                        [["groupHeader"], ["subtotal"], ["grandTotal"]],
+                    )
+                    self.assertTrue(all(len(r.find_all("td")) == 14 for r in ignored))
+                    self.assertEqual(len(table.select("tr")), 6)
+                    self.assertEqual(raw[0]["evaluation_programme"], "-")
+                    self.assertEqual(raw[0]["nps"], "feature not included")
+                    normalized, _ = normalize_records(raw)
+                    for field in ("evaluation_programme", "nps"):
+                        self.assertEqual(normalized[0][field], raw[0][field])
+                    self.assertRegex(raw[1]["project_url"], r"^/FXT[0-9]{15}$")
+                    self.assertEqual(extract_records(table), raw)
+                elif spec["country"] == "Mexico":
+                    self.assertEqual(
+                        labels, list(self.inputs.catalog["headers"].values())
+                    )
+                    self.assertTrue(
+                        all(
+                            len(r.find_all("td")) == 14
+                            for r in table.select("tr.dataRow")
+                        )
+                    )
 
     def test_parser_family_contract(self) -> None:
         self.assertEqual(len(self.family("parser")), 8)
@@ -246,6 +279,7 @@ class FixtureCatalogTest(unittest.TestCase):
                 )
 
     def test_email_bytes_and_mime_are_stable(self) -> None:
+        html_encodings = set()
         for spec in self.specs.values():
             content = fixture_path(spec["id"]).read_bytes()
             with self.subTest(fixture=spec["id"]):
@@ -257,7 +291,16 @@ class FixtureCatalogTest(unittest.TestCase):
                 )
                 for part in message.walk():
                     if not part.is_multipart():
-                        self.assertEqual(part["Content-Transfer-Encoding"], "base64")
+                        expected_cte = "base64"
+                        if part.get_content_type() == "text/html":
+                            html_encodings.add(part["Content-Transfer-Encoding"])
+                            expected_cte = spec.get("html_cte", "base64")
+                        self.assertEqual(
+                            part["Content-Transfer-Encoding"], expected_cte
+                        )
+                        if expected_cte == "quoted-printable":
+                            self.assertIn(b"=3D", content)
+                            self.assertIn("\u2715", part.get_content())
                 if spec["mime"] == "multipart":
                     self.assertEqual(
                         message.get_boundary(), "fixture-boundary-" + spec["id"]
@@ -274,6 +317,7 @@ class FixtureCatalogTest(unittest.TestCase):
                         ).get_content_disposition(),
                         "attachment",
                     )
+        self.assertEqual(html_encodings, {"base64", "quoted-printable"})
 
     def test_entity_schema_is_explicitly_invented(self) -> None:
         self.assertIn("invented", self.inputs.catalog["provenance"].lower())
@@ -292,19 +336,28 @@ class FixtureCatalogTest(unittest.TestCase):
 
     def test_links_and_project_ids_are_synthetic(self) -> None:
         lengths = set()
+        relative_links = set()
         for row_id, row in self.inputs.rows["rows"].items():
             for field, url in row["links"].items():
                 if not url:
                     continue
                 with self.subTest(row=row_id, field=field):
                     parsed = urlsplit(url)
-                    self.assertEqual(parsed.scheme, "https")
-                    self.assertEqual(parsed.netloc, "example.invalid")
+                    if url.startswith("/"):
+                        self.assertEqual(field, "project_name")
+                        self.assertEqual(parsed.scheme, "")
+                        self.assertEqual(parsed.netloc, "")
+                        self.assertRegex(url, r"^/FXT[0-9]{15}$")
+                        relative_links.add(url)
+                    else:
+                        self.assertEqual(parsed.scheme, "https")
+                        self.assertEqual(parsed.netloc, "example.invalid")
                     if field == "project_name" and row_id != "bad_project_url":
                         project_id = unquote(parsed.path).split("/")[-1]
                         self.assertRegex(project_id, r"^FXT[0-9]{12}([0-9]{3})?$")
                         lengths.add(len(project_id))
         self.assertEqual(lengths, {15, 18})
+        self.assertTrue(relative_links)
 
     def test_catalog_and_hash_manifest_are_complete(self) -> None:
         root = fixture_root()

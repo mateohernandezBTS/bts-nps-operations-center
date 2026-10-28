@@ -32,7 +32,12 @@
         "Conf/✕",
         "window start/end",
         "synthetic 15/18-character project links",
-        "grouped th + inherited 13-cell row"
+        "grouped th + inherited 13-cell row",
+        "Sum-suffixed headers",
+        "Billing Office up / Survey Invitation down sort indicators",
+        "ignored groupHeader/subtotal/grandTotal rows",
+        "evaluation placeholders - / feature not included",
+        "relative 18-character project anchor"
       ],
       "rows": [
         "weekly_brazil_1",
@@ -44,7 +49,7 @@
         "existing_run",
         "controlled_parser_failure"
       ],
-      "sha256": "bad1925c03aa234eac1b77ee9108cff710c1ee7bc4694135e3ac1370f897cd9d"
+      "sha256": "7be5d0a2699f4bce1ce6fa410b399c62108782d87abd9c7261a3662969fd2039"
     },
     {
       "data_rows": 2,
@@ -87,7 +92,7 @@
       "scenarios": [
         "parser_equivalence"
       ],
-      "sha256": "f5e3091fe4861a4f80d5fd622e812dd853666de22ad0803692a5d9f331159290"
+      "sha256": "95d8938dc5d72f7ade9de0aa9f7fd403ed52d493df10df272e38a9f39f8e9b96"
     },
     {
       "data_rows": 2,
@@ -107,7 +112,7 @@
       "scenarios": [
         "parser_equivalence"
       ],
-      "sha256": "4eab07952b43beb44077b98ea0b1fa392be1dd9d02dbb612c9667d21948834a3"
+      "sha256": "56b833e473cfb43c891d9ad5bbd859032d094ee6f4f0088a6b3cb968efcd99c9"
     },
     {
       "data_rows": 2,
@@ -117,7 +122,8 @@
       "properties": [
         "14 plain td cells",
         "plain headers",
-        "Conf/✕"
+        "Conf/✕",
+        "quoted-printable UTF-8 HTML"
       ],
       "rows": [
         "weekly_mexico_1",
@@ -126,7 +132,7 @@
       "scenarios": [
         "parser_equivalence"
       ],
-      "sha256": "b6abd18e8da113f9e9ecce6eabd2c331da50f4f14c27b5cc4623c44c1668beea"
+      "sha256": "11dbdf7b5b1b2f0a10858ec3e1ac6cce403b8c307228338de2cc04d58acdf022"
     },
     {
       "data_rows": 1,
@@ -198,7 +204,7 @@
         "parser_equivalence",
         "forwarded_detection"
       ],
-      "sha256": "d23bb5dfbf4b338060bf045558b324469385746e1040dab5e176e31381738084"
+      "sha256": "f9aa243ce928535bcd9c9627c3dc6de480a8cbe03bd9506cead678d7dee1ec47"
     },
     {
       "data_rows": 4,
@@ -219,7 +225,7 @@
       "scenarios": [
         "office_grouping"
       ],
-      "sha256": "81c22f7916e255e4a307b0e2daa7d3199a9f933e700a1c87833e371217bf1b1f"
+      "sha256": "fc758ed311f83df5f64a75339a1065905215cbddfac3b039e0e048cffef05b19"
     },
     {
       "data_rows": 1,
@@ -253,7 +259,7 @@
       "scenarios": [
         "unknown_report"
       ],
-      "sha256": "eece2908ff5be95f6ec4dcae8908fd1fdd67f7953f360f36aa55ee0414d86486"
+      "sha256": "2d15dc1c07b4415783ffa404b2160f31a85030ed4b1a22e78624ec0afd2157b3"
     },
     {
       "data_rows": 1,
@@ -287,7 +293,7 @@
       "scenarios": [
         "complete_six_reports"
       ],
-      "sha256": "a3ce18a38be76a359c86e47a35170d99e587adfa85e2ed7251b96e6c46cad499"
+      "sha256": "58f542bca788a1fb194b7034b86c903aa8f6492b3e89a20369b537b0cfd8c346"
     },
     {
       "data_rows": 1,
@@ -518,7 +524,7 @@
         "parser_failure",
         "failed_file_lifecycle"
       ],
-      "sha256": "3ce2b19c8956cfff67df4c857cd12c3c4e00eaae965274f47af1a7c44e6bdd0e"
+      "sha256": "739a687e784cc6a38e27ed4c12ffcbc69e7d9497774835d182b1464d5a3f8e90"
     },
     {
       "data_rows": 1,
@@ -535,7 +541,7 @@
         "parser_failure",
         "failed_file_lifecycle"
       ],
-      "sha256": "f5d826fb5f6bc7509ffab05414712191607f2f1ba89a9af5e46f8a9e483d0e35"
+      "sha256": "863f0a9173f1e91653cb895c4cad45b1f96294bcb43dc914fb6f8bde5afca102"
     },
     {
       "data_rows": 2,
@@ -553,7 +559,7 @@
         "parser_failure",
         "failed_file_lifecycle"
       ],
-      "sha256": "57e7d549f042b9ed8c4ba25f12e675a0e5d7906faa30a52c44412e204ec514da"
+      "sha256": "f575a067b0c9b81cefc6ec34abbe0e70f72070a5bb36bcd24022a933e73a0237"
     },
     {
       "data_rows": 1,
@@ -570,12 +576,12 @@
         "parser_failure",
         "failed_file_lifecycle"
       ],
-      "sha256": "64f6946e7da2e3a99f084db3ee7f3a7fecfb58a79316e2743119443e64c5c2dc"
+      "sha256": "754f411a6ee32d89e165d8bce23700cee8e233dfede6440c3760e9d7d948091d"
     }
   ],
   "inputs": {
-    "catalog.json": "80862b69867114c758b483c54db4179d4cc92c149e962a2ef5ad5b04eff61d70",
-    "rows.json": "a659b3d90eb648a6a476b2d7a5f00f2a40a8b48279f683ce1d4a6854b85ec06f"
+    "catalog.json": "6132ad631d345beafb353d23613cef6bd20d707c045b6b7adde76629be015bb9",
+    "rows.json": "796e3a608c35123f2e0c573cc986d5e0a3431c9f7ef76ebceb988c896d63d11e"
   },
   "provenance": "Invented entities; generated only from catalog.json and rows.json.",
   "schema_version": 1

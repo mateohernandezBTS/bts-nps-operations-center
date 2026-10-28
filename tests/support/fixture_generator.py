@@ -95,8 +95,20 @@ def report_html(spec: dict[str, Any], inputs: FixtureInputs) -> str:
         label = labels[field]
         if spec["sum_headers"] and field in SUM_FIELDS:
             label += " Sum"
+        if indicator := spec.get("header_indicators", {}).get(field):
+            label += " " + indicator
         headers.append(f"<th>{escape(label)}</th>")
     body = []
+
+    def append_non_data_rows(position: int) -> None:
+        for extra in spec.get("non_data_rows", []):
+            if extra["after_row"] == position:
+                cells = "".join(f"<td>{escape(value)}</td>" for value in extra["cells"])
+                body.append(
+                    f'<tr class="{escape(extra["class"], quote=True)}">{cells}</tr>'
+                )
+
+    append_non_data_rows(0)
     for index, row_id in enumerate(spec["rows"]):
         row = inputs.rows["rows"][row_id]
         cells = []
@@ -112,6 +124,7 @@ def report_html(spec: dict[str, Any], inputs: FixtureInputs) -> str:
             width = spec["cell_counts"][index]
             cells = (cells + ["<td>Fixture extra cell</td>"] * width)[:width]
         body.append('<tr class="dataRow">' + "".join(cells) + "</tr>")
+        append_non_data_rows(index + 1)
     table_class = "fixtureOtherTable" if spec["no_table"] else "reportTable"
     return (
         "<html><body><p>Synthetic fixture; all entities invented.</p>"
@@ -122,7 +135,7 @@ def report_html(spec: dict[str, Any], inputs: FixtureInputs) -> str:
 
 
 def render_fixture(spec: dict[str, Any], inputs: FixtureInputs) -> bytes:
-    """Build stable UTF-8/base64 MIME with explicit envelope fields and boundary."""
+    """Build stable UTF-8 MIME with declared transfer encoding and fixed boundary."""
     message = EmailMessage(policy=SMTP)
     message["From"] = "Fixture Sender <reports@example.invalid>"
     message["To"] = "Fixture Operator <operator@example.invalid>"
@@ -148,7 +161,9 @@ def render_fixture(spec: dict[str, Any], inputs: FixtureInputs) -> bytes:
                 )
             message.attach(part)
     else:
-        message.set_content(html, subtype="html", charset="utf-8", cte="base64")
+        message.set_content(
+            html, subtype="html", charset="utf-8", cte=spec.get("html_cte", "base64")
+        )
     return message.as_bytes(policy=SMTP)
 
 
