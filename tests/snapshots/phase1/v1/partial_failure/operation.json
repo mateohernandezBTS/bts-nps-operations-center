@@ -1,5 +1,7 @@
 {
-  "issues": [],
-  "status": "COMPLETED_WITH_REVIEW",
-  "success": true
+  "issues": [
+    "Source upcoming_brazil (Brazil), file malformed_Brazil_no_table.eml: ValueError: No se encontró la tabla principal del reporte.. Sources: processed=2, failed=1. Weekly outputs withheld. Preserve the failed attempt, correct the report, and resubmit all sources using the failed-attempt recovery procedure."
+  ],
+  "status": "FAILED",
+  "success": false
 }

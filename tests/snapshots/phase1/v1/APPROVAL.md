@@ -160,3 +160,58 @@ blank line at the top of engine/stages/email_parser.py. Snapshot comparisons and
 test_provenance must still pass without candidate export. The scratch file is then
 restored byte-for-byte, and the real checkout's frozen-tree Git check must pass.
 Counts and business behavior above are unchanged. Approval remains PENDING.
+
+
+## F2-02 / NPS-001 pending addendum — 2026-10-29
+
+Status: PENDING
+
+Decision: D1=A, approved by Mateo Hernández on 2026-10-29 in release plan
+section 5.1 and explicitly authorized by task F2-02. This proposal does not
+constitute baseline acceptance; historical Phase 1 approval above is preserved.
+
+Only partial_failure changes: operation.json becomes FAILED / success=false with
+actionable source/country/file/error and processed/failed counts;
+weekly_manifest.json changes final status to FAILED and omits the regional
+aggregation/manual-review/output metadata because those stages no longer run.
+All other manifest content is identical. The nine regional output
+projections listed below are deleted because publication is withheld.
+Candidate count: 141 -> 132. Regional projection count for this case: 9 -> 0.
+Source emails: 3 -> 3; processed: 2 -> 2; failed Brazil: 1 -> 1; parsed: 4 -> 4.
+Regional READY: 4 -> withheld (no regional list); REVIEW: 0 -> withheld;
+per-source READY remains 4. All per-source artifacts remain byte-identical,
+including error_details, execution_manifest, execution_summary, csv and slack_ready.
+All other scenarios and all ten behavior-input hashes are unchanged. Historical
+source_sha256 is retained unchanged, not refreshed to conceal implementation changes.
+
+The following table is the exact changed/deleted semantic file list. Paths are
+relative to this directory. A missing new hash means deletion.
+
+| File | Old SHA-256 | Proposed SHA-256 |
+|---|---|---|
+| partial_failure/operation.json | `33219b984722e9315b8dc414c5c91305dfeac551a893dd4bc516ac7b317f0f31` | `a5a7a94bb043f18f407f6d6bc149ff7b30ddf3ebca8394c75e42467ad0adb702` |
+| partial_failure/weekly_manifest.json | `e6033be4db5bc690a4a4b28363eed71a41e797868bc5afef3391b41c7ea4cd78` | `2c3cf384514532618a9de81d176df3b8ac54d2410ed7f282ff544a43221bb38a` |
+| partial_failure/consolidation_issues.json | `37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570` | DELETED |
+| partial_failure/excel_cells.json | `2683f0305fa9061bb84854168d555b81c0c512a4d34c39dbbdaeb5dfd48a5f4b` | DELETED |
+| partial_failure/manual_review_issues.json | `37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570` | DELETED |
+| partial_failure/selam_consolidated.json | `60effdde458223a4595fb38cd0ffba321a786aa7795eb6a3e0463052e15ab0c1` | DELETED |
+| partial_failure/selam_manual_review.json | `37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570` | DELETED |
+| partial_failure/slack.html | `6aa35478b8a7aa7452839f1e171900afc896b0cf0594bb52f2acb6a0a7e37076` | DELETED |
+| partial_failure/slack_ready.md | `1489aa077c26597811a8d4d10d03d1f4b337fbd8d3505f0fc04da272ebb29c9e` | DELETED |
+| partial_failure/summary.json | `d78d8c2411a491bfd65d98e5651e0774f402213aee023d3ea0e7be9ec6ccb201` | DELETED |
+| partial_failure/weekly_csv.json | `b162348711e3c886d27e74bf66773abbca6b04f189f05a7419071ec4bc2bff3b` | DELETED |
+
+All 130 other projections are byte-identical. Accompanying metadata changes are
+only affected candidate hashes in provenance.json and this pending addendum.
+The historical preserved-NPS-001 entry above describes the old baseline and is
+superseded only by this proposal after human acceptance. NPS-002, NPS-003,
+NPS-004, NPS-005, NPS-006, NPS-007, NPS-011 through NPS-017, NPS-019 and NPS-020
+remain outside this repair; their historical observations/limitations still apply.
+
+Architect review reference: PENDING
+
+Product-owner PR comment/reference: PENDING (no PR requested in F2-02)
+
+Product-owner signature: PENDING
+
+Approval date: PENDING

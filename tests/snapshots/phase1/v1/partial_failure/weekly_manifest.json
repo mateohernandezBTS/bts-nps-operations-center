@@ -242,107 +242,6 @@
       "status": "MISSING"
     }
   ],
-  "selam_aggregation": {
-    "aggregated_at": "<RUNTIME_TIMESTAMP>",
-    "clients": 4,
-    "countries": [
-      "Argentina",
-      "Mexico"
-    ],
-    "duplicate_issues": 0,
-    "processed_sources": 2,
-    "records_after_deduplication": 4,
-    "records_before_deduplication": 4,
-    "region": "SELAM",
-    "selam_consolidated_worklist_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_consolidated_worklist.json",
-    "selam_consolidation_issues_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_consolidation_issues.json",
-    "source_summaries": [
-      {
-        "country": "Argentina",
-        "execution_counts": {
-          "business_review": 0,
-          "clients": 2,
-          "eligible": 2,
-          "excluded": 0,
-          "inside_weekly_window": 2,
-          "normalized_records": 2,
-          "outside_weekly_window": 0,
-          "raw_records": 2,
-          "slack_rows": 2,
-          "validation_issues": 0,
-          "worklist_ready": 2,
-          "worklist_review": 0
-        },
-        "execution_id": "<EXECUTION:upcoming_argentina_1>",
-        "source_id": "upcoming_argentina",
-        "worklist_records": 2
-      },
-      {
-        "country": "Mexico",
-        "execution_counts": {
-          "business_review": 0,
-          "clients": 2,
-          "eligible": 2,
-          "excluded": 0,
-          "inside_weekly_window": 2,
-          "normalized_records": 2,
-          "outside_weekly_window": 0,
-          "raw_records": 2,
-          "slack_rows": 2,
-          "validation_issues": 0,
-          "worklist_ready": 2,
-          "worklist_review": 0
-        },
-        "execution_id": "<EXECUTION:upcoming_mexico_1>",
-        "source_id": "upcoming_mexico",
-        "worklist_records": 2
-      }
-    ],
-    "summary_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_aggregation_summary.json",
-    "weekly_run_id": "NPS_WEEK_2026-08-04_2026-08-10"
-  },
-  "selam_manual_review": {
-    "aggregated_at": "<RUNTIME_TIMESTAMP>",
-    "countries": [],
-    "duplicate_issues": 0,
-    "processed_sources": 2,
-    "records_after_deduplication": 0,
-    "records_before_deduplication": 0,
-    "region": "SELAM",
-    "selam_manual_review_issues_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_manual_review_issues.json",
-    "selam_manual_review_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_manual_review.json",
-    "source_summaries": [
-      {
-        "country": "Argentina",
-        "execution_id": "<EXECUTION:upcoming_argentina_1>",
-        "manual_review_records": 0,
-        "review_file_available": true,
-        "source_id": "upcoming_argentina"
-      },
-      {
-        "country": "Mexico",
-        "execution_id": "<EXECUTION:upcoming_mexico_1>",
-        "manual_review_records": 0,
-        "review_file_available": true,
-        "source_id": "upcoming_mexico"
-      }
-    ],
-    "summary_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_manual_review_summary.json",
-    "weekly_run_id": "NPS_WEEK_2026-08-04_2026-08-10"
-  },
-  "selam_outputs": {
-    "clients": 4,
-    "csv_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_worklist.csv",
-    "generated_at": "<RUNTIME_TIMESTAMP>",
-    "manual_review_csv_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_manual_review.csv",
-    "manual_review_records": 0,
-    "markdown_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_slack_ready.md",
-    "ready_records": 4,
-    "review_records": 0,
-    "summary_path": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_weekly_summary.json",
-    "total_records": 4,
-    "worklist_review_records": 0
-  },
   "source_group": "weekly_upcoming",
   "source_inventory": {
     "configured_sources": 3,
@@ -357,7 +256,7 @@
     "scanned_directory": "<TEST_ROOT>/pending",
     "unconfigured_files": 0
   },
-  "status": "COMPLETED_WITH_REVIEW",
+  "status": "FAILED",
   "updated_at": "<RUNTIME_TIMESTAMP>",
   "weekly_run_id": "NPS_WEEK_2026-08-04_2026-08-10",
   "window_end": "08/10/2026",
