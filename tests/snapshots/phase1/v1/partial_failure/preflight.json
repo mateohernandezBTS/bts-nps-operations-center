@@ -1,0 +1,99 @@
+{
+  "allow_partial_run": false,
+  "environment": "TEST",
+  "expected_run_directory": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10",
+  "input_directory": "<TEST_ROOT>/pending",
+  "inventory": {
+    "configured_sources": 3,
+    "duplicate_sources": 0,
+    "files_scanned": 3,
+    "items": [
+      {
+        "detected_country": "Brazil",
+        "detected_report_type": "Upcoming",
+        "detection_issues": [],
+        "detection_status": "DETECTED",
+        "inventory_status": "MATCHED",
+        "matched_source_id": "upcoming_brazil",
+        "received_at": "2026-08-03T09:00:00+00:00",
+        "sender_email": "reports@example.invalid",
+        "source_file": "malformed_Brazil_no_table.eml",
+        "source_path": "<TEST_ROOT>/pending/malformed_Brazil_no_table.eml",
+        "subject": "Report results (Brazil Upcoming Deliveries/NPS)"
+      },
+      {
+        "detected_country": "Argentina",
+        "detected_report_type": "Upcoming",
+        "detection_issues": [],
+        "detection_status": "DETECTED",
+        "inventory_status": "MATCHED",
+        "matched_source_id": "upcoming_argentina",
+        "received_at": "2026-08-03T09:00:00+00:00",
+        "sender_email": "reports@example.invalid",
+        "source_file": "weekly_Argentina_upcoming.eml",
+        "source_path": "<TEST_ROOT>/pending/weekly_Argentina_upcoming.eml",
+        "subject": "Report results (Argentina Upcoming Deliveries/NPS)"
+      },
+      {
+        "detected_country": "Mexico",
+        "detected_report_type": "Upcoming",
+        "detection_issues": [],
+        "detection_status": "DETECTED",
+        "inventory_status": "MATCHED",
+        "matched_source_id": "upcoming_mexico",
+        "received_at": "2026-08-03T09:00:00+00:00",
+        "sender_email": "reports@example.invalid",
+        "source_file": "weekly_Mexico_upcoming.eml",
+        "source_path": "<TEST_ROOT>/pending/weekly_Mexico_upcoming.eml",
+        "subject": "Report results (Mexico Upcoming Deliveries/NPS)"
+      }
+    ],
+    "known_out_of_scope_files": 0,
+    "matched_files": 3,
+    "missing_required_sources": 0,
+    "review_files": 0,
+    "scanned_directory": "<TEST_ROOT>/pending",
+    "source_group": "weekly_upcoming",
+    "sources": [
+      {
+        "country": "Argentina",
+        "matched_files": [
+          "weekly_Argentina_upcoming.eml"
+        ],
+        "report_type": "upcoming",
+        "required": true,
+        "source_id": "upcoming_argentina",
+        "status": "RECEIVED"
+      },
+      {
+        "country": "Brazil",
+        "matched_files": [
+          "malformed_Brazil_no_table.eml"
+        ],
+        "report_type": "upcoming",
+        "required": true,
+        "source_id": "upcoming_brazil",
+        "status": "RECEIVED"
+      },
+      {
+        "country": "Mexico",
+        "matched_files": [
+          "weekly_Mexico_upcoming.eml"
+        ],
+        "report_type": "upcoming",
+        "required": true,
+        "source_id": "upcoming_mexico",
+        "status": "RECEIVED"
+      }
+    ],
+    "unconfigured_files": 0
+  },
+  "issues": [],
+  "output_root": "<TEST_ROOT>/weekly",
+  "reference_date": "8/3/2026",
+  "source_group": "weekly_upcoming",
+  "status": "READY_TO_PROCESS",
+  "weekly_run_id": "NPS_WEEK_2026-08-04_2026-08-10",
+  "window_end": "8/10/2026",
+  "window_start": "8/4/2026"
+}

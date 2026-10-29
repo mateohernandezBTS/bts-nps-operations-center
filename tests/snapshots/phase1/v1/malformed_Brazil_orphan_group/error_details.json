@@ -1,0 +1,7 @@
+{
+  "upcoming_brazil_1": {
+    "error": "La fila tiene una cantidad de celdas no reconocida: 13. Se esperaban 14 o 13.",
+    "failed_at": "<RUNTIME_TIMESTAMP>",
+    "traceback": "Traceback (most recent call last):\n  File \"<CHECKOUT>/engine/process_report.py\", line 314, in process_report_file\n    raw_records = parse_eml_report(\n        processing_path\n    )\n  File \"<CHECKOUT>/engine/stages/email_parser.py\", line 533, in parse_eml_report\n    return extract_records(\n        report_table\n    )\n  File \"<CHECKOUT>/engine/stages/email_parser.py\", line 388, in extract_records\n    billing_cell = get_row_cell(\n        row_cells=row_cells,\n    ...<2 lines>...\n        current_billing_office=current_billing_office,\n    )\n  File \"<CHECKOUT>/engine/stages/email_parser.py\", line 330, in get_row_cell\n    raise ValueError(\n    ...<4 lines>...\n    )\nValueError: La fila tiene una cantidad de celdas no reconocida: 13. Se esperaban 14 o 13.\n"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "upcoming_argentina_1": {
+    "current_stage": "COMPLETED",
+    "environment": "TEST",
+    "execution_id": "<EXECUTION:upcoming_argentina_1>",
+    "execution_status": "COMPLETED",
+    "finished_at": "<RUNTIME_TIMESTAMP>",
+    "issues": [],
+    "original_path": "<TEST_ROOT>/pending/classification_Argentina_rules.eml",
+    "processing_path": "<TEST_ROOT>/processed/classification_Argentina_rules.eml",
+    "run_directory": "<TEST_ROOT>/runs/<EXECUTION:upcoming_argentina_1>",
+    "source_file": "classification_Argentina_rules.eml",
+    "started_at": "<RUNTIME_TIMESTAMP>"
+  },
+  "upcoming_brazil_1": {
+    "current_stage": "COMPLETED",
+    "environment": "TEST",
+    "execution_id": "<EXECUTION:upcoming_brazil_1>",
+    "execution_status": "COMPLETED",
+    "finished_at": "<RUNTIME_TIMESTAMP>",
+    "issues": [],
+    "original_path": "<TEST_ROOT>/pending/classification_Brazil_normalization.eml",
+    "processing_path": "<TEST_ROOT>/processed/classification_Brazil_normalization.eml",
+    "run_directory": "<TEST_ROOT>/runs/<EXECUTION:upcoming_brazil_1>",
+    "source_file": "classification_Brazil_normalization.eml",
+    "started_at": "<RUNTIME_TIMESTAMP>"
+  },
+  "upcoming_mexico_1": {
+    "current_stage": "COMPLETED",
+    "environment": "TEST",
+    "execution_id": "<EXECUTION:upcoming_mexico_1>",
+    "execution_status": "COMPLETED",
+    "finished_at": "<RUNTIME_TIMESTAMP>",
+    "issues": [],
+    "original_path": "<TEST_ROOT>/pending/classification_Mexico_worklist_review.eml",
+    "processing_path": "<TEST_ROOT>/processed/classification_Mexico_worklist_review.eml",
+    "run_directory": "<TEST_ROOT>/runs/<EXECUTION:upcoming_mexico_1>",
+    "source_file": "classification_Mexico_worklist_review.eml",
+    "started_at": "<RUNTIME_TIMESTAMP>"
+  }
+}

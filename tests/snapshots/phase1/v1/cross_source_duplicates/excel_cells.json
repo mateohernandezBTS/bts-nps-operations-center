@@ -1,0 +1,6257 @@
+[
+  {
+    "cells": [
+      {
+        "coordinate": "A1",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NPS Weekly Package"
+      },
+      {
+        "coordinate": "A3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Weekly Run"
+      },
+      {
+        "coordinate": "B3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NPS_WEEK_2026-08-04_2026-08-10"
+      },
+      {
+        "coordinate": "A4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Weekly Window"
+      },
+      {
+        "coordinate": "B4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "08/04/2026 to 08/10/2026"
+      },
+      {
+        "coordinate": "A6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "OPERATIONAL STATUS"
+      },
+      {
+        "coordinate": "A8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY TO CREATE"
+      },
+      {
+        "coordinate": "C8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "MANUAL REVIEW"
+      },
+      {
+        "coordinate": "E8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "CLIENTS"
+      },
+      {
+        "coordinate": "A9",
+        "hyperlink": null,
+        "type": "n",
+        "value": 10
+      },
+      {
+        "coordinate": "C9",
+        "hyperlink": null,
+        "type": "n",
+        "value": 9
+      },
+      {
+        "coordinate": "E9",
+        "hyperlink": null,
+        "type": "n",
+        "value": 10
+      },
+      {
+        "coordinate": "A13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NEXT ACTIONS"
+      },
+      {
+        "coordinate": "A15",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "B15",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Review manual cases"
+      },
+      {
+        "coordinate": "C15",
+        "hyperlink": null,
+        "type": "s",
+        "value": "9 record(s) require confirmation."
+      },
+      {
+        "coordinate": "A17",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "B17",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Create NPS in Salesforce"
+      },
+      {
+        "coordinate": "C17",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Process the 10 READY record(s) from the Worklist."
+      },
+      {
+        "coordinate": "A19",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "B19",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Update Slack Canvas"
+      },
+      {
+        "coordinate": "C19",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Open selam_slack_canvas.html, copy each client table, and paste it into the corresponding Slack Canvas."
+      },
+      {
+        "coordinate": "A22",
+        "hyperlink": null,
+        "type": "s",
+        "value": "ATTENTION: 1 duplicate issue(s) were detected. Review the Issues sheet."
+      },
+      {
+        "coordinate": "A25",
+        "hyperlink": null,
+        "type": "s",
+        "value": "MANUAL REVIEW REQUIRED"
+      },
+      {
+        "coordinate": "A26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Country"
+      },
+      {
+        "coordinate": "B26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Client"
+      },
+      {
+        "coordinate": "C26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Project"
+      },
+      {
+        "coordinate": "D26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Date"
+      },
+      {
+        "coordinate": "E26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Reason"
+      },
+      {
+        "coordinate": "F26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Suggested Action"
+      },
+      {
+        "coordinate": "G26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "A27",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B27",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 028"
+      },
+      {
+        "coordinate": "C27",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session revenue"
+      },
+      {
+        "coordinate": "D27",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E27",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F27",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G27",
+        "hyperlink": "https://example.invalid/project/FXT000000000028",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A28",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B28",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 029"
+      },
+      {
+        "coordinate": "C28",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session administrative"
+      },
+      {
+        "coordinate": "D28",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E28",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F28",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G28",
+        "hyperlink": "https://example.invalid/project/FXT000000000029",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A29",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B29",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 030"
+      },
+      {
+        "coordinate": "C29",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session administrativo"
+      },
+      {
+        "coordinate": "D29",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E29",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F29",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G29",
+        "hyperlink": "https://example.invalid/project/FXT000000000030",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A30",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B30",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 031"
+      },
+      {
+        "coordinate": "C30",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session admin only"
+      },
+      {
+        "coordinate": "D30",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E30",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F30",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G30",
+        "hyperlink": "https://example.invalid/project/FXT000000000031",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A31",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B31",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 032"
+      },
+      {
+        "coordinate": "C31",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 032"
+      },
+      {
+        "coordinate": "D31",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E31",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F31",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G31",
+        "hyperlink": "https://example.invalid/project/FXT000000000032",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A32",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B32",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 033"
+      },
+      {
+        "coordinate": "C32",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 033"
+      },
+      {
+        "coordinate": "D32",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E32",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F32",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G32",
+        "hyperlink": "https://example.invalid/project/FXT000000000033",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A33",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B33",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 034"
+      },
+      {
+        "coordinate": "C33",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 034"
+      },
+      {
+        "coordinate": "D33",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E33",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F33",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G33",
+        "hyperlink": "https://example.invalid/project/FXT000000000034",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A34",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B34",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 035"
+      },
+      {
+        "coordinate": "C34",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 035"
+      },
+      {
+        "coordinate": "D34",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E34",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F34",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G34",
+        "hyperlink": "https://example.invalid/project/FXT000000000035",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A35",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B35",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 050"
+      },
+      {
+        "coordinate": "C35",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session revenue inside"
+      },
+      {
+        "coordinate": "D35",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E35",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "F35",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "G35",
+        "hyperlink": "https://example.invalid/project/FXT000000000050",
+        "type": "s",
+        "value": "Open Salesforce"
+      }
+    ],
+    "dimensions": "A1:G35",
+    "freeze_panes": "A3",
+    "merged_ranges": [
+      "A13:G13",
+      "C9:D10",
+      "A1:G1",
+      "E9:F10",
+      "A6:G6",
+      "A22:G22",
+      "C15:G15",
+      "C19:G19",
+      "A25:G25",
+      "A8:B8",
+      "A9:B10",
+      "E8:F8",
+      "C8:D8",
+      "C17:G17"
+    ],
+    "name": "Home"
+  },
+  {
+    "cells": [
+      {
+        "coordinate": "A1",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NPS Weekly Worklist"
+      },
+      {
+        "coordinate": "A3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Client"
+      },
+      {
+        "coordinate": "B3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Country"
+      },
+      {
+        "coordinate": "C3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Session"
+      },
+      {
+        "coordinate": "D3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Date"
+      },
+      {
+        "coordinate": "E3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Facilitator"
+      },
+      {
+        "coordinate": "F3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "QR-Code"
+      },
+      {
+        "coordinate": "G3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Link NPS Survey"
+      },
+      {
+        "coordinate": "H3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Link Insights Facilitators"
+      },
+      {
+        "coordinate": "I3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Results"
+      },
+      {
+        "coordinate": "J3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Link for Results"
+      },
+      {
+        "coordinate": "K3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Project ID"
+      },
+      {
+        "coordinate": "L3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Project URL"
+      },
+      {
+        "coordinate": "M3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Output Status"
+      },
+      {
+        "coordinate": "N3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Output Issues"
+      },
+      {
+        "coordinate": "A4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 001"
+      },
+      {
+        "coordinate": "B4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "C4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 001"
+      },
+      {
+        "coordinate": "D4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J4",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000001",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000001"
+      },
+      {
+        "coordinate": "L4",
+        "hyperlink": "https://example.invalid/project/FXT000000000001",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 005"
+      },
+      {
+        "coordinate": "B5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "C5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 005"
+      },
+      {
+        "coordinate": "D5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J5",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000005",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000005"
+      },
+      {
+        "coordinate": "L5",
+        "hyperlink": "https://example.invalid/project/FXT000000000005",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 006"
+      },
+      {
+        "coordinate": "B6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "C6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 006"
+      },
+      {
+        "coordinate": "D6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/10/2026"
+      },
+      {
+        "coordinate": "E6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J6",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000006",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000000006"
+      },
+      {
+        "coordinate": "L6",
+        "hyperlink": "https://example.invalid/project/FXT000000000000006",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 040"
+      },
+      {
+        "coordinate": "B7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "C7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session PODs"
+      },
+      {
+        "coordinate": "D7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J7",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000040",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000040"
+      },
+      {
+        "coordinate": "L7",
+        "hyperlink": "https://example.invalid/project/FXT000000000040",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 041"
+      },
+      {
+        "coordinate": "B8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "C8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session antipodular"
+      },
+      {
+        "coordinate": "D8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J8",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000041",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000041"
+      },
+      {
+        "coordinate": "L8",
+        "hyperlink": "https://example.invalid/project/FXT000000000041",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 042"
+      },
+      {
+        "coordinate": "B9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "C9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session Empoderamiento"
+      },
+      {
+        "coordinate": "D9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J9",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000042",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000042"
+      },
+      {
+        "coordinate": "L9",
+        "hyperlink": "https://example.invalid/project/FXT000000000042",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 043"
+      },
+      {
+        "coordinate": "B10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "C10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session coaching sessions"
+      },
+      {
+        "coordinate": "D10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J10",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000043",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000043"
+      },
+      {
+        "coordinate": "L10",
+        "hyperlink": "https://example.invalid/project/FXT000000000043",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 044"
+      },
+      {
+        "coordinate": "B11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "C11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 1:1 meetings"
+      },
+      {
+        "coordinate": "D11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J11",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000044",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000044"
+      },
+      {
+        "coordinate": "L11",
+        "hyperlink": "https://example.invalid/project/FXT000000000044",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 048"
+      },
+      {
+        "coordinate": "B12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "C12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session PÓD"
+      },
+      {
+        "coordinate": "D12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J12",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000048",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000048"
+      },
+      {
+        "coordinate": "L12",
+        "hyperlink": "https://example.invalid/project/FXT000000000048",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      },
+      {
+        "coordinate": "A13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client bts internal"
+      },
+      {
+        "coordinate": "B13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "C13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 045"
+      },
+      {
+        "coordinate": "D13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Facilitator Lumen"
+      },
+      {
+        "coordinate": "I13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NO"
+      },
+      {
+        "coordinate": "J13",
+        "hyperlink": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000045",
+        "type": "s",
+        "value": "Home"
+      },
+      {
+        "coordinate": "K13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "FXT000000000045"
+      },
+      {
+        "coordinate": "L13",
+        "hyperlink": "https://example.invalid/project/FXT000000000045",
+        "type": "s",
+        "value": "Salesforce"
+      },
+      {
+        "coordinate": "M13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "READY"
+      }
+    ],
+    "dimensions": "A1:N13",
+    "freeze_panes": "A4",
+    "merged_ranges": [
+      "A1:N1"
+    ],
+    "name": "Worklist"
+  },
+  {
+    "cells": [
+      {
+        "coordinate": "A1",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revision Manual Necesaria"
+      },
+      {
+        "coordinate": "A3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Country"
+      },
+      {
+        "coordinate": "B3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "client_name"
+      },
+      {
+        "coordinate": "C3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_name"
+      },
+      {
+        "coordinate": "D3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "start_date"
+      },
+      {
+        "coordinate": "E3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "status"
+      },
+      {
+        "coordinate": "F3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "ignore_reporting"
+      },
+      {
+        "coordinate": "G3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "decision"
+      },
+      {
+        "coordinate": "H3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "decision_code"
+      },
+      {
+        "coordinate": "I3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "decision_reason"
+      },
+      {
+        "coordinate": "J3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "matched_field"
+      },
+      {
+        "coordinate": "K3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "matched_pattern"
+      },
+      {
+        "coordinate": "L3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Suggested Action"
+      },
+      {
+        "coordinate": "M3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_url"
+      },
+      {
+        "coordinate": "A4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 028"
+      },
+      {
+        "coordinate": "C4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session revenue"
+      },
+      {
+        "coordinate": "D4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_name"
+      },
+      {
+        "coordinate": "K4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "revenue"
+      },
+      {
+        "coordinate": "L4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M4",
+        "hyperlink": "https://example.invalid/project/FXT000000000028",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 029"
+      },
+      {
+        "coordinate": "C5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session administrative"
+      },
+      {
+        "coordinate": "D5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_name"
+      },
+      {
+        "coordinate": "K5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "administrative"
+      },
+      {
+        "coordinate": "L5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M5",
+        "hyperlink": "https://example.invalid/project/FXT000000000029",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 030"
+      },
+      {
+        "coordinate": "C6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session administrativo"
+      },
+      {
+        "coordinate": "D6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_name"
+      },
+      {
+        "coordinate": "K6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "administrativo"
+      },
+      {
+        "coordinate": "L6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M6",
+        "hyperlink": "https://example.invalid/project/FXT000000000030",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 031"
+      },
+      {
+        "coordinate": "C7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session admin only"
+      },
+      {
+        "coordinate": "D7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_name"
+      },
+      {
+        "coordinate": "K7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "admin only"
+      },
+      {
+        "coordinate": "L7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M7",
+        "hyperlink": "https://example.invalid/project/FXT000000000031",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 032"
+      },
+      {
+        "coordinate": "C8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 032"
+      },
+      {
+        "coordinate": "D8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_sub_type"
+      },
+      {
+        "coordinate": "K8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "revenue"
+      },
+      {
+        "coordinate": "L8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M8",
+        "hyperlink": "https://example.invalid/project/FXT000000000032",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 033"
+      },
+      {
+        "coordinate": "C9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 033"
+      },
+      {
+        "coordinate": "D9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_sub_type"
+      },
+      {
+        "coordinate": "K9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "administrative"
+      },
+      {
+        "coordinate": "L9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M9",
+        "hyperlink": "https://example.invalid/project/FXT000000000033",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 034"
+      },
+      {
+        "coordinate": "C10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 034"
+      },
+      {
+        "coordinate": "D10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_sub_type"
+      },
+      {
+        "coordinate": "K10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "administrativo"
+      },
+      {
+        "coordinate": "L10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M10",
+        "hyperlink": "https://example.invalid/project/FXT000000000034",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 035"
+      },
+      {
+        "coordinate": "C11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session 035"
+      },
+      {
+        "coordinate": "D11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_sub_type"
+      },
+      {
+        "coordinate": "K11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "admin only"
+      },
+      {
+        "coordinate": "L11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M11",
+        "hyperlink": "https://example.invalid/project/FXT000000000035",
+        "type": "s",
+        "value": "Open Salesforce"
+      },
+      {
+        "coordinate": "A12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "B12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Client Aurora 050"
+      },
+      {
+        "coordinate": "C12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Session revenue inside"
+      },
+      {
+        "coordinate": "D12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "E12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Conf"
+      },
+      {
+        "coordinate": "F12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "G12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVIEW"
+      },
+      {
+        "coordinate": "H12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "I12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Revisión manual para posibles registros administrativos o de revenue"
+      },
+      {
+        "coordinate": "J12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "project_name"
+      },
+      {
+        "coordinate": "K12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "revenue"
+      },
+      {
+        "coordinate": "L12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Confirmar si representa una sesión real antes de crear el NPS."
+      },
+      {
+        "coordinate": "M12",
+        "hyperlink": "https://example.invalid/project/FXT000000000050",
+        "type": "s",
+        "value": "Open Salesforce"
+      }
+    ],
+    "dimensions": "A1:M12",
+    "freeze_panes": "A4",
+    "merged_ranges": [
+      "A1:M1"
+    ],
+    "name": "Revision Manual"
+  },
+  {
+    "cells": [
+      {
+        "coordinate": "A1",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Weekly Manifest"
+      },
+      {
+        "coordinate": "A3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Field"
+      },
+      {
+        "coordinate": "B3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Value"
+      },
+      {
+        "coordinate": "A4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "weekly_run_id"
+      },
+      {
+        "coordinate": "B4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NPS_WEEK_2026-08-04_2026-08-10"
+      },
+      {
+        "coordinate": "A5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_group"
+      },
+      {
+        "coordinate": "B5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "weekly_upcoming"
+      },
+      {
+        "coordinate": "A6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "reference_date"
+      },
+      {
+        "coordinate": "B6",
+        "hyperlink": null,
+        "type": "s",
+        "value": "08/03/2026"
+      },
+      {
+        "coordinate": "A7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "execution_weekday"
+      },
+      {
+        "coordinate": "B7",
+        "hyperlink": null,
+        "type": "s",
+        "value": "monday"
+      },
+      {
+        "coordinate": "A8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "window_start"
+      },
+      {
+        "coordinate": "B8",
+        "hyperlink": null,
+        "type": "s",
+        "value": "08/04/2026"
+      },
+      {
+        "coordinate": "A9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "window_end"
+      },
+      {
+        "coordinate": "B9",
+        "hyperlink": null,
+        "type": "s",
+        "value": "08/10/2026"
+      },
+      {
+        "coordinate": "A10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "window_length_days"
+      },
+      {
+        "coordinate": "B10",
+        "hyperlink": null,
+        "type": "s",
+        "value": "7"
+      },
+      {
+        "coordinate": "A11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "status"
+      },
+      {
+        "coordinate": "B11",
+        "hyperlink": null,
+        "type": "s",
+        "value": "COMPLETED"
+      },
+      {
+        "coordinate": "A12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].source_id"
+      },
+      {
+        "coordinate": "B12",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_argentina"
+      },
+      {
+        "coordinate": "A13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].country"
+      },
+      {
+        "coordinate": "B13",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A14",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].report_type"
+      },
+      {
+        "coordinate": "B14",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming"
+      },
+      {
+        "coordinate": "A15",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].required"
+      },
+      {
+        "coordinate": "B15",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A16",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].enabled"
+      },
+      {
+        "coordinate": "B16",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A17",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].status"
+      },
+      {
+        "coordinate": "B17",
+        "hyperlink": null,
+        "type": "s",
+        "value": "PROCESSED"
+      },
+      {
+        "coordinate": "A18",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].matched_file"
+      },
+      {
+        "coordinate": "B18",
+        "hyperlink": null,
+        "type": "s",
+        "value": "classification_Argentina_rules.eml"
+      },
+      {
+        "coordinate": "A19",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].matched_files[0]"
+      },
+      {
+        "coordinate": "B19",
+        "hyperlink": null,
+        "type": "s",
+        "value": "classification_Argentina_rules.eml"
+      },
+      {
+        "coordinate": "A20",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].processing_started_at"
+      },
+      {
+        "coordinate": "B20",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A21",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].processing_finished_at"
+      },
+      {
+        "coordinate": "B21",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A22",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.execution_id"
+      },
+      {
+        "coordinate": "B22",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_argentina_1>"
+      },
+      {
+        "coordinate": "A23",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.status"
+      },
+      {
+        "coordinate": "B23",
+        "hyperlink": null,
+        "type": "s",
+        "value": "COMPLETED"
+      },
+      {
+        "coordinate": "A24",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.source_file"
+      },
+      {
+        "coordinate": "B24",
+        "hyperlink": null,
+        "type": "s",
+        "value": "classification_Argentina_rules.eml"
+      },
+      {
+        "coordinate": "A25",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.country"
+      },
+      {
+        "coordinate": "B25",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.report_type"
+      },
+      {
+        "coordinate": "B26",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A27",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.run_directory"
+      },
+      {
+        "coordinate": "B27",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_argentina_1>"
+      },
+      {
+        "coordinate": "A28",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.processed_path"
+      },
+      {
+        "coordinate": "B28",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/processed/classification_Argentina_rules.eml"
+      },
+      {
+        "coordinate": "A29",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.execution_summary_path"
+      },
+      {
+        "coordinate": "B29",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_argentina_1>/execution_summary.json"
+      },
+      {
+        "coordinate": "A30",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.worklist_path"
+      },
+      {
+        "coordinate": "B30",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_argentina_1>/worklist.json"
+      },
+      {
+        "coordinate": "A31",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.slack_ready_path"
+      },
+      {
+        "coordinate": "B31",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_argentina_1>/slack_ready.md"
+      },
+      {
+        "coordinate": "A32",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.source_file"
+      },
+      {
+        "coordinate": "B32",
+        "hyperlink": null,
+        "type": "s",
+        "value": "classification_Argentina_rules.eml"
+      },
+      {
+        "coordinate": "A33",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.source_path"
+      },
+      {
+        "coordinate": "B33",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/processing/classification_Argentina_rules.eml"
+      },
+      {
+        "coordinate": "A34",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.subject"
+      },
+      {
+        "coordinate": "B34",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Report results (Argentina Upcoming Deliveries/NPS)"
+      },
+      {
+        "coordinate": "A35",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.sender_name"
+      },
+      {
+        "coordinate": "B35",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Sender"
+      },
+      {
+        "coordinate": "A36",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.sender_email"
+      },
+      {
+        "coordinate": "B36",
+        "hyperlink": null,
+        "type": "s",
+        "value": "reports@example.invalid"
+      },
+      {
+        "coordinate": "A37",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.received_at"
+      },
+      {
+        "coordinate": "B37",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2026-08-03T09:00:00+00:00"
+      },
+      {
+        "coordinate": "A38",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.country"
+      },
+      {
+        "coordinate": "B38",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A39",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.report_type"
+      },
+      {
+        "coordinate": "B39",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A40",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.detection_method"
+      },
+      {
+        "coordinate": "B40",
+        "hyperlink": null,
+        "type": "s",
+        "value": "EXACT_PATTERN"
+      },
+      {
+        "coordinate": "A41",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.matched_pattern"
+      },
+      {
+        "coordinate": "B41",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina Upcoming Deliveries/NPS"
+      },
+      {
+        "coordinate": "A42",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.report.detection_status"
+      },
+      {
+        "coordinate": "B42",
+        "hyperlink": null,
+        "type": "s",
+        "value": "DETECTED"
+      },
+      {
+        "coordinate": "A43",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.reference_monday"
+      },
+      {
+        "coordinate": "B43",
+        "hyperlink": null,
+        "type": "s",
+        "value": "08/03/2026"
+      },
+      {
+        "coordinate": "A44",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.window_start"
+      },
+      {
+        "coordinate": "B44",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "A45",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.window_end"
+      },
+      {
+        "coordinate": "B45",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/10/2026"
+      },
+      {
+        "coordinate": "A46",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.raw_records"
+      },
+      {
+        "coordinate": "B46",
+        "hyperlink": null,
+        "type": "s",
+        "value": "43"
+      },
+      {
+        "coordinate": "A47",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.normalized_records"
+      },
+      {
+        "coordinate": "B47",
+        "hyperlink": null,
+        "type": "s",
+        "value": "43"
+      },
+      {
+        "coordinate": "A48",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.validation_issues"
+      },
+      {
+        "coordinate": "B48",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A49",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.eligible"
+      },
+      {
+        "coordinate": "B49",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A50",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.excluded"
+      },
+      {
+        "coordinate": "B50",
+        "hyperlink": null,
+        "type": "s",
+        "value": "25"
+      },
+      {
+        "coordinate": "A51",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.business_review"
+      },
+      {
+        "coordinate": "B51",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A52",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.inside_weekly_window"
+      },
+      {
+        "coordinate": "B52",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A53",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.outside_weekly_window"
+      },
+      {
+        "coordinate": "B53",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A54",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.worklist_ready"
+      },
+      {
+        "coordinate": "B54",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A55",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.worklist_review"
+      },
+      {
+        "coordinate": "B55",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A56",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.slack_rows"
+      },
+      {
+        "coordinate": "B56",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A57",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.counts.clients"
+      },
+      {
+        "coordinate": "B57",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A58",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.decision_counts.MERCADO_LIBRE"
+      },
+      {
+        "coordinate": "B58",
+        "hyperlink": null,
+        "type": "s",
+        "value": "6"
+      },
+      {
+        "coordinate": "A59",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.decision_counts.POD"
+      },
+      {
+        "coordinate": "B59",
+        "hyperlink": null,
+        "type": "s",
+        "value": "4"
+      },
+      {
+        "coordinate": "A60",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.decision_counts.COACHING"
+      },
+      {
+        "coordinate": "B60",
+        "hyperlink": null,
+        "type": "s",
+        "value": "11"
+      },
+      {
+        "coordinate": "A61",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.decision_counts.REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "B61",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A62",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.decision_counts.BTS_CLIENT"
+      },
+      {
+        "coordinate": "B62",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "A63",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.decision_counts.ALL_RULES_PASSED"
+      },
+      {
+        "coordinate": "B63",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A64",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.decision_counts.STATUS_NOT_ELIGIBLE"
+      },
+      {
+        "coordinate": "B64",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A65",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.summary_by_client.Fixture Client Aurora 001"
+      },
+      {
+        "coordinate": "B65",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A66",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.summary_by_client.Fixture Client Aurora 040"
+      },
+      {
+        "coordinate": "B66",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A67",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.summary_by_client.Fixture Client Aurora 041"
+      },
+      {
+        "coordinate": "B67",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A68",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.summary_by_client.Fixture Client Aurora 042"
+      },
+      {
+        "coordinate": "B68",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A69",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.summary_by_client.Fixture Client Aurora 043"
+      },
+      {
+        "coordinate": "B69",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A70",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.summary_by_client.Fixture Client Aurora 044"
+      },
+      {
+        "coordinate": "B70",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A71",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.summary_by_client.Fixture Client Aurora 048"
+      },
+      {
+        "coordinate": "B71",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A72",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.summary.summary_by_client.Fixture Client bts internal"
+      },
+      {
+        "coordinate": "B72",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A73",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].execution_result.business_review_path"
+      },
+      {
+        "coordinate": "B73",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_argentina_1>/business_review.csv"
+      },
+      {
+        "coordinate": "A74",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[0].processing_error"
+      },
+      {
+        "coordinate": "A75",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].source_id"
+      },
+      {
+        "coordinate": "B75",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_brazil"
+      },
+      {
+        "coordinate": "A76",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].country"
+      },
+      {
+        "coordinate": "B76",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Brazil"
+      },
+      {
+        "coordinate": "A77",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].report_type"
+      },
+      {
+        "coordinate": "B77",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming"
+      },
+      {
+        "coordinate": "A78",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].required"
+      },
+      {
+        "coordinate": "B78",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A79",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].enabled"
+      },
+      {
+        "coordinate": "B79",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A80",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].status"
+      },
+      {
+        "coordinate": "B80",
+        "hyperlink": null,
+        "type": "s",
+        "value": "PROCESSED"
+      },
+      {
+        "coordinate": "A81",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].matched_file"
+      },
+      {
+        "coordinate": "B81",
+        "hyperlink": null,
+        "type": "s",
+        "value": "scenarios_Brazil_duplicate_project.eml"
+      },
+      {
+        "coordinate": "A82",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].matched_files[0]"
+      },
+      {
+        "coordinate": "B82",
+        "hyperlink": null,
+        "type": "s",
+        "value": "scenarios_Brazil_duplicate_project.eml"
+      },
+      {
+        "coordinate": "A83",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].processing_started_at"
+      },
+      {
+        "coordinate": "B83",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A84",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].processing_finished_at"
+      },
+      {
+        "coordinate": "B84",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A85",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.execution_id"
+      },
+      {
+        "coordinate": "B85",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_brazil_1>"
+      },
+      {
+        "coordinate": "A86",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.status"
+      },
+      {
+        "coordinate": "B86",
+        "hyperlink": null,
+        "type": "s",
+        "value": "COMPLETED"
+      },
+      {
+        "coordinate": "A87",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.source_file"
+      },
+      {
+        "coordinate": "B87",
+        "hyperlink": null,
+        "type": "s",
+        "value": "scenarios_Brazil_duplicate_project.eml"
+      },
+      {
+        "coordinate": "A88",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.country"
+      },
+      {
+        "coordinate": "B88",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Brazil"
+      },
+      {
+        "coordinate": "A89",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.report_type"
+      },
+      {
+        "coordinate": "B89",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A90",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.run_directory"
+      },
+      {
+        "coordinate": "B90",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_brazil_1>"
+      },
+      {
+        "coordinate": "A91",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.processed_path"
+      },
+      {
+        "coordinate": "B91",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/processed/scenarios_Brazil_duplicate_project.eml"
+      },
+      {
+        "coordinate": "A92",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.execution_summary_path"
+      },
+      {
+        "coordinate": "B92",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_brazil_1>/execution_summary.json"
+      },
+      {
+        "coordinate": "A93",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.worklist_path"
+      },
+      {
+        "coordinate": "B93",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_brazil_1>/worklist.json"
+      },
+      {
+        "coordinate": "A94",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.slack_ready_path"
+      },
+      {
+        "coordinate": "B94",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_brazil_1>/slack_ready.md"
+      },
+      {
+        "coordinate": "A95",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.source_file"
+      },
+      {
+        "coordinate": "B95",
+        "hyperlink": null,
+        "type": "s",
+        "value": "scenarios_Brazil_duplicate_project.eml"
+      },
+      {
+        "coordinate": "A96",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.source_path"
+      },
+      {
+        "coordinate": "B96",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/processing/scenarios_Brazil_duplicate_project.eml"
+      },
+      {
+        "coordinate": "A97",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.subject"
+      },
+      {
+        "coordinate": "B97",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Report results (Brazil Upcoming Deliveries/NPS)"
+      },
+      {
+        "coordinate": "A98",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.sender_name"
+      },
+      {
+        "coordinate": "B98",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Sender"
+      },
+      {
+        "coordinate": "A99",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.sender_email"
+      },
+      {
+        "coordinate": "B99",
+        "hyperlink": null,
+        "type": "s",
+        "value": "reports@example.invalid"
+      },
+      {
+        "coordinate": "A100",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.received_at"
+      },
+      {
+        "coordinate": "B100",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2026-08-03T09:00:00+00:00"
+      },
+      {
+        "coordinate": "A101",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.country"
+      },
+      {
+        "coordinate": "B101",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Brazil"
+      },
+      {
+        "coordinate": "A102",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.report_type"
+      },
+      {
+        "coordinate": "B102",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A103",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.detection_method"
+      },
+      {
+        "coordinate": "B103",
+        "hyperlink": null,
+        "type": "s",
+        "value": "EXACT_PATTERN"
+      },
+      {
+        "coordinate": "A104",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.matched_pattern"
+      },
+      {
+        "coordinate": "B104",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Brazil Upcoming Deliveries/NPS"
+      },
+      {
+        "coordinate": "A105",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.report.detection_status"
+      },
+      {
+        "coordinate": "B105",
+        "hyperlink": null,
+        "type": "s",
+        "value": "DETECTED"
+      },
+      {
+        "coordinate": "A106",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.reference_monday"
+      },
+      {
+        "coordinate": "B106",
+        "hyperlink": null,
+        "type": "s",
+        "value": "08/03/2026"
+      },
+      {
+        "coordinate": "A107",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.window_start"
+      },
+      {
+        "coordinate": "B107",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "A108",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.window_end"
+      },
+      {
+        "coordinate": "B108",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/10/2026"
+      },
+      {
+        "coordinate": "A109",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.raw_records"
+      },
+      {
+        "coordinate": "B109",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A110",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.normalized_records"
+      },
+      {
+        "coordinate": "B110",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A111",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.validation_issues"
+      },
+      {
+        "coordinate": "B111",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A112",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.eligible"
+      },
+      {
+        "coordinate": "B112",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A113",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.excluded"
+      },
+      {
+        "coordinate": "B113",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A114",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.business_review"
+      },
+      {
+        "coordinate": "B114",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A115",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.inside_weekly_window"
+      },
+      {
+        "coordinate": "B115",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A116",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.outside_weekly_window"
+      },
+      {
+        "coordinate": "B116",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A117",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.worklist_ready"
+      },
+      {
+        "coordinate": "B117",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A118",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.worklist_review"
+      },
+      {
+        "coordinate": "B118",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A119",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.slack_rows"
+      },
+      {
+        "coordinate": "B119",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A120",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.counts.clients"
+      },
+      {
+        "coordinate": "B120",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A121",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.decision_counts.ALL_RULES_PASSED"
+      },
+      {
+        "coordinate": "B121",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A122",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.decision_counts.REVENUE_ADMIN"
+      },
+      {
+        "coordinate": "B122",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A123",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.summary.summary_by_client.Fixture Client Aurora 001"
+      },
+      {
+        "coordinate": "B123",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A124",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].execution_result.business_review_path"
+      },
+      {
+        "coordinate": "B124",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_brazil_1>/business_review.csv"
+      },
+      {
+        "coordinate": "A125",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[1].processing_error"
+      },
+      {
+        "coordinate": "A126",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].source_id"
+      },
+      {
+        "coordinate": "B126",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_mexico"
+      },
+      {
+        "coordinate": "A127",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].country"
+      },
+      {
+        "coordinate": "B127",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "A128",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].report_type"
+      },
+      {
+        "coordinate": "B128",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming"
+      },
+      {
+        "coordinate": "A129",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].required"
+      },
+      {
+        "coordinate": "B129",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A130",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].enabled"
+      },
+      {
+        "coordinate": "B130",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A131",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].status"
+      },
+      {
+        "coordinate": "B131",
+        "hyperlink": null,
+        "type": "s",
+        "value": "PROCESSED"
+      },
+      {
+        "coordinate": "A132",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].matched_file"
+      },
+      {
+        "coordinate": "B132",
+        "hyperlink": null,
+        "type": "s",
+        "value": "weekly_Mexico_upcoming.eml"
+      },
+      {
+        "coordinate": "A133",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].matched_files[0]"
+      },
+      {
+        "coordinate": "B133",
+        "hyperlink": null,
+        "type": "s",
+        "value": "weekly_Mexico_upcoming.eml"
+      },
+      {
+        "coordinate": "A134",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].processing_started_at"
+      },
+      {
+        "coordinate": "B134",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A135",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].processing_finished_at"
+      },
+      {
+        "coordinate": "B135",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A136",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.execution_id"
+      },
+      {
+        "coordinate": "B136",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_mexico_1>"
+      },
+      {
+        "coordinate": "A137",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.status"
+      },
+      {
+        "coordinate": "B137",
+        "hyperlink": null,
+        "type": "s",
+        "value": "COMPLETED"
+      },
+      {
+        "coordinate": "A138",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.source_file"
+      },
+      {
+        "coordinate": "B138",
+        "hyperlink": null,
+        "type": "s",
+        "value": "weekly_Mexico_upcoming.eml"
+      },
+      {
+        "coordinate": "A139",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.country"
+      },
+      {
+        "coordinate": "B139",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "A140",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.report_type"
+      },
+      {
+        "coordinate": "B140",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A141",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.run_directory"
+      },
+      {
+        "coordinate": "B141",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_mexico_1>"
+      },
+      {
+        "coordinate": "A142",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.processed_path"
+      },
+      {
+        "coordinate": "B142",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/processed/weekly_Mexico_upcoming.eml"
+      },
+      {
+        "coordinate": "A143",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.execution_summary_path"
+      },
+      {
+        "coordinate": "B143",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_mexico_1>/execution_summary.json"
+      },
+      {
+        "coordinate": "A144",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.worklist_path"
+      },
+      {
+        "coordinate": "B144",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_mexico_1>/worklist.json"
+      },
+      {
+        "coordinate": "A145",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.slack_ready_path"
+      },
+      {
+        "coordinate": "B145",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_mexico_1>/slack_ready.md"
+      },
+      {
+        "coordinate": "A146",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.source_file"
+      },
+      {
+        "coordinate": "B146",
+        "hyperlink": null,
+        "type": "s",
+        "value": "weekly_Mexico_upcoming.eml"
+      },
+      {
+        "coordinate": "A147",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.source_path"
+      },
+      {
+        "coordinate": "B147",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/processing/weekly_Mexico_upcoming.eml"
+      },
+      {
+        "coordinate": "A148",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.subject"
+      },
+      {
+        "coordinate": "B148",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Report results (Mexico Upcoming Deliveries/NPS)"
+      },
+      {
+        "coordinate": "A149",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.sender_name"
+      },
+      {
+        "coordinate": "B149",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Fixture Sender"
+      },
+      {
+        "coordinate": "A150",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.sender_email"
+      },
+      {
+        "coordinate": "B150",
+        "hyperlink": null,
+        "type": "s",
+        "value": "reports@example.invalid"
+      },
+      {
+        "coordinate": "A151",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.received_at"
+      },
+      {
+        "coordinate": "B151",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2026-08-03T09:00:00+00:00"
+      },
+      {
+        "coordinate": "A152",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.country"
+      },
+      {
+        "coordinate": "B152",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "A153",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.report_type"
+      },
+      {
+        "coordinate": "B153",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A154",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.detection_method"
+      },
+      {
+        "coordinate": "B154",
+        "hyperlink": null,
+        "type": "s",
+        "value": "EXACT_PATTERN"
+      },
+      {
+        "coordinate": "A155",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.matched_pattern"
+      },
+      {
+        "coordinate": "B155",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico Upcoming Deliveries/NPS"
+      },
+      {
+        "coordinate": "A156",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.report.detection_status"
+      },
+      {
+        "coordinate": "B156",
+        "hyperlink": null,
+        "type": "s",
+        "value": "DETECTED"
+      },
+      {
+        "coordinate": "A157",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.reference_monday"
+      },
+      {
+        "coordinate": "B157",
+        "hyperlink": null,
+        "type": "s",
+        "value": "08/03/2026"
+      },
+      {
+        "coordinate": "A158",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.window_start"
+      },
+      {
+        "coordinate": "B158",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/4/2026"
+      },
+      {
+        "coordinate": "A159",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.window_end"
+      },
+      {
+        "coordinate": "B159",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8/10/2026"
+      },
+      {
+        "coordinate": "A160",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.raw_records"
+      },
+      {
+        "coordinate": "B160",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A161",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.normalized_records"
+      },
+      {
+        "coordinate": "B161",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A162",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.validation_issues"
+      },
+      {
+        "coordinate": "B162",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A163",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.eligible"
+      },
+      {
+        "coordinate": "B163",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A164",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.excluded"
+      },
+      {
+        "coordinate": "B164",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A165",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.business_review"
+      },
+      {
+        "coordinate": "B165",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A166",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.inside_weekly_window"
+      },
+      {
+        "coordinate": "B166",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A167",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.outside_weekly_window"
+      },
+      {
+        "coordinate": "B167",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A168",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.worklist_ready"
+      },
+      {
+        "coordinate": "B168",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A169",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.worklist_review"
+      },
+      {
+        "coordinate": "B169",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A170",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.slack_rows"
+      },
+      {
+        "coordinate": "B170",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A171",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.counts.clients"
+      },
+      {
+        "coordinate": "B171",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A172",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.decision_counts.ALL_RULES_PASSED"
+      },
+      {
+        "coordinate": "B172",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A173",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.summary_by_client.Fixture Client Aurora 005"
+      },
+      {
+        "coordinate": "B173",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A174",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.summary.summary_by_client.Fixture Client Aurora 006"
+      },
+      {
+        "coordinate": "B174",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A175",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].execution_result.business_review_path"
+      },
+      {
+        "coordinate": "B175",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/runs/<EXECUTION:upcoming_mexico_1>/business_review.csv"
+      },
+      {
+        "coordinate": "A176",
+        "hyperlink": null,
+        "type": "s",
+        "value": "expected_sources[2].processing_error"
+      },
+      {
+        "coordinate": "A177",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[0].source_id"
+      },
+      {
+        "coordinate": "B177",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_argentina"
+      },
+      {
+        "coordinate": "A178",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[0].country"
+      },
+      {
+        "coordinate": "B178",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A179",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[0].report_type"
+      },
+      {
+        "coordinate": "B179",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming"
+      },
+      {
+        "coordinate": "A180",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[0].required"
+      },
+      {
+        "coordinate": "B180",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A181",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[0].enabled"
+      },
+      {
+        "coordinate": "B181",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A182",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[0].status"
+      },
+      {
+        "coordinate": "B182",
+        "hyperlink": null,
+        "type": "s",
+        "value": "MISSING"
+      },
+      {
+        "coordinate": "A183",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[0].matched_file"
+      },
+      {
+        "coordinate": "A184",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[1].source_id"
+      },
+      {
+        "coordinate": "B184",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_brazil"
+      },
+      {
+        "coordinate": "A185",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[1].country"
+      },
+      {
+        "coordinate": "B185",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Brazil"
+      },
+      {
+        "coordinate": "A186",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[1].report_type"
+      },
+      {
+        "coordinate": "B186",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming"
+      },
+      {
+        "coordinate": "A187",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[1].required"
+      },
+      {
+        "coordinate": "B187",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A188",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[1].enabled"
+      },
+      {
+        "coordinate": "B188",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A189",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[1].status"
+      },
+      {
+        "coordinate": "B189",
+        "hyperlink": null,
+        "type": "s",
+        "value": "MISSING"
+      },
+      {
+        "coordinate": "A190",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[1].matched_file"
+      },
+      {
+        "coordinate": "A191",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[2].source_id"
+      },
+      {
+        "coordinate": "B191",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_mexico"
+      },
+      {
+        "coordinate": "A192",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[2].country"
+      },
+      {
+        "coordinate": "B192",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "A193",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[2].report_type"
+      },
+      {
+        "coordinate": "B193",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming"
+      },
+      {
+        "coordinate": "A194",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[2].required"
+      },
+      {
+        "coordinate": "B194",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A195",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[2].enabled"
+      },
+      {
+        "coordinate": "B195",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A196",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[2].status"
+      },
+      {
+        "coordinate": "B196",
+        "hyperlink": null,
+        "type": "s",
+        "value": "MISSING"
+      },
+      {
+        "coordinate": "A197",
+        "hyperlink": null,
+        "type": "s",
+        "value": "required_sources[2].matched_file"
+      },
+      {
+        "coordinate": "A198",
+        "hyperlink": null,
+        "type": "s",
+        "value": "created_at"
+      },
+      {
+        "coordinate": "B198",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A199",
+        "hyperlink": null,
+        "type": "s",
+        "value": "output_directory"
+      },
+      {
+        "coordinate": "B199",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10"
+      },
+      {
+        "coordinate": "A200",
+        "hyperlink": null,
+        "type": "s",
+        "value": "is_partial"
+      },
+      {
+        "coordinate": "B200",
+        "hyperlink": null,
+        "type": "s",
+        "value": "False"
+      },
+      {
+        "coordinate": "A201",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.scanned_directory"
+      },
+      {
+        "coordinate": "B201",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/pending"
+      },
+      {
+        "coordinate": "A202",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.files_scanned"
+      },
+      {
+        "coordinate": "B202",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "A203",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.configured_sources"
+      },
+      {
+        "coordinate": "B203",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "A204",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.matched_files"
+      },
+      {
+        "coordinate": "B204",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "A205",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.review_files"
+      },
+      {
+        "coordinate": "B205",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A206",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.unconfigured_files"
+      },
+      {
+        "coordinate": "B206",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A207",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.duplicate_sources"
+      },
+      {
+        "coordinate": "B207",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A208",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.missing_required_sources"
+      },
+      {
+        "coordinate": "B208",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A209",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.inventoried_at"
+      },
+      {
+        "coordinate": "B209",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A210",
+        "hyperlink": null,
+        "type": "s",
+        "value": "source_inventory.known_out_of_scope_files"
+      },
+      {
+        "coordinate": "B210",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A211",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].source_file"
+      },
+      {
+        "coordinate": "B211",
+        "hyperlink": null,
+        "type": "s",
+        "value": "classification_Argentina_rules.eml"
+      },
+      {
+        "coordinate": "A212",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].source_path"
+      },
+      {
+        "coordinate": "B212",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/pending/classification_Argentina_rules.eml"
+      },
+      {
+        "coordinate": "A213",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].subject"
+      },
+      {
+        "coordinate": "B213",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Report results (Argentina Upcoming Deliveries/NPS)"
+      },
+      {
+        "coordinate": "A214",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].sender_email"
+      },
+      {
+        "coordinate": "B214",
+        "hyperlink": null,
+        "type": "s",
+        "value": "reports@example.invalid"
+      },
+      {
+        "coordinate": "A215",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].received_at"
+      },
+      {
+        "coordinate": "B215",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2026-08-03T09:00:00+00:00"
+      },
+      {
+        "coordinate": "A216",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].detected_country"
+      },
+      {
+        "coordinate": "B216",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A217",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].detected_report_type"
+      },
+      {
+        "coordinate": "B217",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A218",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].detection_status"
+      },
+      {
+        "coordinate": "B218",
+        "hyperlink": null,
+        "type": "s",
+        "value": "DETECTED"
+      },
+      {
+        "coordinate": "A219",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].matched_source_id"
+      },
+      {
+        "coordinate": "B219",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_argentina"
+      },
+      {
+        "coordinate": "A220",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[0].inventory_status"
+      },
+      {
+        "coordinate": "B220",
+        "hyperlink": null,
+        "type": "s",
+        "value": "MATCHED"
+      },
+      {
+        "coordinate": "A221",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].source_file"
+      },
+      {
+        "coordinate": "B221",
+        "hyperlink": null,
+        "type": "s",
+        "value": "scenarios_Brazil_duplicate_project.eml"
+      },
+      {
+        "coordinate": "A222",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].source_path"
+      },
+      {
+        "coordinate": "B222",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/pending/scenarios_Brazil_duplicate_project.eml"
+      },
+      {
+        "coordinate": "A223",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].subject"
+      },
+      {
+        "coordinate": "B223",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Report results (Brazil Upcoming Deliveries/NPS)"
+      },
+      {
+        "coordinate": "A224",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].sender_email"
+      },
+      {
+        "coordinate": "B224",
+        "hyperlink": null,
+        "type": "s",
+        "value": "reports@example.invalid"
+      },
+      {
+        "coordinate": "A225",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].received_at"
+      },
+      {
+        "coordinate": "B225",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2026-08-03T09:00:00+00:00"
+      },
+      {
+        "coordinate": "A226",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].detected_country"
+      },
+      {
+        "coordinate": "B226",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Brazil"
+      },
+      {
+        "coordinate": "A227",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].detected_report_type"
+      },
+      {
+        "coordinate": "B227",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A228",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].detection_status"
+      },
+      {
+        "coordinate": "B228",
+        "hyperlink": null,
+        "type": "s",
+        "value": "DETECTED"
+      },
+      {
+        "coordinate": "A229",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].matched_source_id"
+      },
+      {
+        "coordinate": "B229",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_brazil"
+      },
+      {
+        "coordinate": "A230",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[1].inventory_status"
+      },
+      {
+        "coordinate": "B230",
+        "hyperlink": null,
+        "type": "s",
+        "value": "MATCHED"
+      },
+      {
+        "coordinate": "A231",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].source_file"
+      },
+      {
+        "coordinate": "B231",
+        "hyperlink": null,
+        "type": "s",
+        "value": "weekly_Mexico_upcoming.eml"
+      },
+      {
+        "coordinate": "A232",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].source_path"
+      },
+      {
+        "coordinate": "B232",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/pending/weekly_Mexico_upcoming.eml"
+      },
+      {
+        "coordinate": "A233",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].subject"
+      },
+      {
+        "coordinate": "B233",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Report results (Mexico Upcoming Deliveries/NPS)"
+      },
+      {
+        "coordinate": "A234",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].sender_email"
+      },
+      {
+        "coordinate": "B234",
+        "hyperlink": null,
+        "type": "s",
+        "value": "reports@example.invalid"
+      },
+      {
+        "coordinate": "A235",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].received_at"
+      },
+      {
+        "coordinate": "B235",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2026-08-03T09:00:00+00:00"
+      },
+      {
+        "coordinate": "A236",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].detected_country"
+      },
+      {
+        "coordinate": "B236",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "A237",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].detected_report_type"
+      },
+      {
+        "coordinate": "B237",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Upcoming"
+      },
+      {
+        "coordinate": "A238",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].detection_status"
+      },
+      {
+        "coordinate": "B238",
+        "hyperlink": null,
+        "type": "s",
+        "value": "DETECTED"
+      },
+      {
+        "coordinate": "A239",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].matched_source_id"
+      },
+      {
+        "coordinate": "B239",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_mexico"
+      },
+      {
+        "coordinate": "A240",
+        "hyperlink": null,
+        "type": "s",
+        "value": "inventory_items[2].inventory_status"
+      },
+      {
+        "coordinate": "B240",
+        "hyperlink": null,
+        "type": "s",
+        "value": "MATCHED"
+      },
+      {
+        "coordinate": "A241",
+        "hyperlink": null,
+        "type": "s",
+        "value": "updated_at"
+      },
+      {
+        "coordinate": "B241",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A242",
+        "hyperlink": null,
+        "type": "s",
+        "value": "processing_started_at"
+      },
+      {
+        "coordinate": "B242",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A243",
+        "hyperlink": null,
+        "type": "s",
+        "value": "processing_finished_at"
+      },
+      {
+        "coordinate": "B243",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A244",
+        "hyperlink": null,
+        "type": "s",
+        "value": "processing_summary.configured_sources"
+      },
+      {
+        "coordinate": "B244",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "A245",
+        "hyperlink": null,
+        "type": "s",
+        "value": "processing_summary.processed_sources"
+      },
+      {
+        "coordinate": "B245",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "A246",
+        "hyperlink": null,
+        "type": "s",
+        "value": "processing_summary.failed_sources"
+      },
+      {
+        "coordinate": "B246",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A247",
+        "hyperlink": null,
+        "type": "s",
+        "value": "processing_summary.received_sources"
+      },
+      {
+        "coordinate": "B247",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A248",
+        "hyperlink": null,
+        "type": "s",
+        "value": "processing_summary.missing_sources"
+      },
+      {
+        "coordinate": "B248",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A249",
+        "hyperlink": null,
+        "type": "s",
+        "value": "processing_summary.duplicate_sources"
+      },
+      {
+        "coordinate": "B249",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A250",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.region"
+      },
+      {
+        "coordinate": "B250",
+        "hyperlink": null,
+        "type": "s",
+        "value": "SELAM"
+      },
+      {
+        "coordinate": "A251",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.weekly_run_id"
+      },
+      {
+        "coordinate": "B251",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NPS_WEEK_2026-08-04_2026-08-10"
+      },
+      {
+        "coordinate": "A252",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.aggregated_at"
+      },
+      {
+        "coordinate": "B252",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A253",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.processed_sources"
+      },
+      {
+        "coordinate": "B253",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "A254",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.records_before_deduplication"
+      },
+      {
+        "coordinate": "B254",
+        "hyperlink": null,
+        "type": "s",
+        "value": "11"
+      },
+      {
+        "coordinate": "A255",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.records_after_deduplication"
+      },
+      {
+        "coordinate": "B255",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A256",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.duplicate_issues"
+      },
+      {
+        "coordinate": "B256",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A257",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.clients"
+      },
+      {
+        "coordinate": "B257",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A258",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.countries[0]"
+      },
+      {
+        "coordinate": "B258",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A259",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.countries[1]"
+      },
+      {
+        "coordinate": "B259",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "A260",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].source_id"
+      },
+      {
+        "coordinate": "B260",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_argentina"
+      },
+      {
+        "coordinate": "A261",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].country"
+      },
+      {
+        "coordinate": "B261",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A262",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_id"
+      },
+      {
+        "coordinate": "B262",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_argentina_1>"
+      },
+      {
+        "coordinate": "A263",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].worklist_records"
+      },
+      {
+        "coordinate": "B263",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A264",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.raw_records"
+      },
+      {
+        "coordinate": "B264",
+        "hyperlink": null,
+        "type": "s",
+        "value": "43"
+      },
+      {
+        "coordinate": "A265",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.normalized_records"
+      },
+      {
+        "coordinate": "B265",
+        "hyperlink": null,
+        "type": "s",
+        "value": "43"
+      },
+      {
+        "coordinate": "A266",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.validation_issues"
+      },
+      {
+        "coordinate": "B266",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A267",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.eligible"
+      },
+      {
+        "coordinate": "B267",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A268",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.excluded"
+      },
+      {
+        "coordinate": "B268",
+        "hyperlink": null,
+        "type": "s",
+        "value": "25"
+      },
+      {
+        "coordinate": "A269",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.business_review"
+      },
+      {
+        "coordinate": "B269",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A270",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.inside_weekly_window"
+      },
+      {
+        "coordinate": "B270",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A271",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.outside_weekly_window"
+      },
+      {
+        "coordinate": "B271",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A272",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.worklist_ready"
+      },
+      {
+        "coordinate": "B272",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A273",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.worklist_review"
+      },
+      {
+        "coordinate": "B273",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A274",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.slack_rows"
+      },
+      {
+        "coordinate": "B274",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A275",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[0].execution_counts.clients"
+      },
+      {
+        "coordinate": "B275",
+        "hyperlink": null,
+        "type": "s",
+        "value": "8"
+      },
+      {
+        "coordinate": "A276",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].source_id"
+      },
+      {
+        "coordinate": "B276",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_brazil"
+      },
+      {
+        "coordinate": "A277",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].country"
+      },
+      {
+        "coordinate": "B277",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Brazil"
+      },
+      {
+        "coordinate": "A278",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_id"
+      },
+      {
+        "coordinate": "B278",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_brazil_1>"
+      },
+      {
+        "coordinate": "A279",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].worklist_records"
+      },
+      {
+        "coordinate": "B279",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A280",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.raw_records"
+      },
+      {
+        "coordinate": "B280",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A281",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.normalized_records"
+      },
+      {
+        "coordinate": "B281",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A282",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.validation_issues"
+      },
+      {
+        "coordinate": "B282",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A283",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.eligible"
+      },
+      {
+        "coordinate": "B283",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A284",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.excluded"
+      },
+      {
+        "coordinate": "B284",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A285",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.business_review"
+      },
+      {
+        "coordinate": "B285",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A286",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.inside_weekly_window"
+      },
+      {
+        "coordinate": "B286",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A287",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.outside_weekly_window"
+      },
+      {
+        "coordinate": "B287",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A288",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.worklist_ready"
+      },
+      {
+        "coordinate": "B288",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A289",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.worklist_review"
+      },
+      {
+        "coordinate": "B289",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A290",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.slack_rows"
+      },
+      {
+        "coordinate": "B290",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A291",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[1].execution_counts.clients"
+      },
+      {
+        "coordinate": "B291",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A292",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].source_id"
+      },
+      {
+        "coordinate": "B292",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_mexico"
+      },
+      {
+        "coordinate": "A293",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].country"
+      },
+      {
+        "coordinate": "B293",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "A294",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_id"
+      },
+      {
+        "coordinate": "B294",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_mexico_1>"
+      },
+      {
+        "coordinate": "A295",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].worklist_records"
+      },
+      {
+        "coordinate": "B295",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A296",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.raw_records"
+      },
+      {
+        "coordinate": "B296",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A297",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.normalized_records"
+      },
+      {
+        "coordinate": "B297",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A298",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.validation_issues"
+      },
+      {
+        "coordinate": "B298",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A299",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.eligible"
+      },
+      {
+        "coordinate": "B299",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A300",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.excluded"
+      },
+      {
+        "coordinate": "B300",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A301",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.business_review"
+      },
+      {
+        "coordinate": "B301",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A302",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.inside_weekly_window"
+      },
+      {
+        "coordinate": "B302",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A303",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.outside_weekly_window"
+      },
+      {
+        "coordinate": "B303",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A304",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.worklist_ready"
+      },
+      {
+        "coordinate": "B304",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A305",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.worklist_review"
+      },
+      {
+        "coordinate": "B305",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A306",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.slack_rows"
+      },
+      {
+        "coordinate": "B306",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A307",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.source_summaries[2].execution_counts.clients"
+      },
+      {
+        "coordinate": "B307",
+        "hyperlink": null,
+        "type": "s",
+        "value": "2"
+      },
+      {
+        "coordinate": "A308",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.selam_consolidated_worklist_path"
+      },
+      {
+        "coordinate": "B308",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_consolidated_worklist.json"
+      },
+      {
+        "coordinate": "A309",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.selam_consolidation_issues_path"
+      },
+      {
+        "coordinate": "B309",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_consolidation_issues.json"
+      },
+      {
+        "coordinate": "A310",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_aggregation.summary_path"
+      },
+      {
+        "coordinate": "B310",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_aggregation_summary.json"
+      },
+      {
+        "coordinate": "A311",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.region"
+      },
+      {
+        "coordinate": "B311",
+        "hyperlink": null,
+        "type": "s",
+        "value": "SELAM"
+      },
+      {
+        "coordinate": "A312",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.weekly_run_id"
+      },
+      {
+        "coordinate": "B312",
+        "hyperlink": null,
+        "type": "s",
+        "value": "NPS_WEEK_2026-08-04_2026-08-10"
+      },
+      {
+        "coordinate": "A313",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.aggregated_at"
+      },
+      {
+        "coordinate": "B313",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A314",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.processed_sources"
+      },
+      {
+        "coordinate": "B314",
+        "hyperlink": null,
+        "type": "s",
+        "value": "3"
+      },
+      {
+        "coordinate": "A315",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.records_before_deduplication"
+      },
+      {
+        "coordinate": "B315",
+        "hyperlink": null,
+        "type": "s",
+        "value": "11"
+      },
+      {
+        "coordinate": "A316",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.records_after_deduplication"
+      },
+      {
+        "coordinate": "B316",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A317",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.duplicate_issues"
+      },
+      {
+        "coordinate": "B317",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A318",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.countries[0]"
+      },
+      {
+        "coordinate": "B318",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A319",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[0].source_id"
+      },
+      {
+        "coordinate": "B319",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_argentina"
+      },
+      {
+        "coordinate": "A320",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[0].country"
+      },
+      {
+        "coordinate": "B320",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Argentina"
+      },
+      {
+        "coordinate": "A321",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[0].execution_id"
+      },
+      {
+        "coordinate": "B321",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_argentina_1>"
+      },
+      {
+        "coordinate": "A322",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[0].manual_review_records"
+      },
+      {
+        "coordinate": "B322",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A323",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[0].review_file_available"
+      },
+      {
+        "coordinate": "B323",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A324",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[1].source_id"
+      },
+      {
+        "coordinate": "B324",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_brazil"
+      },
+      {
+        "coordinate": "A325",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[1].country"
+      },
+      {
+        "coordinate": "B325",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Brazil"
+      },
+      {
+        "coordinate": "A326",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[1].execution_id"
+      },
+      {
+        "coordinate": "B326",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_brazil_1>"
+      },
+      {
+        "coordinate": "A327",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[1].manual_review_records"
+      },
+      {
+        "coordinate": "B327",
+        "hyperlink": null,
+        "type": "s",
+        "value": "1"
+      },
+      {
+        "coordinate": "A328",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[1].review_file_available"
+      },
+      {
+        "coordinate": "B328",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A329",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[2].source_id"
+      },
+      {
+        "coordinate": "B329",
+        "hyperlink": null,
+        "type": "s",
+        "value": "upcoming_mexico"
+      },
+      {
+        "coordinate": "A330",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[2].country"
+      },
+      {
+        "coordinate": "B330",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Mexico"
+      },
+      {
+        "coordinate": "A331",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[2].execution_id"
+      },
+      {
+        "coordinate": "B331",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<EXECUTION:upcoming_mexico_1>"
+      },
+      {
+        "coordinate": "A332",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[2].manual_review_records"
+      },
+      {
+        "coordinate": "B332",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A333",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.source_summaries[2].review_file_available"
+      },
+      {
+        "coordinate": "B333",
+        "hyperlink": null,
+        "type": "s",
+        "value": "True"
+      },
+      {
+        "coordinate": "A334",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.selam_manual_review_path"
+      },
+      {
+        "coordinate": "B334",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_manual_review.json"
+      },
+      {
+        "coordinate": "A335",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.selam_manual_review_issues_path"
+      },
+      {
+        "coordinate": "B335",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_manual_review_issues.json"
+      },
+      {
+        "coordinate": "A336",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_manual_review.summary_path"
+      },
+      {
+        "coordinate": "B336",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_manual_review_summary.json"
+      },
+      {
+        "coordinate": "A337",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.generated_at"
+      },
+      {
+        "coordinate": "B337",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<RUNTIME_TIMESTAMP>"
+      },
+      {
+        "coordinate": "A338",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.csv_path"
+      },
+      {
+        "coordinate": "B338",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_worklist.csv"
+      },
+      {
+        "coordinate": "A339",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.markdown_path"
+      },
+      {
+        "coordinate": "B339",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_slack_ready.md"
+      },
+      {
+        "coordinate": "A340",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.summary_path"
+      },
+      {
+        "coordinate": "B340",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_weekly_summary.json"
+      },
+      {
+        "coordinate": "A341",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.manual_review_csv_path"
+      },
+      {
+        "coordinate": "B341",
+        "hyperlink": null,
+        "type": "s",
+        "value": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10/selam_manual_review.csv"
+      },
+      {
+        "coordinate": "A342",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.total_records"
+      },
+      {
+        "coordinate": "B342",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A343",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.clients"
+      },
+      {
+        "coordinate": "B343",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A344",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.ready_records"
+      },
+      {
+        "coordinate": "B344",
+        "hyperlink": null,
+        "type": "s",
+        "value": "10"
+      },
+      {
+        "coordinate": "A345",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.worklist_review_records"
+      },
+      {
+        "coordinate": "B345",
+        "hyperlink": null,
+        "type": "s",
+        "value": "0"
+      },
+      {
+        "coordinate": "A346",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.manual_review_records"
+      },
+      {
+        "coordinate": "B346",
+        "hyperlink": null,
+        "type": "s",
+        "value": "9"
+      },
+      {
+        "coordinate": "A347",
+        "hyperlink": null,
+        "type": "s",
+        "value": "selam_outputs.review_records"
+      },
+      {
+        "coordinate": "B347",
+        "hyperlink": null,
+        "type": "s",
+        "value": "9"
+      }
+    ],
+    "dimensions": "A1:B347",
+    "freeze_panes": "A4",
+    "merged_ranges": [
+      "A1:B1"
+    ],
+    "name": "Manifest"
+  },
+  {
+    "cells": [
+      {
+        "coordinate": "A1",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Issues and Warnings"
+      },
+      {
+        "coordinate": "A3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Issue Type"
+      },
+      {
+        "coordinate": "B3",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Details"
+      },
+      {
+        "coordinate": "A4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Worklist consolidation"
+      },
+      {
+        "coordinate": "B4",
+        "hyperlink": null,
+        "type": "s",
+        "value": "{\"duplicate_key\": {\"project_id\": \"FXT000000000001\", \"date\": \"8/4/2026\", \"session\": \"fixture session 001\"}, \"original_source_id\": \"upcoming_argentina\", \"duplicate_source_id\": \"upcoming_brazil\", \"original_execution_id\": \"<EXECUTION:upcoming_argentina_1>\", \"duplicate_execution_id\": \"<EXECUTION:upcoming_brazil_1>\", \"original_record\": {\"Session\": \"Fixture Session 001\", \"Date\": \"8/4/2026\", \"Facilitator\": \"Fixture Facilitator Lumen\", \"QR-Code\": \"\", \"Link NPS Survey\": \"\", \"Link Insights Facilitators\": \"\", \"Results\": \"NO\", \"Link for Results\": \"https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000001\", \"Project ID\": \"FXT000000000001\", \"Client\": \"Fixture Client Aurora 001\", \"Project URL\": \"https://example.invalid/project/FXT000000000001\", \"Output Status\": \"READY\", \"Output Issues\": \"\", \"Country\": \"Argentina\", \"Source ID\": \"upcoming_argentina\", \"Source Execution ID\": \"<EXECUTION:upcoming_argentina_1>\", \"Weekly Run ID\": \"NPS_WEEK_2026-08-04_2026-08-10\", \"Region\": \"SELAM\"}, \"duplicate_record\": {\"Session\": \"Fixture Session 001\", \"Date\": \"8/4/2026\", \"Facilitator\": \"Fixture Facilitator Lumen\", \"QR-Code\": \"\", \"Link NPS Survey\": \"\", \"Link Insights Facilitators\": \"\", \"Results\": \"NO\", \"Link for Results\": \"https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000001\", \"Project ID\": \"FXT000000000001\", \"Client\": \"Fixture Client Aurora 001\", \"Project URL\": \"https://example.invalid/project/FXT000000000001\", \"Output Status\": \"READY\", \"Output Issues\": \"\", \"Country\": \"Brazil\", \"Source ID\": \"upcoming_brazil\", \"Source Execution ID\": \"<EXECUTION:upcoming_brazil_1>\", \"Weekly Run ID\": \"NPS_WEEK_2026-08-04_2026-08-10\", \"Region\": \"SELAM\"}}"
+      },
+      {
+        "coordinate": "A5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "Manual review consolidation"
+      },
+      {
+        "coordinate": "B5",
+        "hyperlink": null,
+        "type": "s",
+        "value": "{\"duplicate_key\": {\"project_url\": \"https://example.invalid/project/fxt000000000050\", \"date\": \"8/4/2026\", \"project_name\": \"fixture session revenue inside\"}, \"original_source_id\": \"upcoming_argentina\", \"duplicate_source_id\": \"upcoming_brazil\", \"original_record\": {\"billing_office\": \"Argentina\", \"start_date\": \"8/4/2026\", \"client_name\": \"Fixture Client Aurora 050\", \"project_name\": \"Fixture Session revenue inside\", \"project_url\": \"https://example.invalid/project/FXT000000000050\", \"project_sub_type\": \"Fixture Type Workshop\", \"status\": \"Conf\", \"end_date\": \"8/4/2026\", \"all_staffings\": \"Fixture Facilitator Lumen\", \"evaluation_programme\": \"4.5\", \"nps\": \"75\", \"evaluation_avg_facilitator\": \"4.8\", \"ignore_reporting\": \"False\", \"survey_invitation\": \"\", \"survey_invitation_link\": \"\", \"validation_status\": \"VALID\", \"validation_issues\": \"\", \"decision\": \"REVIEW\", \"decision_code\": \"REVENUE_ADMIN\", \"decision_reason\": \"Revisión manual para posibles registros administrativos o de revenue\", \"matched_rule\": \"REVENUE_ADMIN\", \"matched_field\": \"project_name\", \"matched_pattern\": \"revenue\", \"decision_codes\": \"REVENUE_ADMIN\", \"decision_reasons\": \"Revisión manual para posibles registros administrativos o de revenue\", \"matched_rules\": \"REVENUE_ADMIN\", \"matched_fields\": \"project_name\", \"matched_patterns\": \"revenue\", \"Country\": \"Argentina\", \"Source ID\": \"upcoming_argentina\", \"Source Execution ID\": \"<EXECUTION:upcoming_argentina_1>\", \"Weekly Run ID\": \"NPS_WEEK_2026-08-04_2026-08-10\", \"Region\": \"SELAM\", \"Record Type\": \"MANUAL_REVIEW\"}, \"duplicate_record\": {\"billing_office\": \"Brazil\", \"start_date\": \"8/4/2026\", \"client_name\": \"Fixture Client Aurora 050\", \"project_name\": \"Fixture Session revenue inside\", \"project_url\": \"https://example.invalid/project/FXT000000000050\", \"project_sub_type\": \"Fixture Type Workshop\", \"status\": \"Conf\", \"end_date\": \"8/4/2026\", \"all_staffings\": \"Fixture Facilitator Lumen\", \"evaluation_programme\": \"4.5\", \"nps\": \"75\", \"evaluation_avg_facilitator\": \"4.8\", \"ignore_reporting\": \"False\", \"survey_invitation\": \"\", \"survey_invitation_link\": \"\", \"validation_status\": \"VALID\", \"validation_issues\": \"\", \"decision\": \"REVIEW\", \"decision_code\": \"REVENUE_ADMIN\", \"decision_reason\": \"Revisión manual para posibles registros administrativos o de revenue\", \"matched_rule\": \"REVENUE_ADMIN\", \"matched_field\": \"project_name\", \"matched_pattern\": \"revenue\", \"decision_codes\": \"REVENUE_ADMIN\", \"decision_reasons\": \"Revisión manual para posibles registros administrativos o de revenue\", \"matched_rules\": \"REVENUE_ADMIN\", \"matched_fields\": \"project_name\", \"matched_patterns\": \"revenue\", \"Country\": \"Brazil\", \"Source ID\": \"upcoming_brazil\", \"Source Execution ID\": \"<EXECUTION:upcoming_brazil_1>\", \"Weekly Run ID\": \"NPS_WEEK_2026-08-04_2026-08-10\", \"Region\": \"SELAM\", \"Record Type\": \"MANUAL_REVIEW\"}}"
+      }
+    ],
+    "dimensions": "A1:B5",
+    "freeze_panes": "A4",
+    "merged_ranges": [
+      "A1:B1"
+    ],
+    "name": "Issues"
+  }
+]

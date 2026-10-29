@@ -1,0 +1,66 @@
+{
+  "upcoming_argentina_1": [
+    {
+      "Client": "Fixture Client Aurora 001",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000001",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000001",
+      "Project URL": "https://example.invalid/project/FXT000000000001",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 001"
+    },
+    {
+      "Client": "Fixture Client Aurora 002",
+      "Date": "8/10/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000002",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000000002",
+      "Project URL": "https://example.invalid/project/FXT000000000000002",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 002"
+    }
+  ],
+  "upcoming_mexico_1": [
+    {
+      "Client": "Fixture Client Aurora 005",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000005",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000005",
+      "Project URL": "https://example.invalid/project/FXT000000000005",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 005"
+    },
+    {
+      "Client": "Fixture Client Aurora 006",
+      "Date": "8/10/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000006",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000000006",
+      "Project URL": "https://example.invalid/project/FXT000000000000006",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 006"
+    }
+  ]
+}

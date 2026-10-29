@@ -1,0 +1,17 @@
+{
+  "upcoming_brazil_1": {
+    "current_stage": "ERROR",
+    "environment": "TEST",
+    "execution_id": "<EXECUTION:upcoming_brazil_1>",
+    "execution_status": "FAILED",
+    "finished_at": "<RUNTIME_TIMESTAMP>",
+    "issues": [
+      "Faltan columnas requeridas en el reporte: nps"
+    ],
+    "original_path": "<TEST_ROOT>/pending/malformed_Brazil_missing_header.eml",
+    "processing_path": "<TEST_ROOT>/error/malformed_Brazil_missing_header.eml",
+    "run_directory": "<TEST_ROOT>/runs/<EXECUTION:upcoming_brazil_1>",
+    "source_file": "malformed_Brazil_missing_header.eml",
+    "started_at": "<RUNTIME_TIMESTAMP>"
+  }
+}

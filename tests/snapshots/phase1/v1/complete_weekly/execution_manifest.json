@@ -1,0 +1,41 @@
+{
+  "upcoming_argentina_1": {
+    "current_stage": "COMPLETED",
+    "environment": "TEST",
+    "execution_id": "<EXECUTION:upcoming_argentina_1>",
+    "execution_status": "COMPLETED",
+    "finished_at": "<RUNTIME_TIMESTAMP>",
+    "issues": [],
+    "original_path": "<TEST_ROOT>/pending/weekly_Argentina_upcoming.eml",
+    "processing_path": "<TEST_ROOT>/processed/weekly_Argentina_upcoming.eml",
+    "run_directory": "<TEST_ROOT>/runs/<EXECUTION:upcoming_argentina_1>",
+    "source_file": "weekly_Argentina_upcoming.eml",
+    "started_at": "<RUNTIME_TIMESTAMP>"
+  },
+  "upcoming_brazil_1": {
+    "current_stage": "COMPLETED",
+    "environment": "TEST",
+    "execution_id": "<EXECUTION:upcoming_brazil_1>",
+    "execution_status": "COMPLETED",
+    "finished_at": "<RUNTIME_TIMESTAMP>",
+    "issues": [],
+    "original_path": "<TEST_ROOT>/pending/weekly_Brazil_upcoming.eml",
+    "processing_path": "<TEST_ROOT>/processed/weekly_Brazil_upcoming.eml",
+    "run_directory": "<TEST_ROOT>/runs/<EXECUTION:upcoming_brazil_1>",
+    "source_file": "weekly_Brazil_upcoming.eml",
+    "started_at": "<RUNTIME_TIMESTAMP>"
+  },
+  "upcoming_mexico_1": {
+    "current_stage": "COMPLETED",
+    "environment": "TEST",
+    "execution_id": "<EXECUTION:upcoming_mexico_1>",
+    "execution_status": "COMPLETED",
+    "finished_at": "<RUNTIME_TIMESTAMP>",
+    "issues": [],
+    "original_path": "<TEST_ROOT>/pending/weekly_Mexico_upcoming.eml",
+    "processing_path": "<TEST_ROOT>/processed/weekly_Mexico_upcoming.eml",
+    "run_directory": "<TEST_ROOT>/runs/<EXECUTION:upcoming_mexico_1>",
+    "source_file": "weekly_Mexico_upcoming.eml",
+    "started_at": "<RUNTIME_TIMESTAMP>"
+  }
+}

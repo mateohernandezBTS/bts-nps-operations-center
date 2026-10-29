@@ -1,0 +1,34 @@
+{
+  "clients": 6,
+  "countries_with_records": 3,
+  "duplicate_issues": 0,
+  "generated_at": "<RUNTIME_TIMESTAMP>",
+  "manual_review_items": [],
+  "manual_review_records": 0,
+  "processed_sources": 3,
+  "ready_records": 6,
+  "records_by_client": {
+    "Fixture Client Aurora 001": 1,
+    "Fixture Client Aurora 002": 1,
+    "Fixture Client Aurora 003": 1,
+    "Fixture Client Aurora 004": 1,
+    "Fixture Client Aurora 005": 1,
+    "Fixture Client Aurora 006": 1
+  },
+  "records_by_country": {
+    "Argentina": 2,
+    "Brazil": 2,
+    "Mexico": 2
+  },
+  "records_by_output_status": {
+    "READY": 6
+  },
+  "region": "SELAM",
+  "review_items": [],
+  "review_records": 0,
+  "total_records": 6,
+  "weekly_run_id": "NPS_WEEK_2026-08-04_2026-08-10",
+  "window_end": "08/10/2026",
+  "window_start": "08/04/2026",
+  "worklist_review_records": 0
+}

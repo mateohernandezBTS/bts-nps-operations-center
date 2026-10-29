@@ -1,0 +1,36 @@
+{
+  "upcoming_argentina_1": [],
+  "upcoming_brazil_1": [],
+  "upcoming_mexico_1": [
+    {
+      "Client": "Fixture Client Aurora 088",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "",
+      "Output Issues": "No se pudo extraer Project ID desde Project URL",
+      "Output Status": "REVIEW",
+      "Project ID": "",
+      "Project URL": "",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 088"
+    },
+    {
+      "Client": "Fixture Client Aurora 089",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "",
+      "Output Issues": "No se pudo extraer Project ID desde Project URL",
+      "Output Status": "REVIEW",
+      "Project ID": "",
+      "Project URL": "https://example.invalid/project/not-an-id",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 089"
+    }
+  ]
+}

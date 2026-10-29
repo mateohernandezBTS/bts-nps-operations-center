@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NPS_WEEK_2026-08-04_2026-08-10 - Slack Canvas</title>
+
+<style>
+.review-warning {
+    background: #fff3cd;
+    border: 2px solid #b58105;
+    padding: 16px 18px;
+    margin: 24px 0 30px 0;
+    line-height: 1.5;
+}
+
+.review-warning-title {
+    color: #7a4f00;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.review-warning p {
+    margin: 7px 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 28px;
+    color: #222;
+}
+
+h1 {
+    margin-bottom: 6px;
+}
+
+.instructions {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    padding: 14px;
+    margin: 18px 0 32px 0;
+    line-height: 1.5;
+}
+
+.summary-block {
+    background: #fafafa;
+    border: 1px solid #d1d5db;
+    padding: 20px;
+    margin: 24px 0 40px 0;
+}
+
+.summary-block h2 {
+    margin-top: 0;
+}
+
+.summary-metrics {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.metric-card {
+    min-width: 160px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    padding: 14px;
+}
+
+.metric-label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.metric-value {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.summary-tables {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.summary-tables > div {
+    flex: 1;
+    min-width: 280px;
+}
+
+.summary-table {
+    width: 100%;
+}
+
+.country-block {
+    margin-top: 52px;
+    margin-bottom: 70px;
+}
+
+.country-title {
+    border-bottom: 4px solid #222;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 28px;
+    font-size: 30px;
+}
+
+.country-count {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+    padding: 4px 9px;
+    border: 1px solid #777;
+    vertical-align: middle;
+}
+
+.office-block {
+    margin-bottom: 52px;
+}
+
+.office-title {
+    background: #e5e7eb;
+    border-left: 6px solid #4b5563;
+    padding: 10px 12px;
+    margin-top: 30px;
+    margin-bottom: 24px;
+}
+
+.client-block {
+    margin-bottom: 42px;
+}
+
+.client-block h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.count-badge {
+    display: inline-block;
+    margin-left: 7px;
+    padding: 2px 7px;
+    border: 1px solid #999;
+    font-size: 13px;
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+.client-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+
+.client-header h3 {
+    margin: 0;
+}
+
+.copy-slack-button {
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.copy-slack-button:hover {
+    background: #f3f4f6;
+}
+
+.copy-slack-button:active {
+    background: #e5e7eb;
+}
+
+.copy-slack-button.copy-success {
+    border-color: #15803d;
+}
+
+.copy-slack-button.copy-failed {
+    border-color: #b91c1c;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid #b7b7b7;
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: #f2f2f2;
+    font-weight: bold;
+}
+
+a {
+    color: #0563c1;
+}
+
+.separate-email-row td {
+    background: #fff3cd;
+    font-weight: bold;
+}
+
+.separate-email-warning td {
+    background: #f8d7da;
+    border: 2px solid #842029;
+    color: #842029;
+    font-weight: bold;
+    padding: 10px;
+}
+</style>
+
+<script>
+async function copyTableForSlack(tableId, button) {
+    const table = document.getElementById(tableId);
+
+    if (!table) {
+        return;
+    }
+
+    const htmlContent = table.outerHTML;
+    const textContent = table.innerText;
+    const originalText = button.textContent.trim();
+
+    try {
+        if (
+            navigator.clipboard
+            && typeof ClipboardItem !== "undefined"
+            && navigator.clipboard.write
+        ) {
+            const clipboardItem = new ClipboardItem({
+                "text/html": new Blob(
+                    [htmlContent],
+                    { type: "text/html" }
+                ),
+                "text/plain": new Blob(
+                    [textContent],
+                    { type: "text/plain" }
+                )
+            });
+
+            await navigator.clipboard.write(
+                [clipboardItem]
+            );
+        } else {
+            const selection = window.getSelection();
+            const range = document.createRange();
+
+            selection.removeAllRanges();
+            range.selectNode(table);
+            selection.addRange(range);
+
+            const copied = document.execCommand(
+                "copy"
+            );
+
+            selection.removeAllRanges();
+
+            if (!copied) {
+                throw new Error(
+                    "Browser copy command failed."
+                );
+            }
+        }
+
+        button.textContent = "Copied ✓";
+        button.classList.remove(
+            "copy-failed"
+        );
+        button.classList.add(
+            "copy-success"
+        );
+
+        window.setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove(
+                "copy-success"
+            );
+        }, 1500);
+
+    } catch (error) {
+        console.error(
+            "Copy for Slack failed:",
+            error
+        );
+
+        button.textContent = "Copy failed";
+        button.classList.remove(
+            "copy-success"
+        );
+        button.classList.add(
+            "copy-failed"
+        );
+
+        window.setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove(
+                "copy-failed"
+            );
+        }, 1500);
+    }
+}
+</script>
+</head>
+
+<body>
+
+<h1>NPS Weekly Slack Canvas</h1>
+
+<p>
+<strong>Weekly Run:</strong>
+NPS_WEEK_2026-08-04_2026-08-10
+</p>
+
+<p>
+<strong>Window:</strong>
+08/04/2026
+to
+08/10/2026
+</p>
+
+<div class="instructions">
+    <strong>How to use:</strong>
+    the content is organized by country, office, and client.
+    use <strong>Copy for Slack</strong> next to a client to copy
+    only that client's table, then paste it into the corresponding
+    Slack Canvas.
+
+    <br><br>
+
+    <strong>Special handling:</strong>
+    rows highlighted below include Mariano or Maider and
+    must be sent separately by email.
+</div>
+
+
+
+
+<section class="summary-block">
+    <h2>Weekly Summary</h2>
+
+    <div class="summary-metrics">
+        <div class="metric-card">
+            <span class="metric-label">
+                Total READY
+            </span>
+            <span class="metric-value">
+                6
+            </span>
+        </div>
+
+        <div class="metric-card">
+            <span class="metric-label">
+                Client blocks
+            </span>
+            <span class="metric-value">
+                6
+            </span>
+        </div>
+
+        <div class="metric-card">
+            <span class="metric-label">
+                Separate emails
+            </span>
+            <span class="metric-value">
+                0
+            </span>
+        </div>
+    </div>
+
+    <div class="summary-tables">
+        <div>
+            <h3>By country group</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Country group</th>
+                        <th>READY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+<tr>
+    <td>ARGENTINA</td>
+    <td>2</td>
+</tr>
+
+<tr>
+    <td>BRAZIL / NEXO</td>
+    <td>2</td>
+</tr>
+
+<tr>
+    <td>MEXICO</td>
+    <td>2</td>
+</tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>By office</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Office</th>
+                        <th>READY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+<tr>
+    <td>Argentina</td>
+    <td>2</td>
+</tr>
+
+<tr>
+    <td>Brazil</td>
+    <td>2</td>
+</tr>
+
+<tr>
+    <td>Mexico</td>
+    <td>2</td>
+</tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="country-block">
+    <h1 class="country-title">
+        ARGENTINA
+        <span class="country-count">
+            2
+        </span>
+    </h1>
+
+    
+<section class="office-block">
+    <h2 class="office-title">
+        Office: Argentina
+        <span class="count-badge">
+            2
+        </span>
+    </h2>
+
+    
+<section class="client-block">
+    <div class="client-header">
+        <h3>
+            Fixture Client Aurora 001
+            <span class="count-badge">
+                1
+            </span>
+        </h3>
+
+        <button
+            class="copy-slack-button"
+            type="button"
+            onclick="copyTableForSlack('client-table-f3717bfccbd5', this)"
+        >
+            Copy for Slack
+        </button>
+    </div>
+
+    <table id="client-table-f3717bfccbd5">
+        <thead>
+            <tr><th>Session</th><th>Date</th><th>Facilitator</th><th>QR-Code</th><th>Link NPS Survey</th><th>Link Insights Facilitators</th><th>Results</th><th>Link for Results</th></tr>
+        </thead>
+        <tbody>
+            
+<tr>
+    <td>Fixture Session 001</td><td>8/4/2026</td><td>Fixture Facilitator Lumen</td><td></td><td></td><td></td><td>NO</td><td><a href="https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000001">Home</a></td>
+</tr>
+
+        </tbody>
+    </table>
+</section>
+
+<section class="client-block">
+    <div class="client-header">
+        <h3>
+            Fixture Client Aurora 002
+            <span class="count-badge">
+                1
+            </span>
+        </h3>
+
+        <button
+            class="copy-slack-button"
+            type="button"
+            onclick="copyTableForSlack('client-table-86b0cf512151', this)"
+        >
+            Copy for Slack
+        </button>
+    </div>
+
+    <table id="client-table-86b0cf512151">
+        <thead>
+            <tr><th>Session</th><th>Date</th><th>Facilitator</th><th>QR-Code</th><th>Link NPS Survey</th><th>Link Insights Facilitators</th><th>Results</th><th>Link for Results</th></tr>
+        </thead>
+        <tbody>
+            
+<tr>
+    <td>Fixture Session 002</td><td>8/10/2026</td><td>Fixture Facilitator Lumen</td><td></td><td></td><td></td><td>NO</td><td><a href="https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000002">Home</a></td>
+</tr>
+
+        </tbody>
+    </table>
+</section>
+
+</section>
+
+</section>
+
+<section class="country-block">
+    <h1 class="country-title">
+        BRAZIL / NEXO
+        <span class="country-count">
+            2
+        </span>
+    </h1>
+
+    
+<section class="office-block">
+    <h2 class="office-title">
+        Office: Brazil
+        <span class="count-badge">
+            2
+        </span>
+    </h2>
+
+    
+<section class="client-block">
+    <div class="client-header">
+        <h3>
+            Fixture Client Aurora 003
+            <span class="count-badge">
+                1
+            </span>
+        </h3>
+
+        <button
+            class="copy-slack-button"
+            type="button"
+            onclick="copyTableForSlack('client-table-822810ecfb32', this)"
+        >
+            Copy for Slack
+        </button>
+    </div>
+
+    <table id="client-table-822810ecfb32">
+        <thead>
+            <tr><th>Session</th><th>Date</th><th>Facilitator</th><th>QR-Code</th><th>Link NPS Survey</th><th>Link Insights Facilitators</th><th>Results</th><th>Link for Results</th></tr>
+        </thead>
+        <tbody>
+            
+<tr>
+    <td>Fixture Session 003</td><td>8/4/2026</td><td>Fixture Facilitator Lumen</td><td></td><td></td><td></td><td>NO</td><td><a href="https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000003">Home</a></td>
+</tr>
+
+        </tbody>
+    </table>
+</section>
+
+<section class="client-block">
+    <div class="client-header">
+        <h3>
+            Fixture Client Aurora 004
+            <span class="count-badge">
+                1
+            </span>
+        </h3>
+
+        <button
+            class="copy-slack-button"
+            type="button"
+            onclick="copyTableForSlack('client-table-de21221f5dea', this)"
+        >
+            Copy for Slack
+        </button>
+    </div>
+
+    <table id="client-table-de21221f5dea">
+        <thead>
+            <tr><th>Session</th><th>Date</th><th>Facilitator</th><th>QR-Code</th><th>Link NPS Survey</th><th>Link Insights Facilitators</th><th>Results</th><th>Link for Results</th></tr>
+        </thead>
+        <tbody>
+            
+<tr>
+    <td>Fixture Session 004</td><td>8/10/2026</td><td>Fixture Facilitator Lumen</td><td></td><td></td><td></td><td>NO</td><td><a href="https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000004">Home</a></td>
+</tr>
+
+        </tbody>
+    </table>
+</section>
+
+</section>
+
+</section>
+
+<section class="country-block">
+    <h1 class="country-title">
+        MEXICO
+        <span class="country-count">
+            2
+        </span>
+    </h1>
+
+    
+<section class="office-block">
+    <h2 class="office-title">
+        Office: Mexico
+        <span class="count-badge">
+            2
+        </span>
+    </h2>
+
+    
+<section class="client-block">
+    <div class="client-header">
+        <h3>
+            Fixture Client Aurora 005
+            <span class="count-badge">
+                1
+            </span>
+        </h3>
+
+        <button
+            class="copy-slack-button"
+            type="button"
+            onclick="copyTableForSlack('client-table-c2e0c4504b8f', this)"
+        >
+            Copy for Slack
+        </button>
+    </div>
+
+    <table id="client-table-c2e0c4504b8f">
+        <thead>
+            <tr><th>Session</th><th>Date</th><th>Facilitator</th><th>QR-Code</th><th>Link NPS Survey</th><th>Link Insights Facilitators</th><th>Results</th><th>Link for Results</th></tr>
+        </thead>
+        <tbody>
+            
+<tr>
+    <td>Fixture Session 005</td><td>8/4/2026</td><td>Fixture Facilitator Lumen</td><td></td><td></td><td></td><td>NO</td><td><a href="https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000005">Home</a></td>
+</tr>
+
+        </tbody>
+    </table>
+</section>
+
+<section class="client-block">
+    <div class="client-header">
+        <h3>
+            Fixture Client Aurora 006
+            <span class="count-badge">
+                1
+            </span>
+        </h3>
+
+        <button
+            class="copy-slack-button"
+            type="button"
+            onclick="copyTableForSlack('client-table-27cb64e9719b', this)"
+        >
+            Copy for Slack
+        </button>
+    </div>
+
+    <table id="client-table-27cb64e9719b">
+        <thead>
+            <tr><th>Session</th><th>Date</th><th>Facilitator</th><th>QR-Code</th><th>Link NPS Survey</th><th>Link Insights Facilitators</th><th>Results</th><th>Link for Results</th></tr>
+        </thead>
+        <tbody>
+            
+<tr>
+    <td>Fixture Session 006</td><td>8/10/2026</td><td>Fixture Facilitator Lumen</td><td></td><td></td><td></td><td>NO</td><td><a href="https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000006">Home</a></td>
+</tr>
+
+        </tbody>
+    </table>
+</section>
+
+</section>
+
+</section>
+
+
+</body>
+</html>

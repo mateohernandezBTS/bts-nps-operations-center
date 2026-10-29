@@ -1,0 +1,53 @@
+[
+  {
+    "duplicate_execution_id": "<EXECUTION:upcoming_brazil_1>",
+    "duplicate_key": {
+      "date": "8/4/2026",
+      "project_id": "FXT000000000001",
+      "session": "fixture session 001"
+    },
+    "duplicate_record": {
+      "Client": "Fixture Client Aurora 001",
+      "Country": "Brazil",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000001",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000001",
+      "Project URL": "https://example.invalid/project/FXT000000000001",
+      "QR-Code": "",
+      "Region": "SELAM",
+      "Results": "NO",
+      "Session": "Fixture Session 001",
+      "Source Execution ID": "<EXECUTION:upcoming_brazil_1>",
+      "Source ID": "upcoming_brazil",
+      "Weekly Run ID": "NPS_WEEK_2026-08-04_2026-08-10"
+    },
+    "duplicate_source_id": "upcoming_brazil",
+    "original_execution_id": "<EXECUTION:upcoming_argentina_1>",
+    "original_record": {
+      "Client": "Fixture Client Aurora 001",
+      "Country": "Argentina",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000001",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000001",
+      "Project URL": "https://example.invalid/project/FXT000000000001",
+      "QR-Code": "",
+      "Region": "SELAM",
+      "Results": "NO",
+      "Session": "Fixture Session 001",
+      "Source Execution ID": "<EXECUTION:upcoming_argentina_1>",
+      "Source ID": "upcoming_argentina",
+      "Weekly Run ID": "NPS_WEEK_2026-08-04_2026-08-10"
+    },
+    "original_source_id": "upcoming_argentina"
+  }
+]
