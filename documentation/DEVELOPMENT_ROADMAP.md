@@ -8,13 +8,19 @@ Roles: product owner = Mateo; architect/reviewer = Claude; implementer = Codex.
 | Phase | Goal | Exit criteria |
 |---|---|---|
 | 0. Foundations | Standards, AGENTS.md, branching, dev environment outside OneDrive, tooling | Codex loads the rules, runs the suite in a clean clone, cannot touch `main` |
-| 1. Safety net | Synthetic fixtures, golden-master tests of the full pipeline, real test cases | Suite runs green in a clean clone and covers parse -> outputs end to end |
+| 1. Safety net — DONE | Synthetic fixtures, golden-master tests of the full pipeline, real test cases | Suite runs green in a clean clone and covers parse -> outputs end to end |
 | 2. Release 1.0.3 | Fix NPS-001, NPS-002, NPS-003, NPS-005, NPS-020; remove dead code (NPS-011) | Each fix has a failing-then-passing test; release DoD satisfied |
 | 3. Release 1.1.0 | Behavior-preserving refactor (NPS-007, NPS-013, structure, typing) | Golden master identical after each module; release DoD satisfied |
 | 4. Certification | Build, docs, parallel run against 1.0.2, promotion | Equivalent outputs on real weeks; explicit approval |
 
-Phase 1 status (2026-10-29): golden master approved. Pending item:
-weekly_preflight.py coverage (73/141 statements, 51.7730% in F1-05A; below 75%).
+Phase 1 status (2026-10-29): DONE. Golden master approved in PR #8; F1-06 adds
+18 preflight methods for 169/169 passing on both Windows runners. All 141 candidate
+hashes remain identical. Final engine line coverage: 2,523/2,858 (88.2785%);
+weekly_preflight.py: 140/141 (99.2908%), exceeding the 85% target.
+No unreachable/defensive preflight behavior lines were identified. The only uncovered
+statement is weekly_preflight.py:505 (__main__ delegates to the tested public main()).
+NPS-007 and NPS-017 remain characterized, not fixed. NPS-019 option A remains in use;
+optional option C is separately deferred as F1-07. See the Phase 1 plan for full evidence.
 
 Business-rule changes (NPS-004, NPS-006, NPS-015, NPS-016) are excluded from
 1.0.3 and 1.1.0 until the product owner approves them; they will be a separate release.
