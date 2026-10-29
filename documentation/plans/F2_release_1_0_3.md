@@ -14,15 +14,17 @@ Phase 2 includes Windows certification and manual production promotion, not just
 
 Read together with AGENTS.md, ENGINEERING_STANDARDS.md, DEFINITION_OF_DONE.md,
 DEVELOPMENT_ROADMAP.md and F1_phase_1_safety_net.md. Paths below are repository-relative;
-line references describe develop at `b2c4c77`, not future edited line numbers.
+line references have been rechecked against merged develop at `8865741` (PR #9),
+not future edited line numbers. Application/config files are unchanged from `b2c4c77`.
 
-The planning branch starts from fetched develop `b2c4c77` (PR #8 merged). Its approved
-Phase 1 baseline has 151 tests and 141 candidate hashes. F1-06 is separately committed
-on `test/phase-1-preflight` at `1192f19`: 169/169 tests on both runners, engine line
-coverage 2,523/2,858 (88.2785%), weekly_preflight.py 140/141 (99.2908%; only line 505,
-the direct-module entry shim, uncovered). Those are branch results, not current develop
-results. Merge/review F1-06 before implementing this plan and remeasure the integrated
-baseline; do not copy its tests or claim Phase 1 closure from this planning branch.
+The planning branch originally started at `b2c4c77` (PR #8); develop `8865741` now
+includes F1-06 through PR #9 and was merged into this branch with a merge commit,
+without rebasing. Phase 1 is DONE: 169 tests and 141 approved candidate hashes.
+The merged F1-06 evidence records 169/169 on both runners, engine line coverage
+2,523/2,858 (88.2785%) and weekly_preflight.py 140/141 (99.2908%; only line 505,
+the direct-module entry shim, uncovered). These are now integrated develop results.
+The Phase 1 plan's F1-06 closure section remains the coverage evidence; no code,
+configuration, test or snapshot changes are introduced by this planning update.
 
 Current relevant layers are source processing/orchestration, application controller,
 regional aggregation, worklist/Excel/HTML rendering, and the registered Weekly Run UI.
@@ -55,8 +57,8 @@ Recording these backlog requirements is not implementation authorization.
 - Off-Monday operation was decided by the product owner on 2026-10-29: selected date
   maps to the Monday of that same week (Monday maps to itself); the processing window
   is Tuesday through the following Monday, inclusive. Execution day does not restrict use.
-- D1/D2 below require product-owner selection before their implementation branches.
-  Unresolved dead-code usefulness requires D3 disposition before removal.
+- D1–D3 were decided by Mateo Hernández on 2026-10-29 and are recorded below.
+  They define future implementation scope; this task still changes documentation only.
 - Each issue gets its own branch and PR into develop, from updated develop after the
   preceding approved PR. Snapshot proposals remain pending until architect review and
   product-owner signature on that PR. No automatic baseline acceptance.
@@ -68,13 +70,13 @@ Recording these backlog requirements is not implementation authorization.
 
 | # | Step | Files | Validation | Commit message |
 |---|---|---|---|---|
-| 1 | Merge F1-06 and establish integrated baseline | Existing F1-06 PR; no copying into this plan | Both runners, coverage, 141 unchanged candidate hashes | Existing F1-06 commits |
-| 2 | Decide D1/D2; implement NPS-001 | Orchestrator/controller, run lifecycle and failure tests | Failed source never success; recovery rehearsal | See 5.1 |
-| 3 | Implement NPS-002 | Worklist and output projections/renderers | Invitation text/link end to end | See 5.2 |
+| 1 | F1-06 merged via PR #9; verify integrated baseline | Existing F1-06 changes; no copying into this plan | 169 tests, recorded coverage, 141 unchanged candidate hashes | Merge origin/develop into chore/phase-2-plan |
+| 2 | Implement NPS-001, approved D1 A | Orchestrator/controller, run lifecycle and failure tests | Failed source never success; recovery rehearsal | See 5.1 |
+| 3 | Implement NPS-002, approved D2 C | Worklist and CSV/Excel projections only | Invitation text/link in approved exports; Slack byte-identical | See 5.2 |
 | 4 | Implement NPS-003 | HTML renderer and copy tests | Visible warning excluded from every copy path | See 5.3 |
 | 5 | Implement NPS-005 | Business rules config, expected fixture metadata, tests | Singular/plural boundaries; only intended exclusion | See 5.4 |
 | 6 | Implement NPS-020 | Email parser, orphan-error expectations | Actionable error; parsing behavior unchanged | See 5.5 |
-| 7 | Decide D3; implement NPS-011 | Verified legacy files and import/registration checks | Active UI and useful tools preserved | See 5.6 |
+| 7 | Implement NPS-011, approved D3 disposition | Named legacy files and import/registration checks | Active UI and retained tools preserved | See 5.6 |
 | 8 | Implement NPS-012 | Documentation and consistency checks | Current UI/version/flow/count claims verified | See 5.7 |
 | 9 | Pin selected-date contract | Weekly Run UI tests only | Monday–Sunday, window and signal assertions | See 5.8 |
 | 10 | Prepare and certify release | Four version surfaces, docs, release evidence | Section 5.9 and release DoD | chore(release): prepare version 1.0.3 |
@@ -99,6 +101,10 @@ behavior. No choice may report success when any source failed.
 |---|---|---|---|
 | A — withhold weekly outputs (recommended) | FAILED plus source issues; no regional Excel, HTML, CSV or Slack Markdown; disable output/copy actions for the failed attempt, including stale output from another attempt | Archive failed attempt intact; correct/re-export failed report; resubmit fresh copies of all three reports and restart that failed week under controlled recovery | Smallest safe publish contract; cannot accidentally work a partial list. Requires complete resubmission |
 | B — quarantined diagnostics | Same FAILED/issues; partial Excel and HTML visibly INCOMPLETE with failed source identified; diagnostic links only, all Slack copy paths disabled; diagnostic CSV/Markdown never offered as publishable results | Same full restart as A; diagnostic rows must not be acted on | Easier diagnosis; more UI/file safeguards and risk of exporting partial data |
+
+D1 decision — Mateo Hernández, 2026-10-29: Option A is approved, including the
+owner-assisted failed-attempt recovery procedure below. Option B is retained only
+as decision history; it is not authorized for implementation.
 
 Recovery is part of D1, not an assumed existing feature. Currently source files move
 to processed/error, and `engine/weekly_run.py` create_weekly_run refuses an existing
@@ -126,11 +132,9 @@ Exact baseline delta for A, under `partial_failure/` only:
 - Retain all per-source artifacts byte-identically, including error_details.json,
   execution_manifest.json, execution_summary.json, csv.json and slack_ready.json.
 
-For B instead, retain all files; modify only partial_failure/operation.json,
-weekly_manifest.json, summary.json, excel_cells.json, slack.html and slack_ready.md
-for failure/diagnostic flags and warnings. Consolidated row content remains unchanged.
-Freeze the chosen file list in the PR before implementing it; unexpected deltas are
-defects to investigate, not permission to enlarge the list silently.
+The Option A file list is the implementation allowlist. Unexpected deltas are defects
+to investigate, not permission to enlarge the list silently. The discarded Option B
+does not supply an alternative snapshot allowlist.
 The harness currently expects success for weekly scenarios: collect the intended
 FAILED partial-failure manifest explicitly, while keeping unexpected failures fatal.
 Do not fabricate an application manifest; the blocked-case test inventory is distinct.
@@ -146,33 +150,61 @@ and slack.html. review_and_boundaries/raw.json and selam_manual_review.json pres
 additional original fields that are absent from ordinary output columns.
 
 Target is visibility only, with no invitation-based exclusion or REVIEW decision.
+The original A/B alternatives below are retained as history; neither is selected.
 
 | Option | Output contract | Pros / cons |
 |---|---|---|
-| A — two explicit columns (recommended) | Carry text/link in worklist JSON/CSV; append Survey Invitation and Survey Invitation Link to regional CSV, Excel and Slack HTML/Markdown. Include worklist REVIEW rows; expose original invitation fields in manual-review CSV/Excel too | Explicit, auditable, consistent across surfaces; wider tables |
+| A — two explicit columns (original recommendation; not selected) | Carry text/link in worklist JSON/CSV; append Survey Invitation and Survey Invitation Link to regional CSV, Excel and Slack HTML/Markdown. Include worklist REVIEW rows; expose original invitation fields in manual-review CSV/Excel too | Explicit, auditable, consistent across surfaces; wider tables |
 | B — compact display | Preserve both raw fields in JSON/CSV; show a compact invitation text/hyperlink cell in Excel, HTML and Markdown, with full URL available in the cell/link; manual-review export preserves both original values | Narrower display; link less obvious when printed or copied as text, needs careful fallback tests |
+| C — export-only explicit columns (approved) | Survey Invitation and Survey Invitation Link in worklist JSON/CSV, regional CSV and Excel Worklist/Revision Manual only; preserve all existing Slack surfaces | Auditable export fields without widening Slack output; invitation details are available through exports only |
+
+D2 decision — Mateo Hernández, 2026-10-29: Option C is approved. Both explicitly named
+columns must appear in worklist JSON/CSV (including worklist REVIEW rows), regional
+worklist/manual-review CSV and Excel Worklist/Revision Manual sheets. Map existing
+manual-review survey_invitation/survey_invitation_link values at export time; do not
+add aliases to the original selam_manual_review.json records. Preserve invitation
+text/URL values, render Excel hyperlinks safely and keep missing values empty.
+
+Slack HTML, regional and per-source Markdown, slack_ready JSON/CSV outputs and every
+Copy for Slack path remain byte-identical to the immediately preceding approved
+baseline for this issue. Keep SLACK_COLUMNS and shared Markdown OPERATIONAL_COLUMNS
+unchanged; extend CSV/Excel-specific schemas instead. The separate NPS-003 copy fix
+and NPS-005 row exclusions retain their own explicitly authorized Slack diffs.
 
 Branch: `fix/nps-002-invitation-visibility`. Commit
 `test: reproduce invitation loss across weekly outputs` first: synthetic invitation
-text and distinct URL must survive worklist, regional aggregation, CSV, Excel cell/link,
-HTML and both Markdown outputs, including missing text, missing link, escaping and
-review rows. Assert unchanged decisions, counts, grouping and source attribution.
-Then `fix(outputs): preserve survey invitation fields`; then
-`test: propose NPS-002 golden master changes`. Both options must preserve URL values,
-escape display text and avoid making unsafe URL schemes clickable. Validate all outputs
-and UI preview/copy behavior through section 6; no new business classification.
+text and distinct URL must survive worklist, regional aggregation, CSV and Excel
+Worklist/Revision Manual cells/links, including missing text/link, escaping and REVIEW
+rows. Assert unchanged decisions, counts, grouping and source attribution. Add controls
+that compare full Slack HTML, both Markdown outputs, slack_ready records/CSV and all
+copy paths against their prior behavior, not just absence of new headers. Then
+`fix(outputs): preserve survey invitation fields in CSV and Excel`; then
+`test: propose NPS-002 golden master changes`. Preserve URL values and avoid making
+unsafe URL schemes clickable. Run section 6; no new business classification.
 
-Exact snapshot set for either presentation option, after NPS-001 option A:
+Exact semantic snapshot allowlist for approved Option C, after approved NPS-001 A
+(19 files; all paths below are relative to tests/snapshots/phase1/v1/):
+
 - In each of complete_weekly, review_and_boundaries and cross_source_duplicates:
-  worklist.json, csv.json, selam_consolidated.json, weekly_csv.json, excel_cells.json,
-  slack.html, slack_ready.json and slack_ready.md (added invitation values/columns).
-- partial_failure/worklist.json, csv.json and slack_ready.json (per-source outputs only).
+  worklist.json, csv.json, selam_consolidated.json, weekly_csv.json and excel_cells.json
+  (five each: new worklist fields, regional CSV columns and the two Excel sheets).
+- partial_failure/worklist.json and partial_failure/csv.json (per-source outputs only;
+  D1 A has already removed regional publication for that failed week).
 - review_and_boundaries/worklist_review.json and parser_equivalence/worklist.json.
-- If D1 chose B, partial_failure has the same eight-file set as complete_weekly instead.
 
 selam_manual_review.json already retains original invitation keys; it stays identical.
-Raw/normalized/classified data, outside-window rows, manifests and count summaries stay
-identical. D2 selects the actual header/cell presentation before test assertions are written.
+csv.json changes only worklist.csv/worklist_review.csv sections; slack_ready.csv and
+all other embedded CSV sections remain identical. weekly_csv.json changes the regional
+worklist/manual-review CSV schemas and values only. excel_cells.json changes Worklist
+and Revision Manual only; Home, Manifest and Issues sheets stay identical. Duplicate
+diagnostics currently embed complete worklist records at engine/selam_aggregator.py:235–262:
+preserve their existing field set when adding invitation fields, so neither
+cross_source_duplicates/consolidation_issues.json nor the Excel Issues sheet acquires
+these export-only fields. Test this boundary explicitly; do not expand the allowlist
+to accommodate incidental propagation. Raw/normalized/classified data, outside-window
+rows, manifests, summaries, issues and every Slack snapshot remain byte-identical.
+Only provenance.json candidate hashes and a signed APPROVAL.md addendum accompany
+these 19 semantic files; no behavior-input or fixture changes are needed for NPS-002.
 
 ### 5.3 NPS-003 — warning copied into Slack
 
@@ -191,9 +223,9 @@ then `test: propose NPS-003 golden master changes`. Check all three copy paths w
 existing Qt WebEngine support and a Windows manual clipboard check; no new browser dependency.
 
 Exact snapshot delta: slack.html in complete_weekly, review_and_boundaries and
-cross_source_duplicates, because the shared warning CSS changes; add partial_failure
-only if D1 chose B. Only review_and_boundaries changes warning placement; the others
-change shared CSS. No Markdown, JSON, CSV or workbook delta is expected.
+cross_source_duplicates, because the shared warning CSS changes. D1 A removes
+partial_failure/slack.html before this issue. Only review_and_boundaries changes warning
+placement; the others change shared CSS. No Markdown, JSON, CSV or workbook delta is expected.
 
 ### 5.4 NPS-005 — plural PODs exclusion (decided)
 
@@ -259,16 +291,18 @@ UI construction/signal smoke test. Add a failing structural check that concrete 
 view classes are registered or reachable from registered views, with explicit preview
 exceptions; current orphan runtime classes violate it. Commit
 `test: characterize active views and legacy consumers`, then
-`refactor(ui): retire verified unused views and scripts` after D3.
+`refactor(ui): retire verified unused views and scripts` under approved D3.
 
-Recommended disposition: remove legacy weekly_run_view.py; move the manual-review
-view and useful preview together under tests/manual/manual_review_preview/ with corrected
-imports. Review tests/scripts/apply_business_rules.py, normalize_fields.py,
-generate_worklist.py and generate_slack_output.py as duplicate legacy processors;
-retire only after checking repository consumers and confirming external manual use with
-the owner. Retain cleanup_retention.py and the inspection/extraction/read scripts unless
-separately shown unnecessary; never execute retention. Useful previews are moved, not
-discarded. D3 records each candidate's disposition, not blanket permission to delete.
+D3 decision — Mateo Hernández, 2026-10-29: owner confirmed no manual use of the four
+legacy processing scripts. Delete exactly tests/scripts/apply_business_rules.py,
+tests/scripts/normalize_fields.py, tests/scripts/generate_worklist.py and
+tests/scripts/generate_slack_output.py; delete app/views/weekly_run_view.py. Move
+app/views/manual_review/manual_review_view.py and manual_review_view_preview.py together
+to tests/manual/manual_review_preview/, preserving useful preview behavior and updating
+imports/package markers as needed. Retain tests/scripts/cleanup_retention.py and all
+inspection/extraction/read scripts; never execute retention. Do not extend the deletion
+list. Check repository consumers before the future removal; owner confirmation is already
+recorded and does not require another manual-use decision.
 Run active UI/import smoke checks and both runners. All 141 baseline candidates
 (or the approved post-NPS-001 count) and behavior-input hashes must stay byte-identical.
 
@@ -286,7 +320,7 @@ Target: document the actual UI (manual review integrated with weekly outputs), e
 Power Automate .eml capture, current procedures and dated, commit-bounded validation
 counts. Distinguish certified production 1.0.2 from candidate 1.0.3 until release approval;
 do not claim Salesforce API integration. Reconcile README, VERSION, WEEKLY_OPERATION,
-ROADMAP, ARCHITECTURE where needed, and tests/README.md after F1-06 integration.
+ROADMAP, ARCHITECTURE where needed, and tests/README.md against the merged F1-06 baseline.
 Branch: `fix/nps-012-documentation-drift`. First
 `test: detect documented version and workflow drift`: narrow consistency checks against
 version metadata, registered views and actual ingestion contract must fail on the stale
@@ -389,6 +423,14 @@ For this planning task: check evidence, scope/options, links, snapshot filenames
 template sections and git diff --check; verify only the two requested Markdown files
 changed. No runtime tests/build or snapshot regeneration is needed for prose-only planning.
 
+Post-merge verification, 2026-10-29: compileall passed; the exact unittest runner
+passed 169/169 (91.823s), and pytest passed 169 tests plus 590 subtests (88.25s),
+with no failures, errors or skips. All 141 candidate hashes, 10 behavior-input hashes
+and 26 synthetic email hashes remain identical. Application/config/test trees match
+merged develop 8865741 and F1-06 1192f19, so the file:line evidence still applies.
+The F1-06 coverage JSON and committed closure table were checked: engine 2,523/2,858,
+preflight 140/141, missing only line 505. Coverage was not remeasured for this prose update.
+
 For every implementation PR, run from root with the local virtual environment:
 
 ```powershell
@@ -410,6 +452,7 @@ Run available ruff/format checks on changed Python and mypy in its existing scop
 missing tools are a reported prerequisite, not permission to install dependencies.
 
 Golden workflow for each behavior-changing PR:
+
 - Generate pending candidates into ignored .codex-log/snapshot-candidates/, compare
   full semantic diffs against that PR's immediately preceding approved baseline,
   and review only the exact scenario/file lists in section 5. All remaining files
@@ -421,8 +464,8 @@ Golden workflow for each behavior-changing PR:
 - provenance.json changes only affected candidate hashes and behavior-input hashes
   (config/*.json and tests/fixtures metadata). Historical source_sha256 is information,
   not an asserted freeze on app/engine/packaging; do not refresh it to disguise churn.
-  Preserve all unaffected hashes and fixture .eml bytes. Under D1 A the candidate count
-  becomes 132 (141 minus nine removed weekly outputs); D1 B keeps 141. Later column,
+  Preserve all unaffected hashes and fixture .eml bytes. Under approved D1 A the candidate
+  count becomes 132 (141 minus nine removed weekly outputs). Later column,
   regex and message changes alter hashes, not file counts.
 - Append a pending issue-specific addendum to APPROVAL.md: selected product decision,
   old/new hashes and source/output counts, exact changed/deleted files and reason,
@@ -438,12 +481,12 @@ Golden workflow for each behavior-changing PR:
 
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
-| F1-06 not integrated | Present | Incorrect baseline/closure claim | Merge first; distinguish branch evidence from develop |
+| Baseline evidence becomes stale | Low after PR #9 merge | Incorrect closure/coverage claim | Recheck source/test identity and integrated results against develop 8865741; retain dated F1-06 coverage evidence |
 | Partial data acted on as complete | High today | Missing-country worklist | D1 failure status plus publication/recovery contract, UI and packaged checks |
 | Retry overwrites evidence or duplicates work | Medium | Data loss/duplicate NPS | Archive FAILED attempt only; full fresh input set; completed-week guard; no external actions during comparison |
 | Invitation display becomes a new eligibility rule | Medium | Unapproved business change | D2 visibility only; assert all classifications unchanged |
 | Golden update hides unrelated changes | Medium | Regression accepted | Exact per-PR allowlist, byte checks, full diff and signed addendum |
-| Dead script has external consumers | Unknown | Lost operator tool | D3 per-file confirmation; retain uncertain scripts/previews |
+| Dead-code removal affects a repository consumer | Low; owner confirmed no manual use | Lost tool or import | Follow exact D3 delete/move/retain list; check imports and preview smoke behavior |
 | Operational config differs | Unknown | Untested production behavior | Owner compares effective config, minimal migration, backup; NPS-014 not silently fixed |
 | Packaging cleanup removes executables | Known tool behavior | Breach/data loss | Fresh build checkout, absent prior artifacts; human handles occupied/locked paths |
 | Cell projections miss UI/Excel/clipboard problems | Medium | Operational defect | Windows packaged TEST and manual clipboard/layout checks |
@@ -466,8 +509,9 @@ locally; reopen release approval before another promotion. Agent never touches t
 - [x] Read required standards, Phase 1 plan and current code/snapshot evidence.
 - [x] Draft issue options, test-first work packages and exact golden diff expectations.
 - [x] Record Phase 2 certification, off-Monday constraint, NPS-021 and FEAT-001 in roadmap.
-- [ ] Architect review and product-owner D1/D2/D3 decisions.
-- [ ] F1-06 merged and integrated baseline revalidated.
+- [x] Record D1 A, D2 export-only Option C and D3 exact disposition; Mateo Hernández, 2026-10-29.
+- [x] Merge origin/develop 8865741 (F1-06 via PR #9); verify evidence, both runners 169/169 and unchanged application/config/snapshot trees.
+- [ ] Architect review of the revised plan.
 - [ ] Issue PRs, signed baseline updates and UI contract test merged.
 - [ ] Release certification, approved release PR/tag and manual production promotion.
 
@@ -479,7 +523,8 @@ locally; reopen release approval before another promotion. Agent never touches t
 | 2026-10-29 | Exclude standalone POD and PODs; embedded words do not match | Approved NPS-005 policy | Mateo Hernández |
 | 2026-10-29 | Any selected/execution day; reference is same-week Monday; Tuesday–following-Monday window | Off-Monday product requirement; preserve during NPS-007 unification | Product owner |
 | 2026-10-29 | 1.0.3 certification/promotion belongs to Phase 2; Phase 4 certifies 1.1.0 | Release boundary | Product owner |
-| Pending D1 | Choose A (recommended) or B for failure outputs and approve failed-attempt recovery procedure | No failed source may be reported as success | Mateo Hernández |
-| Pending D2 | Choose A (recommended) or B invitation presentation, including review exports | Surface evidence without deciding NPS-016 | Mateo Hernández |
-| Pending D3 | Confirm disposition/external use of each uncertain legacy tool and preview | Remove only verified dead code | Product owner, with architect review |
+| 2026-10-29 | D1 = A: withhold weekly outputs if any source fails; approve owner-assisted failed-attempt archive/reset and full-input restart described in 5.1 | No failed source may be reported as success; preserve failure evidence | Mateo Hernández |
+| 2026-10-29 | D2 = C: two explicit invitation columns in worklist JSON/CSV, regional CSV and Excel Worklist/Revision Manual only; all Slack/slack_ready/copy paths unchanged for this issue | Surface evidence in exports without changing Slack or deciding NPS-016 | Mateo Hernández |
+| 2026-10-29 | D3: delete four named legacy processing scripts and legacy weekly_run_view.py; move manual-review view/preview; keep retention and inspection scripts (5.6) | Owner confirmed no manual use of the four processing scripts | Mateo Hernández |
+| 2026-10-29 | Merge origin/develop including F1-06 via PR #9; preserve Phase 1 DONE and F2-01 roadmap additions, without rebase or force-push | Establish 169-test integrated baseline and recorded preflight coverage | Mateo Hernández |
 | Pending release | Sign baseline addenda on issue PRs and certify/promote tagged 1.0.3 | Separate implementation, snapshot acceptance and production approval | Architect and Mateo Hernández |
