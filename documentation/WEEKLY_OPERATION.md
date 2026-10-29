@@ -419,6 +419,45 @@ The backend blocks a weekly process whenever the expected weekly output director
 
 The system never overwrites a previous weekly package automatically.
 
+### Failed-attempt recovery (candidate 1.0.3, NPS-001 / D1=A)
+
+If any source fails, the week is **FAILED**, with source/country/file/error and
+processed/failed counts in Weekly Run issues. Regional Excel, HTML, CSV and Slack
+Markdown are withheld; do not use per-source technical artifacts as a regional list.
+Ordinary manual-review rows with all sources processed still permit normal outputs.
+
+The product owner performs these three steps in File Explorer, in the **same
+environment** as the failed run (TEST and PRODUCTION have separate data):
+
+1. Close the application. Inspect that week's `weekly_manifest.json` and confirm
+   `status` is exactly `FAILED`, the reference Monday is correct, and no completed
+   package exists for that week. If the status is COMPLETED/COMPLETED_WITH_REVIEW,
+   uncertain, or work has already been acted on externally, stop and ask the owner
+   to reconcile it. Never reset or archive a completed week to bypass the guard.
+2. Copy that environment's complete `input/`, `output/`, `logs/` and `runtime/`
+   trees into a new, uniquely named owner backup **outside the active data tree**;
+   verify the copy, including source emails, error details, execution/weekly
+   manifests, logs and current session. Then rename **only the FAILED weekly
+   directory** in `output/weekly_runs/`, for example append `__FAILED_20261029_01`
+   (use a unique suffix; never replace an existing archive). Keep its manifest
+   unchanged. Leave processed/error emails, per-source runs and logs in place.
+   Preserve any unconsumed pending emails in the backup/quarantine before clearing
+   the pending queue for resubmission; delete nothing. Renaming frees the canonical
+   week path and keeps the failed attempt visible in Run History.
+3. Correct/re-export the bad report and place **fresh copies of all three reports**
+   in the environment's pending input folder, with no old/duplicate pending reports.
+   Restart, select the same reference Monday, run Preflight, then Process. Verify
+   all three sources processed, status COMPLETED and fresh regional outputs before
+   using them. Keep the failed archive and backup. A further failure requires a
+   separately preserved attempt and a new full resubmission.
+
+Session reset alone does not free the weekly directory and is unnecessary here;
+the new operation creates its own session. Never use `overwrite=True`, edit a
+manifest status, delete evidence, or retry only the failed source. This is an
+owner-assisted full restart, not source-level resume. Existing absolute paths in
+an archived manifest are historical evidence; Run History uses the archive's
+actual directory and offers no publication actions for FAILED attempts.
+
 ---
 
 ## 14. Production validation completed
