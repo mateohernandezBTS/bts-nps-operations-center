@@ -1,19 +1,19 @@
 # Phase 1 golden master candidates
 
-Status: PENDING
+Status: APPROVED
 
 Prepared: 2026-10-29. Package: F1-05A, corrected by F1-05B architect review.
 Branch: `test/phase-1-golden-master`. Base: `develop` at `e2a49bd`.
 
-Architect reviewer:
+Architect reviewer: Claude (Anthropic), architect/reviewer role
 
-Architect review reference:
+Architect review reference: F1-05A and F1-05B review bundles; approved 2026-10-29
 
-Product-owner approver:
+Product-owner approver: Mateo Hernández
 
-Product-owner approval reference:
+Product-owner approval reference: PR #8 comment
 
-Approval date:
+Approval date: 2026-10-29
 
 These are proposed observations of the frozen application, including known defects.
 Passing candidate comparisons does not approve the baseline or its business behavior.
