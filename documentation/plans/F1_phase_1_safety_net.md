@@ -1,6 +1,6 @@
 # Execution Plan — F1 Phase 1 safety net
 
-Status: APPROVED WITH AMENDMENTS — F1-04 implemented; F1-05 remains pending.
+Status: APPROVED WITH AMENDMENTS — F1-05A candidates implemented; PR-gated approval remains pending.
 Prepared: 2026-10-28. Base: develop at `70ad957` (merged Phase 0 tooling).
 Planning branch: `test/phase-1-plan`. F1-04 branch: `test/phase-1-test-conversion`.
 
@@ -231,10 +231,15 @@ Approval workflow for both initial creation and updates:
    architect review reference, product-owner approval reference and date. The product
    owner approves this document for the initial baseline and each later update.
    No snapshot approval can authorize a business-rule change.
-4. Only after approval copy named candidates to tests/snapshots and commit them in a
-   separate `test: approve phase 1 golden master snapshots` commit together with the
-   approved APPROVAL.md, with approval reference and reason in the commit/PR
-   description. Never bulk-accept unexpected diffs.
+4. F1-05A amendment (2026-10-29): the product owner explicitly requests committing
+   candidate snapshots under tests/snapshots on test/phase-1-golden-master while
+   APPROVAL.md remains PENDING, with empty approver fields. Use the proposal commit
+   `test: propose phase 1 golden master snapshots`; this is not acceptance. Approval
+   happens on the future PR: the architect reviews all candidate diffs, then the
+   product owner signs APPROVAL.md with references/date. Nothing reaches develop
+   before both steps. This task pushes the branch but creates no PR. Initial
+   acceptance and every later update require that same review and signoff.
+   Never bulk-accept unexpected diffs or interpret passing comparisons as approval.
 5. A second run in a different TEST root must match. Targeted mutation controls change
    a business date, decision and link in a copied projection and must fail comparison;
    runtime-only token changes must compare equal. Restore only scratch copies.
@@ -329,7 +334,7 @@ This correction is planned here; the DoD file is unchanged by the review task.
 | F1-02 | Synthetic inputs; test/phase-1-fixtures | documentation/DEFINITION_OF_DONE.md first; then tests/support generator/path helpers, tests/fixtures catalog/rows/eml/manifest, tests/test_fixture_catalog.py, narrow .gitignore exception | FIRST `docs(dod): align git rule with AGENTS.md`; then `test: add deterministic synthetic report fixtures`; `test: validate synthetic fixture catalog contracts` | Windows local primary; no Linux evidence required. Two scratch generations have identical bytes/hashes; check catalog provenance, six directory families, structural signatures and absence of operational data. Estimate 12 new TestCase methods: six family contracts plus determinism, byte/MIME stability, invented entities, safe links/IDs, catalog/hash completeness and immutable copies. Estimate 81 total: 75 pass + 6 known errors (pytest labels these failures) |
 | F1-03 | Restore clean-clone baseline; test/phase-1-baseline | tests/test_backend_blocking_scenarios.py, tests/test_processing_error_lifecycle.py, tests/test_controller_session_integration.py, tests/support/fixture_paths.py | `test: replace missing operational fixture dependencies`; `test: make controller output path assertion portable` | Windows-only execution; Linux portability accepted as a risk. Original six tests pass with weekly inputs, original 69 IDs retained; no new methods. Estimate 81/81 pass on both runners on Windows, zero failures/errors/skips; no prior-run dependency. Record Windows engine/ pytest-cov line coverage as a baseline, not a gate |
 | F1-04 | Convert inventory; test/phase-1-test-conversion | Plan amendment and roadmap NPS-018 status first; then the 18-file disposition map and its named destinations; tests/manual frontend preview; test-only harness support | FIRST `docs(plan): drop Linux cloud evidence; Windows-only execution`; then `test: convert stage and rule print scripts to assertions`; `test: convert weekly integration scripts to isolated cases`; `test: move interactive failure preview out of discovery`; `docs(plan): record F1-04 results` | Windows local primary; no Linux evidence required. Estimate 60 new methods from section 5.3 and 141/141 pass on both runners. All retained test_*.py files contribute cases; imports do not execute scenarios or print verdicts. Confirm a deliberately wrong POD expectation fails, then restore the scratch expectation before committing |
-| F1-05 | Golden master and closure evidence; test/phase-1-golden-master | tests/support projections/candidate helper, tests/test_pipeline_golden_master.py, tests/snapshots/phase1/v1 including APPROVAL.md, tests/README.md; Phase 1 documentation evidence only | `test: add semantic pipeline golden master comparisons`; after architect full-diff review and product-owner approval of APPROVAL.md, `test: approve phase 1 golden master snapshots`; `docs: record phase 1 safety net validation` | Windows-only execution; Linux portability accepted as a risk. Estimate 10 new methods: complete pipeline, parser equivalence, rule/review matrix, window edges, source blocking, cross-source duplicates, partial failure, canonicalization repeatability, mutation detection and provenance. Estimate 151/151 pass on both runners on Windows, zero failures/errors/skips. Record engine/ pytest-cov line coverage as a baseline, not a gate; compare Excel/Slack projections, verify APPROVAL.md counts/defect locations and frozen production tree |
+| F1-05A / F1-05B | Propose candidates, then obtain PR-gated approval; test/phase-1-golden-master | .codex/config.toml move, POD test/config labels, three golden master helpers, tests/test_pipeline_golden_master.py, PENDING tests/snapshots/phase1/v1/APPROVAL.md and candidates, tests/README.md, plan evidence | F1-05A: `chore(codex): move project config to .codex/config.toml`; `test: read POD pattern from configuration and correct NPS labels`; `test: add semantic pipeline golden master comparisons`; `test: propose phase 1 golden master snapshots`; `docs(plan): record F1-05A results and PR-gated snapshot approval`. F1-05B: architect full-diff review and product-owner signoff on the future PR before any merge to develop | Ten new methods; 151/151 on both Windows runners. Independent-root repeatability and business/runtime mutation controls. Same engine coverage command as F1-04; list uncovered preflight paths if below 75%, without adding tests. Push branch only; no PR or approval in F1-05A |
 
 Count budget: 69 original + 12 fixture contracts + 60 converted cases + 10 golden
 master methods = 151. Matrix rows use subtests and do not multiply collected cases.
@@ -449,6 +454,8 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
   Linux portability accepted as an unverified risk.
 - [x] F1-04: all 18 file dispositions completed; 60 new cases, 141/141 passing
   on both Windows runners; coverage 84.53%. Evidence and conversion table below.
+- [x] F1-05A: ten golden master methods and 141 candidate files across 14 scenarios;
+  151/151 both Windows runners; PENDING approval and PR gate documented below.
 - [ ] Architect reviews full candidate diffs; product owner approves APPROVAL.md with
   per-scenario counts and preserved known-defect locations.
 - [ ] F1-05: approved snapshots/APPROVAL.md, Windows closure evidence
@@ -685,6 +692,145 @@ applicable to this test-only package. Architect review and human `/review` again
 develop remain pending. Linux portability remains the explicitly accepted risk;
 NPS-019 remains unresolved. F1-05 snapshots and production defects remain out of scope.
 
+### F1-05A Windows candidate evidence - 2026-10-29
+
+Branch: `test/phase-1-golden-master`, created from updated develop `e2a49bd`.
+Commits in order: `b472c09` (identical config move), `01595e7` (configured POD
+pattern and precise NPS label), `bf47632` (three helpers and ten methods),
+`749558c` (PENDING snapshot proposals), followed by
+`docs(plan): record F1-05A results and PR-gated snapshot approval`.
+
+The user explicitly amended section 5.2 to allow candidate snapshots to be committed
+on this branch before approval. APPROVAL.md is PENDING; architect reviewer,
+architect review reference, product-owner approver/reference and approval date
+are empty. Snapshot comparison success does not approve business behavior.
+Approval happens on the future PR after full architect review and product-owner
+signoff. Nothing reaches develop until both occur. This package pushes only its
+branch, creates no PR, and leaves Phase 1 snapshot acceptance/closure pending.
+
+The first move attempt failed because .codex did not exist; work stopped under
+AGENTS.md section 5a. The user then authorized creating the empty directory and
+retrying. The resulting git mv has 100% identical content. The POD test now reads
+POD patterns/match type through the configured loader; only the plural nonmatch
+comment cites NPS-005. No business configuration changed.
+
+The ten methods cover complete pipeline, parser equivalence, rule/review matrix,
+window edges, source blocking (including standalone malformed lifecycles),
+cross-source duplicates, partial failure, independent-root repeatability,
+mutation detection and provenance. All 141 prior method IDs remain; collection is
+151 exactly. There are 141 semantic candidate files across these 14 scenarios:
+complete_weekly, review_and_boundaries, cross_source_duplicates, partial_failure,
+missing_argentina, missing_brazil, missing_mexico, duplicate_source,
+parser_equivalence, malformed_Brazil_no_html, malformed_Brazil_no_table,
+malformed_Brazil_missing_header, malformed_Brazil_bad_cells and
+malformed_Brazil_orphan_group. Parser equivalence includes all eight parser variants.
+
+The harness uses real controller/pipeline/stages/renderers and existing isolated
+TEST seams, with copied catalog inputs, fresh stdlib temporary roots, absolute
+lifecycle configuration, retention disabled and an injected SessionManager.
+Stage files come from actual persisted artifacts. Blocked runs include real
+controller preflight plus an independently inventoried manifest; standalone
+malformed reports preserve failed manifests/logs/error details. No outputs are
+invented for blocked or malformed runs. Catalog literal normalization/classification
+facts, partition CSVs, typed JSON versus CSV serialization, source bytes and every
+exported workbook field/hyperlink are checked independently of stored snapshots.
+
+The explicit canonicalization allowlist preserves business dates, decisions,
+links, order, missing keys/nulls and all fields. Registered execution IDs are
+validated against sources/manifests/logs; nonempty named runtime timestamps must
+be ISO and lifecycle ordered; filesystem paths must be contained. received_at is
+preserved. Workbook projections use data_only=False, retaining sheet order,
+nonempty cells/types/formulas/hyperlinks, dimensions, merges and freeze panes.
+Full HTML/scripts/Markdown are retained, including the known copied warning.
+Outside-window data follows persisted CSV types. No workbook layout/pixel or
+real-data certification is claimed. Generated HTML whitespace is preserved;
+scoped snapshot attributes permit original whitespace-only lines and force LF.
+
+Candidates were exported only by explicit BTS_EXPORT_GOLDEN_CANDIDATES=1 runs to
+ignored .codex-log/snapshot-candidates/F1-05A, then copied after checking all 141
+SHA-256 values and synthetic provenance. Ordinary tests cannot create or accept
+baselines; missing/extra files fail. Final comparison runs had export disabled.
+The approval document records per-scenario parsed/READY/EXCLUDED/REVIEW/outside
+and processed/failed/blocked counts, known-defect evidence and its limitations.
+provenance.json records candidate and frozen runtime/config hashes and tool versions.
+
+#### Validation
+
+Windows / win32; Python 3.14.6, PySide6 6.11.1, openpyxl 3.1.5,
+beautifulsoup4 4.15.0, pytest 9.2.0, pytest-cov 7.1.0, coverage 7.17.0.
+TMP/TEMP were repository .tmp. Each exact runtime command received outside-sandbox
+approval under NPS-019; static/metadata commands stayed inside the sandbox.
+
+| Command/check | Final result |
+|---|---|
+| `python -m unittest discover -s tests -p test*.py -v` (export disabled) | 151 run, 151 passed, 0 failures/errors/skips; 40.025s |
+| `python -m pytest -q` (export disabled) | 151 passed, 585 subtests passed, 0 failures/errors/skips; 40.32s |
+| `python -m pytest --cov=engine --cov-report=term-missing -q` | 151 passed, 585 subtests passed, 0 failures/errors/skips; 41.58s |
+| `python -m pytest --collect-only -q` | 151 methods collected |
+| Every scenario executed a second time in independent temporary roots | Identical projections for all 14 scenarios, in both final runners and coverage |
+| Mutation controls using the real comparison routine | Business date, decision and link mutations fail; runtime ID/path/timestamp changes compare equal; unknown root, invalid timestamp and reversed lifecycle rejected |
+| compileall app/engine/packaging and changed tests/support | Passed |
+| Ruff check and format-check on five changed Python files | Passed |
+| mypy --follow-imports=skip on the same five files | No issues in 5 source files |
+| Frozen-tree checks vs develop/e2a49bd and 70ad957; cached diff; status | Passed before every commit; no app/, engine/, config/ or packaging/ changes |
+| Candidate hash/provenance scan | 141 exact hashes verified; no operational roots or binary artifacts |
+| Git diff whitespace checks | Passed with scoped generated-HTML whitespace attributes |
+
+Development runs caught incorrect new expectations for CSV None serialization,
+first workbook data row and catalog row count, plus an unregistered inventoried_at
+runtime timestamp. These were corrected before the final passing runs. The initially
+unpushed POD commit received a Ruff formatting correction; no published history
+was rewritten. No unrelated test failure was accepted. Case-count variance: none
+(141 + 10 = 151). No Linux run or separate fresh-clone checkout was performed.
+
+#### Coverage delta
+
+Same F1-04 command and versions; compare its retained JSON with
+.codex-log/review/F1-05A_engine-coverage.json, exported inside the sandbox using
+`python -m coverage json -o .codex-log/review/F1-05A_engine-coverage.json`.
+
+| Engine line coverage | F1-04 | F1-05A | Delta |
+|---|---:|---:|---:|
+| Covered / statements | 2,416 / 2,858 | 2,454 / 2,858 | +38 covered; denominator unchanged |
+| Missed | 442 | 404 | -38 |
+| Percentage | 84.5346% | 85.8642% | +1.3296 percentage points |
+| Excluded | 0 | 0 | 0 |
+| weekly_preflight.py | 73 / 141; 51.7730% | 73 / 141; 51.7730% | unchanged; 68 missed |
+
+weekly_preflight.py remains below 75%. No tests were added to raise coverage.
+These are uncovered code paths from line coverage; branch coverage was not measured:
+
+- 60-61: malformed reference-date parsing error.
+- 103: direct production environment resolution.
+- 126, 131: missing or disabled source-group rejection.
+- 181: unconfigured-source readiness issue.
+- 263: existing input path that is not a directory.
+- 273-274: SourceInventoryError conversion to WeeklyPreflightError.
+- 339-432: CLI human-readable inventory/source/file/status/issue reporting,
+  including matched-file and issue-printing conditionals.
+- 436-466: CLI argument parser construction (date, TEST, JSON options).
+- 470-501, 505: CLI main/entry point, error exit 1, JSON versus human output,
+  and non-ready exit 2.
+
+#### Review bundle and DoD
+
+.codex-log/review/F1-05A_review_bundle.diff contains the ordered commit list,
+diff --stat against develop, the full diff outside tests/snapshots/, then the full
+APPROVAL.md diff and complete complete_weekly/partial_failure snapshot diffs.
+It is regenerated after the final documentation commit so the commit list and
+non-snapshot diff are complete. Actual bytes/line count are reported at delivery.
+The ignored review artifacts are not staged or pushed.
+
+Task DoD: scope/branch, frozen behavior, meaningful assertions, compileall, both
+full runners, repeatability/mutation controls, scoped lint/format/typing,
+synthetic provenance, isolation, documentation and Conventional Commits pass.
+Bug-fix regression requirements are not applicable to this candidate-only package.
+Architect review, product-owner approval and Phase 1 accepted golden-master closure
+remain pending on the future PR. No build, GUI preview, operational access,
+dependency installation or business-rule change occurred. NPS-001..007,
+NPS-011..017 and NPS-019 remain outside the fix scope; observed known-defect
+behavior and characterization limits are listed in APPROVAL.md.
+
 ## 10. Decision log
 
 | Date | Decision / open item | Reason | Owner |
@@ -705,3 +851,5 @@ NPS-019 remains unresolved. F1-05 snapshots and production defects remain out of
 | 2026-10-29 | F1-04: only Option A remains, coverage included; NPS-018 DONE on F1-03 81/81 Windows and Path assertion code review; F1-05 needs no Linux run | Explicit task amendment; Linux portability accepted risk | Product owner |
 
 | 2026-10-29 | F1-04 completed with exactly 60 new methods; 141/141 both runners; 84.53% Windows engine coverage | Assertion conversions preserve current behavior; F1-05 snapshot approval remains separate | Codex implementation evidence |
+
+| 2026-10-29 | F1-05A permits PENDING candidate commits on the task branch; approval is PR-gated after architect review and product-owner signoff | Explicit user task amendment; nothing reaches develop before both approvals; push branch only, no PR | Product owner |
