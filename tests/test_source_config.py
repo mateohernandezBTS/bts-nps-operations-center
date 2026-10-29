@@ -1,3 +1,9 @@
+"""Source configuration contracts used by the weekly inventory."""
+
+from __future__ import annotations
+
+import unittest
+
 from engine.source_config import (
     get_enabled_sources,
     get_required_sources,
@@ -5,32 +11,43 @@ from engine.source_config import (
 )
 
 
-def main() -> None:
-    configuration = load_source_configuration()
+class SourceConfigTest(unittest.TestCase):
+    def test_enabled_sources(self) -> None:
+        sources = get_enabled_sources("weekly_upcoming")
+        self.assertEqual(
+            [s["source_id"] for s in sources],
+            ["upcoming_argentina", "upcoming_brazil", "upcoming_mexico"],
+        )
+        self.assertEqual(
+            [s["country"] for s in sources], ["Argentina", "Brazil", "Mexico"]
+        )
+        self.assertTrue(
+            all(s["enabled"] and s["report_type"] == "upcoming" for s in sources)
+        )
+        self.assertEqual(load_source_configuration()["version"], 1)
 
-    upcoming_sources = get_enabled_sources("weekly_upcoming")
-    required_sources = get_required_sources("weekly_upcoming")
-    last_results_sources = get_enabled_sources("last_results")
-
-    print("=" * 80)
-    print("SOURCE CONFIGURATION TEST")
-    print("=" * 80)
-
-    print(f"Configuration version: {configuration.get('version')}")
-    print(f"Upcoming enabled: {len(upcoming_sources)}")
-    print(f"Upcoming required: {len(required_sources)}")
-    print(f"Last Results enabled: {len(last_results_sources)}")
-
-    print("\nREQUIRED UPCOMING SOURCES")
-    print("-" * 80)
-
-    for source in required_sources:
-        print(
-            f"{source['source_id']} | "
-            f"{source['country']} | "
-            f"{source['report_type']}"
+    def test_required_sources(self) -> None:
+        self.assertEqual(
+            get_required_sources("weekly_upcoming"),
+            get_enabled_sources("weekly_upcoming"),
+        )
+        self.assertTrue(
+            all(s["required"] for s in get_required_sources("weekly_upcoming"))
         )
 
-
-if __name__ == "__main__":
-    main()
+    def test_historical_group_is_optional(self) -> None:
+        sources = get_enabled_sources("last_results")
+        self.assertEqual(
+            [s["source_id"] for s in sources],
+            ["last_results_argentina", "last_results_brazil", "last_results_mexico"],
+        )
+        self.assertTrue(
+            all(
+                not s["required"] and s["report_type"] == "last_results"
+                for s in sources
+            )
+        )
+        self.assertEqual(get_required_sources("last_results"), [])
+        group = load_source_configuration()["source_groups"]["last_results"]
+        self.assertTrue(group["allow_partial_run"])
+        self.assertFalse(group["required_for_completion"])

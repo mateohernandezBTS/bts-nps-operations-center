@@ -17,16 +17,11 @@ def main() -> int:
         "reference_date": "8/10/2026",
         "window_start": "8/11/2026",
         "window_end": "8/17/2026",
-        "weekly_run_id": (
-            "NPS_WEEK_2026-08-11_2026-08-17"
-        ),
+        "weekly_run_id": ("NPS_WEEK_2026-08-11_2026-08-17"),
         "source_group": "weekly_upcoming",
         "input_directory": "temporary/input",
         "output_root": "temporary/output",
-        "expected_run_directory": (
-            "temporary/output/"
-            "NPS_WEEK_2026-08-11_2026-08-17"
-        ),
+        "expected_run_directory": ("temporary/output/NPS_WEEK_2026-08-11_2026-08-17"),
         "allow_partial_run": False,
         "status": "READY_TO_PROCESS",
         "issues": [],
@@ -45,16 +40,12 @@ def main() -> int:
 
     with (
         patch(
-            "engine.application_controller."
-            "run_weekly_preflight",
+            "engine.application_controller.run_weekly_preflight",
             return_value=fake_preflight,
         ),
         patch(
-            "engine.application_controller."
-            "execute_weekly_end_to_end",
-            side_effect=WeeklyEndToEndError(
-                "Controlled weekly processing failure."
-            ),
+            "engine.application_controller.execute_weekly_end_to_end",
+            side_effect=WeeklyEndToEndError("Controlled weekly processing failure."),
         ),
     ):
         window = ApplicationShell()

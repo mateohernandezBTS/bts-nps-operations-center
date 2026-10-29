@@ -1,8 +1,8 @@
 # Execution Plan — F1 Phase 1 safety net
 
-Status: APPROVED WITH AMENDMENTS — review decisions recorded; this task is plan-only.
+Status: APPROVED WITH AMENDMENTS — F1-04 implemented; F1-05 remains pending.
 Prepared: 2026-10-28. Base: develop at `70ad957` (merged Phase 0 tooling).
-Planning branch: `test/phase-1-plan`. This task writes only this plan.
+Planning branch: `test/phase-1-plan`. F1-04 branch: `test/phase-1-test-conversion`.
 
 ## 1. Purpose
 
@@ -50,8 +50,8 @@ In scope for later approved F1-02 through F1-05:
   test harnesses, assertions, snapshots and test documentation.
 - Replace the six missing-fixture lookups; make the Windows path assertion portable.
 - Resolve the disposition of all 18 non-executed files in section 5.3.
-- Apply the approved NPS-019 execution policy: option A for Windows, supplemented
-  by option B Linux evidence at F1-03 and F1-05 closure; defer option C to optional F1-06.
+- Apply NPS-019 Option A only: explicitly approved Windows test commands, including
+  coverage. Linux portability is an accepted risk; no cloud evidence is required.
 - Align the DoD Git rule in the first F1-02 commit (section 5.6).
 
 Out of scope:
@@ -295,28 +295,21 @@ controlled injection does not stand in for malformed-input coverage.
 At tests/test_controller_session_integration.py:246 replace the literal Windows
 separator expectation with `str(Path('output') / 'report.xlsx')` (or an equivalent
 Path comparison). Keep the exact relative location assertion; do not assert only
-the filename. Run the same 69 original test IDs on Windows and Linux. NPS-018 is
-closed only after both operating systems have evidence, not merely a local edit.
+the filename. NPS-018 is closed on F1-03 Windows evidence (81/81) and code review of the
+Path-based full relative-location assertion. Linux portability remains an accepted,
+documented risk; no Linux execution is required.
 
-### 5.5 NPS-019 decision and deferred option
+### 5.5 NPS-019 Windows execution policy
 
-The F0-02 diagnosis established that mkdtemp's 0o700 ACL is unusable by the Windows
-restricted token; setting TMP/TEMP inside the repository did not fix it. Do not
-change ACLs or monkeypatch global tempfile/os functions to get a green run.
-
-| Option | Pros | Cons / limits |
-|---|---|---|
-| A. Retain the current explicit-approval exception for exact Windows unittest/pytest commands | Exercises the actual Windows environment without altering tests or production code; supported by F0-02 baseline | Every elevated run requires explicit approval and runs outside token confinement; does not repair the sandbox. Exact-command limitation complicates alternate tooling/coverage commands |
-| B. Human-launched Linux cloud evidence at F1-03 and F1-05 closures | Linux isolation avoids the observed Windows ACL incompatibility and tests NPS-018 portability | Linux alone cannot certify Windows. Cloud dependencies/wrapper must already be available; no automatic installs or packaging. Requires a separately recorded Windows run |
-| C. Introduce a portable test-only temporary-root helper using ordinary inherited-permission directories | Can keep test-created roots inside the sandbox without weakening production code or the stdlib; explicit containment/cleanup contracts | Touches many existing test setups, needs careful unique allocation and cleanup validation, and may not control Qt/third-party tempfile usage. Could mask isolation mistakes; must preserve temporary .exe cleanup constraints |
-
-Approved decision: option A applies to all Windows runs, limited to the exact test
-commands with explicit approval. Windows local is primary for every package.
-Option B supplies required Linux evidence only at F1-03 and F1-05 closure; the human
-launches a Codex cloud task for each closure. No Linux run is required for F1-02 or
-F1-04. Option C is deferred to optional F1-06 after F1-05, not selected for current
-implementation. The 151-case estimate excludes F1-06. NPS-019 remains PLANNED because
-the approved operating accommodation does not repair the underlying incompatibility.
+Only Option A remains: retain the explicit-approval exception for exact Windows
+unittest/pytest commands using the local virtual environment, with TMP/TEMP set to
+repository .tmp before Python starts. Coverage uses the same exception and exact
+F1-03 command: `python -m pytest --cov=engine --cov-report=term-missing -q`.
+Each elevated command requires approval. Do not change ACLs or monkeypatch global
+tempfile/os functions. The accommodation does not repair NPS-019, which remains
+PLANNED. Windows is the sole execution platform for Phase 1. Linux portability is
+an accepted risk, supported only by code review of platform-neutral assertions.
+The optional F1-06 helper remains separately deferred, not a selected policy.
 
 ### 5.6 Sequenced execution work packages
 
@@ -334,9 +327,9 @@ This correction is planned here; the DoD file is unchanged by the review task.
 | # | Task / branch | Files | Planned commits, in order | Validation / expected counts |
 |---|---|---|---|---|
 | F1-02 | Synthetic inputs; test/phase-1-fixtures | documentation/DEFINITION_OF_DONE.md first; then tests/support generator/path helpers, tests/fixtures catalog/rows/eml/manifest, tests/test_fixture_catalog.py, narrow .gitignore exception | FIRST `docs(dod): align git rule with AGENTS.md`; then `test: add deterministic synthetic report fixtures`; `test: validate synthetic fixture catalog contracts` | Windows local primary; no Linux evidence required. Two scratch generations have identical bytes/hashes; check catalog provenance, six directory families, structural signatures and absence of operational data. Estimate 12 new TestCase methods: six family contracts plus determinism, byte/MIME stability, invented entities, safe links/IDs, catalog/hash completeness and immutable copies. Estimate 81 total: 75 pass + 6 known errors (pytest labels these failures) |
-| F1-03 | Restore clean-clone baseline; test/phase-1-baseline | tests/test_backend_blocking_scenarios.py, tests/test_processing_error_lifecycle.py, tests/test_controller_session_integration.py, tests/support/fixture_paths.py | `test: replace missing operational fixture dependencies`; `test: make controller output path assertion portable` | Windows local primary; human launches the Linux cloud task at closure. Original six tests pass with weekly inputs, original 69 IDs retained; no new methods. Estimate 81/81 pass on both runners and both OSes, zero failures/errors/skips; no prior-run dependency. Record engine/ pytest-cov line coverage from Linux closure as a baseline, not a gate |
-| F1-04 | Convert inventory; test/phase-1-test-conversion | The 18-file disposition map and its named destinations; tests/manual frontend preview; test-only harness support | `test: convert stage and rule print scripts to assertions`; `test: convert weekly integration scripts to isolated cases`; `test: move interactive failure preview out of discovery` | Windows local primary; no Linux evidence required. Estimate 60 new methods from section 5.3 and 141/141 pass on both runners. All retained test_*.py files contribute cases; imports do not execute scenarios or print verdicts. Confirm a deliberately wrong POD expectation fails, then restore the scratch expectation before committing |
-| F1-05 | Golden master and closure evidence; test/phase-1-golden-master | tests/support projections/candidate helper, tests/test_pipeline_golden_master.py, tests/snapshots/phase1/v1 including APPROVAL.md, tests/README.md; Phase 1 documentation evidence only | `test: add semantic pipeline golden master comparisons`; after architect full-diff review and product-owner approval of APPROVAL.md, `test: approve phase 1 golden master snapshots`; `docs: record phase 1 safety net validation` | Windows local primary; human launches the Linux cloud task at closure. Estimate 10 new methods: complete pipeline, parser equivalence, rule/review matrix, window edges, source blocking, cross-source duplicates, partial failure, canonicalization repeatability, mutation detection and provenance. Estimate 151/151 pass on both runners/OSes, zero failures/errors/skips. Record engine/ pytest-cov line coverage as a baseline, not a gate; compare Excel/Slack projections, verify APPROVAL.md counts/defect locations and frozen production tree |
+| F1-03 | Restore clean-clone baseline; test/phase-1-baseline | tests/test_backend_blocking_scenarios.py, tests/test_processing_error_lifecycle.py, tests/test_controller_session_integration.py, tests/support/fixture_paths.py | `test: replace missing operational fixture dependencies`; `test: make controller output path assertion portable` | Windows-only execution; Linux portability accepted as a risk. Original six tests pass with weekly inputs, original 69 IDs retained; no new methods. Estimate 81/81 pass on both runners on Windows, zero failures/errors/skips; no prior-run dependency. Record Windows engine/ pytest-cov line coverage as a baseline, not a gate |
+| F1-04 | Convert inventory; test/phase-1-test-conversion | Plan amendment and roadmap NPS-018 status first; then the 18-file disposition map and its named destinations; tests/manual frontend preview; test-only harness support | FIRST `docs(plan): drop Linux cloud evidence; Windows-only execution`; then `test: convert stage and rule print scripts to assertions`; `test: convert weekly integration scripts to isolated cases`; `test: move interactive failure preview out of discovery`; `docs(plan): record F1-04 results` | Windows local primary; no Linux evidence required. Estimate 60 new methods from section 5.3 and 141/141 pass on both runners. All retained test_*.py files contribute cases; imports do not execute scenarios or print verdicts. Confirm a deliberately wrong POD expectation fails, then restore the scratch expectation before committing |
+| F1-05 | Golden master and closure evidence; test/phase-1-golden-master | tests/support projections/candidate helper, tests/test_pipeline_golden_master.py, tests/snapshots/phase1/v1 including APPROVAL.md, tests/README.md; Phase 1 documentation evidence only | `test: add semantic pipeline golden master comparisons`; after architect full-diff review and product-owner approval of APPROVAL.md, `test: approve phase 1 golden master snapshots`; `docs: record phase 1 safety net validation` | Windows-only execution; Linux portability accepted as a risk. Estimate 10 new methods: complete pipeline, parser equivalence, rule/review matrix, window edges, source blocking, cross-source duplicates, partial failure, canonicalization repeatability, mutation detection and provenance. Estimate 151/151 pass on both runners on Windows, zero failures/errors/skips. Record engine/ pytest-cov line coverage as a baseline, not a gate; compare Excel/Slack projections, verify APPROVAL.md counts/defect locations and frozen production tree |
 
 Count budget: 69 original + 12 fixture contracts + 60 converted cases + 10 golden
 master methods = 151. Matrix rows use subtests and do not multiply collected cases.
@@ -348,7 +341,7 @@ meaningful asserted coverage and clean-clone parity, not the exact number 151.
 ### 5.7 Optional F1-06 stub — deferred temporary-root helper
 
 After F1-05, a separately authorized `test/phase-1-temp-helper` package may explore
-option C. Scope: test-only portable temporary-root allocation and contained cleanup,
+a temporary-root helper. Scope: test-only portable temporary-root allocation and contained cleanup,
 plus conversion of explicitly inventoried test setups; no app/, engine/, config/
 or packaging/ changes. Do not change ACLs or patch global tempfile/os functions.
 
@@ -371,16 +364,12 @@ For each approved implementation package:
   Windows local is primary for every package. Set TMP/TEMP to repository .tmp before
   Python starts. Under approved option A request
   approval for the exact test commands only; no compound elevated scripts.
-- At F1-03 and F1-05 closure only, the human launches a Codex cloud task for Linux
-  evidence. Use `/workspace/.setup/bts/headless.sh` for Python and Qt headless settings.
-  Do not launch the interactive manual preview on either platform.
-- At those two closures, record pytest-cov line coverage for engine/ as a baseline,
-  not a gate: covered/total statements, missed lines, percentage, platform and tool
-  versions. Collect it in the human-launched Linux task with
-  `/workspace/.setup/bts/headless.sh -m pytest -q --cov=engine --cov-report=term-missing --cov-report=json:.codex-log/engine-coverage.json`.
-  Keep the machine report ignored and record its summary in the closure evidence.
-  This does not broaden the exact-command Windows escalation exception. Required
-  cloud tooling must be provisioned by the environment; stop and report if absent.
+- Windows is the sole execution platform; do not launch the interactive manual preview.
+- Record engine/ line coverage at F1-03, F1-04 and F1-05 using the same approved
+  NPS-019 exception: `python -m pytest --cov=engine --cov-report=term-missing -q`.
+  Record covered/total statements, missed lines, percentage, platform and tool
+  versions. Export ignored JSON from the resulting coverage data inside the sandbox.
+  Coverage is a baseline, not a gate. No Linux closure run is required.
 - Inspect unittest and pytest collection inventories without executing legacy mains;
   no silent skips, expected-failure labels or reliance on import-time print checks.
 - Run Ruff check/format-check on new or converted Python test modules; baseline
@@ -425,7 +414,7 @@ validate a prose plan; compileall/full-suite implementation gates remain for F1-
 | Golden master blesses known bugs or hides business changes | High | Regression net protects the wrong assumption | Label NPS-001..007 behavior, independent semantic assertions, explicit approval and no automatic snapshot acceptance |
 | Canonicalization hides meaningful differences | Medium | False-green snapshots | Narrow field allowlist, containment checks and mutation/repeatability tests |
 | Tests mutate inputs or shared sessions | Medium | Order dependence and data loss | Copy immutable inputs; TEST-only overrides; isolated sessions; containment assertions and independent roots |
-| tempfile ACL incompatibility persists | Confirmed | Windows sandbox cannot complete suite | Approved option A for exact Windows tests; option B at two closures; no implicit sandbox workaround |
+| tempfile ACL incompatibility persists | Confirmed | Windows sandbox cannot complete suite | Option A for exact Windows tests and coverage; no implicit sandbox workaround |
 | Fixture files remain ignored or expose real data | Medium | Clean clone fails or data leaks | Narrow ignore exception, explicit catalog/manifest tracking and invented-entity review |
 | Open approvals delay F1-05 | Medium | Snapshots cannot be committed | Prepare reviewable candidates; stop before acceptance and report human action |
 | Actual test design needs more than the budget | Medium | Misleading collection target | Retain useful tests, update arithmetic with reasons and obtain review; never trade coverage for a number |
@@ -444,8 +433,7 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
 - [x] F1-01: inspect Phase 0 documents, parser/normalizer and all 18 file dispositions.
 - [x] F1-01: prepare this plan for review; no implementation performed.
 - [x] Human approves plan with directory families and the 151-case estimate.
-- [x] NPS-019: option A on Windows; option B Linux evidence at F1-03/F1-05 closures;
-  option C deferred to optional F1-06. Windows local owns every package's primary run.
+- [x] NPS-019: Option A only on Windows, including coverage; helper deferred to F1-06.
 - [x] F1-02: DoD correction (280fecf), synthetic catalog/generator (18e985a), and
   12 contract methods completed on Windows. The catalog has 26 emails and 95
   invented literal rows. Two scratch generations and the versioned inputs matched
@@ -457,12 +445,13 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
   Frozen-tree checks passed; no Linux evidence is required for this package.
 - [x] F1-03 Windows implementation: multipart weekly fidelity fix, six repaired tests,
   portable path assertion and Windows engine/ coverage baseline recorded below.
-- [ ] F1-03 closure: human-launched Linux evidence for NPS-018 and Linux coverage
-  baseline remain pending; NPS-018 is not yet closed.
-- [ ] F1-04: all 18 file dispositions completed.
+- [x] F1-03 closure: NPS-018 DONE on 81/81 Windows evidence and Path assertion review;
+  Linux portability accepted as an unverified risk.
+- [x] F1-04: all 18 file dispositions completed; 60 new cases, 141/141 passing
+  on both Windows runners; coverage 84.53%. Evidence and conversion table below.
 - [ ] Architect reviews full candidate diffs; product owner approves APPROVAL.md with
   per-scenario counts and preserved known-defect locations.
-- [ ] F1-05: approved snapshots/APPROVAL.md, human-launched Linux closure evidence
+- [ ] F1-05: approved snapshots/APPROVAL.md, Windows closure evidence
   and engine/ line-coverage baseline recorded.
 - [ ] Optional F1-06: separately authorize and scope the deferred temporary-root helper.
 
@@ -535,9 +524,166 @@ unrounded percentage:
 | engine/selam_output.py | 25 / 162 | 137 | 15.43% |
 
 The product owner explicitly approved the exact Windows coverage command in this
-session, amending section 6 only for this run. Linux NPS-018 evidence and the Linux
-coverage baseline still require a human-launched Codex cloud task using the wrapper
-and command in section 6. Architect review and product-owner review are pending.
+session. The F1-04 amendment extends that exact-command policy to Windows
+coverage runs and closes NPS-018 on Windows evidence plus code review. Linux
+portability is an accepted unverified risk. Architect and product-owner review remain pending.
+
+### F1-04 Windows evidence - 2026-10-29
+
+Branch: `test/phase-1-test-conversion`, created from updated develop `6f42131`.
+Commits, in required order: `30e82be` (plan amendment and NPS-018 DONE),
+`c6a108d` (28 stage/rule cases), `02b99e6` (32 integration cases),
+`9889fed` (manual preview move), followed by `docs(plan): record F1-04 results`.
+Application behavior and all fixture bytes are unchanged. Nothing was built or
+launched interactively. Publishing is limited to this branch; no PR is requested.
+
+#### Conversion table
+
+Counts below are collected TestCase methods, not assertion or subtest counts.
+The planned 60 cases were implemented without dropping any of the original 81.
+
+| Original file | Decision | Destination | New cases |
+|---|---|---|---:|
+| tests/scripts/test_engine_email_parser.py | Merge; remove superseded script | tests/test_email_parser.py | 6 |
+| tests/scripts/test_engine_normalize.py | Merge; remove superseded script | tests/test_normalize.py | 4 |
+| tests/scripts/test_engine_business_rules.py | Merge; remove superseded script | tests/test_business_rules.py | 5 |
+| tests/scripts/test_engine_worklist.py | Merge; remove superseded script | tests/test_worklist.py | 4 |
+| tests/scripts/test_engine_slack_output.py | Merge; remove superseded script | tests/test_slack_output.py | 2 |
+| tests/scripts/test_execution_lifecycle.py | Convert; remove superseded script | tests/test_execution_lifecycle.py | 2 |
+| tests/test_application_controller.py | Merge; remove superseded script | tests/test_controller_session_integration.py | 2 |
+| tests/test_application_controller_weekly.py | Merge; remove superseded script | tests/test_controller_session_integration.py | 2 |
+| tests/test_frontend_controlled_failure.py | Move; retain interactive main guard | tests/manual/frontend_controlled_failure.py | 0 |
+| tests/test_inventory_manifest_integration.py | Convert | Same path | 3 |
+| tests/test_pod_rule.py | Convert import-time verdicts to assertions | Same path | 7 |
+| tests/test_selam_aggregator.py | Convert | Same path | 4 |
+| tests/test_selam_output.py | Convert | Same path | 3 |
+| tests/test_six_reports_manifest.py | Merge; remove superseded script | tests/test_inventory_manifest_integration.py | 1 |
+| tests/test_source_config.py | Convert | Same path | 3 |
+| tests/test_source_inventory.py | Convert | Same path | 4 |
+| tests/test_weekly_orchestrator.py | Convert | Same path | 4 |
+| tests/test_weekly_run.py | Convert | Same path | 4 |
+| **Total** | **17 automated dispositions and one manual move** | **18 originals accounted for** | **60** |
+
+New support modules: `tests/support/stage_cases.py` reads explicit fixture/catalog
+row IDs and runs the real stages; `tests/support/weekly_cases.py` supplies fresh
+stdlib temporary roots, absolute TEST lifecycle overrides with retention disabled,
+copy-before-processing inputs, environment/path patches and containment assertions.
+Every integration method creates its own root. Inputs are read only from the
+versioned synthetic fixture catalog. Copied bundle bytes are checked against their
+immutable sources after each case. Only the named superseded scripts were removed;
+other tests/scripts utilities were left alone.
+
+Parser cases cover plain/Sum equivalence, grouped offices, Mexico td rows, all
+invitation placements, forwarded multipart selection and five malformed inputs
+(including the second bad-cell width). Normalization checks dates/whitespace,
+boolean/status matrices, required fields, issue lists and row numbers. Rule cases
+cover every configured exclusion field/pattern, review, precedence, eligibility
+and negative/case/accent controls. Worklist and per-source Markdown cases pin both
+window edges, ID extraction, facilitator normalization, readiness, columns, links,
+client grouping and filtering.
+
+Integration cases exercise real inventory/readiness, six-report scope, weekly
+creation, persistence, duplicate/existing-run protection, real lifecycle moves,
+continue/stop-on-error behavior, aggregation attribution/order and ready/review
+deduplication, CSV projection, manual-review window filtering, retained Markdown,
+and real controller preflight/full/partial processing with injected sessions.
+Chile's stock detector outcome remains REVIEW; only the existing detector seam is
+patched to exercise the separate unconfigured-source inventory branch.
+
+Known-defect assertions are labeled in code: NPS-001 partial failure still reports
+COMPLETED_WITH_REVIEW/success with empty top-level issues and omits Brazil;
+NPS-002 invitation columns are still absent from worklist/CSV; NPS-004 substring
+matching, NPS-005 singular POD matching, NPS-006 empty/x boolean handling,
+NPS-015 coaching scope and NPS-016 invitation eligibility are preserved.
+NPS-017 is accommodated by patching import-time TEST constants before execution.
+No business decision or production fix is implemented.
+
+#### Validation
+
+All runtime suite commands used Windows 11 / win32, local virtual environment,
+Python 3.14.6, and repository `.tmp` for TMP/TEMP before Python started. Each
+outside-sandbox command received approval under the amended NPS-019 Option A.
+
+| Command/check | Final result |
+|---|---|
+| `python -m unittest discover -s tests -p "test*.py" -v` | 141 run, 141 passed, 0 failures/errors/skips; 15.590s |
+| `python -m pytest -q` | 141 passed, 559 subtests passed, 0 failures/errors/skips; 18.41s |
+| `python -m pytest --cov=engine --cov-report=term-missing -q` | 141 passed, 559 subtests passed, 0 failures/errors/skips; 24.99s |
+| `python -m pytest --collect-only -q` (sandbox, after manual move) | 141 collected; 1.02s |
+| `python -m compileall -q app engine packaging` and changed test/support/manual paths | Passed |
+| `python -m ruff check` and `python -m ruff format --check` on all 18 changed Python files | Passed; 18 formatted files |
+| `python -m mypy --follow-imports=skip` on the same 18 changed Python files | No issues in 18 source files; untouched imports excluded |
+| AST inventory against `6f42131` | All 81 original class/method IDs retained |
+| Import all recursive tests/test_*.py modules, capturing stdout/stderr | 26 modules, all silent and all contributing cases; 141 cases total |
+| Import moved manual preview, capturing stdout/stderr | Silent; no GUI construction/show/exec |
+| Reversed module and method order for 28 pure-stage/rule methods (sandbox) | Two runs, 28/28 passed each; 2.416s and 3.425s |
+| Frozen-tree checks against `6f42131` and `70ad957`, cached diff, status and whitespace | Passed before each commit; matching directory tree object IDs |
+
+POD mutation proof: a scratch copy at `.tmp/f104_pod_mutation.py` changed only
+`test_singular` from True to False. Its seven-case run produced exactly one failure
+(`AssertionError: True is not False`) and zero errors. The scratch file was restored
+byte-for-byte to the unmutated source before the stage/rule commit; the tracked
+module was never mutated. Its seven real assertions pass in both full runners.
+
+Early development runs identified three incorrect new expectations (country wording
+and the additional partial-run blocker; CSV field projection; an em dash damaged by
+shell encoding). Those expectations were corrected against the current implementation.
+The final runs above are green. No unrelated test failure, skip or expected failure
+was accepted. Case-count variance: none (81 + 60 = 141).
+
+The complete suite ran repeatedly with independently allocated per-case temporary
+roots across unittest, pytest and coverage. Only the pure-stage subset was executed
+in reversed order; a reversed full integration invocation was not performed because
+the exact-command NPS-019 exception does not permit alternate elevated runners.
+No separate fresh-clone checkout was made. No snapshots were added or accepted:
+reviewed semantic golden masters, Excel/HTML projection certification and their
+approval workflow belong to F1-05. These are explicit limits on this evidence.
+
+#### Coverage delta
+
+Same Windows command and tool versions as F1-03: pytest 9.2.0, pytest-cov 7.1.0,
+coverage 7.17.0. JSON exported inside the sandbox using
+`python -m coverage json -o .codex-log/f104/engine-coverage.json`; machine reports
+remain ignored. Comparisons use the retained F1-03 JSON report and its recorded
+baseline, not terminal-rounded percentages.
+
+| Engine total | F1-03 | F1-04 | Delta |
+|---|---:|---:|---:|
+| Covered / statements | 1,446 / 2,858 | 2,416 / 2,858 | +970 covered; denominator unchanged |
+| Missed | 1,412 | 442 | -970 |
+| Line coverage | 50.5948% | 84.5346% | +33.9398 percentage points |
+| Excluded lines | 0 | 0 | 0 |
+
+Five least-covered modules after F1-04, ranked by unrounded percentage:
+
+| Module | F1-03 | F1-04 covered / statements | F1-04 missed | F1-04 | Delta (pp) |
+|---|---:|---:|---:|---:|---:|
+| engine/weekly_preflight.py | 51.77% | 73 / 141 | 68 | 51.77% | 0.00 |
+| engine/schedule_config.py | 27.27% | 23 / 33 | 10 | 69.70% | +42.42 |
+| engine/source_config.py | 70.69% | 42 / 58 | 16 | 72.41% | +1.72 |
+| engine/weekly_manifest.py | 13.58% | 61 / 81 | 20 | 75.31% | +61.73 |
+| engine/weekly_excel.py | 13.93% | 245 / 323 | 78 | 75.85% | +61.92 |
+
+For comparison, the former F1-03 bottom five all improved:
+
+| Module | F1-03 | F1-04 | Delta (pp) |
+|---|---:|---:|---:|
+| engine/selam_aggregator.py | 11.64% | 83.60% | +71.96 |
+| engine/weekly_manifest.py | 13.58% | 75.31% | +61.73 |
+| engine/weekly_orchestrator.py | 13.59% | 90.29% | +76.70 |
+| engine/weekly_excel.py | 13.93% | 75.85% | +61.92 |
+| engine/selam_output.py | 15.43% | 86.42% | +70.99 |
+
+Coverage is evidence of executed lines, not a semantic-output certification or a
+new gate. Weekly preflight's remaining misses are largely CLI/reporting/error
+branches; no out-of-scope production changes were made to increase the percentage.
+
+Task DoD: scope/branch, preserved behavior, assertions, compileall, both full
+runners, scoped lint/format/typing, synthetic data review, frozen trees, documentation
+and Conventional Commits pass. Bug-fix and golden-master acceptance items are not
+applicable to this test-only package. Architect review and human `/review` against
+develop remain pending. Linux portability remains the explicitly accepted risk;
+NPS-019 remains unresolved. F1-05 snapshots and production defects remain out of scope.
 
 ## 10. Decision log
 
@@ -547,11 +693,15 @@ and command in section 6. Architect review and product-owner review are pending.
 | 2026-10-28 | Freeze app/, engine/, config/, packaging/ for all Phase 1 work | Safety net must precede behavior fixes/refactors | User |
 | 2026-10-28 | Use weekly/, parser/, detection/, classification/, scenarios/, malformed/ directories and matching filename prefixes | Retired letters named missing operational sets in F0-01 | Product owner |
 | 2026-10-28 | Approve 151 cases as an estimate; explain useful changes rather than enforcing the count | Coverage quality takes precedence over an exact total | Product owner |
-| 2026-10-28 | Select option A for every Windows run and option B at F1-03/F1-05 closures; defer option C to optional F1-06 | Approved NPS-019 execution policy | Product owner |
+| 2026-10-28 | Select Option A for Windows runs; temporary-root helper deferred to F1-06 (superseded execution evidence policy by F1-04 amendment) | Approved NPS-019 execution policy | Product owner |
 | 2026-10-28 | Architect reviews full candidate diffs; product owner approves APPROVAL.md with per-scenario counts and preserved known-defect IDs/locations | Make snapshot acceptance explicit and reviewable | Product owner / architect |
-| 2026-10-28 | Windows local is primary for all packages; human launches Linux cloud tasks only at F1-03/F1-05 closures | Required cross-platform closure evidence | Product owner |
+| 2026-10-28 | Windows execution policy amended by F1-04: no cloud runs required | Linux portability accepted as a risk | Product owner |
 | 2026-10-28 | Record engine/ pytest-cov line coverage at both closures as a baseline, not a gate | Quantify the safety net without a coverage threshold | Product owner |
 | 2026-10-28 | F1-02 starts with docs(dod): align git rule with AGENTS.md | Correct contradictory DoD wording before fixture work | Product owner |
 
 | 2026-10-28 | F1-03 includes weekly multipart fidelity before the six repairs, followed by portable assertion and results commits | Explicit task amendment; preserve decoded HTML and original 81 methods | Product owner |
-| 2026-10-28 | Approve exact Windows pytest coverage command outside sandbox for F1-03 | Explicit session approval; Linux evidence remains separately pending | Product owner |
+| 2026-10-28 | Approve exact Windows pytest coverage command outside sandbox for F1-03 | Explicit session approval; F1-04 removes further platform evidence requirements | Product owner |
+
+| 2026-10-29 | F1-04: only Option A remains, coverage included; NPS-018 DONE on F1-03 81/81 Windows and Path assertion code review; F1-05 needs no Linux run | Explicit task amendment; Linux portability accepted risk | Product owner |
+
+| 2026-10-29 | F1-04 completed with exactly 60 new methods; 141/141 both runners; 84.53% Windows engine coverage | Assertion conversions preserve current behavior; F1-05 snapshot approval remains separate | Codex implementation evidence |

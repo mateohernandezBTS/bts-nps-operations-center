@@ -1,163 +1,101 @@
-import csv
-import json
-from pathlib import Path
+"""CSV schema, summary/window partition and retained Markdown."""
 
+from __future__ import annotations
+
+import csv
+from pathlib import Path
+from typing import Any
+
+from engine.selam_aggregator import (
+    aggregate_selam_manual_reviews,
+    aggregate_selam_worklists,
+)
 from engine.selam_output import (
     CSV_COLUMNS,
+    MANUAL_REVIEW_COLUMNS,
     generate_selam_outputs,
 )
+from tests.support.weekly_cases import IsolatedWeeklyCase, read_json
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+class SelamOutputTest(IsolatedWeeklyCase):
+    def outputs(self, bundle: str = "complete_weekly") -> dict[str, Any]:
+        path = self.prepare(bundle)
+        self.process(path)
+        aggregate_selam_worklists(path)
+        aggregate_selam_manual_reviews(path)
+        return generate_selam_outputs(path)
 
-MANIFEST_PATH = (
-    PROJECT_ROOT
-    / "tests"
-    / "output"
-    / "weekly_orchestrator"
-    / "NPS_WEEK_2026-07-28_2026-08-03"
-    / "weekly_manifest.json"
-)
+    def test_csv_schema_and_records(self) -> None:
+        result = self.outputs()
+        with self.assert_local(result["csv_path"]).open(
+            encoding="utf-8-sig", newline=""
+        ) as stream:
+            reader = csv.DictReader(stream)
+            records = list(reader)
+        self.assertEqual(reader.fieldnames, CSV_COLUMNS)
+        self.assertEqual(len(records), 6)
+        self.assertEqual(records, result["records"])
+        self.assertEqual(
+            [r["Session"] for r in records],
+            [f"Fixture Session {i:03}" for i in range(1, 7)],
+        )
+        # NPS-002: current CSV omits invitation values/links.
+        self.assertNotIn("survey_invitation_link", reader.fieldnames or [])
 
+    def test_summary_and_manual_review_window(self) -> None:
+        result = self.outputs("cross_source_duplicates")
+        summary = result["weekly_summary"]
+        self.assertEqual(read_json(self.assert_local(result["summary_path"])), summary)
+        self.assertEqual(
+            (
+                summary["total_records"],
+                summary["ready_records"],
+                summary["duplicate_issues"],
+            ),
+            (10, 10, 1),
+        )
+        self.assertEqual(
+            (summary["window_start"], summary["window_end"]),
+            ("08/04/2026", "08/10/2026"),
+        )
+        self.assertEqual(
+            (
+                summary["manual_review_records"],
+                summary["worklist_review_records"],
+                summary["review_records"],
+            ),
+            (9, 0, 9),
+        )
+        with Path(result["manual_review_csv_path"]).open(
+            encoding="utf-8-sig", newline=""
+        ) as stream:
+            reader = csv.DictReader(stream)
+            reviews = list(reader)
+        self.assertEqual(reader.fieldnames, MANUAL_REVIEW_COLUMNS)
+        self.assertEqual(len(reviews), 9)
+        self.assertNotIn(
+            "Fixture Session revenue outside", [r["project_name"] for r in reviews]
+        )
+        self.assertIn(
+            "Fixture Session revenue inside", [r["project_name"] for r in reviews]
+        )
+        self.assertEqual(
+            reviews,
+            [
+                {key: row.get(key, "") for key in MANUAL_REVIEW_COLUMNS}
+                for row in result["manual_review_records"]
+            ],
+        )
 
-def main() -> None:
-    print("=" * 80)
-    print("SELAM OUTPUT TEST")
-    print("=" * 80)
-
-    result = generate_selam_outputs(
-        manifest_path=MANIFEST_PATH,
-    )
-
-    summary = result[
-        "weekly_summary"
-    ]
-
-    print("\nSUMMARY")
-    print("-" * 80)
-    print(
-        f"Region: {summary['region']}"
-    )
-    print(
-        f"Weekly Run: "
-        f"{summary['weekly_run_id']}"
-    )
-    print(
-        f"Total records: "
-        f"{summary['total_records']}"
-    )
-    print(
-        f"Clients: "
-        f"{summary['clients']}"
-    )
-    print(
-        f"Countries with records: "
-        f"{summary['countries_with_records']}"
-    )
-    print(
-        f"Ready records: "
-        f"{summary['ready_records']}"
-    )
-    print(
-        f"Review records: "
-        f"{summary['review_records']}"
-    )
-    print(
-        f"Duplicate issues: "
-        f"{summary['duplicate_issues']}"
-    )
-
-    assert summary["region"] == "SELAM"
-    assert summary["total_records"] == 12
-    assert summary["clients"] == 8
-    assert summary[
-        "countries_with_records"
-    ] == 2
-    assert summary["ready_records"] == 12
-    assert summary["review_records"] == 0
-    assert summary["duplicate_issues"] == 0
-
-    print("\nFILES")
-    print("-" * 80)
-
-    for file_path in [
-        result["csv_path"],
-        result["markdown_path"],
-        result["summary_path"],
-    ]:
-        print(file_path)
-        assert Path(file_path).exists()
-
-    print("\nCSV VALIDATION")
-    print("-" * 80)
-
-    with Path(result["csv_path"]).open(
-        "r",
-        encoding="utf-8-sig",
-        newline="",
-    ) as file:
-        reader = csv.DictReader(file)
-        csv_records = list(reader)
-
-    print(f"CSV records: {len(csv_records)}")
-
-    assert reader.fieldnames == CSV_COLUMNS
-    assert len(csv_records) == 12
-
-    print("\nMARKDOWN VALIDATION")
-    print("-" * 80)
-
-    markdown = Path(
-        result["markdown_path"]
-    ).read_text(
-        encoding="utf-8"
-    )
-
-    required_clients = {
-        "B3",
-        "Engie Brazil",
-        "FedEx",
-        "Itau",
-        "Mattel Mexico",
-        "RD Saúde",
-        "Vila Nova",
-        "Vivo Brazil",
-    }
-
-    for client in required_clients:
-        assert f"## {client}" in markdown
-
-    assert (
-        "# NPS Weekly Worklist — SELAM"
-        in markdown
-    )
-
-    assert (
-        "[Home](https://mybts.my.site.com/"
-        in markdown
-    )
-
-    print("Client groups and links validated.")
-
-    print("\nSUMMARY FILE VALIDATION")
-    print("-" * 80)
-
-    with Path(result["summary_path"]).open(
-        "r",
-        encoding="utf-8",
-    ) as file:
-        saved_summary = json.load(file)
-
-    assert saved_summary == summary
-
-    print(
-        "SELAM weekly summary validated."
-    )
-
-    print("\n" + "=" * 80)
-    print("SELAM OUTPUT TEST PASSED")
-    print("=" * 80)
-
-
-if __name__ == "__main__":
-    main()
+    def test_retained_markdown(self) -> None:
+        result = self.outputs()
+        path = self.assert_local(result["markdown_path"])
+        self.assertEqual(path.name, "selam_slack_ready.md")
+        markdown = path.read_text(encoding="utf-8")
+        self.assertEqual(markdown, result["markdown"])
+        self.assertIn("# NPS Weekly Worklist \u2014 SELAM", markdown)
+        for row in result["records"]:
+            self.assertIn(row["Session"], markdown)
+            self.assertIn("## " + row["Client"], markdown)
+            self.assertIn("[Home](" + row["Link for Results"] + ")", markdown)
