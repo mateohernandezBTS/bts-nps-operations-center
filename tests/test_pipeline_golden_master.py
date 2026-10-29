@@ -182,6 +182,17 @@ class PipelineGoldenMasterTest(unittest.TestCase):
             "finished_at": "2026-08-04T10:00:01",
         }
         compare(expected, {"record.json": json_text(second.value(runtime))})
+        error = "Synthetic parser failure"
+        for frames in (
+            '  File "/scratch/parser.py", line 12, in parse\n    raise ValueError()\n',
+            '  File "/other/location.py", line 99, in parse\n    raise ValueError()\n',
+        ):
+            projected = first.value(
+                {"error": error, "traceback": frames + "ValueError: " + error + "\n"}
+            )
+            self.assertEqual(
+                projected, {"error": error, "traceback": "ValueError: " + error}
+            )
         with self.assertRaises(AssertionError):
             first.value({"run_directory": str(repository_path())})
         with self.assertRaises(AssertionError):

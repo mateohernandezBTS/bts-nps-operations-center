@@ -11,8 +11,6 @@ from typing import Any
 
 from openpyxl import load_workbook
 
-from engine.paths import repository_path
-
 TIMESTAMP_FIELDS = frozenset(
     {
         "started_at",
@@ -119,20 +117,12 @@ class Projection:
         return RUNTIME_TIME
 
     def diagnostic(self, value: str) -> str:
-        """Normalize only quoted traceback filenames, preserving frames and lines."""
-        checkout = repository_path().resolve()
-
-        def filename(match: re.Match[str]) -> str:
-            path = Path(match[1]).resolve()
-            if path.is_relative_to(self.root):
-                result = self.path(str(path))
-            elif path.is_relative_to(checkout):
-                result = "<CHECKOUT>/" + path.relative_to(checkout).as_posix()
-            else:
-                raise AssertionError(f"Unknown traceback root: {path}")
-            return 'File "' + result + '"'
-
-        return re.sub(r'File "([^"]+)"', filename, value)
+        """Keep only the final exception type and message, never traceback frames."""
+        lines = value.rstrip().splitlines()
+        final = lines[-1] if lines else ""
+        if not re.fullmatch(r"[A-Za-z_][\w.]*:.*", final):
+            raise AssertionError("Traceback must end with exception type and message")
+        return final
 
     def value(self, value: Any, key: str = "") -> Any:
         """Walk without sorting arrays or dropping any field."""
