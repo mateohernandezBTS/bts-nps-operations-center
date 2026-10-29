@@ -1,140 +1,119 @@
-import json
-from pathlib import Path
+"""Attribution, ordering, deduplication and persisted aggregation."""
+
+from __future__ import annotations
 
 from engine.selam_aggregator import (
+    aggregate_selam_manual_reviews,
     aggregate_selam_worklists,
 )
+from tests.support.stage_cases import declarations
+from tests.support.weekly_cases import IsolatedWeeklyCase, read_json
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+class SelamAggregatorTest(IsolatedWeeklyCase):
+    def test_attribution_and_order(self) -> None:
+        path = self.prepare()
+        completed = self.process(path)
+        result = aggregate_selam_worklists(path)
+        records = result["records"]
+        self.assertEqual(len(records), 6)
+        self.assertEqual(result["duplicate_issues"], [])
+        self.assertEqual(result["summary"]["processed_sources"], 3)
+        self.assertEqual(
+            [r["Session"] for r in records],
+            [
+                "Fixture Session 001",
+                "Fixture Session 002",
+                "Fixture Session 003",
+                "Fixture Session 004",
+                "Fixture Session 005",
+                "Fixture Session 006",
+            ],
+        )
+        executions = {
+            s["source_id"]: s["execution_result"]["execution_id"]
+            for s in completed["expected_sources"]
+        }
+        for row in records:
+            self.assertEqual(row["Region"], "SELAM")
+            self.assertEqual(row["Weekly Run ID"], completed["weekly_run_id"])
+            self.assertEqual(row["Source ID"], "upcoming_" + row["Country"].lower())
+            self.assertEqual(row["Source Execution ID"], executions[row["Source ID"]])
 
-MANIFEST_PATH = (
-    PROJECT_ROOT
-    / "tests"
-    / "output"
-    / "weekly_orchestrator"
-    / "NPS_WEEK_2026-07-28_2026-08-03"
-    / "weekly_manifest.json"
-)
-
-
-def main() -> None:
-    print("=" * 80)
-    print("SELAM AGGREGATOR TEST")
-    print("=" * 80)
-
-    result = aggregate_selam_worklists(
-        manifest_path=MANIFEST_PATH,
-    )
-
-    records = result["records"]
-    issues = result[
-        "duplicate_issues"
-    ]
-    summary = result["summary"]
-
-    print("\nSUMMARY")
-    print("-" * 80)
-    print(
-        f"Region: "
-        f"{summary['region']}"
-    )
-    print(
-        f"Processed sources: "
-        f"{summary['processed_sources']}"
-    )
-    print(
-        "Records before deduplication: "
-        f"{summary['records_before_deduplication']}"
-    )
-    print(
-        "Records after deduplication: "
-        f"{summary['records_after_deduplication']}"
-    )
-    print(
-        f"Duplicate issues: "
-        f"{summary['duplicate_issues']}"
-    )
-    print(
-        f"Clients: "
-        f"{summary['clients']}"
-    )
-    print(
-        f"Countries: "
-        f"{summary['countries']}"
-    )
-
-    assert summary["region"] == "SELAM"
-    assert summary[
-        "processed_sources"
-    ] == 3
-
-    assert summary[
-        "records_before_deduplication"
-    ] == 12
-
-    assert summary[
-        "records_after_deduplication"
-    ] == 12
-
-    assert summary[
-        "duplicate_issues"
-    ] == 0
-
-    assert len(records) == 12
-    assert len(issues) == 0
-
-    countries = {
-        record["Country"]
-        for record in records
-    }
-
-    assert countries == {
-        "Brazil",
-        "Mexico",
-    }
-
-    print("\nFIRST RECORDS")
-    print("-" * 80)
-
-    for record in records[:5]:
-        print(
-            f"{record['Client']} | "
-            f"{record['Country']} | "
-            f"{record['Date']} | "
-            f"{record['Session']}"
+    def test_duplicate_ready_records(self) -> None:
+        path = self.prepare("cross_source_duplicates")
+        self.process(path)
+        result = aggregate_selam_worklists(path)
+        self.assertEqual(result["summary"]["records_before_deduplication"], 11)
+        self.assertEqual(result["summary"]["records_after_deduplication"], 10)
+        self.assertEqual(len(result["duplicate_issues"]), 1)
+        issue = result["duplicate_issues"][0]
+        self.assertEqual(
+            (issue["original_source_id"], issue["duplicate_source_id"]),
+            ("upcoming_argentina", "upcoming_brazil"),
+        )
+        self.assertEqual(
+            issue["duplicate_key"],
+            dict(
+                project_id="FXT000000000001",
+                date="8/4/2026",
+                session="fixture session 001",
+            ),
+        )
+        self.assertEqual(
+            [
+                r["Country"]
+                for r in result["records"]
+                if r["Session"] == "Fixture Session 001"
+            ],
+            ["Argentina"],
         )
 
-        assert record["Region"] == "SELAM"
-        assert record["Weekly Run ID"] == (
-            "NPS_WEEK_2026-07-28_2026-08-03"
+    def test_review_aggregation_and_duplicate(self) -> None:
+        path = self.prepare("cross_source_duplicates")
+        self.process(path)
+        result = aggregate_selam_manual_reviews(path)
+        self.assertEqual(len(result["records"]), 10)
+        self.assertEqual(len(result["duplicate_issues"]), 1)
+        issue = result["duplicate_issues"][0]
+        self.assertEqual(
+            (issue["original_source_id"], issue["duplicate_source_id"]),
+            ("upcoming_argentina", "upcoming_brazil"),
         )
-        assert record["Source ID"]
-        assert record["Source Execution ID"]
+        expected = {
+            d["values"]["project_name"]
+            for k, d in declarations().items()
+            if (
+                k.startswith("rule_revenue_admin_")
+                or k in ("review_inside", "review_outside")
+            )
+        }
+        self.assertEqual({r["project_name"] for r in result["records"]}, expected)
+        for row in result["records"]:
+            self.assertEqual(row["Record Type"], "MANUAL_REVIEW")
+            self.assertEqual(row["decision"], "REVIEW")
+            self.assertEqual(row["decision_code"], "REVENUE_ADMIN")
 
-    consolidated_path = Path(
-        summary[
-            "selam_consolidated_worklist_path"
-        ]
-    )
-
-    assert consolidated_path.exists()
-
-    with consolidated_path.open(
-        "r",
-        encoding="utf-8",
-    ) as file:
-        saved_records = json.load(file)
-
-    assert len(saved_records) == 12
-    assert saved_records == records
-
-    print("\nSaved SELAM worklist validated.")
-
-    print("\n" + "=" * 80)
-    print("SELAM AGGREGATOR TEST PASSED")
-    print("=" * 80)
-
-
-if __name__ == "__main__":
-    main()
+    def test_persistence(self) -> None:
+        path = self.prepare()
+        self.process(path)
+        result = aggregate_selam_worklists(path)
+        review = aggregate_selam_manual_reviews(path)
+        summary = result["summary"]
+        self.assertEqual(
+            read_json(self.assert_local(summary["selam_consolidated_worklist_path"])),
+            result["records"],
+        )
+        self.assertEqual(
+            read_json(self.assert_local(summary["selam_consolidation_issues_path"])), []
+        )
+        saved = read_json(path)
+        self.assertEqual(
+            read_json(self.assert_local(saved["selam_aggregation"]["summary_path"])),
+            summary,
+        )
+        self.assertEqual(
+            read_json(self.assert_local(review["summary"]["selam_manual_review_path"])),
+            [],
+        )
+        self.assertEqual(saved["status"], "COMPLETED")
