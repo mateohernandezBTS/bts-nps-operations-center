@@ -9,15 +9,29 @@ Roles: product owner = Mateo; architect/reviewer = Claude; implementer = Codex.
 |---|---|---|
 | 0. Foundations | Standards, AGENTS.md, branching, dev environment outside OneDrive, tooling | Codex loads the rules, runs the suite in a clean clone, cannot touch `main` |
 | 1. Safety net | Synthetic fixtures, golden-master tests of the full pipeline, real test cases | Suite runs green in a clean clone and covers parse -> outputs end to end |
-| 2. Release 1.0.3 | Fix NPS-001, NPS-002, NPS-003, NPS-005, NPS-020; remove dead code (NPS-011) | Each fix has a failing-then-passing test; release DoD satisfied |
+| 2. Release 1.0.3 | Fix NPS-001, NPS-002, NPS-003, NPS-005, NPS-020; remove verified dead code (NPS-011); reconcile docs (NPS-012); certify and promote 1.0.3 | Test-first fixes; signed golden-master updates; Windows build, packaged TEST E2E, real parallel run against 1.0.2, owner approval and manual production promotion; release DoD satisfied |
 | 3. Release 1.1.0 | Behavior-preserving refactor (NPS-007, NPS-013, structure, typing) | Golden master identical after each module; release DoD satisfied |
-| 4. Certification | Build, docs, parallel run against 1.0.2, promotion | Equivalent outputs on real weeks; explicit approval |
+| 4. Certification 1.1.0 | Build, docs, parallel run against certified 1.0.3, promotion of 1.1.0 | Equivalent outputs on real weeks except separately approved changes; explicit approval and release DoD |
 
 Phase 1 status (2026-10-29): golden master approved. Pending item:
 weekly_preflight.py coverage (73/141 statements, 51.7730% in F1-05A; below 75%).
 
 Business-rule changes (NPS-004, NPS-006, NPS-015, NPS-016) are excluded from
 1.0.3 and 1.1.0 until the product owner approves them; they will be a separate release.
+
+Release 1.0.3 execution plan: [F2-01](plans/F2_release_1_0_3.md). Plan only;
+NPS-001 failure/output/recovery and NPS-002 invitation presentation require product-owner
+selection before implementation. F1-06 integration is a prerequisite; its closure
+results on `test/phase-1-preflight` are not yet the fetched develop baseline.
+
+Off-Monday operation constraint for NPS-007 (decided 2026-10-29 by the product owner):
+the operator may execute on any day. The selected date maps to the Monday of its own
+week (the preceding Monday, or the date itself when Monday); the inclusive weekly
+window is Tuesday through the following Monday, anchored to that reference Monday.
+The UI already converts this at `app/views/weekly_run/configuration_card.py:402–416`
+and emits the reference date through `app/views/weekly_run/weekly_run_view.py:146–155`.
+1.0.3 pins that contract with tests; 1.1.0 NPS-007 unification must preserve it rather
+than require that the application itself be run on a Monday.
 
 ## Known-issue register
 
@@ -45,6 +59,13 @@ Status: OPEN, DECISION (needs business approval), PLANNED (assigned to a phase),
 | NPS-018 | Medium | DONE | 1 | Full relative output path assertion uses native Path construction. Linux portability is an accepted, unverified risk. | F1-03 Windows: 81/81 passed on both runners; code review confirms `str(Path("output") / "report.xlsx")` preserves the exact location. F1-04 task accepts Windows evidence without Linux execution. |
 | NPS-019 | Medium | PLANNED | 1 | Python tempfile directory ACLs are incompatible with the Windows restricted-token sandbox, even when TMP and TEMP point inside the repository. | CONFIRMED: F0-02 sandbox probes below; ordinary mkdir succeeds, mkdtemp child creation fails with WinError 5; installed Python 3.14.6 `Lib/tempfile.py:381` uses `os.mkdir(file, 0o700)` |
 | NPS-020 | Low | PLANNED | 2 | The orphan 13-cell row error is self-contradictory ("no reconocida: 13. Se esperaban 14 o 13"); it should say the row has no preceding Billing Office to inherit. | CONFIRMED: `tests/snapshots/phase1/v1/malformed_Brazil_orphan_group/error_details.json` |
+| NPS-021 | Low | OPEN | — | With `--json`, preflight failures print non-JSON text rather than a JSON error response. Recorded only; not in 1.0.3 scope. | CONFIRMED: `engine/weekly_preflight.py:480–485`; `tests/test_weekly_preflight.py`, `test_cli_preflight_failure_uses_exit_one_and_actionable_message`, on F1-06 branch `1192f19`, asserts human text and exit 1 for `--json` failures |
+
+## Feature backlog
+
+| ID | Candidate release | Status | Requirement |
+|---|---|---|---|
+| FEAT-001 | 1.2.0 | Backlog; not in 1.0.3 | Filter results of an already processed weekly run by a day range inside its weekly window, consistently in the view, Excel and Copy for Slack, so the operator can work day by day. Processing remains once per week; changing the filter never re-processes reports. Optional second level: track which NPS were already created and show only pending ones, related to the V2 lifecycle in the EXPANSION vision; requires separate design/approval. |
 
 ## F0-01 verification evidence
 
