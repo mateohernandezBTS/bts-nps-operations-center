@@ -201,9 +201,11 @@ Canonicalization is a test-only explicit allowlist, shared across projections:
    actually found during implementation) with a fixed sentinel. Assert each value's
    format and lifecycle ordering first. Preserve business/session/window dates.
 3. Relativize paths beneath the known temporary root to `<TEST_ROOT>/...`, normalize
-   separators only for path-valued fields, and replace the known checkout root in
-   diagnostic paths. Assert containment first. Unknown absolute roots fail review.
-   Never rewrite Salesforce/result URLs, arbitrary backslashes in text or client IDs.
+   separators only for path-valued fields, and assert containment first. Unknown
+   absolute operational roots fail review. F1-05B architect correction: project every
+   traceback to its final exception type and message; omit paths, line numbers,
+   frames and source lines. Preserve the separate error field unchanged. Never
+   rewrite Salesforce/result URLs, arbitrary business text or client IDs.
 4. Project workbook cells through that same allowlist; omit ZIP order, file mtimes
    and workbook document metadata. Retain formula strings and hyperlinks.
 5. Keep row counts, filenames, statuses, decisions, reason strings, output columns,
@@ -215,6 +217,13 @@ partial source failure deliberately records today's COMPLETED_WITH_REVIEW/succes
 behavior (NPS-001), not the desired Phase 2 fix. Missing/duplicate-source runs and
 malformed standalone reports snapshot blocked/failed manifests and issues rather
 than demanding nonexistent Excel/HTML outputs.
+
+F1-05B provenance correction: only config/*.json, tests/fixtures metadata and
+candidate hashes are asserted. app/, engine/ and packaging/ source hashes remain
+recorded as informational source_sha256 data. Phase 1 frozen-tree Git checks enforce
+the source freeze; informational hashes must not block Phase 2/3 behavior-preserving
+refactors. Blocked scenarios name the harness-produced artifact
+test_inventory_manifest.json; the application does not create it.
 
 Approval workflow for both initial creation and updates:
 
@@ -334,7 +343,7 @@ This correction is planned here; the DoD file is unchanged by the review task.
 | F1-02 | Synthetic inputs; test/phase-1-fixtures | documentation/DEFINITION_OF_DONE.md first; then tests/support generator/path helpers, tests/fixtures catalog/rows/eml/manifest, tests/test_fixture_catalog.py, narrow .gitignore exception | FIRST `docs(dod): align git rule with AGENTS.md`; then `test: add deterministic synthetic report fixtures`; `test: validate synthetic fixture catalog contracts` | Windows local primary; no Linux evidence required. Two scratch generations have identical bytes/hashes; check catalog provenance, six directory families, structural signatures and absence of operational data. Estimate 12 new TestCase methods: six family contracts plus determinism, byte/MIME stability, invented entities, safe links/IDs, catalog/hash completeness and immutable copies. Estimate 81 total: 75 pass + 6 known errors (pytest labels these failures) |
 | F1-03 | Restore clean-clone baseline; test/phase-1-baseline | tests/test_backend_blocking_scenarios.py, tests/test_processing_error_lifecycle.py, tests/test_controller_session_integration.py, tests/support/fixture_paths.py | `test: replace missing operational fixture dependencies`; `test: make controller output path assertion portable` | Windows-only execution; Linux portability accepted as a risk. Original six tests pass with weekly inputs, original 69 IDs retained; no new methods. Estimate 81/81 pass on both runners on Windows, zero failures/errors/skips; no prior-run dependency. Record Windows engine/ pytest-cov line coverage as a baseline, not a gate |
 | F1-04 | Convert inventory; test/phase-1-test-conversion | Plan amendment and roadmap NPS-018 status first; then the 18-file disposition map and its named destinations; tests/manual frontend preview; test-only harness support | FIRST `docs(plan): drop Linux cloud evidence; Windows-only execution`; then `test: convert stage and rule print scripts to assertions`; `test: convert weekly integration scripts to isolated cases`; `test: move interactive failure preview out of discovery`; `docs(plan): record F1-04 results` | Windows local primary; no Linux evidence required. Estimate 60 new methods from section 5.3 and 141/141 pass on both runners. All retained test_*.py files contribute cases; imports do not execute scenarios or print verdicts. Confirm a deliberately wrong POD expectation fails, then restore the scratch expectation before committing |
-| F1-05A / F1-05B | Propose candidates, then obtain PR-gated approval; test/phase-1-golden-master | .codex/config.toml move, POD test/config labels, three golden master helpers, tests/test_pipeline_golden_master.py, PENDING tests/snapshots/phase1/v1/APPROVAL.md and candidates, tests/README.md, plan evidence | F1-05A: `chore(codex): move project config to .codex/config.toml`; `test: read POD pattern from configuration and correct NPS labels`; `test: add semantic pipeline golden master comparisons`; `test: propose phase 1 golden master snapshots`; `docs(plan): record F1-05A results and PR-gated snapshot approval`. F1-05B: architect full-diff review and product-owner signoff on the future PR before any merge to develop | Ten new methods; 151/151 on both Windows runners. Independent-root repeatability and business/runtime mutation controls. Same engine coverage command as F1-04; list uncovered preflight paths if below 75%, without adding tests. Push branch only; no PR or approval in F1-05A |
+| F1-05A / F1-05B | Propose and correct candidates; approval remains PR-gated; test/phase-1-golden-master | .codex/config.toml move, POD test/config labels, three golden master helpers, tests/test_pipeline_golden_master.py, PENDING tests/snapshots/phase1/v1/APPROVAL.md and candidates, tests/README.md, plan evidence | F1-05A: `chore(codex): move project config to .codex/config.toml`; `test: read POD pattern from configuration and correct NPS labels`; `test: add semantic pipeline golden master comparisons`; `test: propose phase 1 golden master snapshots`; `docs(plan): record F1-05A results and PR-gated snapshot approval`. F1-05B: architect full-diff review and product-owner signoff on the future PR before any merge to develop | Ten new methods; 151/151 on both Windows runners. Independent-root repeatability and business/runtime mutation controls. Same engine coverage command as F1-04; list uncovered preflight paths if below 75%, without adding tests. Push branch only; no PR or approval in F1-05A |
 
 Count budget: 69 original + 12 fixture contracts + 60 converted cases + 10 golden
 master methods = 151. Matrix rows use subtests and do not multiply collected cases.
@@ -831,6 +840,80 @@ dependency installation or business-rule change occurred. NPS-001..007,
 NPS-011..017 and NPS-019 remain outside the fix scope; observed known-defect
 behavior and characterization limits are listed in APPROVAL.md.
 
+### F1-05B architect corrections - 2026-10-29
+
+Purpose: remove implementation-sensitive snapshot/provenance assertions while
+preserving the same behavior inputs, scenario counts and PENDING approval gate.
+Base: `81fd3eb`; branch: `test/phase-1-golden-master`.
+
+| Step | Scope | Validation | Commit |
+|---|---|---|---|
+| 1 | Keep only final exception type/message in every traceback; keep error unchanged; extend the existing mutation method | Pure controls verify that differing paths, line numbers and source frames project identically | `e4281e4 test: project tracebacks to exception type and message` |
+| 2 | Separate asserted config/fixture metadata hashes from informational source hashes; assert behavior-input key scope | Ten behavior inputs; 77 informational source entries; no app/engine/packaging source hash equality assertion | `e750c2c test: assert provenance on behavior inputs only` |
+| 3 | Rename four blocked harness manifests, regenerate candidates/provenance, update PENDING APPROVAL.md and documentation | Both runners 151/151; independent-root/mutation controls; scratch blank-line test; constrained snapshot diff and frozen-tree checks | `test: regenerate phase 1 golden master candidates` |
+
+The candidate export area is .codex-log/snapshot-candidates/F1-05B. Ordinary tests
+still cannot regenerate or approve snapshots. Source/config/packaging behavior,
+fixtures, scenario counts and all non-diagnostic output bytes remain unchanged.
+The earlier F1-05A diagnostic/provenance descriptions above are historical evidence;
+the corrected section 5.2 contract and this amendment govern current comparisons.
+
+Tracebacks now contain only the final exception type and message (for example,
+ValueError plus its parser message). No file paths, line numbers, source lines or
+stack frames remain in traceback snapshot fields. The adjacent error field and
+all other failure artifact fields are unchanged. Informational source hashes are
+recorded but never compared by test_provenance. Behavior inputs comprise seven
+config JSON files plus catalog.json, rows.json and fixture_manifest.json; candidate
+hashes are still asserted. The Phase 1 freeze remains an independent Git guarantee.
+
+The four missing/duplicate-source cases now expose test_inventory_manifest.json,
+which the harness creates only after application preflight blocks. The application
+does not create this file. It is not an application weekly-manifest artifact.
+The four renamed files retain identical bytes.
+
+Validation completed with export disabled except for the explicit candidate
+generation run. The exact NPS-019 approved runners used the existing local virtual
+environment and checkout-local TMP/TEMP:
+
+| Command/check | Final result |
+|---|---|
+| `python -m unittest discover -s tests -p test*.py -v` | 151 run, 151 passed, 0 failures/errors/skips; 43.094s |
+| `python -m pytest -q` | 151 passed, 585 subtests passed, 0 failures/errors/skips; 57.39s |
+| Scratch copy: local virtual-environment `python -m pytest -q` with one leading parser blank line | 151 passed, 585 subtests passed, 0 failures/errors/skips; 45.01s; export disabled |
+| Independent-root repeats and mutations | All 14 scenario projections match in both normal runners and the scratch run; business date/decision/link mutations fail; runtime token changes compare equal |
+| Traceback frame control in the existing mutation method | Different paths, line numbers and source frames produce the same final exception; error remains unchanged |
+| compileall app/engine/packaging and changed tests/support | Passed |
+| Ruff check/format-check and mypy --follow-imports=skip, four changed Python modules | Passed; no typing issues in 4 source files |
+| Snapshot audit vs 81fd3eb | Exactly 6 traceback-field changes, 4 byte-identical manifest renames, provenance.json and APPROVAL.md; no unexpected snapshot defects; all 141 candidate hashes verified |
+| Frozen-tree Git checks vs 81fd3eb, develop and 70ad957 | Passed; no production source/config/packaging differences; cached check and status also pass before commits |
+
+The scratch checkout at .tmp/f105b-line-shift copied the 330 current tracked and
+non-ignored files byte-for-byte, preserving config/fixture line endings. Only its
+engine/stages/email_parser.py received one initial LF byte. A separate import
+probe confirmed that Python loaded that scratch parser and its informational hash
+changed from 259467a789593416c576a276937c744cc090d8b5db190b81ee700dc221ec66f6
+to 361020924200e870385194c1b720504267e465538dc7777bcc46ba5fd22cecc8.
+The scratch file was then restored byte-for-byte to the original hash. The real
+checkout's parser was never edited, and all frozen-tree checks passed afterward.
+
+The ignored machine audit is .codex-log/review/F1-05B_snapshot_audit.json.
+Schema-2 provenance SHA-256 is
+02706db8951759aabe2da011f1811881cea2929d2449c89dcc1474413181553d.
+No new test methods were added: collection remains 151; variance is zero.
+Task DoD: scope/branch, preserved behavior, assertions, compileall, full runners,
+repeatability/mutation/line-shift controls, lint/format/typing, synthetic provenance,
+frozen trees and documentation pass. Signoff and accepted golden-master closure
+remain pending. Linux and visual certification were not performed.
+Snapshots remain PENDING, with all approver/reference/date fields empty. No PR,
+merge, build, dependency, business-rule change or operational-data access is part
+of this correction. Snapshot review/signoff remains a human PR gate.
+
+Review artifact: .codex-log/review/F1-05B_review_bundle.diff, containing the ordered
+commit list, diff --stat 81fd3eb..HEAD and full diff 81fd3eb..HEAD, including every
+changed snapshot. It is regenerated after the final correction commit. Size and
+line count are reported at delivery. Coverage is not rerun for these test-only
+corrections; F1-05A's recorded coverage remains historical evidence.
+
 ## 10. Decision log
 
 | Date | Decision / open item | Reason | Owner |
@@ -853,3 +936,5 @@ behavior and characterization limits are listed in APPROVAL.md.
 | 2026-10-29 | F1-04 completed with exactly 60 new methods; 141/141 both runners; 84.53% Windows engine coverage | Assertion conversions preserve current behavior; F1-05 snapshot approval remains separate | Codex implementation evidence |
 
 | 2026-10-29 | F1-05A permits PENDING candidate commits on the task branch; approval is PR-gated after architect review and product-owner signoff | Explicit user task amendment; nothing reaches develop before both approvals; push branch only, no PR | Product owner |
+
+| 2026-10-29 | F1-05B architect correction: final exception-only tracebacks, behavior-input provenance assertions, and test_inventory_manifest naming | Implementation moves must not invalidate behavior snapshots; approval remains PENDING | Architect / product owner task |

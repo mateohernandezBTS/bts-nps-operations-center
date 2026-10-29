@@ -106,6 +106,8 @@ class PipelineGoldenMasterTest(unittest.TestCase):
                 self.assertEqual(operation["status"], "BLOCKED")
                 self.assertFalse(operation["success"])
                 self.assertNotIn("excel_cells.json", files)
+                self.assertIn("test_inventory_manifest.json", files)
+                self.assertNotIn("weekly_manifest.json", files)
         for scenario in MALFORMED_SCENARIOS:
             with self.subTest(scenario=scenario):
                 files = self.assert_snapshot(scenario)

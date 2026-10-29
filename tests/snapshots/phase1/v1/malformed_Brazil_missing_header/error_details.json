@@ -2,6 +2,6 @@
   "upcoming_brazil_1": {
     "error": "Faltan columnas requeridas en el reporte: nps",
     "failed_at": "<RUNTIME_TIMESTAMP>",
-    "traceback": "Traceback (most recent call last):\n  File \"<CHECKOUT>/engine/process_report.py\", line 314, in process_report_file\n    raw_records = parse_eml_report(\n        processing_path\n    )\n  File \"<CHECKOUT>/engine/stages/email_parser.py\", line 533, in parse_eml_report\n    return extract_records(\n        report_table\n    )\n  File \"<CHECKOUT>/engine/stages/email_parser.py\", line 347, in extract_records\n    build_header_positions(\n    ~~~~~~~~~~~~~~~~~~~~~~^\n        header_cells\n        ^^^^^^^^^^^^\n    )\n    ^\n  File \"<CHECKOUT>/engine/stages/email_parser.py\", line 269, in build_header_positions\n    raise ValueError(\n    ...<4 lines>...\n    )\nValueError: Faltan columnas requeridas en el reporte: nps\n"
+    "traceback": "ValueError: Faltan columnas requeridas en el reporte: nps"
   }
 }

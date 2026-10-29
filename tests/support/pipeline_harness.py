@@ -219,7 +219,12 @@ def weekly(case: IsolatedWeeklyCase, scenario: str) -> dict[str, str]:
             if token != expected_token:
                 raise AssertionError("Manifest execution/source association changed")
     files = project_executions(artifacts, projection)
-    files["weekly_manifest.json"] = json_text(projection.value(manifest))
+    manifest_name = (
+        "test_inventory_manifest.json"
+        if result.status == "BLOCKED"
+        else "weekly_manifest.json"
+    )
+    files[manifest_name] = json_text(projection.value(manifest))
     files["preflight.json"] = json_text(projection.value(result.data["preflight"]))
     files["operation.json"] = json_text(
         {

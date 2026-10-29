@@ -2,7 +2,7 @@
 
 Status: PENDING
 
-Prepared: 2026-10-29. Package: F1-05A.
+Prepared: 2026-10-29. Package: F1-05A, corrected by F1-05B architect review.
 Branch: `test/phase-1-golden-master`. Base: `develop` at `e2a49bd`.
 
 Architect reviewer:
@@ -59,8 +59,10 @@ duplicate is removed and one out-of-window review is omitted, giving nine export
 Its 11 ready rows become ten after deduplication. Thus these columns are deliberately
 different stages and are not intended to sum to Parsed. Missing-date/invalid-date
 business review rows remain visible in classified and manual-review aggregates.
-Blocked cases contain preflight results and an independently inventoried persisted
-manifest; the real controller itself does not create that manifest after blocking.
+Blocked cases contain preflight results and test_inventory_manifest.json, an
+independently inventoried persisted manifest created by the test harness.
+The application does not create it after blocking; its test_ prefix distinguishes
+it from application-produced weekly_manifest.json in completed weekly scenarios.
 Standalone malformed cases contain failed execution manifests, detection and error
 details; no nonexistent workbook or Slack output is asserted.
 
@@ -111,8 +113,9 @@ received_at and every business/session/window date remain unchanged.
 Each generated execution ID is checked against its source filename, manifest and
 durable log, then mapped to a unique source/ordinal token. Only registered ID fields,
 contained filesystem path fields, Manifest workbook values and parsed Issues workbook
-JSON use that mapping. Unknown operational roots fail. Quoted traceback filenames
-under the checkout become <CHECKOUT>/...; frames, line numbers and error text remain.
+JSON use that mapping. Unknown operational roots fail. Every traceback field is
+projected to its final exception type and message only. File paths, line numbers,
+stack frames and source lines are not retained. The separate error field is unchanged.
 Salesforce/result URLs and arbitrary business text are not rewritten.
 
 Workbook projections use data_only=False and preserve sheet order, dimensions,
@@ -125,11 +128,14 @@ The generated HTML includes whitespace-only lines. Its scoped Git whitespace
 attribute permits those original bytes; no trailing whitespace is stripped from
 the captured renderer output.
 
-provenance.json records every candidate SHA-256, frozen application/config source
-hashes, fixture metadata hashes, Python 3.14.6, Windows and dependency versions.
+provenance.json schema 2 asserts only behavior inputs: config/*.json and fixture
+metadata in input_sha256, plus candidate_sha256. app/, engine/ and packaging/
+hashes are retained separately in source_sha256 for information and are never
+asserted. The Phase 1 source freeze is enforced by Git checks. Provenance also
+records Python 3.14.6, Windows and dependency versions for information.
 Its own SHA-256 is:
 
-`efd4c67cd47f5509b3224dd5828ff9e0957f1478867b55a0d6896060ba16019c`
+`02706db8951759aabe2da011f1811881cea2929d2449c89dcc1474413181553d`
 
 | Configuration | SHA-256 |
 |---|---|
@@ -146,5 +152,11 @@ match the first projection. Copied business date, decision and link mutations mu
 fail the actual comparison routine; changed runtime IDs, paths and timestamps must
 compare equal. Ordinary tests never regenerate or accept snapshots, and missing
 or extra candidate files fail comparisons. The explicit candidate-export mode
-writes only to ignored .codex-log/snapshot-candidates/F1-05A and bypasses candidate
+writes only to ignored .codex-log/snapshot-candidates/F1-05B and bypasses candidate
 comparison for that development run; final validation runs without that opt-in.
+
+F1-05B adds a refactor-independence control: a scratch working copy receives one
+blank line at the top of engine/stages/email_parser.py. Snapshot comparisons and
+test_provenance must still pass without candidate export. The scratch file is then
+restored byte-for-byte, and the real checkout's frozen-tree Git check must pass.
+Counts and business behavior above are unchanged. Approval remains PENDING.

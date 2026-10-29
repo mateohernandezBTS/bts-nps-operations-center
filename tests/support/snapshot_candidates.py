@@ -12,7 +12,7 @@ from engine.paths import repository_path
 from tests.support.snapshot_projection import json_text
 
 SNAPSHOT_ROOT = repository_path("tests", "snapshots", "phase1", "v1")
-CANDIDATE_ROOT = repository_path(".codex-log", "snapshot-candidates", "F1-05A")
+CANDIDATE_ROOT = repository_path(".codex-log", "snapshot-candidates", "F1-05B")
 
 
 def sha256(data: bytes) -> str:

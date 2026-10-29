@@ -57,8 +57,9 @@ The 14 scenarios are:
 - `malformed_Brazil_missing_header`, `malformed_Brazil_bad_cells`
 - `malformed_Brazil_orphan_group`
 
-Blocked cases snapshot real controller preflight plus an independently inventoried
-manifest; the controller does not persist a weekly manifest after blocking.
+Blocked cases snapshot real controller preflight plus
+`test_inventory_manifest.json`, created by the harness for inventory assertions.
+The application does not create that manifest after blocking.
 Malformed standalone reports snapshot actual failed lifecycle artifacts and
 diagnostics. They do not invent Excel or Slack outputs. Full successful/partial
 scenarios retain every required stage surface, complete Slack HTML/Markdown and
@@ -69,8 +70,9 @@ excluded; no pixel, formatting or production-data certification is claimed.
 The canonicalization allowlist is in `support/snapshot_projection.py`. It validates
 and replaces named runtime timestamps, source-associated execution IDs and contained
 filesystem paths only. Business dates, decisions, received email dates, URLs and
-array order remain. Traceback filename roots are relativized, but frames, line
-numbers and error messages remain. Generated HTML whitespace is retained, with
+array order remain. Every traceback field contains only its final exception type
+and message; paths, line numbers and source lines are omitted. The separate error
+field remains unchanged. Generated HTML whitespace is retained, with
 a scoped Git whitespace attribute; all snapshot files have LF endings.
 
 ## Explicit candidate export and PR approval
@@ -78,15 +80,19 @@ a scoped Git whitespace attribute; all snapshot files have LF endings.
 When an authorized task requests new proposals, set
 `BTS_EXPORT_GOLDEN_CANDIDATES=1` before an approved exact test command. This explicit
 development mode writes only to ignored
-`.codex-log/snapshot-candidates/F1-05A/` and bypasses stored-candidate comparisons
+`.codex-log/snapshot-candidates/F1-05B/` and bypasses stored-candidate comparisons
 for that run. Independent catalog assertions, cross-artifact checks, repeatability
 and mutation controls still run. Remove the environment variable afterward and
 run both normal comparison commands before reporting validation. CI and ordinary
 tests must not set it. Export does not write to `tests/snapshots/` or sign approval.
 
 F1-05A explicitly authorizes copying and committing reviewed-for-provenance proposals
-to the task branch while APPROVAL.md stays PENDING. Per-file candidate hashes and
-frozen runtime/configuration hashes are recorded in provenance.json. Do not bulk
+to the task branch while APPROVAL.md stays PENDING. The F1-05B architect corrections
+retain that status. Provenance assertions cover config/*.json, fixture metadata
+and candidate hashes only. app/, engine/ and packaging/ source hashes are recorded
+in source_sha256 for information and are never asserted. Phase 1 frozen-tree Git
+checks enforce the source freeze; Phase 2/3 refactors must not fail merely because
+source bytes or traceback frames move. Do not bulk
 accept unexpected differences or treat repeated generation as independent evidence
 of correctness; the literal catalog checks and full human diff review remain required.
 
