@@ -1,0 +1,7 @@
+{
+  "upcoming_brazil_1": {
+    "error": "No se encontró la tabla principal del reporte.",
+    "failed_at": "<RUNTIME_TIMESTAMP>",
+    "traceback": "ValueError: No se encontró la tabla principal del reporte."
+  }
+}

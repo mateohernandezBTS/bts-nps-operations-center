@@ -1,0 +1,122 @@
+{
+  "created_at": "<RUNTIME_TIMESTAMP>",
+  "execution_weekday": "monday",
+  "expected_sources": [
+    {
+      "country": "Argentina",
+      "enabled": true,
+      "matched_file": "weekly_Argentina_upcoming.eml",
+      "matched_files": [
+        "weekly_Argentina_upcoming.eml"
+      ],
+      "report_type": "upcoming",
+      "required": true,
+      "source_id": "upcoming_argentina",
+      "status": "RECEIVED"
+    },
+    {
+      "country": "Brazil",
+      "enabled": true,
+      "matched_file": "weekly_Brazil_upcoming.eml",
+      "matched_files": [
+        "weekly_Brazil_upcoming.eml"
+      ],
+      "report_type": "upcoming",
+      "required": true,
+      "source_id": "upcoming_brazil",
+      "status": "RECEIVED"
+    },
+    {
+      "country": "Mexico",
+      "enabled": true,
+      "matched_file": null,
+      "matched_files": [],
+      "report_type": "upcoming",
+      "required": true,
+      "source_id": "upcoming_mexico",
+      "status": "MISSING"
+    }
+  ],
+  "inventory_items": [
+    {
+      "detected_country": "Argentina",
+      "detected_report_type": "Upcoming",
+      "detection_issues": [],
+      "detection_status": "DETECTED",
+      "inventory_status": "MATCHED",
+      "matched_source_id": "upcoming_argentina",
+      "received_at": "2026-08-03T09:00:00+00:00",
+      "sender_email": "reports@example.invalid",
+      "source_file": "weekly_Argentina_upcoming.eml",
+      "source_path": "<TEST_ROOT>/pending/weekly_Argentina_upcoming.eml",
+      "subject": "Report results (Argentina Upcoming Deliveries/NPS)"
+    },
+    {
+      "detected_country": "Brazil",
+      "detected_report_type": "Upcoming",
+      "detection_issues": [],
+      "detection_status": "DETECTED",
+      "inventory_status": "MATCHED",
+      "matched_source_id": "upcoming_brazil",
+      "received_at": "2026-08-03T09:00:00+00:00",
+      "sender_email": "reports@example.invalid",
+      "source_file": "weekly_Brazil_upcoming.eml",
+      "source_path": "<TEST_ROOT>/pending/weekly_Brazil_upcoming.eml",
+      "subject": "Report results (Brazil Upcoming Deliveries/NPS)"
+    }
+  ],
+  "is_partial": false,
+  "output_directory": "<TEST_ROOT>/weekly/NPS_WEEK_2026-08-04_2026-08-10",
+  "reference_date": "08/03/2026",
+  "required_sources": [
+    {
+      "country": "Argentina",
+      "enabled": true,
+      "matched_file": null,
+      "report_type": "upcoming",
+      "required": true,
+      "source_id": "upcoming_argentina",
+      "status": "MISSING"
+    },
+    {
+      "country": "Brazil",
+      "enabled": true,
+      "matched_file": null,
+      "report_type": "upcoming",
+      "required": true,
+      "source_id": "upcoming_brazil",
+      "status": "MISSING"
+    },
+    {
+      "country": "Mexico",
+      "enabled": true,
+      "matched_file": null,
+      "report_type": "upcoming",
+      "required": true,
+      "source_id": "upcoming_mexico",
+      "status": "MISSING"
+    }
+  ],
+  "source_group": "weekly_upcoming",
+  "source_inventory": {
+    "configured_sources": 3,
+    "duplicate_sources": 0,
+    "files_scanned": 2,
+    "inventoried_at": "<RUNTIME_TIMESTAMP>",
+    "known_out_of_scope_files": 0,
+    "matched_files": 2,
+    "missing_required_sources": 1,
+    "readiness_issues": [
+      "Missing required source: upcoming_mexico"
+    ],
+    "review_files": 0,
+    "scanned_directory": "<TEST_ROOT>/pending",
+    "unconfigured_files": 0
+  },
+  "status": "WAITING_FOR_REPORTS",
+  "updated_at": "<RUNTIME_TIMESTAMP>",
+  "weekly_run_id": "NPS_WEEK_2026-08-04_2026-08-10",
+  "window_end": "08/10/2026",
+  "window_length_days": 7,
+  "window_start": "08/04/2026"
+}

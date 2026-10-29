@@ -1,0 +1,44 @@
+{
+  "upcoming_argentina_1": {
+    "country": "Argentina",
+    "detection_issues": [],
+    "detection_method": "EXACT_PATTERN",
+    "detection_status": "DETECTED",
+    "matched_pattern": "Argentina Upcoming Deliveries/NPS",
+    "received_at": "2026-08-03T09:00:00+00:00",
+    "report_type": "Upcoming",
+    "sender_email": "reports@example.invalid",
+    "sender_name": "Fixture Sender",
+    "source_file": "weekly_Argentina_upcoming.eml",
+    "source_path": "<TEST_ROOT>/processing/weekly_Argentina_upcoming.eml",
+    "subject": "Report results (Argentina Upcoming Deliveries/NPS)"
+  },
+  "upcoming_brazil_1": {
+    "country": "Brazil",
+    "detection_issues": [],
+    "detection_method": "EXACT_PATTERN",
+    "detection_status": "DETECTED",
+    "matched_pattern": "Brazil Upcoming Deliveries/NPS",
+    "received_at": "2026-08-03T09:00:00+00:00",
+    "report_type": "Upcoming",
+    "sender_email": "reports@example.invalid",
+    "sender_name": "Fixture Sender",
+    "source_file": "malformed_Brazil_no_table.eml",
+    "source_path": "<TEST_ROOT>/processing/malformed_Brazil_no_table.eml",
+    "subject": "Report results (Brazil Upcoming Deliveries/NPS)"
+  },
+  "upcoming_mexico_1": {
+    "country": "Mexico",
+    "detection_issues": [],
+    "detection_method": "EXACT_PATTERN",
+    "detection_status": "DETECTED",
+    "matched_pattern": "Mexico Upcoming Deliveries/NPS",
+    "received_at": "2026-08-03T09:00:00+00:00",
+    "report_type": "Upcoming",
+    "sender_email": "reports@example.invalid",
+    "sender_name": "Fixture Sender",
+    "source_file": "weekly_Mexico_upcoming.eml",
+    "source_path": "<TEST_ROOT>/processing/weekly_Mexico_upcoming.eml",
+    "subject": "Report results (Mexico Upcoming Deliveries/NPS)"
+  }
+}

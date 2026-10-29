@@ -1,0 +1,7 @@
+{
+  "upcoming_brazil_1": {
+    "error": "No se encontró contenido HTML dentro del correo.",
+    "failed_at": "<RUNTIME_TIMESTAMP>",
+    "traceback": "ValueError: No se encontró contenido HTML dentro del correo."
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "upcoming_brazil_1": {
+    "error": "La fila 1 tiene 12 celdas; se esperaban 14 o 13.",
+    "failed_at": "<RUNTIME_TIMESTAMP>",
+    "traceback": "ValueError: La fila 1 tiene 12 celdas; se esperaban 14 o 13."
+  }
+}

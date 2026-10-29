@@ -1,0 +1,82 @@
+{
+  "upcoming_argentina_1": {
+    "counts": {
+      "business_review": 0,
+      "clients": 2,
+      "eligible": 2,
+      "excluded": 0,
+      "inside_weekly_window": 2,
+      "normalized_records": 2,
+      "outside_weekly_window": 0,
+      "raw_records": 2,
+      "slack_rows": 2,
+      "validation_issues": 0,
+      "worklist_ready": 2,
+      "worklist_review": 0
+    },
+    "decision_counts": {
+      "ALL_RULES_PASSED": 2
+    },
+    "reference_monday": "08/03/2026",
+    "report": {
+      "country": "Argentina",
+      "detection_issues": [],
+      "detection_method": "EXACT_PATTERN",
+      "detection_status": "DETECTED",
+      "matched_pattern": "Argentina Upcoming Deliveries/NPS",
+      "received_at": "2026-08-03T09:00:00+00:00",
+      "report_type": "Upcoming",
+      "sender_email": "reports@example.invalid",
+      "sender_name": "Fixture Sender",
+      "source_file": "weekly_Argentina_upcoming.eml",
+      "source_path": "<TEST_ROOT>/processing/weekly_Argentina_upcoming.eml",
+      "subject": "Report results (Argentina Upcoming Deliveries/NPS)"
+    },
+    "summary_by_client": {
+      "Fixture Client Aurora 001": 1,
+      "Fixture Client Aurora 002": 1
+    },
+    "window_end": "8/10/2026",
+    "window_start": "8/4/2026"
+  },
+  "upcoming_mexico_1": {
+    "counts": {
+      "business_review": 0,
+      "clients": 2,
+      "eligible": 2,
+      "excluded": 0,
+      "inside_weekly_window": 2,
+      "normalized_records": 2,
+      "outside_weekly_window": 0,
+      "raw_records": 2,
+      "slack_rows": 2,
+      "validation_issues": 0,
+      "worklist_ready": 2,
+      "worklist_review": 0
+    },
+    "decision_counts": {
+      "ALL_RULES_PASSED": 2
+    },
+    "reference_monday": "08/03/2026",
+    "report": {
+      "country": "Mexico",
+      "detection_issues": [],
+      "detection_method": "EXACT_PATTERN",
+      "detection_status": "DETECTED",
+      "matched_pattern": "Mexico Upcoming Deliveries/NPS",
+      "received_at": "2026-08-03T09:00:00+00:00",
+      "report_type": "Upcoming",
+      "sender_email": "reports@example.invalid",
+      "sender_name": "Fixture Sender",
+      "source_file": "weekly_Mexico_upcoming.eml",
+      "source_path": "<TEST_ROOT>/processing/weekly_Mexico_upcoming.eml",
+      "subject": "Report results (Mexico Upcoming Deliveries/NPS)"
+    },
+    "summary_by_client": {
+      "Fixture Client Aurora 005": 1,
+      "Fixture Client Aurora 006": 1
+    },
+    "window_end": "8/10/2026",
+    "window_start": "8/4/2026"
+  }
+}

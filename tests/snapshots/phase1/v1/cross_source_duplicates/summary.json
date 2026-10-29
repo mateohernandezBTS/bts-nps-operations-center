@@ -1,0 +1,119 @@
+{
+  "clients": 10,
+  "countries_with_records": 2,
+  "duplicate_issues": 1,
+  "generated_at": "<RUNTIME_TIMESTAMP>",
+  "manual_review_items": [
+    {
+      "client": "Fixture Client Aurora 028",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session revenue",
+      "project_url": "https://example.invalid/project/FXT000000000028",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    },
+    {
+      "client": "Fixture Client Aurora 029",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session administrative",
+      "project_url": "https://example.invalid/project/FXT000000000029",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    },
+    {
+      "client": "Fixture Client Aurora 030",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session administrativo",
+      "project_url": "https://example.invalid/project/FXT000000000030",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    },
+    {
+      "client": "Fixture Client Aurora 031",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session admin only",
+      "project_url": "https://example.invalid/project/FXT000000000031",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    },
+    {
+      "client": "Fixture Client Aurora 032",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session 032",
+      "project_url": "https://example.invalid/project/FXT000000000032",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    },
+    {
+      "client": "Fixture Client Aurora 033",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session 033",
+      "project_url": "https://example.invalid/project/FXT000000000033",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    },
+    {
+      "client": "Fixture Client Aurora 034",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session 034",
+      "project_url": "https://example.invalid/project/FXT000000000034",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    },
+    {
+      "client": "Fixture Client Aurora 035",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session 035",
+      "project_url": "https://example.invalid/project/FXT000000000035",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    },
+    {
+      "client": "Fixture Client Aurora 050",
+      "country": "Argentina",
+      "date": "8/4/2026",
+      "project": "Fixture Session revenue inside",
+      "project_url": "https://example.invalid/project/FXT000000000050",
+      "reason": "Revisión manual para posibles registros administrativos o de revenue",
+      "suggested_action": "Confirmar si representa una sesión real antes de crear el NPS."
+    }
+  ],
+  "manual_review_records": 9,
+  "processed_sources": 3,
+  "ready_records": 10,
+  "records_by_client": {
+    "Fixture Client Aurora 001": 1,
+    "Fixture Client Aurora 005": 1,
+    "Fixture Client Aurora 006": 1,
+    "Fixture Client Aurora 040": 1,
+    "Fixture Client Aurora 041": 1,
+    "Fixture Client Aurora 042": 1,
+    "Fixture Client Aurora 043": 1,
+    "Fixture Client Aurora 044": 1,
+    "Fixture Client Aurora 048": 1,
+    "Fixture Client bts internal": 1
+  },
+  "records_by_country": {
+    "Argentina": 8,
+    "Mexico": 2
+  },
+  "records_by_output_status": {
+    "READY": 10
+  },
+  "region": "SELAM",
+  "review_items": [],
+  "review_records": 9,
+  "total_records": 10,
+  "weekly_run_id": "NPS_WEEK_2026-08-04_2026-08-10",
+  "window_end": "08/10/2026",
+  "window_start": "08/04/2026",
+  "worklist_review_records": 0
+}

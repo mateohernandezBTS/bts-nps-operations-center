@@ -1,0 +1,71 @@
+{
+  "upcoming_argentina_1": [],
+  "upcoming_brazil_1": [
+    {
+      "client_name": "Fixture Client Aurora 074",
+      "issues": [
+        "Status no reconocido: FixtureUnknown"
+      ],
+      "project_name": "Fixture Session 074",
+      "row_number": 23
+    },
+    {
+      "client_name": "Fixture Client Aurora 075",
+      "issues": [
+        "Valor booleano no reconocido: ?"
+      ],
+      "project_name": "Fixture Session 075",
+      "row_number": 24
+    },
+    {
+      "client_name": "Fixture Client Aurora 076",
+      "issues": [
+        "Campo obligatorio vacío: start_date"
+      ],
+      "project_name": "Fixture Session 076",
+      "row_number": 25
+    },
+    {
+      "client_name": "",
+      "issues": [
+        "Campo obligatorio vacío: client_name"
+      ],
+      "project_name": "Fixture Session 077",
+      "row_number": 26
+    },
+    {
+      "client_name": "Fixture Client Aurora 078",
+      "issues": [
+        "Campo obligatorio vacío: project_name"
+      ],
+      "project_name": "",
+      "row_number": 27
+    },
+    {
+      "client_name": "Fixture Client Aurora 079",
+      "issues": [
+        "Status vacío",
+        "Campo obligatorio vacío: status"
+      ],
+      "project_name": "Fixture Session 079",
+      "row_number": 28
+    },
+    {
+      "client_name": "Fixture Client Aurora 080",
+      "issues": [
+        "Fecha inválida: not-a-date"
+      ],
+      "project_name": "Fixture Session 080",
+      "row_number": 29
+    },
+    {
+      "client_name": "Fixture Client Aurora 081",
+      "issues": [
+        "Fecha inválida: not-a-date"
+      ],
+      "project_name": "Fixture Session 081",
+      "row_number": 30
+    }
+  ],
+  "upcoming_mexico_1": []
+}

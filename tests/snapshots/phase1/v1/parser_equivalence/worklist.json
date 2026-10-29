@@ -1,0 +1,243 @@
+{
+  "parser_Argentina_invitation_both": [
+    {
+      "Client": "Fixture Client Aurora 007",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000007",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000007",
+      "Project URL": "https://example.invalid/project/FXT000000000007",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 007"
+    }
+  ],
+  "parser_Argentina_invitation_first": [
+    {
+      "Client": "Fixture Client Aurora 007",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000007",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000007",
+      "Project URL": "https://example.invalid/project/FXT000000000007",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 007"
+    }
+  ],
+  "parser_Argentina_invitation_last": [
+    {
+      "Client": "Fixture Client Aurora 007",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000007",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000007",
+      "Project URL": "https://example.invalid/project/FXT000000000007",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 007"
+    }
+  ],
+  "parser_Brazil_forwarded_multipart": [
+    {
+      "Client": "Fixture Client Aurora 003",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000003",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000003",
+      "Project URL": "https://example.invalid/project/FXT000000000003",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 003"
+    },
+    {
+      "Client": "Fixture Client Aurora 004",
+      "Date": "8/10/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000004",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000000004",
+      "Project URL": "/FXT000000000000004",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 004"
+    }
+  ],
+  "parser_Brazil_multiple_offices": [
+    {
+      "Client": "Fixture Client Aurora 003",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000003",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000003",
+      "Project URL": "https://example.invalid/project/FXT000000000003",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 003"
+    },
+    {
+      "Client": "Fixture Client Aurora 004",
+      "Date": "8/10/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000004",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000000004",
+      "Project URL": "/FXT000000000000004",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 004"
+    },
+    {
+      "Client": "Fixture Client Aurora 008",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000008",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000008",
+      "Project URL": "https://example.invalid/project/FXT000000000008",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 008"
+    },
+    {
+      "Client": "Fixture Client Aurora 009",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000009",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000009",
+      "Project URL": "https://example.invalid/project/FXT000000000009",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 009"
+    }
+  ],
+  "parser_Brazil_plain_headers": [
+    {
+      "Client": "Fixture Client Aurora 003",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000003",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000003",
+      "Project URL": "https://example.invalid/project/FXT000000000003",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 003"
+    },
+    {
+      "Client": "Fixture Client Aurora 004",
+      "Date": "8/10/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000004",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000000004",
+      "Project URL": "/FXT000000000000004",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 004"
+    }
+  ],
+  "parser_Brazil_sum_headers": [
+    {
+      "Client": "Fixture Client Aurora 003",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000003",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000003",
+      "Project URL": "https://example.invalid/project/FXT000000000003",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 003"
+    },
+    {
+      "Client": "Fixture Client Aurora 004",
+      "Date": "8/10/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000004",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000000004",
+      "Project URL": "/FXT000000000000004",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 004"
+    }
+  ],
+  "parser_Mexico_14_td": [
+    {
+      "Client": "Fixture Client Aurora 005",
+      "Date": "8/4/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000005",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000005",
+      "Project URL": "https://example.invalid/project/FXT000000000005",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 005"
+    },
+    {
+      "Client": "Fixture Client Aurora 006",
+      "Date": "8/10/2026",
+      "Facilitator": "Fixture Facilitator Lumen",
+      "Link Insights Facilitators": "",
+      "Link NPS Survey": "",
+      "Link for Results": "https://mybts.my.site.com/NPSSurveyresults/s/?projcode=FXT000000000000006",
+      "Output Issues": "",
+      "Output Status": "READY",
+      "Project ID": "FXT000000000000006",
+      "Project URL": "https://example.invalid/project/FXT000000000000006",
+      "QR-Code": "",
+      "Results": "NO",
+      "Session": "Fixture Session 006"
+    }
+  ]
+}

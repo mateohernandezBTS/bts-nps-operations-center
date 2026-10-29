@@ -1,0 +1,7 @@
+{
+  "upcoming_brazil_1": {
+    "error": "Faltan columnas requeridas en el reporte: nps",
+    "failed_at": "<RUNTIME_TIMESTAMP>",
+    "traceback": "ValueError: Faltan columnas requeridas en el reporte: nps"
+  }
+}
