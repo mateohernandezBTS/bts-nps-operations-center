@@ -455,14 +455,89 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
   Compileall and scoped Ruff check/format-check passed; scoped mypy checked four
   new modules with no issues, using --follow-imports=skip for untouched imports.
   Frozen-tree checks passed; no Linux evidence is required for this package.
-- [ ] F1-03: six repaired tests and portable path assertion; Linux closure evidence
-  launched by the human and engine/ line-coverage baseline recorded.
+- [x] F1-03 Windows implementation: multipart weekly fidelity fix, six repaired tests,
+  portable path assertion and Windows engine/ coverage baseline recorded below.
+- [ ] F1-03 closure: human-launched Linux evidence for NPS-018 and Linux coverage
+  baseline remain pending; NPS-018 is not yet closed.
 - [ ] F1-04: all 18 file dispositions completed.
 - [ ] Architect reviews full candidate diffs; product owner approves APPROVAL.md with
   per-scenario counts and preserved known-defect locations.
 - [ ] F1-05: approved snapshots/APPROVAL.md, human-launched Linux closure evidence
   and engine/ line-coverage baseline recorded.
 - [ ] Optional F1-06: separately authorize and scope the deferred temporary-root helper.
+
+### F1-03 Windows evidence ? 2026-10-28
+
+Branch: `test/phase-1-baseline`, based on updated develop `d0570d2`.
+Implementation commits: `f80f67c` (weekly MIME), `d3aa688` (NPS-009),
+`1355e6d` (portable path assertion). Application behavior is unchanged.
+
+The three weekly emails now use multipart/alternative with UTF-8 text/plain and
+base64 text/html parts, fixed boundaries and the existing fixed envelope metadata.
+Decoded HTML bytes are identical to the pre-change inputs. Two independently
+supplied scratch roots (`.tmp/f103-first`, `.tmp/f103-second`) and the versioned
+root matched byte-for-byte for all 26 emails and the manifest (27 files per root).
+The existing weekly-family contract checks MIME type, boundary, ordered parts,
+UTF-8 charset, base64 encoding and absence of attachments; no new methods added.
+
+The five blocking scenarios use explicit weekly catalog IDs through tests/support,
+including two separate copies of weekly Mexico for duplicate-source blocking.
+Their SessionManager is isolated under a fresh temporary root. The lifecycle test
+copies weekly Brazil, proves the file entered processing before raising the
+controlled parser exception, and retains the original error/manifest/log assertions.
+It additionally checks persisted path containment and unchanged source/error bytes.
+The controller assertion retains the full relative output/report.xlsx location
+using native Path construction.
+
+Validation used the local Windows virtual environment (Python 3.14.6), with TMP
+and TEMP set to repository `.tmp` before Python started. Runtime commands ran outside
+the sandbox with explicit approval under NPS-019 option A:
+
+| Command | Final result |
+|---|---|
+| `python -m unittest discover -s tests -p "test*.py" -v` | 81 run, 81 passed, 0 failures, 0 errors, 0 skipped; final run 9.411s |
+| `python -m pytest -q` | 81 passed, 340 subtests passed, 0 failures/errors/skips; 13.90s |
+| `python -m pytest --cov=engine --cov-report=term-missing -q` | 81 passed, 340 subtests passed, 0 failures/errors/skips; 16.01s |
+| `python -m pytest --collect-only -q` (sandbox) | 81 collected; all 69 original IDs retained |
+| `python -m compileall -q app engine packaging` plus changed tests/support | Passed |
+| `python -m ruff check` and `python -m ruff format --check` on five changed Python modules | Passed |
+| `python -m mypy --follow-imports=skip` on the same five modules | No issues in 5 source files |
+
+The five static-check targets were tests/support/fixture_generator.py,
+tests/test_fixture_catalog.py, tests/test_backend_blocking_scenarios.py,
+tests/test_processing_error_lifecycle.py and tests/test_controller_session_integration.py.
+Untouched application typing/lint debt was not included. Original method IDs were
+compared against the base using AST inventories, and pytest collection and verbose
+unittest execution confirmed collection. No skips or expected failures were added.
+Fresh temporary roots are created by each lifecycle/inventory invocation; no ignored
+processed-email lookup remains in the six repaired cases. No separate fresh-clone
+checkout or reversed-order runtime invocation was performed in this Windows task;
+exact-command escalation limits remain in force.
+
+Frozen-tree diff checks against `d0570d2` and `70ad957`, cached checks, untracked
+status checks and whitespace checks passed before each implementation commit.
+Tree object IDs for app/, engine/, config/ and packaging/ also match both anchors.
+No dependencies, business rules, snapshots or operational files changed.
+
+Coverage baseline (line coverage, not a gate): Windows win32, pytest 9.2.0,
+pytest-cov 7.1.0, coverage 7.17.0. Engine total: **1,446 covered / 2,858 statements**,
+**1,412 missed**, **50.5948%** (terminal rounded to **51%**). No excluded lines.
+The ignored machine report is `.codex-log/f103/engine-coverage.json`, exported from
+the same coverage data inside the sandbox. Five least-covered modules, ranked by
+unrounded percentage:
+
+| Module | Covered / statements | Missed | Coverage |
+|---|---:|---:|---:|
+| engine/selam_aggregator.py | 22 / 189 | 167 | 11.64% |
+| engine/weekly_manifest.py | 11 / 81 | 70 | 13.58% |
+| engine/weekly_orchestrator.py | 14 / 103 | 89 | 13.59% |
+| engine/weekly_excel.py | 45 / 323 | 278 | 13.93% |
+| engine/selam_output.py | 25 / 162 | 137 | 15.43% |
+
+The product owner explicitly approved the exact Windows coverage command in this
+session, amending section 6 only for this run. Linux NPS-018 evidence and the Linux
+coverage baseline still require a human-launched Codex cloud task using the wrapper
+and command in section 6. Architect review and product-owner review are pending.
 
 ## 10. Decision log
 
@@ -477,3 +552,6 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
 | 2026-10-28 | Windows local is primary for all packages; human launches Linux cloud tasks only at F1-03/F1-05 closures | Required cross-platform closure evidence | Product owner |
 | 2026-10-28 | Record engine/ pytest-cov line coverage at both closures as a baseline, not a gate | Quantify the safety net without a coverage threshold | Product owner |
 | 2026-10-28 | F1-02 starts with docs(dod): align git rule with AGENTS.md | Correct contradictory DoD wording before fixture work | Product owner |
+
+| 2026-10-28 | F1-03 includes weekly multipart fidelity before the six repairs, followed by portable assertion and results commits | Explicit task amendment; preserve decoded HTML and original 81 methods | Product owner |
+| 2026-10-28 | Approve exact Windows pytest coverage command outside sandbox for F1-03 | Explicit session approval; Linux evidence remains separately pending | Product owner |

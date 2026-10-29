@@ -9,7 +9,8 @@
         "Conf/✕",
         "window start/end",
         "synthetic 15/18-character project links",
-        "14 td cells"
+        "14 td cells",
+        "multipart/alternative: text/plain + base64 text/html"
       ],
       "rows": [
         "weekly_argentina_1",
@@ -21,7 +22,7 @@
         "existing_run",
         "controlled_parser_failure"
       ],
-      "sha256": "f72d34c2e23eaf1158d795920d17e7b8e907451ea7f2d13cf8a8f54a0ccd9f92"
+      "sha256": "5012571557cf013d711161ab163c3d2a933fa0341fade95f514b124721a8b1d8"
     },
     {
       "data_rows": 2,
@@ -37,7 +38,8 @@
         "Billing Office up / Survey Invitation down sort indicators",
         "ignored groupHeader/subtotal/grandTotal rows",
         "evaluation placeholders - / feature not included",
-        "relative 18-character project anchor"
+        "relative 18-character project anchor",
+        "multipart/alternative: text/plain + base64 text/html"
       ],
       "rows": [
         "weekly_brazil_1",
@@ -49,7 +51,7 @@
         "existing_run",
         "controlled_parser_failure"
       ],
-      "sha256": "7be5d0a2699f4bce1ce6fa410b399c62108782d87abd9c7261a3662969fd2039"
+      "sha256": "ee27bc7794aee996fffe88a0c5cda99e0b1b1d5d58047d3ab08e416a78c890fa"
     },
     {
       "data_rows": 2,
@@ -60,7 +62,8 @@
         "Conf/✕",
         "window start/end",
         "synthetic 15/18-character project links",
-        "14 td cells"
+        "14 td cells",
+        "multipart/alternative: text/plain + base64 text/html"
       ],
       "rows": [
         "weekly_mexico_1",
@@ -72,7 +75,7 @@
         "existing_run",
         "controlled_parser_failure"
       ],
-      "sha256": "1f59786780b5dd51d7c8fd82aaf75eaf79c3f04fe07f06dc5c1060819d6548af"
+      "sha256": "f00e148136fc5be1b143cdd77534d159fe3de2ba3d1a806d0f11228c53935b51"
     },
     {
       "data_rows": 2,
@@ -580,7 +583,7 @@
     }
   ],
   "inputs": {
-    "catalog.json": "6132ad631d345beafb353d23613cef6bd20d707c045b6b7adde76629be015bb9",
+    "catalog.json": "54a425ded9db5df2a540b976b452a72546febe922ffbd443378767bc62c30e5a",
     "rows.json": "796e3a608c35123f2e0c573cc986d5e0a3431c9f7ef76ebceb988c896d63d11e"
   },
   "provenance": "Invented entities; generated only from catalog.json and rows.json.",

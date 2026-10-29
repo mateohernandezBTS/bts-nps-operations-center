@@ -128,14 +128,21 @@ Notes:
 
 ## 5a. Git operations
 
+- In the local Windows sandbox, Git write operations require write access to `.git`,
+  which the sandbox blocks. Request explicit human approval to run each exact Git
+  write command outside the sandbox (including switch, pull/fetch, branch creation,
+  add, commit, tag and push). This expected sandbox approval case is not a failed
+  Git operation. Read-only Git commands stay inside the sandbox.
+- Before Git writes, check read-only for `*.lock` files under `.git`. If any exist,
+  report their paths and STOP; never delete them.
 - You perform the Git operations the task requires: create/switch branches, stage,
   commit, tag, and push the task branch (pushing needs network approval).
 - In Codex cloud, commit your work on the task branch inside the environment; publishing
   (push / pull request) is done through the Codex interface. Pull requests target `develop`.
 - Before editing files, check `git branch --show-current`. If you are not on the task
   branch, switch to it or create it from the base branch named in the task.
-- If a Git operation fails or cannot be done by you (authentication or credential prompt,
-  network denied, locked files, merge conflicts needing a decision), STOP. Do not try
+- If an approved Git command fails or cannot be done by you (authentication or credential
+  prompt, network denied, locked files, merge conflicts needing a decision), STOP. Do not try
   workarounds. Report it under HUMAN ACTIONS with exact GitHub Desktop steps.
 - The human never uses the Git command line. Every human Git action (clone, switch
   branch, publish/push, pull request, merge, tag) is done in GitHub Desktop, so write

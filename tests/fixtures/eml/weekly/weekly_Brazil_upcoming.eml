@@ -3,6 +3,17 @@ To: Fixture Operator <operator@example.invalid>
 Date: Mon, 03 Aug 2026 09:00:00 +0000
 Message-ID: <weekly_Brazil_upcoming@example.invalid>
 Subject: Report results (Brazil Upcoming Deliveries/NPS)
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="fixture-boundary-weekly_Brazil_upcoming"
+
+--fixture-boundary-weekly_Brazil_upcoming
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+U3ludGhldGljIHBsYWluIHRleHQuDQo=
+
+--fixture-boundary-weekly_Brazil_upcoming
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: base64
 MIME-Version: 1.0
@@ -38,3 +49,5 @@ eHR1cmUgZ3JhbmQgdG90YWw8L3RkPjx0ZD48L3RkPjx0ZD48L3RkPjx0ZD48L3RkPjx0ZD48L3Rk
 Pjx0ZD48L3RkPjx0ZD48L3RkPjx0ZD48L3RkPjx0ZD4tPC90ZD48dGQ+ZmVhdHVyZSBub3QgaW5j
 bHVkZWQ8L3RkPjx0ZD4wPC90ZD48dGQ+PC90ZD48dGQ+PC90ZD48dGQ+PC90ZD48L3RyPjwvdGFi
 bGU+PC9ib2R5PjwvaHRtbD4NCg==
+
+--fixture-boundary-weekly_Brazil_upcoming--

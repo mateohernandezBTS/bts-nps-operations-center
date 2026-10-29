@@ -53,7 +53,7 @@
       "grouped": false,
       "omit_office_rows": [],
       "invitation": "row",
-      "mime": "html",
+      "mime": "alternative",
       "missing_header": "",
       "no_table": false,
       "cell_counts": [],
@@ -62,7 +62,8 @@
         "Conf/✕",
         "window start/end",
         "synthetic 15/18-character project links",
-        "14 td cells"
+        "14 td cells",
+        "multipart/alternative: text/plain + base64 text/html"
       ],
       "scenarios": [
         "complete_weekly",
@@ -104,7 +105,7 @@
         1
       ],
       "invitation": "row",
-      "mime": "html",
+      "mime": "alternative",
       "missing_header": "",
       "no_table": false,
       "cell_counts": [],
@@ -118,7 +119,8 @@
         "Billing Office up / Survey Invitation down sort indicators",
         "ignored groupHeader/subtotal/grandTotal rows",
         "evaluation placeholders - / feature not included",
-        "relative 18-character project anchor"
+        "relative 18-character project anchor",
+        "multipart/alternative: text/plain + base64 text/html"
       ],
       "scenarios": [
         "complete_weekly",
@@ -224,7 +226,7 @@
       "grouped": false,
       "omit_office_rows": [],
       "invitation": "row",
-      "mime": "html",
+      "mime": "alternative",
       "missing_header": "",
       "no_table": false,
       "cell_counts": [],
@@ -233,7 +235,8 @@
         "Conf/✕",
         "window start/end",
         "synthetic 15/18-character project links",
-        "14 td cells"
+        "14 td cells",
+        "multipart/alternative: text/plain + base64 text/html"
       ],
       "scenarios": [
         "complete_weekly",

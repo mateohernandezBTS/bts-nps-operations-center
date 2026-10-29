@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -10,34 +9,7 @@ from unittest.mock import patch
 from engine.process_report import (
     process_report_file,
 )
-
-
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-
-FIXTURE_DIRECTORY = (
-    PROJECT_ROOT
-    / "tests"
-    / "runtime"
-    / "weekly_pipeline"
-    / "processed"
-)
-
-
-def find_valid_fixture() -> Path:
-    """
-    Return one previously processed valid Upcoming EML.
-    """
-    fixtures = sorted(
-        FIXTURE_DIRECTORY.glob("*.eml")
-    )
-
-    if not fixtures:
-        raise FileNotFoundError(
-            "No valid EML fixture was found in: "
-            f"{FIXTURE_DIRECTORY}"
-        )
-
-    return fixtures[0]
+from tests.support.fixture_paths import copy_fixture, fixture_path
 
 
 class ProcessingErrorLifecycleTest(unittest.TestCase):
@@ -59,7 +31,9 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
         - create a final execution log;
         - propagate the original exception.
         """
-        valid_fixture = find_valid_fixture()
+        fixture_id = "weekly_Brazil_upcoming"
+        valid_fixture = fixture_path(fixture_id)
+        original_bytes = valid_fixture.read_bytes()
 
         with tempfile.TemporaryDirectory() as temp_root:
             root = Path(temp_root)
@@ -73,42 +47,24 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
 
             pending_directory.mkdir(parents=True)
 
-            source_path = (
-                pending_directory
-                / valid_fixture.name
-            )
+            source_path = pending_directory / valid_fixture.name
 
-            shutil.copy2(
-                valid_fixture,
-                source_path,
-            )
+            copy_fixture(fixture_id, source_path)
 
             test_config = {
                 "version": "1.0",
                 "environment": "TEST",
                 "input_lifecycle": {
-                    "pending_directory": str(
-                        pending_directory
-                    ),
-                    "processing_directory": str(
-                        processing_directory
-                    ),
-                    "processed_directory": str(
-                        processed_directory
-                    ),
-                    "error_directory": str(
-                        error_directory
-                    ),
+                    "pending_directory": str(pending_directory),
+                    "processing_directory": str(processing_directory),
+                    "processed_directory": str(processed_directory),
+                    "error_directory": str(error_directory),
                 },
                 "output": {
-                    "runs_directory": str(
-                        runs_directory
-                    ),
+                    "runs_directory": str(runs_directory),
                 },
                 "logs": {
-                    "directory": str(
-                        logs_directory
-                    ),
+                    "directory": str(logs_directory),
                 },
                 "retention": {
                     "enabled": False,
@@ -120,15 +76,17 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
                 },
             }
 
-            controlled_error = (
-                "Controlled parser failure for lifecycle test."
-            )
+            controlled_error = "Controlled parser failure for lifecycle test."
+
+            def fail_during_processing(path: Path) -> None:
+                self.assertEqual(path, processing_directory / valid_fixture.name)
+                self.assertTrue(path.is_file())
+                self.assertFalse(source_path.exists())
+                raise ValueError(controlled_error)
 
             with patch(
                 "engine.process_report.parse_eml_report",
-                side_effect=ValueError(
-                    controlled_error
-                ),
+                side_effect=fail_during_processing,
             ):
                 with self.assertRaisesRegex(
                     ValueError,
@@ -141,14 +99,10 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
                     )
 
             # Original pending file must no longer exist.
-            self.assertFalse(
-                source_path.exists()
-            )
+            self.assertFalse(source_path.exists())
 
             # Processing must be empty after fail_execution.
-            processing_files = list(
-                processing_directory.glob("*.eml")
-            )
+            processing_files = list(processing_directory.glob("*.eml"))
 
             self.assertEqual(
                 processing_files,
@@ -156,9 +110,7 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
             )
 
             # Processed must remain empty.
-            processed_files = list(
-                processed_directory.glob("*.eml")
-            )
+            processed_files = list(processed_directory.glob("*.eml"))
 
             self.assertEqual(
                 processed_files,
@@ -166,9 +118,7 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
             )
 
             # Failed EML must be preserved in error.
-            error_files = list(
-                error_directory.glob("*.eml")
-            )
+            error_files = list(error_directory.glob("*.eml"))
 
             self.assertEqual(
                 len(error_files),
@@ -182,9 +132,7 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
 
             # Exactly one execution directory must exist.
             run_directories = [
-                path
-                for path in runs_directory.iterdir()
-                if path.is_dir()
+                path for path in runs_directory.iterdir() if path.is_dir()
             ]
 
             self.assertEqual(
@@ -194,29 +142,15 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
 
             run_directory = run_directories[0]
 
-            error_details_path = (
-                run_directory
-                / "error_details.json"
-            )
+            error_details_path = run_directory / "error_details.json"
 
-            execution_manifest_path = (
-                run_directory
-                / "execution_manifest.json"
-            )
+            execution_manifest_path = run_directory / "execution_manifest.json"
 
-            self.assertTrue(
-                error_details_path.exists()
-            )
+            self.assertTrue(error_details_path.exists())
 
-            self.assertTrue(
-                execution_manifest_path.exists()
-            )
+            self.assertTrue(execution_manifest_path.exists())
 
-            error_details = json.loads(
-                error_details_path.read_text(
-                    encoding="utf-8"
-                )
-            )
+            error_details = json.loads(error_details_path.read_text(encoding="utf-8"))
 
             self.assertEqual(
                 error_details["error"],
@@ -233,11 +167,7 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
                 error_details,
             )
 
-            manifest = json.loads(
-                execution_manifest_path.read_text(
-                    encoding="utf-8"
-                )
-            )
+            manifest = json.loads(execution_manifest_path.read_text(encoding="utf-8"))
 
             self.assertEqual(
                 manifest["execution_status"],
@@ -255,27 +185,25 @@ class ProcessingErrorLifecycleTest(unittest.TestCase):
             )
 
             self.assertEqual(
-                Path(
-                    manifest["processing_path"]
-                ),
+                Path(manifest["processing_path"]),
                 error_files[0],
             )
 
             # One final log must also be created.
-            log_files = list(
-                logs_directory.glob("*.json")
-            )
+            log_files = list(logs_directory.glob("*.json"))
 
             self.assertEqual(
                 len(log_files),
                 1,
             )
 
-            log_data = json.loads(
-                log_files[0].read_text(
-                    encoding="utf-8"
-                )
-            )
+            log_data = json.loads(log_files[0].read_text(encoding="utf-8"))
+
+            for artifact in (manifest, log_data):
+                for key in ("original_path", "processing_path", "run_directory"):
+                    self.assertTrue(Path(artifact[key]).resolve().is_relative_to(root))
+            self.assertEqual(error_files[0].read_bytes(), original_bytes)
+            self.assertEqual(valid_fixture.read_bytes(), original_bytes)
 
             self.assertEqual(
                 log_data["execution_status"],
