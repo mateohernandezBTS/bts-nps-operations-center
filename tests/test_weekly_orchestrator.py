@@ -26,8 +26,7 @@ class WeeklyOrchestratorTest(IsolatedWeeklyCase):
     def test_continue_after_failure(self) -> None:
         path = self.prepare("partial_failure")
         result = self.process(path)
-        # NPS-001: partial source failure currently completes with review.
-        self.assertEqual(result["status"], "COMPLETED_WITH_REVIEW")
+        self.assertEqual(result["status"], "FAILED")
         self.assertEqual(
             [s["status"] for s in result["expected_sources"]],
             ["PROCESSED", "FAILED", "PROCESSED"],

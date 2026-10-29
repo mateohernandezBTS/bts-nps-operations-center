@@ -473,20 +473,25 @@ class NPSApplicationController:
             "COMPLETED",
             "COMPLETED_WITH_REVIEW",
         }
+        issues = list(processing_result.get("issues", []))
 
         message = (
             "Weekly processing completed successfully."
             if success
-            else "Weekly processing did not complete."
+            else "Weekly processing failed; regional outputs withheld. "
+            + " | ".join(issues)
         )
 
         metrics = self._build_processing_metrics(
             processing_result
         )
 
-        outputs = self._build_processing_outputs(
-            processing_result
+        outputs = (
+            self._build_processing_outputs(processing_result)
+            if success else {}
         )
+        if not success:
+            metrics.update(manifest.get("processing_summary", {}))
 
         self._safe_finish_session(
             session_manager,
@@ -495,6 +500,7 @@ class NPSApplicationController:
             message=message,
             metrics=metrics,
             outputs=outputs,
+            issues=issues,
         )
 
         return WeeklyOperationResult(
@@ -507,7 +513,7 @@ class NPSApplicationController:
                 "preflight": preflight,
                 "processing": processing_result,
             },
-            issues=[],
+            issues=issues,
         )
 
     @staticmethod

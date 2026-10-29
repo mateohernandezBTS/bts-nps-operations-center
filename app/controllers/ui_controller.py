@@ -639,6 +639,11 @@ class UIController:
                 manual_review_items=(),
             )
 
+        if session.status.upper() == "FAILED":
+            return self._failed_weekly_output_state(
+                session.environment, session.weekly_run_id, session.message
+            )
+
         environment = (
             session.environment
             or self._default_environment
@@ -760,8 +765,12 @@ class UIController:
         self,
         run: RunHistoryItem,
     ) -> WeeklyOutputState:
-
-
+        if run.status.upper() == "FAILED":
+            return self._failed_weekly_output_state(
+                run.environment,
+                run.weekly_run_id,
+                "Failed attempt; regional outputs withheld. See Run History and logs.",
+            )
         run_directory = Path(
             run.run_directory
         )
@@ -857,6 +866,27 @@ class UIController:
             manual_review_items=(
                 manual_review_items
             ),
+        )
+
+    @staticmethod
+    def _failed_weekly_output_state(
+        environment: str,
+        weekly_run_id: str,
+        message: str,
+    ) -> WeeklyOutputState:
+        """Withhold every publishable path, including stale paths from prior runs."""
+        return WeeklyOutputState(
+            environment=environment,
+            weekly_run_id=weekly_run_id,
+            status="FAILED",
+            message=message,
+            html_path="",
+            html_content="",
+            excel_path="",
+            manual_review_path="",
+            manual_review_count=0,
+            requires_manual_review=False,
+            manual_review_items=(),
         )
 
     def _read_run_history_item(

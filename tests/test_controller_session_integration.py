@@ -75,24 +75,20 @@ class SyntheticControllerIntegrationTest(IsolatedWeeklyCase):
         self.populate("partial_failure")
         with redirect_stdout(io.StringIO()):
             result = self.controller.run_weekly_process("8/3/2026", test_mode=True)
-        # NPS-001: source failure reports success, with no top-level issues.
-        self.assertTrue(result.success, result.message)
-        self.assertEqual(result.status, "COMPLETED_WITH_REVIEW")
-        self.assertEqual(result.issues, [])
+        self.assertFalse(result.success, result.message)
+        self.assertEqual(result.status, "FAILED")
+        self.assertTrue(result.issues)
         processing = result.data["processing"]
         self.assertEqual(
             processing["manifest"]["processing_summary"]["failed_sources"], 1
         )
-        self.assertEqual(
-            processing["weekly_summary"]["records_by_country"],
-            {"Argentina": 2, "Mexico": 2},
-        )
+        self.assertNotIn("weekly_summary", processing)
         session = self.controller.get_current_session("TEST")
         assert session is not None
-        self.assertEqual(session.status, "COMPLETED_WITH_REVIEW")
-        self.assertEqual(session.metrics["ready_records"], 4)
-        for value in session.outputs.values():
-            self.assertTrue(self.assert_local(value).is_file())
+        self.assertEqual(session.status, "FAILED")
+        self.assertEqual(session.metrics["processed_sources"], 2)
+        self.assertEqual(session.metrics["failed_sources"], 1)
+        self.assertEqual(session.outputs, {})
 
 
 class ControllerSessionIntegrationTest(unittest.TestCase):

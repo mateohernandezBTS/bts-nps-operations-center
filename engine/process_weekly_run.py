@@ -15,6 +15,7 @@ from engine.source_inventory import (
     build_source_inventory,
 )
 from engine.weekly_manifest import (
+    load_weekly_manifest,
     update_weekly_manifest_from_inventory,
 )
 from engine.weekly_orchestrator import (
@@ -305,11 +306,43 @@ def execute_weekly_end_to_end(
             + " | ".join(issues)
         )
 
-    completed_manifest = process_weekly_run(
-        manifest_path=manifest_path,
-        stop_on_error=stop_on_error,
-        execution_config=execution_config,
-    )
+    try:
+        completed_manifest = process_weekly_run(
+            manifest_path=manifest_path,
+            stop_on_error=stop_on_error,
+            execution_config=execution_config,
+        )
+    except Exception:
+        # stop_on_error persists the failed source before re-raising its error.
+        completed_manifest = load_weekly_manifest(manifest_path)
+        if completed_manifest["status"] != "FAILED":
+            raise
+
+    if completed_manifest["status"] == "FAILED":
+        summary = completed_manifest["processing_summary"]
+        counts = (
+            f"processed={summary['processed_sources']}, "
+            f"failed={summary['failed_sources']}"
+        )
+        issues = []
+        for source in completed_manifest["expected_sources"]:
+            if source.get("status") != "FAILED":
+                continue
+            error = source.get("processing_error") or {}
+            issues.append(
+                f"Source {source['source_id']} ({source['country']}), "
+                f"file {source['matched_file']}: "
+                f"{error.get('error_type', 'Error')}: {error.get('message', '')}. "
+                f"Sources: {counts}. Weekly outputs withheld. "
+                "Preserve the failed attempt, correct the report, and resubmit "
+                "all sources using the failed-attempt recovery procedure."
+            )
+        print("Weekly processing FAILED: " + " | ".join(issues))
+        return {
+            "manifest_path": manifest_path,
+            "manifest": completed_manifest,
+            "issues": issues,
+        }
 
     if completed_manifest["status"] not in {
         "COMPLETED",
@@ -405,11 +438,13 @@ def main() -> None:
     parser = build_argument_parser()
     args = parser.parse_args()
 
-    execute_weekly_end_to_end(
+    result = execute_weekly_end_to_end(
         reference_date=args.reference_date,
         test_mode=args.test,
         stop_on_error=args.stop_on_error,
     )
+    if result["manifest"]["status"] == "FAILED":
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

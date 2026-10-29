@@ -139,9 +139,6 @@ def determine_final_weekly_status(
     summary = summarize_weekly_results(manifest)
 
     if summary["failed_sources"] > 0:
-        if summary["processed_sources"] > 0:
-            return "COMPLETED_WITH_REVIEW"
-
         return "FAILED"
 
     if (

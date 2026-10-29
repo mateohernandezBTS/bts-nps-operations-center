@@ -3,10 +3,18 @@
 from __future__ import annotations
 
 import io
+import os
 from contextlib import redirect_stdout
 from dataclasses import replace
+from typing import Any
+
+os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+
+from PySide6.QtWidgets import QApplication
 
 from app.controllers.ui_controller import UIController
+from app.views.weekly_output.weekly_output_view import WeeklyOutputView
+from app.views.weekly_run.weekly_run_view import WeeklyRunView
 from engine.application_controller import NPSApplicationController
 from engine.process_weekly_run import execute_weekly_end_to_end
 from engine.session_manager import SessionManager
@@ -20,7 +28,7 @@ class FailedWeeklyStatusTest(IsolatedWeeklyCase):
         self.controller = NPSApplicationController(session_manager=self.manager)
         self.ui = UIController(self.controller)
 
-    def run_bundle(self, bundle: str):
+    def run_bundle(self, bundle: str) -> Any:
         self.populate(bundle)
         with redirect_stdout(io.StringIO()):
             return self.controller.run_weekly_process("8/3/2026", test_mode=True)
@@ -56,10 +64,8 @@ class FailedWeeklyStatusTest(IsolatedWeeklyCase):
     def test_pipeline_withholds_all_regional_outputs(self) -> None:
         self.populate("partial_failure")
         with redirect_stdout(io.StringIO()):
-            try:
-                execute_weekly_end_to_end("8/3/2026", test_mode=True)
-            except Exception:
-                pass  # Inspect persisted behavior even if the pipeline raises.
+            result = execute_weekly_end_to_end("8/3/2026", test_mode=True)
+        self.assertEqual(result["manifest"]["status"], "FAILED")
         manifest_path = next(self.output.glob("*/weekly_manifest.json"))
         self.assertEqual(
             [p.name for p in manifest_path.parent.iterdir()],
@@ -110,3 +116,45 @@ class FailedWeeklyStatusTest(IsolatedWeeklyCase):
         historical = self.ui.get_weekly_output_state_for_run(failed_run)
         self.assertEqual(historical.html_content, "")
         self.assertEqual((historical.html_path, historical.excel_path), ("", ""))
+
+    def test_stop_on_error_reports_actionable_failure(self) -> None:
+        self.populate("partial_failure")
+        with redirect_stdout(io.StringIO()):
+            result = self.controller.run_weekly_process(
+                "8/3/2026", test_mode=True, stop_on_error=True
+            )
+        self.assertFalse(result.success)
+        self.assertEqual(result.status, "FAILED")
+        self.assertIn("processed=1, failed=1", " | ".join(result.issues))
+        self.assertIn("upcoming_brazil", " | ".join(result.issues))
+        self.assertEqual(len(list(self.pending.glob("*.eml"))), 1)
+        self.assertEqual(self.manager.load().outputs, {})
+
+    def test_ui_failed_status_issues_and_output_actions(self) -> None:
+        self.application = QApplication.instance() or QApplication([])
+        result = self.run_bundle("partial_failure")
+        weekly = WeeklyRunView()
+        weekly.set_process_result(
+            success=result.success,
+            status=result.status,
+            message=result.message,
+            issues=tuple(result.issues),
+        )
+        self.assertEqual(weekly.preflight_card.status_badge.text().upper(), "FAILED")
+        self.assertEqual(weekly.preflight_card.status_badge._tone, "error")
+        for issue in result.issues:
+            self.assertIn(issue, weekly.preflight_card.issues_label.text())
+        output = WeeklyOutputView()
+        stale = replace(
+            self.ui.get_weekly_output_state(),
+            status="COMPLETED",
+            html_content='<button onclick="copy()">Copy for Slack</button>',
+        )
+        output.apply_state(stale)
+        output.apply_state(self.ui.get_weekly_output_state())
+        self.assertEqual(output.status_badge._tone, "error")
+        self.assertEqual(output._excel_path, "")
+        self.assertFalse(output.open_excel_button.isEnabled())
+        self.assertFalse(output.html_preview.isEnabled())
+        output.close()
+        weekly.close()

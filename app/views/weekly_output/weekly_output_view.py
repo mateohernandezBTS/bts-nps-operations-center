@@ -467,6 +467,8 @@ class WeeklyOutputView(QWidget):
         normalized_status = (
             state.status or "NO RUN"
         ).upper()
+        # Disable the web surface immediately while setHtml replaces any stale page.
+        self.html_preview.setEnabled(normalized_status != "FAILED")
 
         if normalized_status in {
             "COMPLETED",

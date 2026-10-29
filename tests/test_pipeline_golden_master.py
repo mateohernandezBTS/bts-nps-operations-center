@@ -127,24 +127,27 @@ class PipelineGoldenMasterTest(unittest.TestCase):
 
     def test_partial_failure(self) -> None:
         files = self.assert_snapshot("partial_failure")
-        # NPS-001: partial failure reports success and omits Brazil from outputs.
-        self.assertEqual(
-            json.loads(files["operation.json"]),
-            {
-                "success": True,
-                "status": "COMPLETED_WITH_REVIEW",
-                "issues": [],
-            },
-        )
+        operation = json.loads(files["operation.json"])
+        self.assertFalse(operation["success"])
+        self.assertEqual(operation["status"], "FAILED")
+        self.assertTrue(operation["issues"])
         manifest = json.loads(files["weekly_manifest.json"])
         self.assertEqual(
             [s["status"] for s in manifest["expected_sources"]],
             ["PROCESSED", "FAILED", "PROCESSED"],
         )
-        self.assertEqual(
-            json.loads(files["summary.json"])["records_by_country"],
-            {"Argentina": 2, "Mexico": 2},
-        )
+        for name in (
+            "consolidation_issues.json",
+            "manual_review_issues.json",
+            "selam_consolidated.json",
+            "selam_manual_review.json",
+            "summary.json",
+            "weekly_csv.json",
+            "excel_cells.json",
+            "slack.html",
+            "slack_ready.md",
+        ):
+            self.assertNotIn(name, files)
 
     def test_canonicalization_repeatability(self) -> None:
         for scenario in SCENARIOS:

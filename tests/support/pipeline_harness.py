@@ -206,7 +206,8 @@ def weekly(case: IsolatedWeeklyCase, scenario: str) -> dict[str, str]:
             path, build_source_inventory(case.pending)
         )
     else:
-        if not result.success:
+        expected_failure = scenario == "partial_failure" and result.status == "FAILED"
+        if not result.success and not expected_failure:
             raise AssertionError(asdict(result))
         path = Path(result.data["processing"]["manifest_path"])
     artifacts, projection = collect_executions(case)
@@ -244,7 +245,7 @@ def weekly(case: IsolatedWeeklyCase, scenario: str) -> dict[str, str]:
         target = path.parent / (filename + ".json")
         if target.is_file():
             files[name + ".json"] = json_text(projection.value(read_json(target)))
-    if result.status != "BLOCKED":
+    if result.success:
         processing = result.data["processing"]
         files["excel_cells.json"] = json_text(
             projection.workbook(case.assert_local(processing["weekly_excel_path"]))
