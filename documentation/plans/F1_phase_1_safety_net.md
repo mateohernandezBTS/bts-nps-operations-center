@@ -1,6 +1,6 @@
 # Execution Plan — F1 Phase 1 safety net
 
-Status: APPROVED WITH AMENDMENTS — F1-05A candidates implemented; PR-gated approval remains pending.
+Status: APPROVED WITH AMENDMENTS — golden master approved in PR #8; F1-06 preflight closure in progress.
 Prepared: 2026-10-28. Base: develop at `70ad957` (merged Phase 0 tooling).
 Planning branch: `test/phase-1-plan`. F1-04 branch: `test/phase-1-test-conversion`.
 
@@ -44,7 +44,7 @@ and turn print scripts into assertions without changing application behavior.
 
 ## 3. Scope
 
-In scope for later approved F1-02 through F1-05:
+In scope for approved F1-02 through F1-06:
 
 - Test-only deterministic generation, a versioned synthetic fixture catalog,
   test harnesses, assertions, snapshots and test documentation.
@@ -323,7 +323,7 @@ Each elevated command requires approval. Do not change ACLs or monkeypatch globa
 tempfile/os functions. The accommodation does not repair NPS-019, which remains
 PLANNED. Windows is the sole execution platform for Phase 1. Linux portability is
 an accepted risk, supported only by code review of platform-neutral assertions.
-The optional F1-06 helper remains separately deferred, not a selected policy.
+The optional F1-07 helper remains separately deferred, not a selected policy.
 
 ### 5.6 Sequenced execution work packages
 
@@ -352,7 +352,7 @@ F1-01. Any extra needed test must be justified and the expected counts revised
 openly. Phase 1's success is
 meaningful asserted coverage and clean-clone parity, not the exact number 151.
 
-### 5.7 Optional F1-06 stub — deferred temporary-root helper
+### 5.7 Optional F1-07 stub — NPS-019 option C, deferred temporary-root helper
 
 After F1-05, a separately authorized `test/phase-1-temp-helper` package may explore
 a temporary-root helper. Scope: test-only portable temporary-root allocation and contained cleanup,
@@ -366,7 +366,72 @@ the full suite against the already approved F1-05 golden master with no snapshot
 updates. Compare Windows sandbox behavior with the approved Windows baseline and
 record any residual permission failures. Keep option A until replacement is proven.
 Additional helper tests and their count are defined in the future package; they are
-outside the approved 151-case estimate. This stub authorizes no F1-06 implementation.
+outside the approved 151-case estimate. This stub authorizes no F1-07 implementation.
+
+### 5.8 F1-06 — weekly preflight characterization and Phase 1 closure
+
+Purpose: characterize the remaining public preflight behavior before Phase 2/3,
+raising engine/weekly_preflight.py coverage from 73/141 lines (51.7730%) toward
+at least 85%, without changing application behavior or accepted snapshots.
+Branch: test/phase-1-preflight, based on updated develop b2c4c77 (merged PR #8).
+F1-05C recorded architect/product-owner approval in ada514c; the 151-test baseline
+and all 141 accepted candidate hashes remain the reference.
+
+In scope: tests/test_weekly_preflight.py, this plan and the development roadmap.
+Use run_weekly_preflight() and CLI main() as the entry points, real inventory and
+synthetic fixtures copied through tests/support, stdlib temporary roots and real
+temporary configuration JSON through existing loader/path seams. No preflight or
+inventory result mocks. Patch both environment and import-time constants (NPS-017).
+Production-mode routing may be exercised only with both production constants
+redirected beneath the test root. Assert preflight leaves the entire root unchanged.
+
+Pin date parsing, source-group validation, invalid input paths, genuine ambiguous
+inventory configuration, detected-but-unconfigured reports, optional-group policy,
+CLI human/JSON output and exit codes 0/1/2, help and invalid arguments. NPS-007 must
+show that preflight still requires Monday and uses fixed offsets even when a real
+temporary weekly schedule makes weekly-run creation use different settings.
+NPS-017 must show that changing the environment does not rebind imported paths.
+Use meaningful assertions, not calls intended solely to execute a line.
+
+Plan 18 new TestCase methods (169 total); subtests do not change the method count.
+Explain any variance. If a path needs an artificial fault/result to reach it,
+document it as defensive/unreachable with its line and reason instead of adding a
+line-only test. The __main__ bootstrap may remain uncovered when public CLI main()
+is exercised in process; report that limitation rather than inventing behavior.
+
+| Step | Files / work | Validation | Commit |
+|---|---|---|---|
+| 1 | Add this plan; renumber deferred NPS-019 option C helper to F1-07 | Plan, scope, frozen trees, whitespace | docs(plan): add F1-06 preflight coverage; renumber optional NPS-019 option C to F1-07 |
+| 2 | Add public preflight and CLI characterization tests | Both runners: 151 + new cases; coverage; lint/format/typing; unchanged golden master | test: characterize weekly preflight branches |
+| 3 | Record exact results, coverage, unreachable lines; Phase 1 DONE | Final frozen-tree/hash checks; complete review bundle | docs: record F1-06 results and close Phase 1 |
+
+Frozen before each commit: app/, engine/, config/, packaging/ and tests/snapshots/
+must match develop. Also check production trees against 70ad957. Never change
+business rules, add dependencies, build, launch a GUI, access operational data,
+change ACLs or implement the deferred temporary-root helper. Existing NPS-019
+option A stays in use, with approval for each exact elevated runner/coverage command.
+
+Validation: compileall; exact full unittest and pytest commands with TMP/TEMP under
+repository .tmp; same pytest --cov=engine --cov-report=term-missing -q command as
+F1-05A. Export ignored JSON inside the sandbox. Report engine and preflight covered
+lines/denominator/percentage and delta, and list any remaining unreachable or
+defensive lines without adding artificial tests to reach the target. Check all
+151 original method IDs remain, all 141 candidate hashes are identical, and no
+snapshot approval/provenance file changes. No Linux or visual certification claimed.
+
+Risks: import-time paths could escape isolation (patch constants before calls and
+check root containment/read-only state); config seams could hide behavior (use real
+loaders with temporary JSON and real inventory); CLI wording may overpin formatting
+(assert operator-relevant values, issues and exit codes). Rollback is an ordinary
+revert of this test/docs branch; no application deployment or data migration.
+
+Progress:
+- [x] Plan and approved-base branch prepared.
+- [ ] Characterization cases and required validation complete.
+- [ ] Phase 1 closure evidence and review bundle recorded; branch pushed only.
+
+Review bundle: .codex-log/review/F1-06_review_bundle.diff, with ordered commit list,
+diff --stat develop..HEAD and full diff. Report bytes and line count at delivery.
 
 ## 6. Validation strategy
 
@@ -447,7 +512,7 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
 - [x] F1-01: inspect Phase 0 documents, parser/normalizer and all 18 file dispositions.
 - [x] F1-01: prepare this plan for review; no implementation performed.
 - [x] Human approves plan with directory families and the 151-case estimate.
-- [x] NPS-019: Option A only on Windows, including coverage; helper deferred to F1-06.
+- [x] NPS-019: Option A only on Windows, including coverage; helper deferred to F1-07.
 - [x] F1-02: DoD correction (280fecf), synthetic catalog/generator (18e985a), and
   12 contract methods completed on Windows. The catalog has 26 emails and 95
   invented literal rows. Two scratch generations and the versioned inputs matched
@@ -465,11 +530,11 @@ is part of Phase 1. Preserve approved prior snapshots as Git history.
   on both Windows runners; coverage 84.53%. Evidence and conversion table below.
 - [x] F1-05A: ten golden master methods and 141 candidate files across 14 scenarios;
   151/151 both Windows runners; PENDING approval and PR gate documented below.
-- [ ] Architect reviews full candidate diffs; product owner approves APPROVAL.md with
+- [x] Architect reviews full candidate diffs; product owner approves APPROVAL.md with
   per-scenario counts and preserved known-defect locations.
-- [ ] F1-05: approved snapshots/APPROVAL.md, Windows closure evidence
+- [x] F1-05: approved snapshots/APPROVAL.md, Windows closure evidence
   and engine/ line-coverage baseline recorded.
-- [ ] Optional F1-06: separately authorize and scope the deferred temporary-root helper.
+- [ ] Optional F1-07: separately authorize and scope the deferred temporary-root helper.
 
 ### F1-03 Windows evidence ? 2026-10-28
 
@@ -922,7 +987,7 @@ corrections; F1-05A's recorded coverage remains historical evidence.
 | 2026-10-28 | Freeze app/, engine/, config/, packaging/ for all Phase 1 work | Safety net must precede behavior fixes/refactors | User |
 | 2026-10-28 | Use weekly/, parser/, detection/, classification/, scenarios/, malformed/ directories and matching filename prefixes | Retired letters named missing operational sets in F0-01 | Product owner |
 | 2026-10-28 | Approve 151 cases as an estimate; explain useful changes rather than enforcing the count | Coverage quality takes precedence over an exact total | Product owner |
-| 2026-10-28 | Select Option A for Windows runs; temporary-root helper deferred to F1-06 (superseded execution evidence policy by F1-04 amendment) | Approved NPS-019 execution policy | Product owner |
+| 2026-10-28 | Select Option A for Windows runs; temporary-root helper deferred to F1-07 (superseded execution evidence policy by F1-04 amendment) | Approved NPS-019 execution policy | Product owner |
 | 2026-10-28 | Architect reviews full candidate diffs; product owner approves APPROVAL.md with per-scenario counts and preserved known-defect IDs/locations | Make snapshot acceptance explicit and reviewable | Product owner / architect |
 | 2026-10-28 | Windows execution policy amended by F1-04: no cloud runs required | Linux portability accepted as a risk | Product owner |
 | 2026-10-28 | Record engine/ pytest-cov line coverage at both closures as a baseline, not a gate | Quantify the safety net without a coverage threshold | Product owner |
@@ -938,3 +1003,5 @@ corrections; F1-05A's recorded coverage remains historical evidence.
 | 2026-10-29 | F1-05A permits PENDING candidate commits on the task branch; approval is PR-gated after architect review and product-owner signoff | Explicit user task amendment; nothing reaches develop before both approvals; push branch only, no PR | Product owner |
 
 | 2026-10-29 | F1-05B architect correction: final exception-only tracebacks, behavior-input provenance assertions, and test_inventory_manifest naming | Implementation moves must not invalidate behavior snapshots; approval remains PENDING | Architect / product owner task |
+
+| 2026-10-29 | F1-06 adds public preflight characterization for Phase 1 closure; optional NPS-019 option C is deferred as F1-07 | Explicit user task; approved golden master and application trees frozen | Product owner |
