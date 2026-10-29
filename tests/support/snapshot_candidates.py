@@ -21,22 +21,23 @@ def sha256(data: bytes) -> str:
 
 
 def provenance(projections: dict[str, dict[str, str]]) -> dict[str, Any]:
-    """Record frozen production/config and fixture bytes alongside candidate hashes."""
+    """Separate asserted behavior inputs from informational implementation hashes."""
     root = repository_path()
-    inputs = [
+    sources = [
         path
-        for directory in ("app", "engine", "config", "packaging")
+        for directory in ("app", "engine", "packaging")
         for path in sorted((root / directory).rglob("*"))
         if path.is_file()
         and "__pycache__" not in path.parts
         and path.suffix in (".py", ".json", ".txt")
     ]
+    inputs = list(sorted((root / "config").glob("*.json")))
     inputs.extend(
         root / "tests" / "fixtures" / name
         for name in ("catalog.json", "rows.json", "fixture_manifest.json")
     )
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "status": "PENDING",
         "python": platform.python_version(),
         "platform": platform.system(),
@@ -53,6 +54,9 @@ def provenance(projections: dict[str, dict[str, str]]) -> dict[str, Any]:
         },
         "input_sha256": {
             p.relative_to(root).as_posix(): sha256(p.read_bytes()) for p in inputs
+        },
+        "source_sha256": {
+            p.relative_to(root).as_posix(): sha256(p.read_bytes()) for p in sources
         },
         "candidate_sha256": {
             scenario + "/" + name: sha256(text.encode("utf-8"))

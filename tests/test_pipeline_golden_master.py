@@ -207,12 +207,20 @@ class PipelineGoldenMasterTest(unittest.TestCase):
 
     def test_provenance(self) -> None:
         current = provenance(self.actual)
+        behavior_inputs = {
+            "config/" + path.name for path in repository_path("config").glob("*.json")
+        } | {
+            "tests/fixtures/" + name
+            for name in ("catalog.json", "rows.json", "fixture_manifest.json")
+        }
+        self.assertEqual(set(current["input_sha256"]), behavior_inputs)
         if self.export_candidates:
             return
         stored = json.loads(
             (SNAPSHOT_ROOT / "provenance.json").read_text(encoding="utf-8")
         )
         self.assertEqual(stored["input_sha256"], current["input_sha256"])
+        # Source hashes are informational; git checks enforce the Phase 1 freeze.
         self.assertEqual(stored["candidate_sha256"], current["candidate_sha256"])
         approval = (SNAPSHOT_ROOT / "APPROVAL.md").read_text(encoding="utf-8")
         self.assertTrue("Status: PENDING" in approval or "Status: APPROVED" in approval)
