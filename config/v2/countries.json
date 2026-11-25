@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "description": "V2 country registry for #latam-nps. Adding a market is a data change here.",
+  "supported_languages": ["en-US", "pt-BR", "pt-PT", "es", "it", "fr", "de", "nl", "ca"],
+  "surveys": {
+    "nps_standard": {"id": "0Kd7V000000KymySAC", "name": "Survey NPS"},
+    "nps_br": {"id": "0KdPP0000000PT30AM", "name": "Survey NPS BR"},
+    "facilitators_sp": {"id": "0KdPP0000000H450AE", "name": "Facilitators SP"}
+  },
+  "facilitator_survey_family": [
+    {"id": "0KdPP0000000H450AE", "name": "Facilitators SP"},
+    {"id": "0KdPQ0000003gcD0AQ", "name": "Facilitartor Insights Survey PT"},
+    {"id": "0KdPP0000000FOr0AM", "name": "Insights Facilitators BR"}
+  ],
+  "countries": [
+    {
+      "code": "AR",
+      "name": "Argentina",
+      "billing_country_values": ["Argentina"],
+      "language": "es",
+      "nps_survey": "nps_standard",
+      "facilitators_survey": "facilitators_sp",
+      "slack_section": "Argentina"
+    },
+    {
+      "code": "BR",
+      "name": "Brazil",
+      "billing_country_values": ["Brazil", "Nexo"],
+      "language": "pt-BR",
+      "nps_survey": "nps_br",
+      "facilitators_survey": "facilitators_sp",
+      "slack_section": "Brazil / Nexo"
+    },
+    {
+      "code": "MX",
+      "name": "Mexico",
+      "billing_country_values": ["Mexico"],
+      "language": "es",
+      "nps_survey": "nps_standard",
+      "facilitators_survey": "facilitators_sp",
+      "slack_section": "Mexico"
+    }
+  ]
+}
