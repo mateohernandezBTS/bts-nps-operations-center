@@ -1,0 +1,265 @@
+# NPS Operations Center V2 — Claude-native architecture
+
+Status: **DRAFT for product-owner review** · Date: 2026-11-25 · Owner: Product owner (PE, BTS SELAM)
+
+This document defines the architecture and incremental plan that replace the desktop
+application (v1.0.2) with a Claude-native solution (skill + Cowork + connectors). It is the
+reference for every V2 increment plan. Real client, project or person data never appears here.
+
+---
+
+## 1. Goals and non-goals
+
+### Goals
+
+1. Read upcoming deliveries **directly from Salesforce** instead of Salesforce e-mail
+   subscriptions → Power Automate → OneDrive → HTML parsing.
+2. Flexible selection: standard week, ±days, single day or range, search by project,
+   client, country, facilitator or session type.
+3. Create NPS surveys (Survey Sets) from Claude with mandatory preview, approval and
+   idempotency.
+4. Publish the Slack table to `#latam-nps` with QR and links already filled in.
+5. Later: results review, data quality for PRO, facilitator follow-up, alerts.
+
+### Non-goals (for now)
+
+- No further investment in the desktop application. v1.0.2 keeps running on Mondays
+  **only** until V2 proves equivalence in a parallel run.
+- No markets beyond Argentina, Brazil (incl. Nexo) and Mexico. `#latam-nps` serves only
+  these three countries today (PO decision 2026-11-25). Adding one later must be a
+  configuration change, not a code change.
+- No autonomous writes. Every write is previewed and approved until the PO enables a
+  higher automation level per capability.
+
+## 2. Architectural principles
+
+| # | Principle | Consequence |
+|---|---|---|
+| P1 | **The engine decides, Claude executes.** | Business rules, eligibility, survey choice, language and idempotency are deterministic, tested Python. Claude orchestrates connectors and never applies business criteria of its own. |
+| P2 | **Salesforce is the source of truth for state.** | "Already created" is read from `Survey_Set__c`, not from local run folders. Any selection is therefore safe to re-run. |
+| P3 | **Read first; writes are plans.** | The engine emits a write *plan* (data). Claude executes exactly that plan after approval, then the engine reconciles the result. |
+| P4 | **Reuse the certified core.** | The existing stages (`normalize`, `business_rules`, `worklist`, Slack rendering) run unchanged behind an anti-corruption adapter. The golden master keeps guarding them. |
+| P5 | **Configuration over code for markets.** | Countries, Salesforce values, surveys, languages and Slack destinations live in one country registry. |
+| P6 | **No real data in the repository.** | Fixtures stay synthetic. Snapshots of real runs live only in the session workspace and the audit store (§8). |
+
+## 3. Context: why the engine cannot call Salesforce itself
+
+Inside Claude, Salesforce, Slack, Outlook and Box are reachable **only through connectors
+invoked by Claude** (MCP tools), with the user's identity. Python scripts in the skill run in
+a sandbox without those credentials. The design therefore splits responsibilities:
+
+```text
+             ┌──────────────── Claude (orchestrator, Cowork session) ────────────────┐
+             │  runs SOQL / create / Slack calls through connectors, shows previews, │
+             │  asks for approval, moves JSON files between steps                    │
+             └───────▲───────────────────────────────┬───────────────────────────────┘
+                     │ JSON in / JSON out (files)    │ connector calls (user identity)
+             ┌───────┴──────────────┐        ┌───────▼────────────────────────────┐
+             │ nps engine (Python)  │        │ Salesforce (BTS) · Slack · Outlook │
+             │ deterministic, tested│        │ · Box                              │
+             └──────────────────────┘        └────────────────────────────────────┘
+```
+
+The engine also **generates the SOQL text** it needs (from the selection and the country
+registry), so queries are code, not model improvisation.
+
+## 4. Logical components (ports and adapters)
+
+```text
+nps_v2/
+  domain/          pure types: Selection, ProjectSnapshot, SurveyKind, SurveyState,
+                   SurveySetCommand, WritePlan, ExecutionResult
+  selection/       Selection → date range + filters (presets, ±days, day, range, search)
+  registry/        CountryRegistry loaded from config/countries.json
+  salesforce/      query builders (SOQL text) + snapshot readers (connector JSON → domain)
+  adapters/        LegacyRecordAdapter: ProjectSnapshot → raw record dict of the
+                   certified engine contract (see §5)
+  pipeline/        runs certified stages: normalize → business_rules → worklist
+  surveys/         SurveyPolicy (country → survey + language), PlanBuilder, Reconciler
+  outputs/         Slack table (reuses renderer), preview markdown, special-cases package
+  cli.py           thin commands used by the skill (§6)
+engine/            existing certified stages — reused, not modified in increment 1
+```
+
+Key design choices:
+
+- **Anti-corruption layer (`LegacyRecordAdapter`).** Converts Salesforce values to the
+  dialect the certified stages expect (dates `M/D/YYYY`, booleans `✔/✕`, project URL from
+  which `extract_salesforce_id` reads the Id, `billing_office` = `Billing_Country__c`).
+  This keeps `engine/stages` untouched and the golden master meaningful. Refactoring the
+  stages to typed models is a later, separate step.
+- **Strategy for survey policy.** `SurveyPolicy` resolves, per country, which surveys a
+  project needs and in which language. Adding a market = adding registry data.
+- **Command objects for writes.** Each `SurveySetCommand` carries `project_id`,
+  `survey_id`, `survey_kind` (NPS | FACILITATORS_SP), `language`, `survey_nps` flag and an
+  `idempotency_key` = `project_id + survey_id`. A `WritePlan` is a list of commands plus a
+  SHA-256 `plan_hash` over its canonical JSON. Approval is bound to that hash.
+- **Reconciler.** After execution, the engine re-reads Salesforce state and classifies each
+  command as `CREATED`, `SKIPPED_ALREADY_EXISTS`, `FAILED` or `UNVERIFIED`.
+
+### 4.1 Country registry (`config/countries.json`, proposed)
+
+| Country | `Billing_Country__c` values | NPS survey (Id) | Language | Slack destination |
+|---|---|---|---|---|
+| Argentina | `Argentina` | Survey NPS (`0Kd7V000000KymySAC`) | `es` | `#latam-nps` · Argentina section |
+| Brazil | `Brazil`, `Nexo` | Survey NPS BR (`0KdPP0000000PT30AM`) | `pt-BR` | `#latam-nps` · Brazil / Nexo section |
+| Mexico | `Mexico` | Survey NPS (`0Kd7V000000KymySAC`) | `es` | `#latam-nps` · Mexico section |
+
+All three also require **Facilitators SP** (`0KdPP0000000H450AE`) in the same language.
+Survey Ids and languages were verified read-only on 2026-11-25. Italy, Spain and Netmind
+exist in Salesforce but are out of scope.
+
+## 5. Salesforce data contract
+
+### 5.1 Projects (read)
+
+Object `rosscrooke__Project__c`. Base filter: start date in selection range,
+`Billing_Country__c IN (registry values)`. Report-equivalent filters (exclude `Cancelled`,
+empty sub-type, `License`, others pending confirmation of the report filter panel) are
+applied **in the engine**, not in SOQL, so every excluded row can be explained.
+
+| Engine raw key | Salesforce field |
+|---|---|
+| `billing_office` | `Billing_Country__c` (formula; not groupable) |
+| `start_date` / `end_date` | `rosscrooke__Start_Date__c` / `rosscrooke__End_Date__c` |
+| `client_name` | `rosscrooke__Client_Name__c` |
+| `project_name` | `Name` |
+| `project_url` | built from `Id` |
+| `project_sub_type` | `Project_Sub_Type__c` |
+| `status` | `rosscrooke__Status__c` |
+| `all_staffings` | `All_Staffings__c` |
+| `ignore_reporting` | `rosscrooke__Ignore_Reporting__c` (boolean) |
+| `survey_invitation` | `Survey_Invitation__c` (informational only) |
+
+### 5.2 Survey state (read)
+
+Object `Survey_Set__c` filtered by `Project__c IN (…)`, reading `Survey__c`,
+`Survey_Language__c`, `SurveyNPS__c`, `Survey_Invitation_Link__c`, `QR_Code_URL__c`,
+`CreatedDate`, `CreatedById`.
+
+**Survey state is evaluated per survey kind.** `Project.Survey_Invitation__c` always points
+to the NPS invitation, and on 2026-11-25 the 24–30/11 week had 27 NPS sets but only 21
+Facilitators SP sets. A project is pending for a kind when no Survey Set of that kind exists;
+the plan creates only what is missing.
+
+### 5.3 Survey Sets (write)
+
+Create `Survey_Set__c` with `Project__c`, `Survey__c`, `Survey_Language__c`,
+`SurveyNPS__c` (true for NPS, false for SP), `IpAddress_Restricted__c = false`. Salesforce
+automation fills invitation, link and QR in the same second. Only `Project__c` is required
+at API level, so the engine always sets every field explicitly.
+
+## 6. Runtime flows
+
+### 6.1 Upcoming (read-only) — increment 1
+
+1. Claude: `nps select --preset standard --date <d> [--add-days n] [--filter …]` →
+   `selection.json` + SOQL text.
+2. Claude runs the SOQL through the connector and saves raw JSON (`projects.json`,
+   `survey_sets.json`).
+3. Claude: `nps upcoming --run <dir>` → `worklist.json`, `review.json`, `excluded.json`,
+   `already_created.json`, `slack_table.html`, `preview.md`.
+4. Claude shows `preview.md`: pending / excluded with reason / manual review / already
+   created / special-case warnings.
+
+### 6.2 Create surveys — increment 2
+
+1. Steps 1–3 above, plus `write_plan.json` with `plan_hash`.
+2. Preview with one row per project: client, session, date, facilitator, country, language,
+   surveys to create. The PO may remove projects (`nps plan --exclude <ids>` → new hash).
+3. PO approves the **hash shown**.
+4. Re-check: Claude re-queries survey state; `nps plan --recheck` drops commands whose
+   survey now exists. If anything changed, the new plan is shown again.
+5. Claude executes each command with `salesforce_create`, one at a time, recording every
+   response in `execution.json`. Stops at the first unexpected error.
+6. Read-back query → `nps reconcile` → result table (created / skipped / failed, with links
+   and QR) and the completed Slack table.
+
+First run: pilot with **one** project, verifying `CreatedBy`, side effects (e-mails, flows)
+and whether `SurveyNPS__c` is set by automation.
+
+### 6.3 Publish to Slack — increment 3
+
+Three levels: draft (DM to the PO) → confirmed (shows channel, canvas and content before
+posting) → automatic (scheduled task). The warning row is never part of the published table
+(fixes NPS-003 by design). The canvas lookup strategy is pending discovery of real canvases.
+
+### 6.4 Special cases
+
+A facilitator watch-list kept **outside the repository** (local or audit-store
+configuration, never committed; the test suite uses synthetic names). Matching projects are
+created normally, flagged in the preview, and get an ordered data package for a
+personalised e-mail; optional Outlook draft (never sent automatically).
+
+## 7. Safety model
+
+| Risk | Control |
+|---|---|
+| Duplicate surveys | per-kind state check + re-check right before writing + idempotency key per command |
+| Wrong survey or language | `SurveyPolicy` from registry, unit-tested per country; preview shows both |
+| Model improvisation | SOQL and plans generated by code; Claude executes only commands in an approved plan whose hash matches |
+| Partial failure | sequential execution, stop on unexpected error, reconcile reports exactly what exists |
+| Hidden automation side effects | single-project pilot; observe e-mails/flows before scaling |
+| Untraceable writes | connector writes with the PO's identity (to confirm in pilot); `execution.json` stored in the audit store |
+| Wrong Slack post | draft level first; table built by renderer, never free text |
+
+## 8. Persistence and audit
+
+The Cowork workspace is ephemeral. Each run produces a run folder (`selection.json`, raw
+snapshots, plan, execution, reconcile, outputs). **Proposed:** keep the audit copy in a
+restricted Box folder (Box is already used by `survey-results-reports`). Real data never goes
+to the repository. *Decision pending (D-V2-2).*
+
+## 9. Packaging and distribution
+
+- Source of truth: this repository. New code under `nps_v2/`; skill definition under
+  `skill/` (`SKILL.md` + build script that vendors `nps_v2/` and the needed
+  `engine/stages` into the skill's `scripts/`, without PySide6, bs4 or Windows paths).
+- Delivery: personal skill for the PO first; later the BTS organization plugin catalog.
+- Scheduled tasks (Monday worklist, daily alerts, weekly results) are created only when the
+  corresponding increment is certified.
+
+## 10. Testing strategy
+
+- Unit tests for selection, registry, adapter, survey policy, plan builder (hash stability),
+  re-check, reconciler, SOQL builders.
+- **Adapter equivalence test**: synthetic Salesforce JSON → adapter → certified stages must
+  produce the same worklist as the equivalent synthetic `.eml` fixture.
+- Golden master stays green; V2 adds its own snapshots under `tests/snapshots/v2/`.
+- Live validation (outside the repo): parallel run against v1.0.2 for 2–3 Mondays, plus the
+  pending "exactly at 13:00 UTC" equivalence check.
+- Tests must pass on Linux (the skill runtime) and Windows. See NPS-022.
+
+## 11. Incremental plan
+
+| Inc. | Scope | Writes | Exit criteria |
+|---|---|---|---|
+| V2-1 | Upcoming + Slack table, read-only; selection; per-kind survey state; country registry; special-case flags | none | tests green on Linux; 2–3 Mondays of parallel run with 0 unexplained differences; PO sign-off |
+| V2-2 | Create surveys: plan, preview, approval, re-check, execution, reconcile | Salesforce `Survey_Set__c` | Salesforce write permission confirmed with PRO; single-project pilot; then one full week |
+| V2-3 | Slack publication levels + special-case e-mail drafts | Slack, Outlook drafts | canvas structure confirmed; draft level used ≥2 weeks |
+| V2-4 | Results + Data Quality/PRO + alerts (scheduled) + `survey-results-reports` integration | optional Ignore Reporting fixes (approved) | PRO validation |
+| V2-5 | Facilitator follow-up with language templates | Outlook drafts | PO approval of templates |
+| V2-6 | Decommission desktop app and Power Automate | — | V2-1…V2-3 certified |
+
+## 12. Open decisions and questions
+
+| ID | Topic | Status |
+|---|---|---|
+| D-V2-1 | Report-equivalent sub-type exclusions (need the report filter panel) | open |
+| D-V2-2 | Audit store location (Box proposed) | open |
+| D-V2-3 | Canvas structure in `#latam-nps` (per project / per client; country sections) | open — read one canvas with PO permission |
+| D-V2-4 | Salesforce write permission and connector identity | open — PRO |
+| D-V2-5 | NPS-004 (`meli` substring) and NPS-015 (generic coaching / 1:1) | open, carried over |
+| D-V2-6 | Days threshold for "Survey Invitation missing" alert | open (V2-4) |
+| — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
+
+## 13. Known issues affecting V2
+
+- **NPS-022 (proposed):** golden-master provenance hashes raw bytes; files checked out with
+  LF (Linux) do not match hashes recorded with CRLF (Windows), so `test_provenance` fails on
+  Linux while all behavior snapshots pass. Proposed fix: normalise line endings before
+  hashing and re-sign provenance (PO approval required). Not yet in
+  `DEVELOPMENT_ROADMAP.md`.
+- Desktop UI tests (PySide6/WebEngine) crash headless on Linux; they are irrelevant to the
+  skill and should be marked as Windows/UI-only.
+- NPS-001 fix is merged into the reused engine via F2-02b (Codex), independent of V2.
