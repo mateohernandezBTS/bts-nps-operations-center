@@ -63,6 +63,7 @@ Packaged writable data is beside the executable: PRODUCTION uses `input/`, `outp
 | `ROADMAP.md` | Remaining future work |
 | `WEEKLY_OPERATION.md` | Normal weekly operating procedure |
 | `FIRST_PRODUCTION_RUN_CHECKLIST.md` | Controlled first-production checklist |
+| `V2_CLAUDE_NATIVE_ARCHITECTURE.md` | V2 (Claude-native) architecture and incremental plan — draft |
 
 ## Validation
 
