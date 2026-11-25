@@ -1,0 +1,42 @@
+{
+  "totalSize": 2,
+  "done": true,
+  "records": [
+    {
+      "attributes": {
+        "type": "Survey_Set__c",
+        "url": "/services/data/v61.0/sobjects/Survey_Set__c/aHqAA0000000001AAA"
+      },
+      "Id": "aHqAA0000000001AAA",
+      "Project__c": "a0gAA0000000001AAA",
+      "Survey__c": "0KdAA0000000001AAA",
+      "Survey__r": {
+        "attributes": {
+          "type": "Survey",
+          "url": "/services/data/v61.0/sobjects/Survey/0KdAA0000000001AAA"
+        },
+        "Name": "Synthetic NPS"
+      },
+      "Survey_Language__c": "es",
+      "SurveyNPS__c": true,
+      "Survey_Invitation_Link__c": "https://example.invalid/survey?invitationId=SYNTHETIC1",
+      "QR_Code_URL__c": "https://example.invalid/qr?data=SYNTHETIC1",
+      "CreatedDate": "2026-11-17T12:37:27.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Survey_Set__c",
+        "url": "/services/data/v61.0/sobjects/Survey_Set__c/aHqAA0000000002AAA"
+      },
+      "Id": "aHqAA0000000002AAA",
+      "Project__c": "a0gAA0000000001AAA",
+      "Survey__c": null,
+      "Survey__r": null,
+      "Survey_Language__c": null,
+      "SurveyNPS__c": false,
+      "Survey_Invitation_Link__c": null,
+      "QR_Code_URL__c": null,
+      "CreatedDate": "2026-11-17T12:37:37.000+0000"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "totalSize": 3,
+  "done": true,
+  "records": [
+    {
+      "attributes": {
+        "type": "rosscrooke__Project__c",
+        "url": "/services/data/v61.0/sobjects/rosscrooke__Project__c/a0gAA0000000001AAA"
+      },
+      "Id": "a0gAA0000000001AAA",
+      "Name": "Synthetic Leadership Lab - Session 1",
+      "Billing_Country__c": "Argentina",
+      "rosscrooke__Start_Date__c": "2026-11-24",
+      "rosscrooke__End_Date__c": "2026-11-24",
+      "rosscrooke__Client_Name__c": "Synthetic Client Alpha",
+      "Project_Sub_Type__c": "Virtual Workshop",
+      "rosscrooke__Status__c": "Conf",
+      "All_Staffings__c": "Facilitator One, Facilitator Two",
+      "rosscrooke__Ignore_Reporting__c": false,
+      "Survey_Invitation__c": "0KiAA0000000001AAA"
+    },
+    {
+      "attributes": {
+        "type": "rosscrooke__Project__c",
+        "url": "/services/data/v61.0/sobjects/rosscrooke__Project__c/a0gAA0000000002AAA"
+      },
+      "Id": "a0gAA0000000002AAA",
+      "Name": "Synthetic Strategy Sim",
+      "Billing_Country__c": "Nexo",
+      "rosscrooke__Start_Date__c": "2026-11-26",
+      "rosscrooke__End_Date__c": null,
+      "rosscrooke__Client_Name__c": "Synthetic Client Beta",
+      "Project_Sub_Type__c": null,
+      "rosscrooke__Status__c": "Prelim",
+      "All_Staffings__c": null,
+      "rosscrooke__Ignore_Reporting__c": true,
+      "Survey_Invitation__c": null
+    },
+    {
+      "attributes": {
+        "type": "rosscrooke__Project__c",
+        "url": "/services/data/v61.0/sobjects/rosscrooke__Project__c/a0gAA0000000003AAA"
+      },
+      "Id": "a0gAA0000000003AAA",
+      "Name": "Synthetic Onboarding Journey",
+      "Billing_Country__c": "Mexico",
+      "rosscrooke__Start_Date__c": "2026-11-30",
+      "rosscrooke__End_Date__c": "2026-12-01",
+      "rosscrooke__Client_Name__c": "Synthetic Client Gamma",
+      "Project_Sub_Type__c": "In Person Workshop",
+      "rosscrooke__Status__c": "Conf",
+      "All_Staffings__c": "Facilitator Three",
+      "rosscrooke__Ignore_Reporting__c": false,
+      "Survey_Invitation__c": null
+    }
+  ]
+}

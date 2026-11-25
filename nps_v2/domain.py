@@ -118,3 +118,4 @@ class SurveySetSnapshot:
     invitation_link: str
     qr_code_url: str
     created_at: datetime
+    survey_name: str = ""
