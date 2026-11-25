@@ -2,6 +2,11 @@
 target-version = "py314"
 line-length = 88
 
+# V2 runs inside Claude (Python 3.13 today): keep its syntax compatible with 3.12+.
+[tool.ruff.per-file-target-version]
+"nps_v2/**/*.py" = "py312"
+"tests/v2/**/*.py" = "py312"
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 
