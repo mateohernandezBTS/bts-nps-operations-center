@@ -142,6 +142,20 @@ to the NPS invitation, and on 2026-11-25 the 24–30/11 week had 27 NPS sets but
 Facilitators SP sets. A project is pending for a kind when no Survey Set of that kind exists;
 the plan creates only what is missing.
 
+**A kind is recognised by family, not by the registry survey Id** (finding 2026-11-25:
+SELAM projects started Sep–Dec 2026 also carry client-specific NPS surveys and alternative
+facilitator surveys). Rule decided by the PO on 2026-11-25 (D-V2-7); client-specific NPS
+surveys are rare exceptions, but when present they count as the project's NPS:
+
+- *NPS present* ⇔ the project has a Survey Set with `SurveyNPS__c = true`, whatever survey
+  it uses (standard or client-specific).
+- *Facilitators present* ⇔ the project has a Survey Set whose `Survey__c` belongs to the
+  configured facilitator-survey family (`Facilitators SP` plus known regional variants).
+- Any other Survey Set (`SurveyNPS__c = false`, not in the facilitator family) is reported as
+  *other survey* and never satisfies or blocks a kind.
+
+The registry survey Id is used only to **create** a missing kind, never to detect one.
+
 ### 5.3 Survey Sets (write)
 
 Create `Survey_Set__c` with `Project__c`, `Survey__c`, `Survey_Language__c`,
@@ -208,7 +222,8 @@ personalised e-mail; optional Outlook draft (never sent automatically).
 The Cowork workspace is ephemeral. Each run produces a run folder (`selection.json`, raw
 snapshots, plan, execution, reconcile, outputs). **Proposed:** keep the audit copy in a
 restricted Box folder (Box is already used by `survey-results-reports`). Real data never goes
-to the repository. *Decision pending (D-V2-2).*
+to the repository. *Decision pending (D-V2-2): not needed for V2-1, which is read-only and
+keeps its run folders in the session workspace; required before V2-2 (first writes).*
 
 ## 9. Packaging and distribution
 
@@ -246,11 +261,12 @@ to the repository. *Decision pending (D-V2-2).*
 | ID | Topic | Status |
 |---|---|---|
 | D-V2-1 | Report-equivalent sub-type exclusions (need the report filter panel) | open |
-| D-V2-2 | Audit store location (Box proposed) | open |
+| D-V2-2 | Audit store location (Box proposed) | open — required before V2-2 |
 | D-V2-3 | Canvas structure in `#latam-nps` (per project / per client; country sections) | open — read one canvas with PO permission |
 | D-V2-4 | Salesforce write permission and connector identity | open — PRO |
 | D-V2-5 | NPS-004 (`meli` substring) and NPS-015 (generic coaching / 1:1) | open, carried over |
 | D-V2-6 | Days threshold for "Survey Invitation missing" alert | open (V2-4) |
+| D-V2-7 | Survey-kind detection by family (§5.2) | **decided 2026-11-25** |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2
