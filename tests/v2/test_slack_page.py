@@ -5,13 +5,8 @@ from __future__ import annotations
 import re
 import unittest
 
-from engine.slack_canvas_renderer import SPECIAL_EMAIL_NAMES, render_client_table
-from nps_v2.outputs.slack_page import (
-    PageContext,
-    payload_table,
-    qr_payload_cell,
-    render_page,
-)
+from engine.slack_canvas_renderer import SPECIAL_EMAIL_NAMES
+from nps_v2.outputs.slack_page import PageContext, payload_cards, render_page
 
 QR = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fx"
 CONTEXT = PageContext(
@@ -40,36 +35,52 @@ def row(number: int, **overrides: str) -> dict[str, str]:
     return values
 
 
-def compact(markup: str) -> str:
-    return re.sub(r">\s+<", "><", " ".join(markup.split()))
-
-
-def legacy_table(markup: str) -> str:
-    return compact(re.search(r"<table.*</table>", markup, re.S).group(0))  # type: ignore[union-attr]
-
-
 class PayloadTest(unittest.TestCase):
-    def test_payload_is_the_desktop_table_when_there_is_no_qr(self) -> None:
-        records = [row(3), row(1), row(2, Facilitator="Facilitator Two")]
-        expected = legacy_table(render_client_table("Synthetic Client", records))
-        self.assertEqual(payload_table("Synthetic Client", records), expected)
+    def test_one_card_per_session_in_desktop_order(self) -> None:
+        payload = payload_cards([row(3), row(1), row(2)])
+        titles = [payload.index(f"<h3>Session 0{n}</h3>") for n in (1, 2, 3)]
+        self.assertEqual(titles, sorted(titles))
+        self.assertNotIn("<table", payload)
 
-    def test_qr_cell_carries_the_image(self) -> None:
-        payload = payload_table("Synthetic Client", [row(1, **{"QR-Code": QR})])
-        self.assertIn(
-            '<td><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150'
-            '&amp;data=https%3A%2F%2Fx" alt="QR" width="150" height="150"></td>',
+    def test_card_content(self) -> None:
+        payload = payload_cards([row(1, **{"QR-Code": QR})])
+        self.assertEqual(
             payload,
+            "<h3>Session 01</h3>"
+            "<p>Fecha: 11/21/2026 · Facilitador: Facilitator One</p>"
+            '<p><a href="https://example.invalid/nps/1">NPS</a> · '
+            '<a href="https://example.invalid/sp/1">Facilitators</a> · Results: NO · '
+            '<a href="https://example.invalid/results/1">Home</a></p>'
+            '<p><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150'
+            '&amp;data=https%3A%2F%2Fx" alt="QR" data-row="0" width="150" '
+            'height="150"></p>',
         )
-        self.assertEqual(qr_payload_cell("  "), "")
+
+    def test_missing_links_and_qr(self) -> None:
+        payload = payload_cards(
+            [row(1, **{"Link Insights Facilitators": "", "Facilitator": ""})]
+        )
+        self.assertNotIn("Facilitators</a>", payload)
+        self.assertIn("Facilitador: —", payload)
+        self.assertIn("<p>QR: pendiente de crear la encuesta</p>", payload)
+
+    def test_qr_placeholders_follow_card_order(self) -> None:
+        payload = payload_cards(
+            [row(2, **{"QR-Code": QR}), row(1), row(3, **{"QR-Code": QR})]
+        )
+        self.assertEqual(re.findall(r'data-row="(\d)"', payload), ["1", "2"])
 
     def test_payload_has_no_styles_classes_or_warnings(self) -> None:
         # A name the desktop renderer would flag with a warning row.
         flagged = SPECIAL_EMAIL_NAMES[0].title()
-        payload = payload_table("Synthetic Client", [row(1, Facilitator=flagged)])
-        for forbidden in ("class=", "style=", "ENVÍO", "colspan"):
+        payload = payload_cards([row(1, Facilitator=flagged)])
+        for forbidden in ("class=", "style=", "ENVÍO", "Envío", "<table"):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, payload)
+
+    def test_text_is_escaped(self) -> None:
+        payload = payload_cards([row(1, Session="A <b> & C")])
+        self.assertIn("<h3>A &lt;b&gt; &amp; C</h3>", payload)
 
 
 class PageTest(unittest.TestCase):

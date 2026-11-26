@@ -18,19 +18,19 @@
     btn.classList.add(ok?'ok':'fail');btn.textContent=label;
     setTimeout(function(){btn.classList.remove('ok','fail');btn.textContent=original;},1600);
   }
-  function plainText(table){
-    return Array.from(table.querySelectorAll('tr')).map(function(tr){
-      return Array.from(tr.children).map(function(c){
-        return c.innerText.trim();}).join('\t');}).join('\n');
+  function plainText(holder){
+    return Array.from(holder.querySelectorAll('h3,p')).map(function(el){
+      return el.querySelector('img')?'[QR]':el.textContent.trim();}).join('\n');
   }
-  function embedQrImages(card,table){
-    // Payload rows follow the preview order: use the QR drawn in the browser, so the
-    // copied image never depends on an external image service.
+  function embedQrImages(card,holder){
+    // Swap each QR placeholder for the PNG drawn in the browser (same session order as
+    // the preview), so the copied image never depends on an external image service.
     var previewRows=card.querySelectorAll('table.preview tbody tr');
-    Array.from(table.tBodies[0].rows).forEach(function(row,i){
-      var canvas=previewRows[i]&&previewRows[i].querySelector('.qr canvas');
-      var img=row.querySelector('img[alt="QR"]');
-      if(canvas&&img){img.src=canvas.toDataURL('image/png');}
+    holder.querySelectorAll('img[data-row]').forEach(function(img){
+      var row=previewRows[Number(img.getAttribute('data-row'))];
+      var canvas=row&&row.querySelector('.qr canvas');
+      if(canvas){img.src=canvas.toDataURL('image/png');}
+      img.removeAttribute('data-row');
     });
   }
   // Copy strategy, most to least capable. Embedded viewers (for example a file preview
@@ -74,18 +74,17 @@
     var tpl=document.getElementById(btn.getAttribute('data-copy'));
     var holder=document.createElement('div');
     holder.appendChild(tpl.content.cloneNode(true));
-    var table=holder.querySelector('table');
-    embedQrImages(btn.closest('article'),table);
-    var htmlText=table.outerHTML,text=plainText(table);
+    embedQrImages(btn.closest('article'),holder);
+    var htmlText=holder.innerHTML,text=plainText(holder);
     if(await writeAsync({'text/html':new Blob([htmlText],{type:'text/html'}),
         'text/plain':new Blob([text],{type:'text/plain'})})
       ||writeWithCopyEvent({'text/html':htmlText,'text/plain':text})
-      ||writeBySelection(table.cloneNode(true))){
+      ||writeBySelection(holder.cloneNode(true))){
       flash(btn,true,'Copiado ✓');return;
     }
     flash(btn,false,'Copiá a mano');
-    manualCopy(table,'Este visor bloquea el portapapeles. La tabla ya está seleccionada: '
-      +'presioná Ctrl+C (Cmd+C en Mac) y pegala en el canvas.');
+    manualCopy(holder,'Este visor bloquea el portapapeles. El contenido ya está '
+      +'seleccionado: presioná Ctrl+C (Cmd+C en Mac) y pegalo en el canvas.');
   }
   async function copyQr(btn){
     var canvas=btn.parentElement.querySelector('canvas');

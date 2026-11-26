@@ -4,13 +4,15 @@ The page has two deliberately separate layers:
 
 * **Preview** (what you see): BTS look and feel, QR codes generated in the browser
   (``qrcodejs``, like the ACT & SURVEYS tool), special-case notices as callouts.
-* **Copy payload** (what "Copiar para Slack" puts on the clipboard): exactly the plain
-  table the desktop renderer always copied (same ``<table id=…>``, columns, cell
-  rendering and row order), built with the certified renderer's own helpers. It never
-  contains styles, notices or warning rows (NPS-003 fixed by design). The only
-  addition is the QR cell, which carries the QR image.
+* **Copy payload** (what "Copiar para Slack" puts on the clipboard): one card per
+  session (title, date, facilitator, links, results and the QR image), in plain HTML
+  that a Slack canvas accepts. A canvas table cannot hold images (verified by the
+  product owner on 2026-11-26), so the payload is not a table. It never contains
+  styles, notices or warning rows (NPS-003 fixed by design).
 
-"Copiar QR" copies one QR as a PNG image, for pasting into a canvas cell by hand.
+The QR image in the payload is the one drawn in the browser (embedded as PNG when
+copying), so it never depends on an external image service. "Copiar QR" copies a
+single QR.
 """
 
 from __future__ import annotations
@@ -26,11 +28,11 @@ from engine.slack_canvas_renderer import (
     build_client_table_id,
     get_record_sort_key,
     render_cell,
+    render_link,
 )
 
 QRCODE_SCRIPT = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
 QR_PAYLOAD_SIZE = 150
-QR_PREVIEW_SIZE = 96
 
 Row = Mapping[str, str]
 
@@ -43,37 +45,46 @@ class PageContext:
     review_count: int
 
 
-def qr_payload_cell(url: str) -> str:
-    """QR cell of the copy payload: the QR image (empty when there is no survey)."""
-    clean = " ".join(str(url or "").split())
-    if not clean:
-        return ""
-    return (
-        f'<img src="{html.escape(clean, quote=True)}" alt="QR" '
-        f'width="{QR_PAYLOAD_SIZE}" height="{QR_PAYLOAD_SIZE}">'
+def payload_cards(records: Sequence[Row]) -> str:
+    """The Slack copy payload for one client: one card per session, no warnings.
+
+    Each QR is a placeholder ``<img data-row="i">`` pointing at the hosted QR (the same
+    image as the Salesforce QR formula); the page swaps it for the PNG drawn in the
+    browser when copying and removes the marker attribute.
+    """
+    return "".join(
+        _card(index, record) for index, record in enumerate(_sorted(records))
     )
 
 
-def payload_cell(record: Row, column: str) -> str:
-    if column == "QR-Code":
-        return qr_payload_cell(record.get(column, ""))
-    return render_cell(dict(record), column)
+def _card(index: int, record: Row) -> str:
+    def text(column: str) -> str:
+        return html.escape(" ".join(record.get(column, "").split()))
 
-
-def payload_table(client: str, records: Sequence[Row]) -> str:
-    """The Slack copy payload for one client: the legacy plain table, no warnings."""
-    header = "".join(f"<th>{html.escape(column)}</th>" for column in SLACK_COLUMNS)
-    rows = "".join(
-        "<tr>"
-        + "".join(
-            f"<td>{payload_cell(record, column)}</td>" for column in SLACK_COLUMNS
+    links = [
+        render_link(label, record.get(column, ""))
+        for label, column in (
+            ("NPS", "Link NPS Survey"),
+            ("Facilitators", "Link Insights Facilitators"),
         )
-        + "</tr>"
-        for record in _sorted(records)
+        if record.get(column, "").strip()
+    ]
+    links.append(f"Results: {text('Results') or '—'}")
+    if record.get("Link for Results", "").strip():
+        links.append(render_link("Home", record["Link for Results"]))
+
+    qr = " ".join(record.get("QR-Code", "").split())
+    qr_block = (
+        f'<p><img src="{html.escape(qr, quote=True)}" alt="QR" data-row="{index}" '
+        f'width="{QR_PAYLOAD_SIZE}" height="{QR_PAYLOAD_SIZE}"></p>'
+        if qr
+        else "<p>QR: pendiente de crear la encuesta</p>"
     )
     return (
-        f'<table id="{build_client_table_id(client)}">'
-        f"<thead><tr>{header}</tr></thead><tbody>{rows}</tbody></table>"
+        f"<h3>{text('Session')}</h3>"
+        f"<p>Fecha: {text('Date')} · Facilitador: {text('Facilitator') or '—'}</p>"
+        f"<p>{' · '.join(links)}</p>"
+        f"{qr_block}"
     )
 
 
@@ -142,10 +153,9 @@ def _brandbar(context: PageContext) -> str:
 def _howto() -> str:
     return (
         '<section class="card howto"><h2 class="card-title">Cómo usar</h2><ul>'
-        "<li><b>Copiar para Slack</b> copia la tabla del cliente en el formato de "
-        "siempre (sin estilos ni avisos), lista para pegar en su canvas.</li>"
-        "<li>La tabla copiada lleva la imagen del QR. Si Slack no la muestra, usá "
-        "<b>Copiar QR</b> en la fila y pegala en la celda.</li>"
+        "<li><b>Copiar para Slack</b> copia las sesiones del cliente como tarjetas "
+        "(título, fecha, facilitador, links y QR), listas para pegar en su canvas.</li>"
+        "<li><b>Copiar QR</b> copia un QR suelto, por si hace falta reponer uno.</li>"
         "<li>Los avisos de mail personalizado se ven acá y <b>nunca</b> se copian.</li>"
         "<li>Si el visor no deja copiar (por ejemplo, una vista previa dentro de otra "
         "app), se abre la tabla ya seleccionada: copiala con Ctrl+C. Para el mejor "
@@ -217,7 +227,7 @@ def _client_card(
         '<div class="table-wrap"><table class="preview">'
         f"<thead><tr>{header}</tr></thead>"
         f"<tbody>{rows}</tbody></table></div>"
-        f'<template id="{template_id}">{payload_table(client, records)}</template>'
+        f'<template id="{template_id}">{payload_cards(records)}</template>'
         "</article>"
     )
 
