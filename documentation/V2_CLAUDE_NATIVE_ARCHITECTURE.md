@@ -316,7 +316,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-1 | Report-equivalent sub-type exclusions (need the report filter panel) | open |
 | D-V2-2 | Audit store location (Box proposed) | open — required before V2-2 |
 | D-V2-3 | Canvas structure in `#latam-nps` (per project / per client; country sections) | open — read one canvas with PO permission |
-| D-V2-4 | Salesforce write permission and connector identity | open — PRO |
+| D-V2-4 | Salesforce write identity: the user operating the tool, through their own BTS connector (no fixed or technical account); permissions checked by a preflight `describe` | **decided 2026-11-26** |
 | D-V2-5 | NPS-004 (`meli` substring) and NPS-015 (generic coaching / 1:1) | open, carried over |
 | D-V2-6 | Days threshold for "Survey Invitation missing" alert | open (V2-4) |
 | D-V2-7 | Survey-kind detection by family (§5.2) | **decided 2026-11-25** |
