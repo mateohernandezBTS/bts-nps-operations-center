@@ -116,9 +116,13 @@ def build(
     return target
 
 
+def _inside_repository(path: Path, root: Path) -> bool:
+    return path.resolve().is_relative_to(root.resolve())
+
+
 def _check_watchlist(path: Path, root: Path) -> None:
     resolved = path.resolve()
-    if resolved.is_relative_to(root.resolve()):
+    if _inside_repository(resolved, root):
         raise BuildError("The watch-list must live outside the repository")
     sys.path.insert(0, str(root))
     try:

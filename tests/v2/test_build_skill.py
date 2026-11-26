@@ -11,6 +11,7 @@ import tempfile
 import unittest
 import zipfile
 from pathlib import Path
+from unittest import mock
 
 from scripts.build_skill import (
     BUILD_INFO,
@@ -132,6 +133,17 @@ class WatchlistAndZipTest(unittest.TestCase):
         self.addCleanup(shutil.rmtree, self.out)
         self.outside = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, self.outside)
+        if self.outside.resolve().is_relative_to(REPOSITORY_ROOT):
+            # Some sandboxes point TMP/TEMP inside the repository. Then only this temp
+            # folder counts as "outside"; every other path, including the repository
+            # files used by test_watchlist_inside_the_repository_is_rejected, does not.
+            outside = self.outside.resolve()
+            patcher = mock.patch(
+                "scripts.build_skill._inside_repository",
+                side_effect=lambda path, root: not path.is_relative_to(outside),
+            )
+            patcher.start()
+            self.addCleanup(patcher.stop)
 
     def test_watchlist_from_outside_the_repository_is_installed(self) -> None:
         watchlist = self.outside / "watchlist.json"
