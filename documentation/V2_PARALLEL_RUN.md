@@ -19,12 +19,15 @@ the operational source; V2 is read-only and its outputs are compared, not used.
    `config/v2/watchlist.example.json`.
 2. Upload `dist/skill/nps-upcoming-selam.zip` in Claude's skills settings.
 3. Check that the BTS connector (Salesforce) is enabled in the Claude session.
+4. Optional: a scheduled task runs V2 every Monday on its own ("Run the scheduled weekly
+   NPS Upcoming"; the skill uses `select --this-week`). Each run opens its own session
+   with the summary, `preview.md` and the Slack page.
 
 ## 2. Each Monday
 
 | Step | Desktop v1.0.2 | V2 (Claude) |
 |---|---|---|
-| 1 | Run as usual after the subscribed reports arrive (~13:00 UTC). | In the same hour, ask Claude (in English or Spanish): "Run this week's NPS Upcoming". Claude follows the skill: select → queries → capture → surveys → upcoming. |
+| 1 | Run as usual after the subscribed reports arrive (~13:00 UTC). | In the same hour, ask Claude (in English or Spanish): "Run this week's NPS Upcoming", or open the session of the scheduled run. Claude follows the skill: select → queries → capture → surveys → upcoming. |
 | 2 | Keep `selam_worklist.csv` of the weekly run. | Review `preview.md` and the Slack page. Do **not** use them operationally yet. |
 | 3 | — | Attach the desktop `selam_worklist.csv` and ask Claude to compare: `python -m nps_v2 compare --run <run> --desktop selam_worklist.csv`. |
 | 4 | — | Explain every remaining difference (section 3) and record the run (section 4). |

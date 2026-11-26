@@ -81,6 +81,8 @@ Status: OPEN, DECISION (needs business approval), PLANNED (assigned to a phase),
 | ID | Candidate release | Status | Requirement |
 |---|---|---|---|
 | FEAT-001 | V2-1 | Superseded by V2-1 flexible selection (2026-11-26) | Filter results of an already processed weekly run by a day range inside its weekly window, consistently in the view, Excel and Copy for Slack, so the operator can work day by day. Processing remains once per week; changing the filter never re-processes reports. Optional second level: track which NPS were already created and show only pending ones, related to the V2 lifecycle in the EXPANSION vision; requires separate design/approval. |
+| FEAT-002 | V2-1 | Ready (2026-11-26); scheduled task pending install | Run the Upcoming automatically every Monday (standard week of today in Buenos Aires, read-only). Wider or filtered selections stay manual. Architecture §6.5. |
+| FEAT-003 | V2-4 | Design note (2026-11-26) | Weekly scheduled search for available results; when found, generate the report with `survey-results-reports` and replace the card's `Results: NO` in the `#latam-nps` canvas, with preview and approval first. Architecture §6.6; open D-V2-9, D-V2-10; depends on V2-3 and D-V2-2. |
 
 ## F0-01 verification evidence
 

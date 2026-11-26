@@ -205,6 +205,40 @@ configuration, never committed; the test suite uses synthetic names). Matching p
 created normally, flagged in the preview, and get an ordered data package for a
 personalised e-mail; optional Outlook draft (never sent automatically).
 
+### 6.5 Scheduled Monday run — increment 1 extension (read-only)
+
+A scheduled task (a fresh Claude session each Monday, with the installed skill and the
+BTS connector) asks for "the scheduled weekly run". The skill then runs, without
+questions, exactly the standard week of today in Buenos Aires (`select --this-week`,
+fixed offset UTC−3; no filters, no extra days) and delivers the summary, `preview.md`
+and the Slack page in that session. Any error stops the run and is reported first.
+Wider or filtered selections stay manual runs. Being read-only, it can run during the
+parallel run; it replaces neither the PO's review nor the desktop run until sign-off.
+
+### 6.6 Results into the Slack cards — increment 4 (design note, 2026-11-26)
+
+Requested by the PO for a future version: a weekly scheduled task that finds sessions
+whose results are available and fills them into the `#latam-nps` canvases.
+
+1. **Find pending cards.** Read the canvases (`slack_read_canvas`) and collect the cards
+   still showing `Results: NO`. The card's `Link for Results` link carries the Project ID,
+   so cards are matched by project, never by session title.
+2. **Check results.** For each project, query Salesforce; if the "results available" rule
+   holds, generate the report with `survey-results-reports` (Box).
+3. **Plan.** The deterministic engine writes the edit plan ("canvas X, project Y:
+   `Results: NO` → `Results: [Report](<Box link>)`") with a plan hash, like V2-2.
+4. **Apply and verify.** Re-read the canvas right before writing (section ids change on
+   every update), replace only that section (`slack_update_canvas`), read back. A card
+   that no longer matches (edited by hand) is skipped and reported.
+5. **Audit** every change in the audit store (D-V2-2).
+
+Approval in two stages: first the scheduled task only proposes (notification with the
+plan; the PO approves and it is applied); later, after clean weeks, the PO may allow
+this narrow, reversible edit to apply on its own. Depends on V2-3 (canvas lookup,
+D-V2-3). Open: D-V2-9 (definition of "results available": minimum responses, days after
+the session) and D-V2-10 (what goes in the card: Box link or file; identity used to
+write in Slack and Box).
+
 ## 7. Safety model
 
 | Risk | Control |
@@ -232,7 +266,8 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
   `engine/stages` into the skill's `scripts/`, without PySide6, bs4 or Windows paths).
 - Delivery: personal skill for the PO first; later the BTS organization plugin catalog.
 - Scheduled tasks (Monday worklist, daily alerts, weekly results) are created only when the
-  corresponding increment is certified.
+  corresponding increment is certified. Exception: the read-only Monday run (§6.5) may
+  be scheduled during the V2-1 parallel run.
 
 ## 10. Testing strategy
 
@@ -268,6 +303,8 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-6 | Days threshold for "Survey Invitation missing" alert | open (V2-4) |
 | D-V2-7 | Survey-kind detection by family (§5.2) | **decided 2026-11-25** |
 | D-V2-8 | Product language: English for everything users see or operate (preview, Slack page and cards, comparison, skill instructions); code is not translated; the certified engine's Spanish messages are worded in English by V2 (`nps_v2/reasons.py`, `config/v2/rule_labels.json`) without changing `engine/` | **decided 2026-11-26** |
+| D-V2-9 | "Results available" rule for §6.6 (minimum responses, days after the session) | open (V2-4) |
+| D-V2-10 | Results in the card: Box link or file; identity for Slack/Box writes | open (V2-4) |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2
