@@ -33,41 +33,80 @@
       if(canvas&&img){img.src=canvas.toDataURL('image/png');}
     });
   }
+  // Copy strategy, most to least capable. Embedded viewers (for example a file preview
+  // inside another app) often block the async Clipboard API, so every step falls back.
+  async function writeAsync(items){
+    if(!(navigator.clipboard&&window.ClipboardItem&&navigator.clipboard.write)){return false;}
+    try{await navigator.clipboard.write([new ClipboardItem(items)]);return true;}
+    catch(e){return false;}
+  }
+  function writeWithCopyEvent(data){
+    var done=false;
+    function onCopy(ev){
+      Object.keys(data).forEach(function(type){ev.clipboardData.setData(type,data[type]);});
+      ev.preventDefault();done=true;
+    }
+    document.addEventListener('copy',onCopy,true);
+    try{document.execCommand('copy');}catch(e){}
+    document.removeEventListener('copy',onCopy,true);
+    return done;
+  }
+  function writeBySelection(node){
+    var box=document.createElement('div');
+    box.setAttribute('contenteditable','true');
+    box.style.cssText='position:fixed;left:-10000px;top:0;opacity:0';
+    box.appendChild(node);document.body.appendChild(box);
+    var sel=window.getSelection(),range=document.createRange();
+    range.selectNodeContents(box);sel.removeAllRanges();sel.addRange(range);
+    var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+    sel.removeAllRanges();box.remove();return ok;
+  }
+  function manualCopy(node,message){
+    // Last resort: show the content selected so Ctrl+C / Cmd+C copies it.
+    var overlay=document.getElementById('manual-copy');
+    overlay.querySelector('.mc-msg').textContent=message;
+    var area=overlay.querySelector('.mc-area');area.innerHTML='';area.appendChild(node);
+    overlay.hidden=false;
+    var sel=window.getSelection(),range=document.createRange();
+    range.selectNodeContents(area);sel.removeAllRanges();sel.addRange(range);
+  }
   async function copyPayload(btn){
     var tpl=document.getElementById(btn.getAttribute('data-copy'));
     var holder=document.createElement('div');
     holder.appendChild(tpl.content.cloneNode(true));
     var table=holder.querySelector('table');
     embedQrImages(btn.closest('article'),table);
-    var htmlText=table.outerHTML;
-    try{
-      if(navigator.clipboard&&window.ClipboardItem&&navigator.clipboard.write){
-        await navigator.clipboard.write([new ClipboardItem({
-          'text/html':new Blob([htmlText],{type:'text/html'}),
-          'text/plain':new Blob([plainText(table)],{type:'text/plain'})})]);
-      }else{
-        holder.style.position='fixed';holder.style.left='-9999px';
-        document.body.appendChild(holder);
-        var sel=window.getSelection(),range=document.createRange();
-        sel.removeAllRanges();range.selectNode(table);sel.addRange(range);
-        var ok=document.execCommand('copy');sel.removeAllRanges();holder.remove();
-        if(!ok){throw new Error('copy failed');}
-      }
-      flash(btn,true,'Copiado ✓');
-    }catch(e){flash(btn,false,'No se pudo copiar');}
+    var htmlText=table.outerHTML,text=plainText(table);
+    if(await writeAsync({'text/html':new Blob([htmlText],{type:'text/html'}),
+        'text/plain':new Blob([text],{type:'text/plain'})})
+      ||writeWithCopyEvent({'text/html':htmlText,'text/plain':text})
+      ||writeBySelection(table.cloneNode(true))){
+      flash(btn,true,'Copiado ✓');return;
+    }
+    flash(btn,false,'Copiá a mano');
+    manualCopy(table,'Este visor bloquea el portapapeles. La tabla ya está seleccionada: '
+      +'presioná Ctrl+C (Cmd+C en Mac) y pegala en el canvas.');
   }
-  function copyQr(btn){
+  async function copyQr(btn){
     var canvas=btn.parentElement.querySelector('canvas');
-    if(!canvas||!navigator.clipboard||!window.ClipboardItem){
-      flash(btn,false,'No disponible');return;}
-    canvas.toBlob(function(blob){
-      navigator.clipboard.write([new ClipboardItem({'image/png':blob})])
-        .then(function(){flash(btn,true,'QR copiado ✓');})
-        .catch(function(){flash(btn,false,'No se pudo');});
-    },'image/png');
+    if(!canvas){flash(btn,false,'No disponible');return;}
+    var dataUrl=canvas.toDataURL('image/png');
+    var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/png');});
+    var img='<img src="'+dataUrl+'" alt="QR" width="150" height="150">';
+    if((blob&&await writeAsync({'image/png':blob}))
+      ||writeWithCopyEvent({'text/html':img})){
+      flash(btn,true,'QR copiado ✓');return;
+    }
+    var node=document.createElement('img');node.src=dataUrl;node.alt='QR';
+    node.width=150;node.height=150;
+    flash(btn,false,'Copiá a mano');
+    manualCopy(node,'Este visor bloquea el portapapeles. El QR ya está seleccionado: '
+      +'presioná Ctrl+C (Cmd+C en Mac).');
   }
   document.addEventListener('click',function(ev){
     var b=ev.target.closest('button');if(!b){return;}
+    if(b.hasAttribute('data-close-manual')){
+      document.getElementById('manual-copy').hidden=true;return;}
     if(b.hasAttribute('data-copy')){copyPayload(b);}
     else if(b.hasAttribute('data-copy-qr')){copyQr(b);}
   });

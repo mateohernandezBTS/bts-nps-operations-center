@@ -123,6 +123,13 @@ class PageTest(unittest.TestCase):
         self.assertIn("Z &lt;Client&gt;", page)
         self.assertNotIn("Z <Client>", page)
 
+    def test_copy_has_fallbacks_for_blocked_clipboards(self) -> None:
+        page = self.render([row(1, **{"QR-Code": QR})], {})
+        self.assertIn('<div id="manual-copy" hidden>', page)
+        for function in ("writeAsync", "writeWithCopyEvent", "writeBySelection"):
+            with self.subTest(function=function):
+                self.assertIn(f"function {function}(", page)
+
     def test_kpis_and_empty_state(self) -> None:
         page = self.render([], {})
         self.assertIn("No hay sesiones listas", page)

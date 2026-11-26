@@ -113,9 +113,18 @@ def render_page(
         'family=Inter:wght@400;500;600;700&display=swap">\n'
         f"<style>{_CSS}</style>\n</head>\n<body>\n"
         f'<main class="shell">\n{body}\n</main>\n'
+        f"{_MANUAL_COPY}\n"
         f'<script src="{QRCODE_SCRIPT}"></script>\n'
         f"<script>{_JS}</script>\n</body>\n</html>\n"
     )
+
+
+_MANUAL_COPY = (
+    '<div id="manual-copy" hidden><div class="mc-box" role="dialog" aria-modal="true">'
+    '<div class="mc-head"><p class="mc-msg"></p>'
+    '<button type="button" class="btn" data-close-manual>Cerrar</button></div>'
+    '<div class="mc-area"></div></div></div>'
+)
 
 
 # --- sections ----------------------------------------------------------------------
@@ -138,6 +147,9 @@ def _howto() -> str:
         "<li>La tabla copiada lleva la imagen del QR. Si Slack no la muestra, usá "
         "<b>Copiar QR</b> en la fila y pegala en la celda.</li>"
         "<li>Los avisos de mail personalizado se ven acá y <b>nunca</b> se copian.</li>"
+        "<li>Si el visor no deja copiar (por ejemplo, una vista previa dentro de otra "
+        "app), se abre la tabla ya seleccionada: copiala con Ctrl+C. Para el mejor "
+        "resultado, abrí este archivo en Chrome o Edge.</li>"
         "</ul></section>"
     )
 
