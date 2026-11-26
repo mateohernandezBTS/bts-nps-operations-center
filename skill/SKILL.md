@@ -118,9 +118,16 @@ With `"status": "ok"`, `outputs` holds:
 3. The special cases: say they need a personalised e-mail.
 4. If `watchlist_configured` is `false`, say that the special-facilitator list is
    not installed and no special cases were flagged.
-5. Deliver `preview.md` and the Slack page with the file-sending tool (so they can
-   be viewed in the panel). Remind the user that if the viewer blocks copying, the
-   page opens the content selected for Ctrl+C, and that Chrome or Edge copy directly.
+5. Deliver `preview.md` and the Slack page **as files**, never as text: the user
+   must be able to open the page, not read its HTML. Use the file tool your
+   environment has, in this order:
+   - a tool that sends or presents files to the user (for example `SendUserFile` or
+     `present_files`; copy the files to the outputs folder first if the tool needs it);
+   - otherwise, publish the page as an artifact or attach it as a downloadable file.
+   **Never paste the page's HTML (or the raw JSON) into the reply.** If no file tool is
+   available, say so and give the file paths. Remind the user that the page opens
+   best in Chrome or Edge, and that if the viewer blocks copying it opens the content
+   selected for Ctrl+C.
 
 ### 6. Scheduled Monday run
 

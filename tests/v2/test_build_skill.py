@@ -143,6 +143,10 @@ class SkillFrontmatterTest(unittest.TestCase):
         self.assertLessEqual(len(fields["name"]), 64)
         self.assertLessEqual(len(fields["description"]), 200)
 
+    def test_outputs_are_delivered_as_files_not_pasted(self) -> None:
+        text = (REPOSITORY_ROOT / "skill" / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("Never paste the page's HTML", text)
+
 
 class WatchlistAndZipTest(unittest.TestCase):
     def setUp(self) -> None:
