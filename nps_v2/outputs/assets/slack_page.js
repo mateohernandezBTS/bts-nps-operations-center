@@ -78,27 +78,27 @@
         'text/plain':new Blob([text],{type:'text/plain'})})
       ||writeWithCopyEvent({'text/html':htmlText,'text/plain':text})
       ||writeBySelection(holder.cloneNode(true))){
-      flash(btn,true,'Copiado ✓');return;
+      flash(btn,true,'Copied ✓');return;
     }
-    flash(btn,false,'Copiá a mano');
-    manualCopy(holder,'Este visor bloquea el portapapeles. El contenido ya está '
-      +'seleccionado: presioná Ctrl+C (Cmd+C en Mac) y pegalo en el canvas.');
+    flash(btn,false,'Copy by hand');
+    manualCopy(holder,'This viewer blocks the clipboard. The content is already '
+      +'selected: press Ctrl+C (Cmd+C on Mac) and paste it into the canvas.');
   }
   async function copyQr(btn){
     var canvas=btn.parentElement.querySelector('canvas');
-    if(!canvas){flash(btn,false,'No disponible');return;}
+    if(!canvas){flash(btn,false,'Not available');return;}
     var dataUrl=canvas.toDataURL('image/png');
     var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/png');});
     var img='<img src="'+dataUrl+'" alt="QR" width="150" height="150">';
     if((blob&&await writeAsync({'image/png':blob}))
       ||writeWithCopyEvent({'text/html':img})){
-      flash(btn,true,'QR copiado ✓');return;
+      flash(btn,true,'QR copied ✓');return;
     }
     var node=document.createElement('img');node.src=dataUrl;node.alt='QR';
     node.width=150;node.height=150;
-    flash(btn,false,'Copiá a mano');
-    manualCopy(node,'Este visor bloquea el portapapeles. El QR ya está seleccionado: '
-      +'presioná Ctrl+C (Cmd+C en Mac).');
+    flash(btn,false,'Copy by hand');
+    manualCopy(node,'This viewer blocks the clipboard. The QR is already selected: '
+      +'press Ctrl+C (Cmd+C on Mac).');
   }
   function payloadFor(card){
     var tpl=card.querySelector('template');

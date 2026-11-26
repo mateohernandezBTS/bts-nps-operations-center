@@ -42,6 +42,7 @@ CONFIG_FILES = (
     "config/operational_output.json",
     "config/v2/countries.json",
     "config/v2/report_scope.json",
+    "config/v2/rule_labels.json",
     "config/v2/watchlist.example.json",
 )
 PACKAGE = "nps_v2"

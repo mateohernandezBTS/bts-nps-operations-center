@@ -92,7 +92,7 @@ class PipelineBucketsTest(unittest.TestCase):
     def test_report_scope_lists_rows_instead_of_hiding_them(self) -> None:
         cases = {
             "cancelled": (snapshot(status="Cancelled"), "status Cancelled"),
-            "empty sub-type": (snapshot(sub_type="  "), "sub-type vacío"),
+            "empty sub-type": (snapshot(sub_type="  "), "sub-type (empty)"),
             "license": (snapshot(sub_type="license"), "sub-type license"),
         }
         for name, (project, reason) in cases.items():

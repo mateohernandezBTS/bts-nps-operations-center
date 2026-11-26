@@ -23,7 +23,7 @@ from typing import Any
 from nps_v2.domain import ProjectSnapshot
 
 MAX_SPAN_DAYS = 92
-DATE_DISPLAY = "%d/%m/%Y"
+MONTHS = tuple("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split())
 
 
 class SelectionError(ValueError):
@@ -95,7 +95,8 @@ class Selection:
     def __post_init__(self) -> None:
         if self.date_from > self.date_to:
             raise SelectionError(
-                f"Start {_show(self.date_from)} is after end {_show(self.date_to)}"
+                f"Start {display_date(self.date_from)} is after end "
+                f"{display_date(self.date_to)}"
             )
         span = (self.date_to - self.date_from).days + 1
         if span > MAX_SPAN_DAYS:
@@ -129,7 +130,7 @@ class Selection:
             self,
             date_from=date_from,
             date_to=date_to,
-            label=f"{self.label}, ajustada a {_show(date_from)}–{_show(date_to)}",
+            label=f"{self.label}, adjusted to {_span(date_from, date_to)}",
         )
 
     def with_filters(
@@ -184,23 +185,28 @@ def standard_week_selection(day: date) -> Selection:
         date_from=date_from,
         date_to=date_to,
         label=(
-            f"Semana estándar del lunes {_show(monday)} "
-            f"({_show(date_from)}–{_show(date_to)})"
+            f"Standard week of Monday {display_date(monday)} "
+            f"({_span(date_from, date_to)})"
         ),
     )
 
 
 def day_selection(day: date) -> Selection:
-    return Selection(date_from=day, date_to=day, label=f"Día {_show(day)}")
+    return Selection(date_from=day, date_to=day, label=f"Day {display_date(day)}")
 
 
 def range_selection(date_from: date, date_to: date) -> Selection:
     return Selection(
         date_from=date_from,
         date_to=date_to,
-        label=f"Rango {_show(date_from)}–{_show(date_to)}",
+        label=f"Range {_span(date_from, date_to)}",
     )
 
 
-def _show(day: date) -> str:
-    return day.strftime(DATE_DISPLAY)
+def display_date(day: date) -> str:
+    """Unambiguous English date for people, e.g. ``30 Nov 2026`` (locale-proof)."""
+    return f"{day.day} {MONTHS[day.month - 1]} {day.year}"
+
+
+def _span(date_from: date, date_to: date) -> str:
+    return f"{display_date(date_from)}–{display_date(date_to)}"

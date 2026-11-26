@@ -1,68 +1,68 @@
-# NPS Upcoming — Rango 24/11/2026–30/11/2026
+# NPS Upcoming — Range 24 Nov 2026–30 Nov 2026
 
-Corrida `V2-SYNTHETIC` · generada 2026-11-26T10:00:00-03:00 · solo lectura (no se creó ni publicó nada).
+Run `V2-SYNTHETIC` · generated 2026-11-26T10:00:00-03:00 · read-only (nothing was created or published).
 
-## Resumen
+## Summary
 
-| Grupo | Proyectos |
+| Group | Projects |
 |---|---|
-| Encuestas a crear | 3 (5 encuestas) |
-| Ya creadas | 1 |
-| Revisión manual | 1 |
-| Excluidos por reglas | 1 |
-| Fuera del alcance del reporte | 1 |
-| Filtrados por la búsqueda | 0 |
-| Casos especiales | 1 |
-| Notas de calidad de datos | 4 |
+| Surveys to create | 3 (5 surveys) |
+| Already created | 1 |
+| Manual review | 1 |
+| Excluded by rules | 1 |
+| Outside the report scope | 1 |
+| Filtered out by the search | 0 |
+| Special cases | 1 |
+| Data-quality notes | 4 |
 
-## Encuestas a crear (3)
+## Surveys to create (3)
 
-| País | Fecha | Cliente | Sesión | Facilitador | Crear | Proyecto |
+| Country | Date | Client | Session | Facilitator | Create | Project |
 |---|---|---|---|---|---|---|
-| AR | 24/11/2026 | Synthetic Client 07 | Synthetic Session 07 | Facilitator One | NPS: Survey NPS (es); Facilitadores: Facilitators SP (es) | [Salesforce](https://mybts.lightning.force.com/lightning/r/rosscrooke__Project__c/a0gAA0000000007AAA/view) |
-| BR | 26/11/2026 | Synthetic Client 02 | Sessão \| Turma 2 | Facilitator One | Facilitadores: Facilitators SP (pt-BR) | [Salesforce](https://mybts.lightning.force.com/lightning/r/rosscrooke__Project__c/a0gAA0000000002AAA/view) |
-| MX | 27/11/2026 | Synthetic Client 03 | Synthetic Session 03 | PRELIM Selam | NPS: Survey NPS (es); Facilitadores: Facilitators SP (es) | [Salesforce](https://mybts.lightning.force.com/lightning/r/rosscrooke__Project__c/a0gAA0000000003AAA/view) |
+| AR | 24 Nov 2026 | Synthetic Client 07 | Synthetic Session 07 | Facilitator One | NPS: Survey NPS (es); Facilitators: Facilitators SP (es) | [Salesforce](https://mybts.lightning.force.com/lightning/r/rosscrooke__Project__c/a0gAA0000000007AAA/view) |
+| BR | 26 Nov 2026 | Synthetic Client 02 | Sessão \| Turma 2 | Facilitator One | Facilitators: Facilitators SP (pt-BR) | [Salesforce](https://mybts.lightning.force.com/lightning/r/rosscrooke__Project__c/a0gAA0000000002AAA/view) |
+| MX | 27 Nov 2026 | Synthetic Client 03 | Synthetic Session 03 | PRELIM Selam | NPS: Survey NPS (es); Facilitators: Facilitators SP (es) | [Salesforce](https://mybts.lightning.force.com/lightning/r/rosscrooke__Project__c/a0gAA0000000003AAA/view) |
 
-## Ya creadas (1)
+## Already created (1)
 
-| País | Fecha | Cliente | Sesión | Facilitador | NPS | QR | Facilitadores |
+| Country | Date | Client | Session | Facilitator | NPS | QR | Facilitators |
 |---|---|---|---|---|---|---|---|
-| AR | 25/11/2026 | Synthetic Client 01 | Synthetic Session 01 | Watched Facilitator,Facilitator Two (mail personalizado) | [Link](https://example.invalid/survey?invitationId=INV1) | [QR](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fexample.invalid%2Fsurvey%3FinvitationId%3DINV1) | [Link](https://example.invalid/survey?invitationId=INV2) |
+| AR | 25 Nov 2026 | Synthetic Client 01 | Synthetic Session 01 | Watched Facilitator,Facilitator Two (personalised e-mail) | [Link](https://example.invalid/survey?invitationId=INV1) | [QR](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fexample.invalid%2Fsurvey%3FinvitationId%3DINV1) | [Link](https://example.invalid/survey?invitationId=INV2) |
 
-## Casos especiales: mail personalizado (1)
+## Special cases: personalised e-mail (1)
 
-Las encuestas se crean igual; estos datos son para el mail personalizado.
+Surveys are created as usual; these details are for the personalised e-mail.
 
 1. **Synthetic Client 01 — Synthetic Session 01**
-   - Fecha: 25/11/2026 · País: AR
-   - Facilitador: Watched Facilitator
-   - Link NPS: https://example.invalid/survey?invitationId=INV1
+   - Date: 25 Nov 2026 · Country: AR
+   - Facilitator: Watched Facilitator
+   - NPS link: https://example.invalid/survey?invitationId=INV1
    - QR: https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fexample.invalid%2Fsurvey%3FinvitationId%3DINV1
-   - Link facilitadores: https://example.invalid/survey?invitationId=INV2
+   - Facilitators link: https://example.invalid/survey?invitationId=INV2
 
-## Revisión manual (1)
+## Manual review (1)
 
-| País | Fecha | Cliente | Sesión | Motivo | Proyecto |
+| Country | Date | Client | Session | Reason | Project |
 |---|---|---|---|---|---|
-| AR | 29/11/2026 | Synthetic Client 05 | Synthetic Session 05 REVENUE | Revisión manual para posibles registros administrativos o de revenue | [Salesforce](https://mybts.lightning.force.com/lightning/r/rosscrooke__Project__c/a0gAA0000000005AAA/view) |
+| AR | 29 Nov 2026 | Synthetic Client 05 | Synthetic Session 05 REVENUE | Possible administrative or revenue record | [Salesforce](https://mybts.lightning.force.com/lightning/r/rosscrooke__Project__c/a0gAA0000000005AAA/view) |
 
-## Excluidos por reglas (1)
+## Excluded by rules (1)
 
-| País | Fecha | Cliente | Sesión | Motivo |
+| Country | Date | Client | Session | Reason |
 |---|---|---|---|---|
-| AR | 28/11/2026 | Synthetic Client 04 | Synthetic Session 04 | Status Prelim no incluido en los estados elegibles. |
+| AR | 28 Nov 2026 | Synthetic Client 04 | Synthetic Session 04 | Status Prelim is not an eligible status |
 
-## Fuera del alcance del reporte (1)
+## Outside the report scope (1)
 
-| País | Fecha | Cliente | Sesión | Motivo |
+| Country | Date | Client | Session | Reason |
 |---|---|---|---|---|
-| BR | 30/11/2026 | Synthetic Client 06 | Synthetic Session 06 | Fuera del alcance del reporte: status Cancelled |
+| BR | 30 Nov 2026 | Synthetic Client 06 | Synthetic Session 06 | Outside the report scope: status Cancelled |
 
-## Calidad de datos (4)
+## Data quality (4)
 
-| País | Fecha | Cliente | Sesión | Nota |
+| Country | Date | Client | Session | Note |
 |---|---|---|---|---|
-| AR | 24/11/2026 | Synthetic Client 07 | Synthetic Session 07 | Tiene además la encuesta Synthetic Pilot Survey |
-| BR | 26/11/2026 | Synthetic Client 02 | Sessão \| Turma 2 | Survey NPS BR: idioma es, el país usa pt-BR |
-| MX | 27/11/2026 | Synthetic Client 03 | Synthetic Session 03 | Facilitador sin asignar (PRELIM) |
-| AR | 28/11/2026 | Synthetic Client 04 | Synthetic Session 04 | Tiene encuesta creada pero no es elegible (Status Prelim no incluido en los estados elegibles.) |
+| AR | 24 Nov 2026 | Synthetic Client 07 | Synthetic Session 07 | Also has the survey Synthetic Pilot Survey |
+| BR | 26 Nov 2026 | Synthetic Client 02 | Sessão \| Turma 2 | Survey NPS BR: language es, the country uses pt-BR |
+| MX | 27 Nov 2026 | Synthetic Client 03 | Synthetic Session 03 | No facilitator assigned yet (PRELIM) |
+| AR | 28 Nov 2026 | Synthetic Client 04 | Synthetic Session 04 | Has surveys but is not eligible (Status Prelim is not an eligible status) |

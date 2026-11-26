@@ -153,12 +153,12 @@ def _compare(
     if expected == actual:
         return
     differences = [
-        f"{group}: Salesforce {expected.get(group, 0)}, guardado {actual.get(group, 0)}"
+        f"{group}: Salesforce {expected.get(group, 0)}, saved {actual.get(group, 0)}"
         for group in sorted(set(expected) | set(actual), key=repr)
         if expected.get(group, 0) != actual.get(group, 0)
     ]
     raise ControlMismatchError(
-        f"Los {label} guardados no coinciden con el control de Salesforce "
+        f"The saved {label} do not match the Salesforce control "
         f"({sum(expected.values())} vs {sum(actual.values())}): "
         + "; ".join(differences[:10])
     )

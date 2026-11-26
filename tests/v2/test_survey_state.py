@@ -163,7 +163,7 @@ class SurveyStateTest(unittest.TestCase):
         )
         result = self.state_of(owner, pointed, older)
         self.assertIs(result.nps, pointed)
-        self.assertIn("2 encuestas de tipo NPS", result.warnings[0])
+        self.assertIn("2 NPS surveys (possible duplicate)", result.warnings[0])
 
     def test_without_matching_invitation_the_oldest_wins(self) -> None:
         owner = project()
@@ -181,7 +181,7 @@ class SurveyStateTest(unittest.TestCase):
         self.assertIs(result.state, SurveyState.COMPLETE)
         self.assertEqual(
             result.warnings,
-            ("NPS BR: idioma es, el país usa pt-BR", "SP: idioma vacío"),
+            ("NPS BR: language es, the country uses pt-BR", "SP: language is empty"),
         )
 
     def test_nps_flag_on_a_facilitator_survey_is_flagged(self) -> None:
@@ -189,7 +189,9 @@ class SurveyStateTest(unittest.TestCase):
         odd = survey_set(owner, FACILITATORS_SP, nps=True, name="Facilitators SP")
         result = self.state_of(owner, odd)
         self.assertIs(result.state, SurveyState.PENDING_FACILITATORS)
-        self.assertIn("marcada como NPS pero es de facilitadores", result.warnings[-1])
+        self.assertIn(
+            "flagged as NPS but it is a facilitators survey", result.warnings[-1]
+        )
 
     def test_missing_link_is_flagged(self) -> None:
         owner = project()
@@ -197,9 +199,7 @@ class SurveyStateTest(unittest.TestCase):
         broken = Set(
             **{**{f: getattr(nps, f) for f in Set.__slots__}, "invitation_link": ""}
         )
-        self.assertIn(
-            "NPS: sin link de invitación", self.state_of(owner, broken).warnings
-        )
+        self.assertIn("NPS: no invitation link", self.state_of(owner, broken).warnings)
 
     def test_sets_of_unknown_projects_stop_the_run(self) -> None:
         stranger = project()

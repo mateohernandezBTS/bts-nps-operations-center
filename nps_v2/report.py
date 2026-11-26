@@ -21,7 +21,8 @@ from typing import Any
 
 from nps_v2.adapters import project_url
 from nps_v2.domain import ProjectSnapshot, SalesforceId, SurveyKind, SurveyState
-from nps_v2.pipeline import PipelineResult, WorklistEntry
+from nps_v2.pipeline import ClassifiedProject, PipelineResult, WorklistEntry
+from nps_v2.reasons import ReasonTexts, load_reason_texts
 from nps_v2.registry import CountryRegistry
 from nps_v2.selection import Selection, normalize_text
 from nps_v2.surveys.state import ProjectSurveys, qr_image_url
@@ -29,7 +30,7 @@ from nps_v2.watchlist import Watchlist
 
 REPORT_VERSION = "1.0"
 PLACEHOLDER_STAFFING = "prelim selam"
-KIND_LABEL = {SurveyKind.NPS: "NPS", SurveyKind.FACILITATORS: "Facilitadores"}
+KIND_LABEL = {SurveyKind.NPS: "NPS", SurveyKind.FACILITATORS: "Facilitators"}
 
 
 @dataclass(frozen=True, slots=True)
@@ -48,7 +49,11 @@ def build_report(
     result: PipelineResult,
     surveys: Mapping[SalesforceId, ProjectSurveys],
     watchlist: Watchlist | None,
+    texts: ReasonTexts | None = None,
 ) -> dict[str, Any]:
+    """Report of one run. ``texts`` words engine decisions in English (default:
+    ``config/v2/rule_labels.json``)."""
+    texts = texts or load_reason_texts()
     ready = result.ready
     pending = [
         e
@@ -73,28 +78,18 @@ def build_report(
             _complete(e, surveys[e.project.project_id], watchlist) for e in complete
         ],
         "worklist_review": [
-            {**_base(e.project, e.country_code), "issues": e.issues}
+            {**_base(e.project, e.country_code), "issues": texts.issues(e.issues)}
             for e in result.worklist_review
         ],
-        "review": [
-            {**_base(c.project, c.country_code), "reasons": list(c.decision_reasons)}
-            for c in result.review
-        ],
-        "excluded": [
-            {
-                **_base(c.project, c.country_code),
-                "codes": list(c.decision_codes),
-                "reasons": list(c.decision_reasons),
-            }
-            for c in result.excluded
-        ],
+        "review": [_decided(c, texts) for c in result.review],
+        "excluded": [_decided(c, texts) for c in result.excluded],
         "out_of_scope": [
             {**_base(o.project, o.country_code), "reason": o.reason}
             for o in result.out_of_scope
         ],
         "filtered_out_count": len(result.filtered_out),
         "special_cases": _special_cases(ready, surveys, watchlist),
-        "quality": _quality(result, surveys),
+        "quality": _quality(result, surveys, texts),
     }
     for section in (
         "pending",
@@ -139,6 +134,16 @@ def _base(project: ProjectSnapshot, country_code: str) -> dict[str, Any]:
         "status": project.status,
         "facilitators": project.all_staffings,
         "salesforce_url": project_url(project),
+    }
+
+
+def _decided(classified: ClassifiedProject, texts: ReasonTexts) -> dict[str, Any]:
+    return {
+        **_base(classified.project, classified.country_code),
+        "codes": list(classified.decision_codes),
+        "reasons": texts.decision(
+            classified.decision_codes, classified.decision_reasons
+        ),
     }
 
 
@@ -223,7 +228,9 @@ def _special_cases(
 
 
 def _quality(
-    result: PipelineResult, surveys: Mapping[SalesforceId, ProjectSurveys]
+    result: PipelineResult,
+    surveys: Mapping[SalesforceId, ProjectSurveys],
+    texts: ReasonTexts,
 ) -> list[dict[str, Any]]:
     notes: list[dict[str, Any]] = []
 
@@ -235,24 +242,32 @@ def _quality(
         for warning in state.warnings:
             note(entry.project, entry.country_code, warning)
         if PLACEHOLDER_STAFFING in normalize_text(entry.project.all_staffings):
-            note(entry.project, entry.country_code, "Facilitador sin asignar (PRELIM)")
+            note(
+                entry.project,
+                entry.country_code,
+                "No facilitator assigned yet (PRELIM)",
+            )
         for other in state.other_sets:
             if other.survey_id is None:
                 note(
                     entry.project,
                     entry.country_code,
-                    "Survey Set sin encuesta asignada",
+                    "Survey Set without a survey",
                 )
             else:
                 label = other.survey_name or str(other.survey_id)
                 note(
                     entry.project,
                     entry.country_code,
-                    f"Tiene además la encuesta {label}",
+                    f"Also has the survey {label}",
                 )
 
     not_eligible = [
-        (c.project, c.country_code, "; ".join(c.decision_reasons))
+        (
+            c.project,
+            c.country_code,
+            "; ".join(texts.decision(c.decision_codes, c.decision_reasons)),
+        )
         for c in (*result.excluded, *result.review)
     ] + [(o.project, o.country_code, o.reason) for o in result.out_of_scope]
     for project, country, reason in not_eligible:
@@ -261,6 +276,6 @@ def _quality(
             note(
                 project,
                 country,
-                f"Tiene encuesta creada pero no es elegible ({reason})",
+                f"Has surveys but is not eligible ({reason})",
             )
     return notes

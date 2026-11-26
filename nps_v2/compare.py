@@ -17,10 +17,10 @@ from nps_v2.domain import DomainError, SalesforceId
 
 READY_SECTIONS = ("pending", "complete")
 OTHER_SECTIONS = {
-    "worklist_review": "V2: revisión manual del worklist",
-    "review": "V2: revisión manual por reglas",
-    "excluded": "V2: excluido por reglas",
-    "out_of_scope": "V2: fuera del alcance del reporte",
+    "worklist_review": "V2: worklist manual review",
+    "review": "V2: manual review by rules",
+    "excluded": "V2: excluded by rules",
+    "out_of_scope": "V2: outside the report scope",
 }
 
 
@@ -113,8 +113,8 @@ def compare(
             explanation = f"{label}: {'; '.join(r for r in reasons if r)}"
         else:
             explanation = (
-                "No está en Salesforce para esta selección: puede haberse borrado o "
-                "cambiado de fecha o país después del reporte"
+                "Not in Salesforce for this selection: it may have been deleted, or "
+                "its date or country changed, after the report was sent"
             )
         only_desktop.append(
             Difference(key, row.get("Session", ""), row.get("Client", ""), explanation)
@@ -136,25 +136,25 @@ def compare(
 
 def render_comparison(comparison: Comparison, *, run_id: str, desktop_name: str) -> str:
     lines = [
-        f"# Corrida en paralelo — {run_id}",
+        f"# Parallel run — {run_id}",
         "",
-        f"Comparación de sesiones listas (READY) de V2 contra `{desktop_name}`.",
+        f"Ready (READY) sessions of V2 compared with `{desktop_name}`.",
         "",
-        "| Resultado | Sesiones |",
+        "| Result | Sessions |",
         "|---|---|",
-        f"| Coinciden | {comparison.matching} |",
-        f"| Solo en escritorio | {len(comparison.only_desktop)} |",
-        f"| Solo en V2 | {len(comparison.only_v2)} |",
+        f"| Matching | {comparison.matching} |",
+        f"| Only on desktop | {len(comparison.only_desktop)} |",
+        f"| Only in V2 | {len(comparison.only_v2)} |",
         "",
     ]
-    lines += _table("Solo en escritorio", comparison.only_desktop)
-    lines += _table("Solo en V2", comparison.only_v2)
+    lines += _table("Only on desktop", comparison.only_desktop)
+    lines += _table("Only in V2", comparison.only_v2)
     if comparison.only_v2:
         lines += [
-            "Para cada sesión solo en V2, revisá en Salesforce `CreatedDate` y "
-            "`LastModifiedDate`: si son posteriores al envío del reporte, la "
-            "diferencia es temporal. Anotá la explicación en el registro de la "
-            "corrida.",
+            "For each session only in V2, check `CreatedDate` and "
+            "`LastModifiedDate` in Salesforce: if they are later than the report "
+            "e-mail, the difference is timing only. Record the explanation in the "
+            "run log.",
             "",
         ]
     return "\n".join(lines).rstrip() + "\n"
@@ -163,14 +163,14 @@ def render_comparison(comparison: Comparison, *, run_id: str, desktop_name: str)
 def _table(title: str, rows: Sequence[Difference]) -> list[str]:
     lines = [f"## {title} ({len(rows)})", ""]
     if not rows:
-        return [*lines, "Ninguna.", ""]
-    lines += ["| Project ID | Cliente | Sesión | Explicación |", "|---|---|---|---|"]
+        return [*lines, "None.", ""]
+    lines += ["| Project ID | Client | Session | Explanation |", "|---|---|---|---|"]
     for row in rows:
         cells = (
             row.project_id,
             row.client,
             row.session,
-            row.explanation or "A revisar",
+            row.explanation or "To check",
         )
         lines.append("| " + " | ".join(c.replace("|", "\\|") for c in cells) + " |")
     return [*lines, ""]

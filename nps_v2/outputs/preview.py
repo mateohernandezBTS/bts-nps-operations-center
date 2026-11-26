@@ -1,4 +1,4 @@
-"""Markdown preview of a run report, in Spanish, for the product owner.
+"""Markdown preview of a run report, in English, for the product owner.
 
 Warnings and special-case notices are always written outside the data tables, so a
 table can be copied without them (the NPS-003 lesson).
@@ -10,6 +10,8 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from datetime import date
 from typing import Any
 
+from nps_v2.selection import display_date
+
 Row = Mapping[str, Any]
 
 
@@ -19,39 +21,39 @@ def render_preview(report: Mapping[str, Any]) -> str:
     lines = [
         f"# NPS Upcoming — {selection['label']}",
         "",
-        f"Corrida `{report['run_id']}` · generada {report['generated_at']} · "
-        "solo lectura (no se creó ni publicó nada).",
+        f"Run `{report['run_id']}` · generated {report['generated_at']} · "
+        "read-only (nothing was created or published).",
         "",
     ]
     lines += _filters(selection)
     if not report["watchlist_configured"]:
         lines += [
-            "> **Atención:** la lista de casos especiales no está configurada; "
-            "no se marcaron facilitadores para mail personalizado.",
+            "> **Note:** the special-case list is not installed; "
+            "no facilitators were flagged for a personalised e-mail.",
             "",
         ]
 
     lines += [
-        "## Resumen",
+        "## Summary",
         "",
-        "| Grupo | Proyectos |",
+        "| Group | Projects |",
         "|---|---|",
-        f"| Encuestas a crear | {summary['pending']} "
-        f"({summary['surveys_to_create']} encuestas) |",
-        f"| Ya creadas | {summary['complete']} |",
-        f"| Revisión manual | {summary['review'] + summary['worklist_review']} |",
-        f"| Excluidos por reglas | {summary['excluded']} |",
-        f"| Fuera del alcance del reporte | {summary['out_of_scope']} |",
-        f"| Filtrados por la búsqueda | {summary['filtered_out']} |",
-        f"| Casos especiales | {summary['special_cases']} |",
-        f"| Notas de calidad de datos | {summary['quality_notes']} |",
+        f"| Surveys to create | {summary['pending']} "
+        f"({summary['surveys_to_create']} surveys) |",
+        f"| Already created | {summary['complete']} |",
+        f"| Manual review | {summary['review'] + summary['worklist_review']} |",
+        f"| Excluded by rules | {summary['excluded']} |",
+        f"| Outside the report scope | {summary['out_of_scope']} |",
+        f"| Filtered out by the search | {summary['filtered_out']} |",
+        f"| Special cases | {summary['special_cases']} |",
+        f"| Data-quality notes | {summary['quality_notes']} |",
         "",
     ]
 
     lines += _section(
-        "Encuestas a crear",
+        "Surveys to create",
         report["pending"],
-        ["País", "Fecha", "Cliente", "Sesión", "Facilitador", "Crear", "Proyecto"],
+        ["Country", "Date", "Client", "Session", "Facilitator", "Create", "Project"],
         lambda r: [
             r["country"],
             _date(r["start_date"]),
@@ -66,17 +68,17 @@ def render_preview(report: Mapping[str, Any]) -> str:
         ],
     )
     lines += _section(
-        "Ya creadas",
+        "Already created",
         report["complete"],
         [
-            "País",
-            "Fecha",
-            "Cliente",
-            "Sesión",
-            "Facilitador",
+            "Country",
+            "Date",
+            "Client",
+            "Session",
+            "Facilitator",
             "NPS",
             "QR",
-            "Facilitadores",
+            "Facilitators",
         ],
         lambda r: [
             r["country"],
@@ -91,9 +93,9 @@ def render_preview(report: Mapping[str, Any]) -> str:
     )
     lines += _special_cases(report["special_cases"])
     lines += _section(
-        "Revisión manual",
+        "Manual review",
         [*report["review"], *report["worklist_review"]],
-        ["País", "Fecha", "Cliente", "Sesión", "Motivo", "Proyecto"],
+        ["Country", "Date", "Client", "Session", "Reason", "Project"],
         lambda r: [
             r["country"],
             _date(r["start_date"]),
@@ -104,9 +106,9 @@ def render_preview(report: Mapping[str, Any]) -> str:
         ],
     )
     lines += _section(
-        "Excluidos por reglas",
+        "Excluded by rules",
         report["excluded"],
-        ["País", "Fecha", "Cliente", "Sesión", "Motivo"],
+        ["Country", "Date", "Client", "Session", "Reason"],
         lambda r: [
             r["country"],
             _date(r["start_date"]),
@@ -116,9 +118,9 @@ def render_preview(report: Mapping[str, Any]) -> str:
         ],
     )
     lines += _section(
-        "Fuera del alcance del reporte",
+        "Outside the report scope",
         report["out_of_scope"],
-        ["País", "Fecha", "Cliente", "Sesión", "Motivo"],
+        ["Country", "Date", "Client", "Session", "Reason"],
         lambda r: [
             r["country"],
             _date(r["start_date"]),
@@ -128,9 +130,9 @@ def render_preview(report: Mapping[str, Any]) -> str:
         ],
     )
     lines += _section(
-        "Calidad de datos",
+        "Data quality",
         report["quality"],
-        ["País", "Fecha", "Cliente", "Sesión", "Nota"],
+        ["Country", "Date", "Client", "Session", "Note"],
         lambda r: [
             r["country"],
             _date(r["start_date"]),
@@ -145,17 +147,17 @@ def render_preview(report: Mapping[str, Any]) -> str:
 def _filters(selection: Mapping[str, Any]) -> list[str]:
     parts = []
     if selection["country_codes"]:
-        parts.append("países " + ", ".join(selection["country_codes"]))
+        parts.append("countries " + ", ".join(selection["country_codes"]))
     labels = {
-        "project": "proyecto",
-        "client": "cliente",
-        "facilitator": "facilitador",
+        "project": "project",
+        "client": "client",
+        "facilitator": "facilitator",
         "sub_type": "sub-type",
     }
     for key, label in labels.items():
         if selection["filters"].get(key):
-            parts.append(f"{label} contiene «{selection['filters'][key]}»")
-    return [f"Filtros: {'; '.join(parts)}.", ""] if parts else []
+            parts.append(f'{label} contains "{selection["filters"][key]}"')
+    return [f"Filters: {'; '.join(parts)}.", ""] if parts else []
 
 
 def _section(
@@ -166,7 +168,7 @@ def _section(
 ) -> list[str]:
     lines = [f"## {title} ({len(rows)})", ""]
     if not rows:
-        return [*lines, "Ninguno.", ""]
+        return [*lines, "None.", ""]
     lines.append("| " + " | ".join(headers) + " |")
     lines.append("|" + "---|" * len(headers))
     for row in rows:
@@ -175,33 +177,33 @@ def _section(
 
 
 def _special_cases(cases: Sequence[Row]) -> list[str]:
-    lines = [f"## Casos especiales: mail personalizado ({len(cases)})", ""]
+    lines = [f"## Special cases: personalised e-mail ({len(cases)})", ""]
     if not cases:
-        return [*lines, "Ninguno.", ""]
+        return [*lines, "None.", ""]
     lines += [
-        "Las encuestas se crean igual; estos datos son para el mail personalizado.",
+        "Surveys are created as usual; these details are for the personalised e-mail.",
         "",
     ]
-    pending = "pendiente de crear"
+    pending = "survey not created yet"
     for number, case in enumerate(cases, start=1):
         lines += [
             f"{number}. **{_plain(case['client'])} — {_plain(case['project'])}**",
-            f"   - Fecha: {_date(case['start_date'])} · País: {case['country']}",
-            f"   - Facilitador: {_plain(', '.join(case['matched_facilitators']))}",
-            f"   - Link NPS: {case['nps_link'] or pending}",
+            f"   - Date: {_date(case['start_date'])} · Country: {case['country']}",
+            f"   - Facilitator: {_plain(', '.join(case['matched_facilitators']))}",
+            f"   - NPS link: {case['nps_link'] or pending}",
             f"   - QR: {case['qr_code'] or pending}",
-            f"   - Link facilitadores: {case['facilitators_link'] or pending}",
+            f"   - Facilitators link: {case['facilitators_link'] or pending}",
         ]
     return [*lines, ""]
 
 
 def _facilitators(row: Row) -> str:
-    suffix = " (mail personalizado)" if row.get("special_case") else ""
+    suffix = " (personalised e-mail)" if row.get("special_case") else ""
     return f"{row['facilitators']}{suffix}"
 
 
 def _date(iso: str) -> str:
-    return date.fromisoformat(iso).strftime("%d/%m/%Y")
+    return display_date(date.fromisoformat(iso))
 
 
 def _link(text: str, url: str) -> str:

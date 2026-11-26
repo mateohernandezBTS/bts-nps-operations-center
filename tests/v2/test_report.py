@@ -36,7 +36,7 @@ class ReportSectionsTest(unittest.TestCase):
             [
                 {
                     "kind": "FACILITATORS",
-                    "label": "Facilitadores",
+                    "label": "Facilitators",
                     "survey_name": "Facilitators SP",
                     "survey_id": "0KdPP0000000H450AE",
                     "language": "pt-BR",
@@ -66,16 +66,19 @@ class ReportSectionsTest(unittest.TestCase):
         self.assertEqual(
             notes,
             {
-                ("Sessão | Turma 2", "Survey NPS BR: idioma es, el país usa pt-BR"),
-                ("Synthetic Session 03", "Facilitador sin asignar (PRELIM)"),
+                (
+                    "Sessão | Turma 2",
+                    "Survey NPS BR: language es, the country uses pt-BR",
+                ),
+                ("Synthetic Session 03", "No facilitator assigned yet (PRELIM)"),
                 (
                     "Synthetic Session 07",
-                    "Tiene además la encuesta Synthetic Pilot Survey",
+                    "Also has the survey Synthetic Pilot Survey",
                 ),
                 (
                     "Synthetic Session 04",
-                    "Tiene encuesta creada pero no es elegible "
-                    "(Status Prelim no incluido en los estados elegibles.)",
+                    "Has surveys but is not eligible "
+                    "(Status Prelim is not an eligible status)",
                 ),
             },
         )

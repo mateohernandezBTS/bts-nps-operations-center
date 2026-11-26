@@ -4,14 +4,14 @@ The page has two deliberately separate layers:
 
 * **Preview** (what you see): BTS look and feel, QR codes generated in the browser
   (``qrcodejs``, like the ACT & SURVEYS tool), special-case notices as callouts.
-* **Copy payload** (what "Copiar para Slack" puts on the clipboard): one card per
+* **Copy payload** (what "Copy for Slack" puts on the clipboard): one card per
   session (title, date, facilitator, links, results and the QR image), in plain HTML
   that a Slack canvas accepts. A canvas table cannot hold images (verified by the
   product owner on 2026-11-26), so the payload is not a table. It never contains
   styles, notices or warning rows (NPS-003 fixed by design).
 
 The QR image in the payload is the one drawn in the browser (embedded as PNG when
-copying), so it never depends on an external image service. "Copiar QR" copies a
+copying), so it never depends on an external image service. "Copy QR" copies a
 single QR.
 """
 
@@ -60,9 +60,10 @@ def payload_cards(records: Sequence[Row]) -> str:
 def _card(index: int, record: Row) -> str:
     """One session card. Sections always appear in the same order, with bold labels:
 
-    Fecha / Facilitador · Encuestas (links) · QR · Link Resultados (Home) ·
-    Resultados (``NO`` until the result file exists; then the file replaces it) ·
-    divider. "Resultados: NO" is a stable marker a later step can find and fill.
+    Date / Facilitator · Surveys (links) · QR · Link for Results (Home) ·
+    Results (``NO`` until the result file exists; then the file replaces it) ·
+    divider. "Results: NO" is a stable marker a later step can find and fill.
+    Labels follow the desktop Slack columns (``SLACK_COLUMNS``).
     """
 
     def text(column: str) -> str:
@@ -83,16 +84,16 @@ def _card(index: int, record: Row) -> str:
         f'<p><img src="{html.escape(qr, quote=True)}" alt="QR" data-row="{index}" '
         f'width="{QR_PAYLOAD_SIZE}" height="{QR_PAYLOAD_SIZE}"></p>'
         if qr
-        else "<p><b>QR:</b> pendiente de crear la encuesta</p>"
+        else "<p><b>QR:</b> survey not created yet</p>"
     )
     return (
         f"<h3>{text('Session')}</h3>"
-        f"<p><b>Fecha:</b> {text('Date')} · "
-        f"<b>Facilitador:</b> {text('Facilitator') or '—'}</p>"
-        f"<p><b>Encuestas:</b> {' · '.join(surveys) or 'pendientes'}</p>"
+        f"<p><b>Date:</b> {text('Date')} · "
+        f"<b>Facilitator:</b> {text('Facilitator') or '—'}</p>"
+        f"<p><b>Surveys:</b> {' · '.join(surveys) or 'not created yet'}</p>"
         f"{qr_block}"
-        f"<p><b>Link Resultados:</b> {results_link}</p>"
-        f"<p><b>Resultados:</b> {text('Results') or 'NO'}</p>"
+        f"<p><b>Link for Results:</b> {results_link}</p>"
+        f"<p><b>Results:</b> {text('Results') or 'NO'}</p>"
         "<hr>"
     )
 
@@ -123,12 +124,12 @@ def render_page(
         + _kpis(
             len(rows), sum(len(c) for c in grouped.values()), len(special_rows), context
         )
-        + (sections or '<p class="empty">No hay sesiones listas en esta selección.</p>')
+        + (sections or '<p class="empty">No sessions are ready in this selection.</p>')
     )
     return (
-        '<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n'
+        '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-        f"<title>Tabla para Slack · {html.escape(context.run_id)}</title>\n"
+        f"<title>Slack table · {html.escape(context.run_id)}</title>\n"
         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
         'family=Inter:wght@400;500;600;700&display=swap">\n'
         f"<style>{_CSS}</style>\n</head>\n<body>\n"
@@ -142,7 +143,7 @@ def render_page(
 _MANUAL_COPY = (
     '<div id="manual-copy" hidden><div class="mc-box" role="dialog" aria-modal="true">'
     '<div class="mc-head"><p class="mc-msg"></p>'
-    '<button type="button" class="btn" data-close-manual>Cerrar</button></div>'
+    '<button type="button" class="btn" data-close-manual>Close</button></div>'
     '<div class="mc-area"></div></div></div>'
 )
 
@@ -153,33 +154,35 @@ _MANUAL_COPY = (
 def _brandbar(context: PageContext) -> str:
     return (
         '<header class="brandbar"><span class="mark" aria-hidden="true">BTS</span>'
-        '<div class="bb-text"><h1>NPS · Tabla para Slack</h1>'
-        f"<p>{html.escape(context.title)} · corrida {html.escape(context.run_id)} · "
-        f"generada {html.escape(context.generated_at)}</p></div></header>"
+        '<div class="bb-text"><h1>NPS · Slack table</h1>'
+        f"<p>{html.escape(context.title)} · run {html.escape(context.run_id)} · "
+        f"generated {html.escape(context.generated_at)}</p></div></header>"
     )
 
 
 def _howto() -> str:
     return (
-        '<section class="card howto"><h2 class="card-title">Cómo usar</h2><ul>'
-        "<li><b>Copiar para Slack</b> copia las sesiones del cliente como tarjetas "
-        "(título, fecha, facilitador, links y QR), listas para pegar en su canvas.</li>"
-        "<li><b>Copiar QR</b> copia un QR suelto, por si hace falta reponer uno.</li>"
-        "<li>Los avisos de mail personalizado se ven acá y <b>nunca</b> se copian.</li>"
-        "<li>Si el visor no deja copiar (por ejemplo, una vista previa dentro de otra "
-        "app), se abre la tabla ya seleccionada: copiala con Ctrl+C. Para el mejor "
-        "resultado, abrí este archivo en Chrome o Edge.</li>"
+        '<section class="card howto"><h2 class="card-title">How to use</h2><ul>'
+        "<li><b>Copy for Slack</b> copies the client's sessions as cards (title, "
+        "date, facilitator, links and QR), ready to paste into the client's "
+        "canvas.</li>"
+        "<li><b>Copy QR</b> copies a single QR, in case one needs replacing.</li>"
+        "<li>Personalised e-mail notices are shown here and are <b>never</b> "
+        "copied.</li>"
+        "<li>If the viewer blocks copying (for example, a preview inside another "
+        "app), the content opens already selected: copy it with Ctrl+C. For the "
+        "best result, open this file in Chrome or Edge.</li>"
         "</ul></section>"
     )
 
 
 def _kpis(sessions: int, clients: int, special: int, context: PageContext) -> str:
     tiles = (
-        ("Sesiones listas", sessions, ""),
-        ("Clientes", clients, ""),
-        ("Mail personalizado", special, " tile-warn" if special else ""),
+        ("Sessions ready", sessions, ""),
+        ("Clients", clients, ""),
+        ("Personalised e-mail", special, " tile-warn" if special else ""),
         (
-            "Revisión manual",
+            "Manual review",
             context.review_count,
             " tile-warn" if context.review_count else "",
         ),
@@ -218,7 +221,7 @@ def _client_card(
     template_id = f"payload-{table_id}"
     ordered = _sorted(records)
     notices = "".join(
-        '<div class="callout"><b>Envío por mail por separado:</b> '
+        '<div class="callout"><b>Send by e-mail separately:</b> '
         f"{html.escape(record.get('Session', ''))} · "
         f"{html.escape(', '.join(special_cases[record.get('Project ID', '')]))}</div>"
         for record in ordered
@@ -231,13 +234,13 @@ def _client_card(
         f'<div class="client-head"><h3>{html.escape(client)}'
         f'<span class="badge">{len(records)}</span></h3>'
         f'<button type="button" class="btn btn-primary" data-copy="{template_id}">'
-        "Copiar para Slack</button></div>"
+        "Copy for Slack</button></div>"
         f"{notices}"
         '<div class="table-wrap"><table class="preview">'
         f"<thead><tr>{header}</tr></thead>"
         f"<tbody>{rows}</tbody></table></div>"
         f'<template id="{template_id}">{payload_cards(records)}</template>'
-        '<details class="slack-view"><summary>Ver cómo queda en Slack</summary>'
+        '<details class="slack-view"><summary>See how it looks in Slack</summary>'
         '<div class="slack-cards"></div></details>'
         "</article>"
     )
@@ -264,7 +267,7 @@ def _preview_qr(record: Row) -> str:
         '<td class="qr-cell">'
         f'<div class="qr" data-text="{html.escape(link, quote=True)}" '
         f'data-fallback="{html.escape(hosted, quote=True)}"></div>'
-        '<button type="button" class="btn btn-sm" data-copy-qr>Copiar QR</button></td>'
+        '<button type="button" class="btn btn-sm" data-copy-qr>Copy QR</button></td>'
     )
 
 

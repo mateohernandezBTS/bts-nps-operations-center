@@ -37,9 +37,7 @@ class PreviewSnapshotTest(unittest.TestCase):
 
     def test_missing_watchlist_is_announced(self) -> None:
         report = dict(scenario().report, watchlist_configured=False)
-        self.assertIn(
-            "lista de casos especiales no está configurada", render_preview(report)
-        )
+        self.assertIn("special-case list is not installed", render_preview(report))
 
 
 class SlackTableTest(unittest.TestCase):

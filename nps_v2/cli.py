@@ -25,6 +25,7 @@ from typing import Any
 from nps_v2.compare import CompareError
 from nps_v2.domain import ProjectSnapshot
 from nps_v2.pipeline import PipelineError, load_report_scope, run_pipeline
+from nps_v2.reasons import ReasonTextsError, load_reason_texts
 from nps_v2.registry import RegistryError, load_registry
 from nps_v2.report import RunContext, build_report
 from nps_v2.run_folder import RunFolder, RunFolderError
@@ -56,6 +57,7 @@ KNOWN_ERRORS = (
     CompareError,
     PipelineError,
     ReaderError,
+    ReasonTextsError,
     RegistryError,
     RunFolderError,
     SelectionError,
@@ -152,6 +154,7 @@ def command_upcoming(args: argparse.Namespace) -> dict[str, Any]:
         result=result,
         surveys=surveys,
         watchlist=load_watchlist(Path(args.watchlist) if args.watchlist else None),
+        texts=load_reason_texts(),
     )
 
     from nps_v2.outputs.writer import write_outputs  # renderer import only when needed

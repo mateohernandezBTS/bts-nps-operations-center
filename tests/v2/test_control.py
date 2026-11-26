@@ -135,7 +135,7 @@ class VerifyProjectsTest(unittest.TestCase):
         }
         for name, raw in cases.items():
             with self.subTest(case=name):
-                with self.assertRaisesRegex(ControlMismatchError, "no coinciden"):
+                with self.assertRaisesRegex(ControlMismatchError, "do not match"):
                     self.verify(raw)
 
     def test_malformed_control_rows_fail_closed(self) -> None:

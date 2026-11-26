@@ -119,26 +119,25 @@ def _project_surveys(
         (SurveyKind.FACILITATORS, facilitator_sets),
     ):
         if len(sets) > 1:
-            warnings.append(
-                f"{len(sets)} encuestas de tipo {_label(kind)} (posible duplicado)"
-            )
+            warnings.append(f"{len(sets)} {_label(kind)} surveys (possible duplicate)")
 
     country = registry.country_for_billing(project.billing_country)
     for survey_set in (*nps_sets, *facilitator_sets):
-        name = survey_set.survey_name or str(survey_set.survey_id or "sin encuesta")
+        name = survey_set.survey_name or str(survey_set.survey_id or "no survey")
         if not survey_set.language:
-            warnings.append(f"{name}: idioma vacío")
+            warnings.append(f"{name}: language is empty")
         elif country is not None and survey_set.language != country.language:
             warnings.append(
-                f"{name}: idioma {survey_set.language}, el país usa {country.language}"
+                f"{name}: language {survey_set.language}, the country uses "
+                f"{country.language}"
             )
         if not survey_set.invitation_link:
-            warnings.append(f"{name}: sin link de invitación")
+            warnings.append(f"{name}: no invitation link")
     for survey_set in nps_sets:
         if registry.is_facilitator_survey(survey_set.survey_id):
             warnings.append(
                 f"{survey_set.survey_name or survey_set.survey_id}: "
-                "marcada como NPS pero es de facilitadores"
+                "flagged as NPS but it is a facilitators survey"
             )
 
     return ProjectSurveys(
@@ -182,4 +181,4 @@ def _pick_nps(
 
 
 def _label(kind: SurveyKind) -> str:
-    return "NPS" if kind is SurveyKind.NPS else "facilitadores"
+    return "NPS" if kind is SurveyKind.NPS else "facilitators"

@@ -66,7 +66,7 @@ class StandardWeekTest(unittest.TestCase):
         self.assertEqual(selection.days, 7)
         self.assertEqual(
             selection.label,
-            "Semana estándar del lunes 23/11/2026 (24/11/2026–30/11/2026)",
+            "Standard week of Monday 23 Nov 2026 (24 Nov 2026–30 Nov 2026)",
         )
 
 
@@ -102,7 +102,7 @@ class ExtendTest(unittest.TestCase):
         extended = self.week.extended(start_days=1, end_days=2)
         self.assertEqual(extended.date_from, date(2026, 11, 23))
         self.assertEqual(extended.date_to, date(2026, 12, 2))
-        self.assertIn("ajustada a 23/11/2026–02/12/2026", extended.label)
+        self.assertIn("adjusted to 23 Nov 2026–2 Dec 2026", extended.label)
 
     def test_negative_values_shrink(self) -> None:
         shrunk = self.week.extended(start_days=-2, end_days=-4)

@@ -71,10 +71,10 @@ class CompareTest(unittest.TestCase):
         explanations = {d.session: d.explanation for d in result.only_desktop}
         self.assertTrue(
             explanations["Excluded in V2"].startswith(
-                "V2: excluido por reglas: Status Prelim"
+                "V2: excluded by rules: Status Prelim is not an eligible status"
             )
         )
-        self.assertIn("No está en Salesforce", explanations["Deleted later"])
+        self.assertIn("Not in Salesforce", explanations["Deleted later"])
         self.assertNotIn("Review row", explanations)
         (only_v2,) = result.only_v2
         self.assertEqual(only_v2.explanation, "")
@@ -83,8 +83,8 @@ class CompareTest(unittest.TestCase):
         markdown = render_comparison(
             result, run_id="V2-X", desktop_name="selam_worklist.csv"
         )
-        self.assertIn("| Coinciden | 3 |", markdown)
-        self.assertIn("A revisar", markdown)
+        self.assertIn("| Matching | 3 |", markdown)
+        self.assertIn("To check", markdown)
 
     def test_invalid_desktop_files(self) -> None:
         no_id = self.directory / "no_id.csv"

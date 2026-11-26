@@ -52,11 +52,11 @@ class ReportScope:
     def reason(self, project: ProjectSnapshot) -> str | None:
         status = project.status.strip()
         if status.casefold() in self.excluded_statuses:
-            return f"Fuera del alcance del reporte: status {status}"
+            return f"Outside the report scope: status {status}"
         sub_type = project.sub_type.strip()
         if sub_type.casefold() in self.excluded_sub_types:
-            shown = sub_type or "vacío"
-            return f"Fuera del alcance del reporte: sub-type {shown}"
+            shown = sub_type or "(empty)"
+            return f"Outside the report scope: sub-type {shown}"
         return None
 
 

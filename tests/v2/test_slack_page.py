@@ -11,7 +11,7 @@ from nps_v2.outputs.slack_page import PageContext, payload_cards, render_page
 QR = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fx"
 CONTEXT = PageContext(
     run_id="V2-TEST",
-    title="Semana de prueba",
+    title="Test week",
     generated_at="2026-11-26",
     review_count=2,
 )
@@ -47,15 +47,15 @@ class PayloadTest(unittest.TestCase):
         self.assertEqual(
             payload,
             "<h3>Session 01</h3>"
-            "<p><b>Fecha:</b> 11/21/2026 · <b>Facilitador:</b> Facilitator One</p>"
-            '<p><b>Encuestas:</b> <a href="https://example.invalid/nps/1">NPS</a> · '
+            "<p><b>Date:</b> 11/21/2026 · <b>Facilitator:</b> Facilitator One</p>"
+            '<p><b>Surveys:</b> <a href="https://example.invalid/nps/1">NPS</a> · '
             '<a href="https://example.invalid/sp/1">Facilitators</a></p>'
             '<p><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150'
             '&amp;data=https%3A%2F%2Fx" alt="QR" data-row="0" width="150" '
             'height="150"></p>'
-            '<p><b>Link Resultados:</b> <a href="https://example.invalid/results/1">'
+            '<p><b>Link for Results:</b> <a href="https://example.invalid/results/1">'
             "Home</a></p>"
-            "<p><b>Resultados:</b> NO</p>"
+            "<p><b>Results:</b> NO</p>"
             "<hr>",
         )
 
@@ -73,15 +73,15 @@ class PayloadTest(unittest.TestCase):
                 )
             ]
         )
-        self.assertIn("<b>Encuestas:</b> pendientes", payload)
-        self.assertIn("<b>Facilitador:</b> —", payload)
-        self.assertIn("<p><b>QR:</b> pendiente de crear la encuesta</p>", payload)
-        self.assertIn("<p><b>Link Resultados:</b> —</p>", payload)
-        self.assertIn("<p><b>Resultados:</b> NO</p>", payload)
+        self.assertIn("<b>Surveys:</b> not created yet", payload)
+        self.assertIn("<b>Facilitator:</b> —", payload)
+        self.assertIn("<p><b>QR:</b> survey not created yet</p>", payload)
+        self.assertIn("<p><b>Link for Results:</b> —</p>", payload)
+        self.assertIn("<p><b>Results:</b> NO</p>", payload)
 
     def test_every_card_keeps_the_results_marker(self) -> None:
         payload = payload_cards([row(1), row(2), row(3, Results="")])
-        self.assertEqual(payload.count("<p><b>Resultados:</b> NO</p>"), 3)
+        self.assertEqual(payload.count("<p><b>Results:</b> NO</p>"), 3)
         self.assertEqual(payload.count("<hr>"), 3)
 
     def test_qr_placeholders_follow_card_order(self) -> None:
@@ -94,7 +94,14 @@ class PayloadTest(unittest.TestCase):
         # A name the desktop renderer would flag with a warning row.
         flagged = SPECIAL_EMAIL_NAMES[0].title()
         payload = payload_cards([row(1, Facilitator=flagged)])
-        for forbidden in ("class=", "style=", "ENVÍO", "Envío", "<table"):
+        for forbidden in (
+            "class=",
+            "style=",
+            "ENVÍO",
+            "Envío",
+            "Send by e-mail",
+            "<table",
+        ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, payload)
 
@@ -120,11 +127,11 @@ class PageTest(unittest.TestCase):
             [row(1), special_row], {special_row["Project ID"]: ("Watched Person",)}
         )
         template = re.search(r"<template[^>]*>(.*?)</template>", page, re.S).group(1)  # type: ignore[union-attr]
-        self.assertNotIn("Envío por mail", template)
+        self.assertNotIn("Send by e-mail", template)
         self.assertNotIn("row-special", template)
         preview = page.replace(template, "")
         self.assertIn(
-            "Envío por mail por separado:</b> Session 02 · Watched Person", preview
+            "Send by e-mail separately:</b> Session 02 · Watched Person", preview
         )
         self.assertIn('<tr class="row-special">', preview)
         self.assertIn('data-copy="payload-client-table-', preview)
@@ -168,9 +175,9 @@ class PageTest(unittest.TestCase):
 
     def test_kpis_and_empty_state(self) -> None:
         page = self.render([], {})
-        self.assertIn("No hay sesiones listas", page)
+        self.assertIn("No sessions are ready", page)
         self.assertIn(
-            '<span class="tile-n">2</span><span class="tile-l">Revisión manual', page
+            '<span class="tile-n">2</span><span class="tile-l">Manual review', page
         )
 
 
