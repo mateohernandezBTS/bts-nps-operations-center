@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -125,6 +126,22 @@ class BuildSkillTest(unittest.TestCase):
         (self.skill / "stale.txt").write_text("x", encoding="utf-8")
         rebuilt = build(self.out)
         self.assertFalse((rebuilt / "stale.txt").exists())
+
+
+class SkillFrontmatterTest(unittest.TestCase):
+    """claude.ai rejects an upload whose name or description exceeds its limits."""
+
+    def test_name_and_description_fit_the_upload_limits(self) -> None:
+        text = (REPOSITORY_ROOT / "skill" / "SKILL.md").read_text(encoding="utf-8")
+        match = re.match(r"---\n(.*?)\n---\n", text, re.S)
+        self.assertIsNotNone(match)
+        assert match is not None
+        fields = dict(
+            line.split(": ", 1) for line in match.group(1).splitlines() if ": " in line
+        )
+        self.assertEqual(fields["name"], SKILL_NAME)  # must match the zip folder
+        self.assertLessEqual(len(fields["name"]), 64)
+        self.assertLessEqual(len(fields["description"]), 200)
 
 
 class WatchlistAndZipTest(unittest.TestCase):

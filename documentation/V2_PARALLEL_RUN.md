@@ -17,7 +17,10 @@ the operational source; V2 is read-only and its outputs are compared, not used.
    `dist/` is git-ignored. The watch-list (facilitators who need a personalised
    e-mail) holds real names and must live outside the repository; its format is
    `config/v2/watchlist.example.json`.
-2. Upload `dist/skill/nps-upcoming-selam.zip` in Claude's skills settings.
+2. Upload `dist/skill/nps-upcoming-selam.zip` in claude.ai: **Customize > Skills**, **+**,
+   **Create skill**, **Upload a skill**, then turn it on. Code execution must be enabled
+   (Settings > Capabilities). To update it, delete the old skill (**...** > **Delete**)
+   and upload the new zip.
 3. Check that the BTS connector (Salesforce) is enabled in the Claude session.
 4. Optional: a scheduled task runs V2 every Monday on its own ("Run the scheduled weekly
    NPS Upcoming"; the skill uses `select --this-week`). Each run opens its own session

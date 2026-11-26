@@ -1,9 +1,13 @@
 ---
 name: nps-upcoming-selam
-description: Runs the BTS SELAM NPS Upcoming (Argentina, Brazil with Nexo, Mexico) straight from Salesforce, read-only - which NPS and facilitator surveys still need to be created, which already exist (with QR and links), exclusions and manual reviews with their reason, special cases, and the page to copy session cards into the Slack canvas. Use when asked for the week's NPS (or "los NPS de la semana"), for one day or a date range, to find sessions by client, project, facilitator or country, or to prepare #latam-nps. Also used by the scheduled Monday run.
+description: Read-only NPS Upcoming for BTS SELAM (AR, BR/Nexo, MX) from Salesforce: surveys to create, QR and links, exclusions, Slack cards. Use for this week's NPS, "los NPS de la semana", #latam-nps.
 ---
 
 # NPS Upcoming SELAM (V2-1, read-only)
+
+Use this skill when the user asks for the week's NPS (or "los NPS de la semana"), for
+one day or a date range, to find sessions by client, project, facilitator or country,
+to prepare #latam-nps, or for the scheduled Monday run.
 
 This skill replaces the desktop app's Monday run. A deterministic engine (`nps_v2`,
 with the certified rules of `engine/stages`) makes every decision; you only
