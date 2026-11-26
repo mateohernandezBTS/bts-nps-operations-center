@@ -71,7 +71,7 @@ In scope:
 - Preview page (UI kit, D-V2-11): sessions, survey, language, what will be written; the
   user can remove sessions; the plan hash is shown.
 - Approval in the chat of **that hash**; re-check; sequential execution; read-back;
-  reconcile; refreshed Slack page; audit record.
+  reconcile; refreshed Slack page; creation log (Excel).
 
 Out of scope: posting to Slack (V2-3), e-mails (V2-5), deleting or editing existing surveys,
 fixing data-quality findings, any project field other than `Survey_Invitation__c`.
@@ -99,9 +99,17 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
 7. `reconcile --run DIR` → read-back queries; per command: created / skipped / failed /
    partial (for example an invitation without its survey set). Never deletes anything;
    partial items are reported with links for a manual fix.
-8. Outputs: `result.html` (UI kit), the refreshed Slack page with the new QR codes, and
-   `audit.json` (operator — name and user id read back from `CreatedBy` —, the approved
-   hash, every write with its response).
+8. Outputs, delivered to the user as files at the end of every creation run (D-V2-2):
+   - the **refreshed Slack page** with the new links and QR codes — the operational record,
+     ready to paste;
+   - the **creation log** `creation_log.xlsx`: a "Surveys" sheet with one row per planned
+     survey (date and time, operator, country, client, session, survey, language, status
+     created / skipped / failed / partial, invitation id, survey set id, link, Salesforce
+     links) and a "Run" sheet (run id, selection, approved plan hash, operator, start and
+     end, counts, errors). Written with the standard library (no extra dependency);
+   - `result.html` (UI kit) and `audit.json` in the run folder (same content, for Claude).
+   The durable trace is Salesforce itself (`CreatedBy`, `CreatedDate` on every record);
+   `reconcile` can rebuild the log from it if a session is lost.
 
 ## 6. Safety rules (additions to architecture §7)
 
@@ -113,7 +121,7 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
 | Approving one thing, executing another | hash of the canonical plan; `execute` refuses any other plan |
 | Missing permissions or a different operator | preflight `describe` as the connector's user; the operator recorded from `CreatedBy`, never assumed |
 | Unattended writes | never: the scheduled Monday run stays read-only; creation always needs a person's approval in the chat |
-| Real data in the repository | fixtures are synthetic; the audit store is outside the repository (D-V2-2) |
+| Real data in the repository | fixtures are synthetic; the creation log is delivered to the user, never stored in the repository (D-V2-2) |
 
 ## 7. Implementation steps (each with tests, delivered as Codex packages)
 
@@ -130,7 +138,8 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
    validation; stop rules. Tests with simulated connector responses, including failures at
    every step.
 6. **`reconcile`**, refreshed Slack page, `result.html`, `audit.json`.
-7. **Audit store export** once D-V2-2 is decided.
+7. **Creation log** `creation_log.xlsx` (standard-library writer; tests open it and check
+   every column and the "Run" sheet).
 8. **`SKILL.md`**: a "Create surveys" section with the non-negotiable rules (approval of the
    hash, one write at a time, stop on error, never delete).
 9. **Pilot** (§8), then **rollout** (§9).
@@ -148,7 +157,7 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
 
 ## 9. Rollout and exit criteria
 
-- Real writes start after: PO approval of this plan, D-V2-2 decided, at least
+- Real writes start after: PO approval of this plan, at least
   the first V2-1 parallel runs clean, and the pilot passed.
 - Then: a week with few sessions, the PO reviewing every result; then normal weeks.
 - Exit: 2 consecutive weeks created by V2 with 0 manual corrections and reconcile all
@@ -159,7 +168,7 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
 | Id | Decision | Proposal | Status |
 |---|---|---|---|
 | D-V2-4 | Identity used for writes | **The user operating the tool at that moment** (today the PO; it may be another person): writes go through that user's BTS connector, as when surveys are created by hand (owner = creator in 48/48). No user is hard-coded | **decided 2026-11-26 (PO)** — `CreatedBy` confirmed in the pilot |
-| D-V2-2 | Audit store | A restricted Box folder (Box is already used by `survey-results-reports`); `audit.json` per run | open |
+| D-V2-2 | Audit of each creation | **No separate store:** every creation run delivers the refreshed Slack page plus the Excel creation log to the user; Salesforce `CreatedBy`/`CreatedDate` is the durable trace | **decided 2026-11-26 (PO)** |
 | D-V2-12 | Approval mechanism | The user confirms the plan hash in the chat; `execute` refuses any other hash | proposed |
 | D-V2-13 | Creation path | A: reproduce the screen flow via API, proven by a pilot; B (admin-built invocable flow) as fallback | **decided 2026-11-26 (PO)** |
 
@@ -167,5 +176,6 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
 
 | Date | Decision | Reason | Decided by |
 |---|---|---|---|
+| 2026-11-26 | D-V2-2: the audit of each creation is its output — the refreshed Slack page plus an Excel creation log delivered with it; no separate audit store | The Slack page is what the team operates with; the Excel keeps the detail | PO |
 | 2026-11-26 | D-V2-4: surveys are created with the identity of the user operating the tool (the connector's user), not a fixed or technical account | Same ownership as manual creation; the tool can be used by other people | PO |
 | 2026-11-26 | D-V2-13: path A with a one-project pilot | No dependency on a Salesforce admin; the recipe is verified 48/48 by reading | PO |
