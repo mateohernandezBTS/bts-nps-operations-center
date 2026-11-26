@@ -121,9 +121,9 @@ depends on it. No data is written during V2-1, so there is no data rollback.
 
 ## 9. Progress
 
-- [ ] Plan approved by PO
+- [x] Plan approved by PO (PR #12)
 - [x] D-V2-7 decided (2026-11-25)
-- [ ] Steps 1–11
+- [x] Steps 1–11 (step 11 adds `nps_v2 compare` for the parallel run)
 - [ ] Parallel run #1 / #2 / #3
 - [ ] PO sign-off
 
