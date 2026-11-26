@@ -1,0 +1,5 @@
+{
+  "version": "1.0",
+  "description": "TEMPLATE ONLY (synthetic names). The real list lives in config/v2/watchlist.json inside the installed skill and is never committed. Facilitators listed here still get their surveys; the run flags them so a personalised e-mail can be sent.",
+  "facilitators": ["Example Facilitator One", "Example Facilitator Two"]
+}

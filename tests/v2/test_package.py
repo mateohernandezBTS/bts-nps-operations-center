@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import subprocess
 import sys
 import unittest
@@ -31,6 +32,25 @@ class PackageImportTest(unittest.TestCase):
             check=True,
         )
         self.assertEqual(result.stdout.strip(), "")
+
+
+class SyntaxCompatibilityTest(unittest.TestCase):
+    """V2 runs on the Claude runtime (3.13 today): no syntax newer than 3.12."""
+
+    def test_sources_parse_as_python_3_12(self) -> None:
+        sources = sorted(
+            path
+            for folder in ("nps_v2", "tests/v2")
+            for path in (REPOSITORY_ROOT / folder).rglob("*.py")
+        )
+        self.assertTrue(sources)
+        for path in sources:
+            with self.subTest(path=path.relative_to(REPOSITORY_ROOT).as_posix()):
+                ast.parse(
+                    path.read_text(encoding="utf-8"),
+                    filename=str(path),
+                    feature_version=(3, 12),
+                )
 
 
 if __name__ == "__main__":

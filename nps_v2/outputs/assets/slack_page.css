@@ -1,0 +1,30 @@
+ion-card.help{margin-top:4px}
+ion-card.help ion-accordion-group{margin:0}
+ion-item.session{--padding-start:18px;--inner-padding-end:14px;--min-height:96px}
+ion-item.session.special{--background:#FFF8EC}
+ion-item.session.special:not(:defined){background:#FFF8EC}
+ion-item.session h3{font-size:15px;font-weight:650;margin:0 0 2px}
+ion-item.session p{font-size:13px;color:var(--grey-text);margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:2px;margin:6px 0 2px -4px}
+.chips a{text-decoration:none;color:inherit}
+ion-chip.link{--color:#CA1C68;color:#CA1C68;--background:rgba(202,28,104,.06);
+border-color:rgba(202,28,104,.35)}
+ion-chip.results{--color:#5e6367;color:#5e6367;--background:#F7F8F9;border-color:#D5D9DD}
+ion-chip.pending{--color:#9b2433;color:#9b2433;--background:#FDF0EF}
+.qr{width:72px;height:72px;margin:12px 16px 12px 0;border-radius:10px;overflow:hidden;
+background:#fff;border:1px solid var(--grey-light);padding:4px;flex:0 0 auto}
+.qr img,.qr canvas{width:62px!important;height:62px!important;display:block}
+.qr[data-text]{cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
+.qr[data-text]:hover{transform:scale(1.04);box-shadow:0 4px 14px rgba(16,24,40,.12)}
+.qr-empty{display:flex;align-items:center;justify-content:center;text-align:center;
+font-size:10px;color:var(--grey-text);background:var(--grey-xlight)}
+.slack-cards{color:var(--charcoal);margin:4px 10px 14px;padding:14px 18px;background:#fff;
+border:1px solid var(--grey-light);border-radius:12px;max-width:620px}
+.slack-cards h3{margin:6px 0 4px;font-size:16px}
+.slack-cards p{margin:3px 0}
+.slack-cards img{border-radius:4px}
+@media (max-width:640px){
+.qr{width:60px;height:60px}
+.qr img,.qr canvas{width:50px!important;height:50px!important}
+ion-item.session ion-button[data-copy-qr]{display:none}
+}

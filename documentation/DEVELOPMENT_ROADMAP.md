@@ -12,6 +12,7 @@ Roles: product owner = Mateo; architect/reviewer = Claude; implementer = Codex.
 | 2. Release 1.0.3 | Fix NPS-001, NPS-002, NPS-003, NPS-005, NPS-020; remove verified dead code (NPS-011); reconcile docs (NPS-012); certify and promote 1.0.3 | Test-first fixes; signed golden-master updates; Windows build, packaged TEST E2E, real parallel run against 1.0.2, owner approval and manual production promotion; release DoD satisfied |
 | 3. Release 1.1.0 | Behavior-preserving refactor (NPS-007, NPS-013, structure, typing) | Golden master identical after each module; release DoD satisfied |
 | 4. Certification 1.1.0 | Build, docs, parallel run against certified 1.0.3, promotion of 1.1.0 | Equivalent outputs on real weeks except separately approved changes; explicit approval and release DoD |
+| V2-1. Claude-native Upcoming — IN PROGRESS | Read-only Upcoming from Salesforce as a Claude skill (`nps_v2/`, `skill/`), replacing e-mail parsing; see `V2_CLAUDE_NATIVE_ARCHITECTURE.md` and `plans/V2-1_upcoming_read_only.md` | Parallel run against v1.0.2 with 0 unexplained differences on 2–3 Mondays (`V2_PARALLEL_RUN.md`); PO sign-off |
 
 Phase 1 status (2026-10-29): DONE. Golden master approved in PR #8; F1-06 adds
 18 preflight methods for 169/169 passing on both Windows runners. All 141 candidate
@@ -21,6 +22,10 @@ No unreachable/defensive preflight behavior lines were identified. The only unco
 statement is weekly_preflight.py:505 (__main__ delegates to the tested public main()).
 NPS-007 and NPS-017 remain characterized, not fixed. NPS-019 option A remains in use;
 optional option C is separately deferred as F1-07. See the Phase 1 plan for full evidence.
+
+Product-owner decision 2026-11-25: desktop 1.0.3 is not built or released; the NPS-001 fix
+will still be merged into the engine (F2-02b) because V2 reuses it; new investment goes to the Claude-native
+V2 (phases above). v1.0.2 keeps running on Mondays until V2-1 is signed off.
 
 Business-rule changes (NPS-004, NPS-006, NPS-015, NPS-016) are excluded from
 1.0.3 and 1.1.0 until the product owner approves them; they will be a separate release.
@@ -68,12 +73,16 @@ Status: OPEN, DECISION (needs business approval), PLANNED (assigned to a phase),
 | NPS-019 | Medium | PLANNED | 1 | Python tempfile directory ACLs are incompatible with the Windows restricted-token sandbox, even when TMP and TEMP point inside the repository. | CONFIRMED: F0-02 sandbox probes below; ordinary mkdir succeeds, mkdtemp child creation fails with WinError 5; installed Python 3.14.6 `Lib/tempfile.py:381` uses `os.mkdir(file, 0o700)` |
 | NPS-020 | Low | PLANNED | 2 | The orphan 13-cell row error is self-contradictory ("no reconocida: 13. Se esperaban 14 o 13"); it should say the row has no preceding Billing Office to inherit. | CONFIRMED: `tests/snapshots/phase1/v1/malformed_Brazil_orphan_group/error_details.json` |
 | NPS-021 | Low | OPEN | — | With `--json`, preflight failures print non-JSON text rather than a JSON error response. Recorded only; not in 1.0.3 scope. | CONFIRMED: `engine/weekly_preflight.py:480–485`; `tests/test_weekly_preflight.py`, `test_cli_preflight_failure_uses_exit_one_and_actionable_message`, merged in PR #9 (`8865741`), asserts human text and exit 1 for `--json` failures |
+| NPS-022 | Low | OPEN | V2 | Golden-master provenance hashes raw file bytes, so `test_provenance` fails on Linux checkouts (LF) while every behavior snapshot passes; the Claude runtime is Linux. Proposed: normalise line endings before hashing and re-sign provenance (PO approval). | CONFIRMED: `tests/test_pipeline_golden_master.py::test_provenance` fails on Linux, passes on Windows |
+| NPS-023 | Low | OPEN | V2 | The special-case facilitator names are hard-coded in the desktop Slack renderer (`SPECIAL_EMAIL_NAMES`); V2 reads them from a watch-list outside the repository. Proposed: remove them from the code when the desktop app is retired. | CONFIRMED: `engine/slack_canvas_renderer.py`, `SPECIAL_EMAIL_NAMES` |
 
 ## Feature backlog
 
 | ID | Candidate release | Status | Requirement |
 |---|---|---|---|
-| FEAT-001 | 1.2.0 | Backlog; not in 1.0.3 | Filter results of an already processed weekly run by a day range inside its weekly window, consistently in the view, Excel and Copy for Slack, so the operator can work day by day. Processing remains once per week; changing the filter never re-processes reports. Optional second level: track which NPS were already created and show only pending ones, related to the V2 lifecycle in the EXPANSION vision; requires separate design/approval. |
+| FEAT-001 | V2-1 | Superseded by V2-1 flexible selection (2026-11-26) | Filter results of an already processed weekly run by a day range inside its weekly window, consistently in the view, Excel and Copy for Slack, so the operator can work day by day. Processing remains once per week; changing the filter never re-processes reports. Optional second level: track which NPS were already created and show only pending ones, related to the V2 lifecycle in the EXPANSION vision; requires separate design/approval. |
+| FEAT-002 | V2-1 | Ready (2026-11-26); scheduled task pending install | Run the Upcoming automatically every Monday (standard week of today in Buenos Aires, read-only). Wider or filtered selections stay manual. Architecture §6.5. |
+| FEAT-003 | V2-4 | Design note (2026-11-26) | Weekly scheduled search for available results; when found, generate the report with `survey-results-reports` and replace the card's `Results: NO` in the `#latam-nps` canvas, with preview and approval first. Architecture §6.6; open D-V2-9, D-V2-10; depends on V2-3 and D-V2-2. |
 
 ## F0-01 verification evidence
 

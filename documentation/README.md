@@ -64,6 +64,7 @@ Packaged writable data is beside the executable: PRODUCTION uses `input/`, `outp
 | `WEEKLY_OPERATION.md` | Normal weekly operating procedure |
 | `FIRST_PRODUCTION_RUN_CHECKLIST.md` | Controlled first-production checklist |
 | `V2_CLAUDE_NATIVE_ARCHITECTURE.md` | V2 (Claude-native) architecture and incremental plan — draft |
+| `V2_PARALLEL_RUN.md` | V2-1 parallel run against desktop v1.0.2 — operator runbook |
 
 ## Validation
 

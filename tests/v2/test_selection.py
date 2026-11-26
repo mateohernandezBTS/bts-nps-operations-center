@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import unittest
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta, timezone
 
 from nps_v2.domain import ProjectSnapshot, SalesforceId
 from nps_v2.selection import (
@@ -16,6 +16,7 @@ from nps_v2.selection import (
     reference_monday,
     standard_week,
     standard_week_selection,
+    today_in_buenos_aires,
 )
 
 
@@ -66,8 +67,30 @@ class StandardWeekTest(unittest.TestCase):
         self.assertEqual(selection.days, 7)
         self.assertEqual(
             selection.label,
-            "Semana estándar del lunes 23/11/2026 (24/11/2026–30/11/2026)",
+            "Standard week of Monday 23 Nov 2026 (24 Nov 2026–30 Nov 2026)",
         )
+
+
+class TodayInBuenosAiresTest(unittest.TestCase):
+    def test_date_follows_buenos_aires_not_utc(self) -> None:
+        cases = {
+            datetime(2026, 11, 30, 2, 59, tzinfo=UTC): date(2026, 11, 29),
+            datetime(2026, 11, 30, 3, 0, tzinfo=UTC): date(2026, 11, 30),
+            datetime(2026, 11, 30, 23, 0, tzinfo=timezone(timedelta(hours=-3))): date(
+                2026, 11, 30
+            ),
+            datetime(2026, 7, 1, 12, 0, tzinfo=UTC): date(2026, 7, 1),  # no DST
+        }
+        for moment, expected in cases.items():
+            with self.subTest(moment=moment.isoformat()):
+                self.assertEqual(today_in_buenos_aires(moment), expected)
+
+    def test_naive_datetimes_are_rejected(self) -> None:
+        with self.assertRaises(SelectionError):
+            today_in_buenos_aires(datetime(2026, 11, 30, 12, 0))
+
+    def test_default_is_now(self) -> None:
+        self.assertIsInstance(today_in_buenos_aires(), date)
 
 
 class PresetTest(unittest.TestCase):
@@ -102,7 +125,7 @@ class ExtendTest(unittest.TestCase):
         extended = self.week.extended(start_days=1, end_days=2)
         self.assertEqual(extended.date_from, date(2026, 11, 23))
         self.assertEqual(extended.date_to, date(2026, 12, 2))
-        self.assertIn("ajustada a 23/11/2026–02/12/2026", extended.label)
+        self.assertIn("adjusted to 23 Nov 2026–2 Dec 2026", extended.label)
 
     def test_negative_values_shrink(self) -> None:
         shrunk = self.week.extended(start_days=-2, end_days=-4)

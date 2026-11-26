@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "description": "English wording shown by V2 for each rule id of config/business_rules.json (the certified rules keep their own Spanish descriptions). Every enabled rule needs a label; tests enforce it.",
+  "rule_labels": {
+    "MERCADO_LIBRE": "Mercado Libre / MELI client",
+    "POD": "POD session",
+    "COACHING": "Coaching session (group, POD or 1:1)",
+    "REVENUE_ADMIN": "Possible administrative or revenue record",
+    "BTS_CLIENT": "Client name starts with BTS"
+  }
+}

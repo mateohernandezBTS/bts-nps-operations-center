@@ -1,0 +1,6 @@
+{
+  "version": "1.0",
+  "description": "Report-equivalent scope of the subscribed 'Upcoming Deliveries/NPS' reports (D-V2-1). Rows outside this scope are listed as out of scope, never hidden.",
+  "excluded_statuses": ["Cancelled"],
+  "excluded_sub_types": ["", "License"]
+}
