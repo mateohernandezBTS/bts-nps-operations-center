@@ -1,10 +1,9 @@
-"""Slack table through the certified renderer, with QR and links filled in.
+"""Slack outputs of a run: the desktop-compatible CSV and the V2 Slack page.
 
-The renderer (``engine/slack_canvas_renderer.py``) reads ``selam_worklist.csv`` and an
-optional ``selam_weekly_summary.json`` from a directory and writes
-``selam_slack_canvas.html``, the page the product owner copies into the canvas today.
-V2 writes the same CSV contract (pinned by a test against
-``engine.selam_output.CSV_COLUMNS``) so the output looks exactly like the desktop one.
+``selam_worklist.csv`` keeps the desktop contract (pinned by a test against
+``engine.selam_output.CSV_COLUMNS``) so runs can be compared with the desktop app.
+``selam_slack_canvas.html`` is the V2 page (``nps_v2.outputs.slack_page``): BTS-styled
+preview, Slack-safe copy payload identical to the desktop table, QR as an image.
 """
 
 from __future__ import annotations
@@ -15,9 +14,9 @@ from collections.abc import Mapping, Sequence
 from datetime import date
 from pathlib import Path
 
-from engine.slack_canvas_renderer import generate_slack_canvas_html
 from nps_v2.adapters import legacy_date
 from nps_v2.domain import SalesforceId
+from nps_v2.outputs.slack_page import PageContext, render_page
 from nps_v2.pipeline import WorklistEntry
 from nps_v2.registry import CountryRegistry
 from nps_v2.surveys.state import ProjectSurveys
@@ -45,6 +44,7 @@ SLACK_CSV_COLUMNS: tuple[str, ...] = (
 SOURCE_ID = "salesforce_v2"
 WORKLIST_FILE = "selam_worklist.csv"
 SUMMARY_FILE = "selam_weekly_summary.json"
+PAGE_FILE = "selam_slack_canvas.html"
 
 
 def slack_rows(
@@ -78,6 +78,9 @@ def write_slack_table(
     date_from: date,
     date_to: date,
     review_count: int,
+    page_context: PageContext,
+    country_order: Sequence[str],
+    special_cases: Mapping[str, Sequence[str]],
 ) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
     with (directory / WORKLIST_FILE).open("w", encoding="utf-8", newline="") as file:
@@ -93,4 +96,14 @@ def write_slack_table(
     (directory / SUMMARY_FILE).write_text(
         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    return Path(generate_slack_canvas_html(directory))
+    page = directory / PAGE_FILE
+    page.write_text(
+        render_page(
+            rows,
+            context=page_context,
+            country_order=country_order,
+            special_cases=special_cases,
+        ),
+        encoding="utf-8",
+    )
+    return page

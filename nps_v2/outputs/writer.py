@@ -11,6 +11,7 @@ from typing import Any
 from nps_v2.domain import SalesforceId
 from nps_v2.outputs.preview import render_preview
 from nps_v2.outputs.slack import slack_rows, write_slack_table
+from nps_v2.outputs.slack_page import PageContext
 from nps_v2.pipeline import PipelineResult
 from nps_v2.registry import CountryRegistry
 from nps_v2.selection import Selection
@@ -46,13 +47,26 @@ def write_outputs(
     preview_path.write_text(render_preview(report), encoding="utf-8")
 
     run_id = str(report["run_id"])
+    review_count = len(result.review) + len(result.worklist_review)
+    special_cases = {
+        case["project_id"]: tuple(case["matched_facilitators"])
+        for case in report["special_cases"]
+    }
     slack_html = write_slack_table(
         run_directory / SLACK_DIRECTORY,
         slack_rows(result.ready, surveys, registry, run_id),
         run_id=run_id,
         date_from=selection.date_from,
         date_to=selection.date_to,
-        review_count=len(result.review) + len(result.worklist_review),
+        review_count=review_count,
+        page_context=PageContext(
+            run_id=run_id,
+            title=selection.label,
+            generated_at=str(report["generated_at"]),
+            review_count=review_count,
+        ),
+        country_order=[country.name for country in registry.countries],
+        special_cases=special_cases,
     )
     return WrittenOutputs(
         report=report_path, preview=preview_path, slack_html=slack_html
