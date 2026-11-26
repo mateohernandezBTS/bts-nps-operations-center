@@ -6,6 +6,7 @@ line-length = 88
 [tool.ruff.per-file-target-version]
 "nps_v2/**/*.py" = "py312"
 "tests/v2/**/*.py" = "py312"
+"scripts/**/*.py" = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
