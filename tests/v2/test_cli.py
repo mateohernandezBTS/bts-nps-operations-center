@@ -9,8 +9,10 @@ import shutil
 import tempfile
 import unittest
 from collections import Counter
+from datetime import date
 from pathlib import Path
 from typing import Any
+from unittest import mock
 
 from nps_v2.cli import EXIT_ERROR, main
 
@@ -181,6 +183,29 @@ class CliFlowTest(unittest.TestCase):
         self.assertEqual(out["selection"]["date_to"], "2026-12-01")
         self.assertEqual(out["selection"]["country_codes"], ["BR"])
         self.assertIn("IN ('Brazil', 'Nexo')", out["queries"][0]["soql"])
+
+    def test_this_week_uses_today_in_buenos_aires(self) -> None:
+        with mock.patch(
+            "nps_v2.cli.today_in_buenos_aires", return_value=date(2026, 11, 30)
+        ):
+            code, out = run_cli("select", "--run", str(self.run_dir), "--this-week")
+        self.assertEqual(code, 0, out)
+        self.assertEqual(out["selection"]["date_from"], "2026-12-01")
+        self.assertEqual(out["selection"]["date_to"], "2026-12-07")
+
+    def test_this_week_excludes_other_dates(self) -> None:
+        argv = [
+            "select",
+            "--run",
+            str(self.run_dir),
+            "--this-week",
+            "--day",
+            "2026-11-26",
+        ]
+        with contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as stop:
+                main(argv)
+        self.assertEqual(stop.exception.code, 2)  # argparse usage error
 
     def test_errors_are_reported_not_raised(self) -> None:
         cases = {

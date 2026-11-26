@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import unittest
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta, timezone
 
 from nps_v2.domain import ProjectSnapshot, SalesforceId
 from nps_v2.selection import (
@@ -16,6 +16,7 @@ from nps_v2.selection import (
     reference_monday,
     standard_week,
     standard_week_selection,
+    today_in_buenos_aires,
 )
 
 
@@ -68,6 +69,28 @@ class StandardWeekTest(unittest.TestCase):
             selection.label,
             "Standard week of Monday 23 Nov 2026 (24 Nov 2026–30 Nov 2026)",
         )
+
+
+class TodayInBuenosAiresTest(unittest.TestCase):
+    def test_date_follows_buenos_aires_not_utc(self) -> None:
+        cases = {
+            datetime(2026, 11, 30, 2, 59, tzinfo=UTC): date(2026, 11, 29),
+            datetime(2026, 11, 30, 3, 0, tzinfo=UTC): date(2026, 11, 30),
+            datetime(2026, 11, 30, 23, 0, tzinfo=timezone(timedelta(hours=-3))): date(
+                2026, 11, 30
+            ),
+            datetime(2026, 7, 1, 12, 0, tzinfo=UTC): date(2026, 7, 1),  # no DST
+        }
+        for moment, expected in cases.items():
+            with self.subTest(moment=moment.isoformat()):
+                self.assertEqual(today_in_buenos_aires(moment), expected)
+
+    def test_naive_datetimes_are_rejected(self) -> None:
+        with self.assertRaises(SelectionError):
+            today_in_buenos_aires(datetime(2026, 11, 30, 12, 0))
+
+    def test_default_is_now(self) -> None:
+        self.assertIsInstance(today_in_buenos_aires(), date)
 
 
 class PresetTest(unittest.TestCase):

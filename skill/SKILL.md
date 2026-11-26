@@ -1,6 +1,6 @@
 ---
 name: nps-upcoming-selam
-description: Runs the BTS SELAM NPS Upcoming (Argentina, Brazil with Nexo, Mexico) straight from Salesforce, read-only - which NPS and facilitator surveys still need to be created, which already exist (with QR and links), exclusions and manual reviews with their reason, special cases, and the page to copy session cards into the Slack canvas. Use when asked for the week's NPS (or "los NPS de la semana"), for one day or a date range, to find sessions by client, project, facilitator or country, or to prepare #latam-nps.
+description: Runs the BTS SELAM NPS Upcoming (Argentina, Brazil with Nexo, Mexico) straight from Salesforce, read-only - which NPS and facilitator surveys still need to be created, which already exist (with QR and links), exclusions and manual reviews with their reason, special cases, and the page to copy session cards into the Slack canvas. Use when asked for the week's NPS (or "los NPS de la semana"), for one day or a date range, to find sessions by client, project, facilitator or country, or to prepare #latam-nps. Also used by the scheduled Monday run.
 ---
 
 # NPS Upcoming SELAM (V2-1, read-only)
@@ -48,12 +48,14 @@ Every command prints JSON. Always read `status` before going on.
 
 ### 1. Selection
 
-Turn the request into `select` arguments. If no date is given, use **today in Buenos
-Aires** for the standard week. If the request is ambiguous, ask one question.
+Turn the request into `select` arguments. If no date is given, use `--this-week`
+(the standard week of today in Buenos Aires). If the request is ambiguous, ask one
+question.
 
 | Request | Arguments |
 |---|---|
-| "this week", "Monday's NPS" | `--week-of <date>` (any day of that week; window Tuesday → next Monday) |
+| "this week", "today's Monday run" | `--this-week` (window Tuesday → next Monday) |
+| "the week of the 7th", "next week" | `--week-of <date>` (any day of that week) |
 | "add/remove days" | also `--extend-start N` / `--extend-end N` (negative shrinks) |
 | "only tomorrow", "Thursday the 3rd" | `--day <YYYY-MM-DD>` |
 | "from the 1st to the 5th" | `--from <YYYY-MM-DD> --to <YYYY-MM-DD>` |
@@ -115,7 +117,23 @@ With `"status": "ok"`, `outputs` holds:
    be viewed in the panel). Remind the user that if the viewer blocks copying, the
    page opens the content selected for Ctrl+C, and that Chrome or Edge copy directly.
 
-### 6. Parallel run (while the desktop app is still in use)
+### 6. Scheduled Monday run
+
+A scheduled task can start this skill every Monday with nobody watching. When the
+request says it is the scheduled weekly run:
+
+- Do not ask questions. Use exactly `select --this-week`, with no filters or extra
+  days, and the run id `V2-<YYYYMMDD>-weekly` (today in Buenos Aires; add `-retry` for the
+  single retry).
+- Follow steps 2–4 as usual. The rules above still apply: read-only, and stop on any
+  error (with the single `ControlMismatchError` retry).
+- End with the step 5 summary and deliver `preview.md` and the Slack page. If the run
+  stopped, say so first, with the error and the step where it happened.
+
+More days, another country or a filter are never added to the scheduled run: the
+user asks for them in a normal (manual) run, with the arguments of step 1.
+
+### 7. Parallel run (while the desktop app is still in use)
 
 If the user attaches the desktop app's `selam_worklist.csv` for the same week:
 

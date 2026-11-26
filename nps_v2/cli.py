@@ -48,6 +48,7 @@ from nps_v2.selection import (
     day_selection,
     range_selection,
     standard_week_selection,
+    today_in_buenos_aires,
 )
 from nps_v2.surveys.state import SurveyStateError, derive_survey_states
 from nps_v2.watchlist import WatchlistError, load_watchlist
@@ -281,8 +282,10 @@ def _selection(args: argparse.Namespace) -> Selection:
         base = day_selection(args.day)
     elif args.week_of:
         base = standard_week_selection(args.week_of)
+    elif args.this_week:
+        base = standard_week_selection(today_in_buenos_aires())
     else:
-        raise SelectionError("Choose --week-of, --day or --from/--to")
+        raise SelectionError("Choose --this-week, --week-of, --day or --from/--to")
     filters = SearchFilters(
         project=args.project,
         client=args.client,
@@ -310,6 +313,11 @@ def _parser() -> argparse.ArgumentParser:
     select = commands.add_parser("select", help="write the selection and print queries")
     select.add_argument("--run", required=True, help="run folder")
     when = select.add_mutually_exclusive_group()
+    when.add_argument(
+        "--this-week",
+        action="store_true",
+        help="standard week of today in Buenos Aires (scheduled Monday run)",
+    )
     when.add_argument("--week-of", type=_iso_date, help="any day of the reference week")
     when.add_argument("--day", type=_iso_date, help="a single day")
     when.add_argument("--from", dest="date_from", type=_iso_date, help="range start")

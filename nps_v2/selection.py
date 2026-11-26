@@ -8,6 +8,9 @@ country codes and optional text filters. Presets:
 * **single day** and **explicit range**;
 * any selection can be extended or shrunk at either end.
 
+"This week" is the standard week of today in Buenos Aires, so the scheduled Monday run
+and a manual run on the same day select the same window.
+
 Selections are safe to re-run: what is already created is read from Salesforce, not
 from previous runs.
 """
@@ -17,13 +20,16 @@ from __future__ import annotations
 import unicodedata
 from collections.abc import Mapping
 from dataclasses import dataclass, field, replace
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta, timezone
 from typing import Any
 
 from nps_v2.domain import ProjectSnapshot
 
 MAX_SPAN_DAYS = 92
 MONTHS = tuple("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split())
+# Argentina has had no daylight saving time since 2009. A fixed offset avoids needing
+# the tzdata package on Windows.
+BUENOS_AIRES = timezone(timedelta(hours=-3), "Buenos Aires")
 
 
 class SelectionError(ValueError):
@@ -33,6 +39,14 @@ class SelectionError(ValueError):
 def reference_monday(day: date) -> date:
     """Monday of the week that contains ``day`` (a Monday maps to itself)."""
     return day - timedelta(days=day.weekday())
+
+
+def today_in_buenos_aires(now: datetime | None = None) -> date:
+    """Today's date in Buenos Aires (``now`` must be timezone-aware; default: now)."""
+    moment = now or datetime.now(UTC)
+    if moment.tzinfo is None:
+        raise SelectionError("now must be timezone-aware")
+    return moment.astimezone(BUENOS_AIRES).date()
 
 
 def standard_week(day: date) -> tuple[date, date]:
