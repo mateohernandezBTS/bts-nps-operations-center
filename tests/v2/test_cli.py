@@ -124,6 +124,44 @@ class CliFlowTest(unittest.TestCase):
         for path in out["outputs"].values():
             self.assertTrue(Path(path).exists(), path)
 
+    def test_capture_saves_responses_from_the_transcript(self) -> None:
+        out = self.select()
+        responses = {
+            "projects": self.projects,
+            "projects_control": self.project_control(self.projects),
+        }
+        lines = []
+        for number, query in enumerate(out["queries"]):
+            use: dict[str, Any] = {
+                "type": "tool_use",
+                "id": f"u{number}",
+                "name": "x_salesforce_query",
+            }
+            use["input"] = {"query": query["soql"]}
+            result = {"type": "tool_result", "tool_use_id": f"u{number}"}
+            result["content"] = json.dumps(responses[query["name"]])
+            lines += [
+                {"message": {"content": [use]}},
+                {"message": {"content": [result]}},
+            ]
+        transcript = self.directory / "session.jsonl"
+        transcript.write_text("\n".join(json.dumps(x) for x in lines), encoding="utf-8")
+
+        code, captured = run_cli(
+            "capture",
+            "--run",
+            str(self.run_dir),
+            "--group",
+            "projects",
+            "--transcript",
+            str(transcript),
+        )
+        self.assertEqual(code, 0, captured)
+        self.assertEqual(captured["captured"], ["projects", "projects_control"])
+        self.assertEqual(captured["missing"], [])
+        code, out = run_cli("surveys", "--run", str(self.run_dir))
+        self.assertEqual(code, 0, out)
+
     def test_selection_presets_and_filters(self) -> None:
         code, out = run_cli(
             "select",

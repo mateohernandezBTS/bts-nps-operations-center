@@ -1,6 +1,8 @@
 """Command line used by the skill. Three steps, each printing JSON for Claude.
 
 1. ``select``   — writes the selection and prints the project queries to run.
+   ``capture``     — after running queries, saves their responses from the session
+                  transcript, so Claude never re-types connector output.
 2. ``surveys``  — reads and verifies the saved project responses, prints the
                   survey-set queries for exactly those projects.
 3. ``upcoming`` — reads and verifies everything, runs the certified pipeline and
@@ -172,6 +174,26 @@ def command_upcoming(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_capture(args: argparse.Namespace) -> dict[str, Any]:
+    from nps_v2.capture import capture, default_transcript
+
+    folder = RunFolder(Path(args.run))
+    transcript = Path(args.transcript) if args.transcript else default_transcript()
+    result = capture(folder, args.group, transcript)
+    return {
+        "step": "capture",
+        "group": args.group,
+        "captured": list(result.captured),
+        "already_saved": list(result.already_saved),
+        "missing": list(result.missing),
+        "next": (
+            "Missing responses must be saved by hand before continuing."
+            if result.missing
+            else "All responses saved."
+        ),
+    }
+
+
 # --- helpers -----------------------------------------------------------------------
 
 
@@ -274,6 +296,16 @@ def _parser() -> argparse.ArgumentParser:
     )
     surveys.add_argument("--run", required=True)
     surveys.set_defaults(handler=command_surveys)
+
+    capture = commands.add_parser(
+        "capture", help="save connector responses from the session transcript"
+    )
+    capture.add_argument("--run", required=True)
+    capture.add_argument("--group", choices=("projects", "survey_sets"), required=True)
+    capture.add_argument(
+        "--transcript", default="", help="session .jsonl (default: newest)"
+    )
+    capture.set_defaults(handler=command_capture)
 
     upcoming = commands.add_parser(
         "upcoming", help="verify everything and write outputs"
