@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "description": "How V2 creates a survey the way the Salesforce screen flow does (V2-2 plan, section 3; verified by reading on 48/48 survey sets of the week of 24-30 Nov 2026).",
+  "community_id": "0DB390000004Cy1GAE",
+  "invitation_options": {
+    "OptionsAllowGuestUserResponse": true,
+    "OptionsAllowParticipantAccessTheirResponse": false,
+    "OptionsCollectAnonymousResponse": false
+  },
+  "invitation_name_max_length": 255,
+  "ip_address_restricted": false
+}
