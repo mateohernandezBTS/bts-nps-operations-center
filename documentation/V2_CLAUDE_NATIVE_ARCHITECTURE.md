@@ -178,6 +178,9 @@ at API level, so the engine always sets every field explicitly.
 
 ### 6.2 Create surveys — increment 2
 
+Detailed plan, verified creation recipe and pilot protocol:
+`documentation/plans/V2-2_create_surveys.md` (D-V2-13).
+
 1. Steps 1–3 above, plus `write_plan.json` with `plan_hash`.
 2. Preview with one row per project: client, session, date, facilitator, country, language,
    surveys to create. The PO may remove projects (`nps plan --exclude <ids>` → new hash).
@@ -321,6 +324,8 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-9 | "Results available" rule for §6.6 (minimum responses, days after the session) | open (V2-4) |
 | D-V2-10 | Results in the card: Box link or file; identity for Slack/Box writes | open (V2-4) |
 | D-V2-11 | Every HTML view uses the shared Ionic + BTS kit (§6.7): Ionic 8.8.19, iOS mode, mandatory fallback | **decided 2026-11-26** |
+| D-V2-12 | Approval mechanism for writes: the user confirms the plan hash in the chat (V2-2 plan §10) | proposed |
+| D-V2-13 | Survey creation path: A, reproduce the UI screen flow via API (recipe verified 48/48 by reading), proven by a one-project pilot; B, an admin-built invocable flow, as fallback | **decided 2026-11-26** |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2
