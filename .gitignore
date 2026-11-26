@@ -73,3 +73,6 @@ local_acceptance/
 *.tmp
 *.temp
 *.bak
+
+# V2 special-case facilitator list (real names; lives only in the installed skill)
+config/v2/watchlist.json
