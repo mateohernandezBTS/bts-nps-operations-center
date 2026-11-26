@@ -125,6 +125,7 @@ depends on it. No data is written during V2-1, so there is no data rollback.
 - [x] D-V2-7 decided (2026-11-25)
 - [x] Steps 1–11 (step 11 adds `nps_v2 compare` for the parallel run)
 - [x] English user-facing outputs (D-V2-8)
+- [x] Slack page on the shared Ionic + BTS UI kit (D-V2-11)
 - [x] Scheduled Monday run ready (`select --this-week`, skill section 6); task created after the English skill is installed
 - [ ] Parallel run #1 / #2 / #3
 - [ ] PO sign-off
@@ -139,6 +140,7 @@ depends on it. No data is written during V2-1, so there is no data rollback.
 | 2026-11-26 | Special-case watch-list lives in the installed skill (`config/v2/watchlist.json`, git-ignored); the repository ships a synthetic template | Real names never in the repository | PO |
 | 2026-11-26 | The Slack page has two layers: a BTS-styled preview (ACT & SURVEYS look) and a copy payload that never contains styles or notices. The QR is always an image, never a link, drawn in the browser (qrcodejs); "Copy QR" copies a single QR image. `engine/` stays unchanged | External QR images did not load in the viewer | PO |
 | 2026-11-26 | The copy payload is one card per session (title, date, facilitator, links, results and QR image) instead of a table: a Slack canvas table cannot hold images (tested by the PO: pasted QRs broke the table) | Send everything in one paste | PO |
+| 2026-11-26 | D-V2-11: every HTML view uses the shared Ionic + BTS kit (architecture §6.7). The Slack page moves to it: search, country tabs, one card per client, click a QR to copy it, toast notices, "See how it looks in Slack" as an accordion. The copy payload is unchanged. Ionic 8.8.19 (exact), iOS mode, BTS theme; the page keeps working in the plain BTS style if the viewer blocks the CDN. Proof tested by the PO in the Claude viewer: Ionic loads | The PO wants a premium, consistent experience in every view, including the V2-2 survey creation | PO |
 | 2026-11-26 | The skill supports an unattended Monday run: `select --this-week` (standard week of today in Buenos Aires, fixed UTC−3), no questions, no filters; wider or filtered selections stay manual | Weekly run without manual start; same window as the desktop app | PO |
 | 2026-11-26 | D-V2-8: the product launches in English. Everything users see or operate is English (preview, Slack page and cards, `compare.md`, data-quality notes, `SKILL.md`); card labels follow the desktop columns (`Link for Results`, `Results: NO`). Code is not translated. Engine reasons are worded in English from rule ids (`config/v2/rule_labels.json`) and the engine's known messages; unknown text is shown as written | Launch in English; `engine/` stays certified and unchanged | PO |
 | 2026-11-25 | D-V2-7: survey-kind detection by family (architecture §5.2). Any Survey Set with `SurveyNPS__c = true` counts as NPS; facilitator family is configuration | Client-specific NPS surveys are rare but exist; regional facilitator variants exist | PO |

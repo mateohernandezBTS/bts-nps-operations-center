@@ -239,6 +239,21 @@ D-V2-3). Open: D-V2-9 (definition of "results available": minimum responses, day
 the session) and D-V2-10 (what goes in the card: Box link or file; identity used to
 write in Slack and Box).
 
+### 6.7 User interface (all views)
+
+Every HTML view a user sees or operates (the Slack page today; the survey-creation
+preview and approval in V2-2; later views) is built on one shared kit,
+`nps_v2/outputs/ui_kit.py` (D-V2-11):
+
+- Ionic web components (`@ionic/core`, exact pinned version, iOS mode) loaded from the
+  CDN when the page opens; nothing is installed in the repository or the skill.
+- BTS theme through Ionic's CSS variables (magenta, charcoal, Inter) and the ACT &
+  SURVEYS card look.
+- Mandatory fallback: every `ion-*` element a view uses has a `:not(:defined)` rule,
+  so a viewer that blocks the CDN still gets a working BTS page (tests enforce it).
+- Shared behaviour (`window.BTSUI`): toast notices, clipboard with fallbacks, manual
+  copy. What is copied or written elsewhere (Slack payload) never carries kit markup.
+
 ## 7. Safety model
 
 | Risk | Control |
@@ -305,6 +320,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-8 | Product language: English for everything users see or operate (preview, Slack page and cards, comparison, skill instructions); code is not translated; the certified engine's Spanish messages are worded in English by V2 (`nps_v2/reasons.py`, `config/v2/rule_labels.json`) without changing `engine/` | **decided 2026-11-26** |
 | D-V2-9 | "Results available" rule for §6.6 (minimum responses, days after the session) | open (V2-4) |
 | D-V2-10 | Results in the card: Box link or file; identity for Slack/Box writes | open (V2-4) |
+| D-V2-11 | Every HTML view uses the shared Ionic + BTS kit (§6.7): Ionic 8.8.19, iOS mode, mandatory fallback | **decided 2026-11-26** |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2

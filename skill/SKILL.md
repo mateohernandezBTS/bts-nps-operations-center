@@ -100,8 +100,9 @@ With `"status": "ok"`, `outputs` holds:
 
 - `preview.md`: the preview (surveys to create, already created, manual review,
   excluded with reason, outside the report scope, special cases, data quality).
-- `slack_html`: the Slack page (session cards with QR, one "Copy for Slack" button
-  per client).
+- `slack_html`: the Slack page (search, country tabs, one card per client with its
+  sessions and QR codes, and a "Copy for Slack" button per client). Never rewrite or
+  restyle it: all views come from the engine's shared UI kit.
 
 ### 5. What to show the user
 
