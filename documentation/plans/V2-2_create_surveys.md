@@ -1,7 +1,8 @@
 # Execution Plan — V2-2 Create surveys (first Salesforce writes)
 
-Status: **PLAN ONLY — awaiting product-owner approval.** Implementation is not authorized
-by this document. Prepared 2026-11-26. Product owner: PE, BTS SELAM. Architect: Claude.
+Status: **APPROVED by the product owner on 2026-11-26 — implementation of steps 1–8
+authorized. Real Salesforce writes are NOT authorized until the pilot gate in §9.**
+Prepared 2026-11-26. Product owner: PE, BTS SELAM. Architect: Claude.
 Path chosen by the PO on 2026-11-26: **A — V2 reproduces the creation in Salesforce,
 proven by a one-project pilot** (path B, an admin-built invocable flow, stays the fallback).
 
@@ -176,6 +177,7 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
 
 | Date | Decision | Reason | Decided by |
 |---|---|---|---|
+| 2026-11-26 | Plan approved; implementation of steps 1–8 starts (no real writes before the §9 gate) | PO approval in the session | PO |
 | 2026-11-26 | D-V2-2: the audit of each creation is its output — the refreshed Slack page plus an Excel creation log delivered with it; no separate audit store | The Slack page is what the team operates with; the Excel keeps the detail | PO |
 | 2026-11-26 | D-V2-4: surveys are created with the identity of the user operating the tool (the connector's user), not a fixed or technical account | Same ownership as manual creation; the tool can be used by other people | PO |
 | 2026-11-26 | D-V2-13: path A with a one-project pilot | No dependency on a Salesforce admin; the recipe is verified 48/48 by reading | PO |
