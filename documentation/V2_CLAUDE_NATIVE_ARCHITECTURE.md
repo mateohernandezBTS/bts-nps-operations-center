@@ -267,6 +267,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-5 | NPS-004 (`meli` substring) and NPS-015 (generic coaching / 1:1) | open, carried over |
 | D-V2-6 | Days threshold for "Survey Invitation missing" alert | open (V2-4) |
 | D-V2-7 | Survey-kind detection by family (§5.2) | **decided 2026-11-25** |
+| D-V2-8 | Product language: English for everything users see or operate (preview, Slack page and cards, comparison, skill instructions); code is not translated; the certified engine's Spanish messages are worded in English by V2 (`nps_v2/reasons.py`, `config/v2/rule_labels.json`) without changing `engine/` | **decided 2026-11-26** |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2

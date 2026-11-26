@@ -24,7 +24,7 @@ the operational source; V2 is read-only and its outputs are compared, not used.
 
 | Step | Desktop v1.0.2 | V2 (Claude) |
 |---|---|---|
-| 1 | Run as usual after the subscribed reports arrive (~13:00 UTC). | In the same hour, ask Claude: "Corré el Upcoming de NPS de esta semana". Claude follows the skill: select → queries → capture → surveys → upcoming. |
+| 1 | Run as usual after the subscribed reports arrive (~13:00 UTC). | In the same hour, ask Claude (in English or Spanish): "Run this week's NPS Upcoming". Claude follows the skill: select → queries → capture → surveys → upcoming. |
 | 2 | Keep `selam_worklist.csv` of the weekly run. | Review `preview.md` and the Slack page. Do **not** use them operationally yet. |
 | 3 | — | Attach the desktop `selam_worklist.csv` and ask Claude to compare: `python -m nps_v2 compare --run <run> --desktop selam_worklist.csv`. |
 | 4 | — | Explain every remaining difference (section 3) and record the run (section 4). |
@@ -36,9 +36,9 @@ by Salesforce changes after the report was sent.
 
 | Where | Typical cause | How to confirm |
 |---|---|---|
-| Only on desktop, "V2: excluido / revisión / fuera de alcance" | Data changed after the report, or report-scope rule differs (D-V2-1) | Read the reason in `compare.md`; check the record in Salesforce |
-| Only on desktop, "No está en Salesforce para esta selección" | Record deleted, or start date / billing country changed after the report | Open the project in Salesforce (history) |
-| Only in V2, "A revisar" | Project created or modified after the report was sent | Check `CreatedDate` / `LastModifiedDate` in Salesforce |
+| Only on desktop, "V2: excluded / manual review / outside the report scope" | Data changed after the report, or report-scope rule differs (D-V2-1) | Read the reason in `compare.md`; check the record in Salesforce |
+| Only on desktop, "Not in Salesforce for this selection" | Record deleted, or start date / billing country changed after the report | Open the project in Salesforce (history) |
+| Only in V2, "To check" | Project created or modified after the report was sent | Check `CreatedDate` / `LastModifiedDate` in Salesforce |
 | Same session, different survey state | Survey created between the report and the V2 run | Survey Set `CreatedDate` |
 
 A difference is **unexplained** when none of the above holds. Any unexplained
@@ -67,5 +67,5 @@ once Salesforce write permission and the audit store (D-V2-2) are settled.
 ## 6. If something fails
 
 Claude must stop on any engine error and show the message (see the skill's
-"Problemas frecuentes"). Report persistent errors with the run id; the run folder
+"Common problems"). Report persistent errors with the run id; the run folder
 stays in the Claude session and is never committed.
