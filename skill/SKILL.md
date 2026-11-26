@@ -112,6 +112,19 @@ Si devuelve `"status": "ok"`, en `outputs` están:
    página abre la tabla seleccionada para Ctrl+C, y que en Chrome o Edge copia
    directo.
 
+### 6. Corrida en paralelo (mientras se usa la app de escritorio)
+
+Si el usuario adjunta el `selam_worklist.csv` de la app de escritorio de la misma
+semana:
+
+```bash
+... python3 -m nps_v2 compare --run "$RUN_DIR" --desktop <ruta del CSV adjunto>
+```
+
+Entregá `compare.md`. Las diferencias "Solo en escritorio" ya vienen explicadas por
+V2; las "Solo en V2" (marcadas "A revisar") suelen ser sesiones creadas o modificadas
+después del envío del reporte: proponé revisarlas en Salesforce, sin escribir nada.
+
 ## Problemas frecuentes
 
 | Mensaje | Qué significa | Qué hacer |

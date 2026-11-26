@@ -22,6 +22,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
+from nps_v2.compare import CompareError
 from nps_v2.domain import ProjectSnapshot
 from nps_v2.pipeline import PipelineError, load_report_scope, run_pipeline
 from nps_v2.registry import RegistryError, load_registry
@@ -52,6 +53,7 @@ from nps_v2.watchlist import WatchlistError, load_watchlist
 
 EXIT_ERROR = 2
 KNOWN_ERRORS = (
+    CompareError,
     PipelineError,
     ReaderError,
     RegistryError,
@@ -194,6 +196,37 @@ def command_capture(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_compare(args: argparse.Namespace) -> dict[str, Any]:
+    from nps_v2.compare import compare, read_desktop_ready, render_comparison
+
+    folder = RunFolder(Path(args.run))
+    report_path = folder.path / "report.json"
+    if not report_path.exists():
+        raise RunFolderError("Missing report.json: run 'upcoming' first")
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    desktop = Path(args.desktop)
+    comparison = compare(report, read_desktop_ready(desktop))
+    (folder.path / "compare.json").write_text(
+        json.dumps(comparison.to_dict(), ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    markdown = folder.path / "compare.md"
+    markdown.write_text(
+        render_comparison(
+            comparison, run_id=str(report["run_id"]), desktop_name=desktop.name
+        ),
+        encoding="utf-8",
+    )
+    return {
+        "step": "compare",
+        "matching": comparison.matching,
+        "only_desktop": len(comparison.only_desktop),
+        "only_v2": len(comparison.only_v2),
+        "to_review": comparison.unexplained,
+        "outputs": {"compare": str(markdown)},
+    }
+
+
 # --- helpers -----------------------------------------------------------------------
 
 
@@ -306,6 +339,13 @@ def _parser() -> argparse.ArgumentParser:
         "--transcript", default="", help="session .jsonl (default: newest)"
     )
     capture.set_defaults(handler=command_capture)
+
+    compare_parser = commands.add_parser(
+        "compare", help="parallel run: compare with the desktop selam_worklist.csv"
+    )
+    compare_parser.add_argument("--run", required=True)
+    compare_parser.add_argument("--desktop", required=True, help="desktop CSV")
+    compare_parser.set_defaults(handler=command_compare)
 
     upcoming = commands.add_parser(
         "upcoming", help="verify everything and write outputs"
