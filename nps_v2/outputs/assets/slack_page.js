@@ -1,6 +1,7 @@
 (function(){
+  var ui=window.BTSUI;
   function renderQrs(){
-    document.querySelectorAll('.qr').forEach(function(box){
+    document.querySelectorAll('.qr[data-text]').forEach(function(box){
       var text=box.getAttribute('data-text');
       try{
         new QRCode(box,{text:text,width:150,height:150,colorDark:'#24282B',
@@ -12,12 +13,6 @@
       }
     });
   }
-  function flash(btn,ok,label){
-    var original=btn.getAttribute('data-label')||btn.textContent;
-    btn.setAttribute('data-label',original);
-    btn.classList.add(ok?'ok':'fail');btn.textContent=label;
-    setTimeout(function(){btn.classList.remove('ok','fail');btn.textContent=original;},1600);
-  }
   function plainText(holder){
     return Array.from(holder.querySelectorAll('h3,p,hr')).map(function(el){
       if(el.tagName==='HR'){return '';}
@@ -25,98 +20,87 @@
   }
   function embedQrImages(card,holder){
     // Swap each QR placeholder for the PNG drawn in the browser (same session order as
-    // the preview), so the copied image never depends on an external image service.
-    var previewRows=card.querySelectorAll('table.preview tbody tr');
+    // the card's list), so the copied image never depends on an external service.
+    var items=card.querySelectorAll('ion-item.session');
     holder.querySelectorAll('img[data-row]').forEach(function(img){
-      var row=previewRows[Number(img.getAttribute('data-row'))];
-      var canvas=row&&row.querySelector('.qr canvas');
+      var item=items[Number(img.getAttribute('data-row'))];
+      var canvas=item&&item.querySelector('.qr canvas');
       if(canvas){img.src=canvas.toDataURL('image/png');}
       img.removeAttribute('data-row');
     });
   }
-  // Copy strategy, most to least capable. Embedded viewers (for example a file preview
-  // inside another app) often block the async Clipboard API, so every step falls back.
-  async function writeAsync(items){
-    if(!(navigator.clipboard&&window.ClipboardItem&&navigator.clipboard.write)){return false;}
-    try{await navigator.clipboard.write([new ClipboardItem(items)]);return true;}
-    catch(e){return false;}
-  }
-  function writeWithCopyEvent(data){
-    var done=false;
-    function onCopy(ev){
-      Object.keys(data).forEach(function(type){ev.clipboardData.setData(type,data[type]);});
-      ev.preventDefault();done=true;
-    }
-    document.addEventListener('copy',onCopy,true);
-    try{document.execCommand('copy');}catch(e){}
-    document.removeEventListener('copy',onCopy,true);
-    return done;
-  }
-  function writeBySelection(node){
-    var box=document.createElement('div');
-    box.setAttribute('contenteditable','true');
-    box.style.cssText='position:fixed;left:-10000px;top:0;opacity:0';
-    box.appendChild(node);document.body.appendChild(box);
-    var sel=window.getSelection(),range=document.createRange();
-    range.selectNodeContents(box);sel.removeAllRanges();sel.addRange(range);
-    var ok=false;try{ok=document.execCommand('copy');}catch(e){}
-    sel.removeAllRanges();box.remove();return ok;
-  }
-  function manualCopy(node,message){
-    // Last resort: show the content selected so Ctrl+C / Cmd+C copies it.
-    var overlay=document.getElementById('manual-copy');
-    overlay.querySelector('.mc-msg').textContent=message;
-    var area=overlay.querySelector('.mc-area');area.innerHTML='';area.appendChild(node);
-    overlay.hidden=false;
-    var sel=window.getSelection(),range=document.createRange();
-    range.selectNodeContents(area);sel.removeAllRanges();sel.addRange(range);
-  }
-  async function copyPayload(btn){
-    var holder=payloadFor(btn.closest('article'));
-    var htmlText=holder.innerHTML,text=plainText(holder);
-    if(await writeAsync({'text/html':new Blob([htmlText],{type:'text/html'}),
-        'text/plain':new Blob([text],{type:'text/plain'})})
-      ||writeWithCopyEvent({'text/html':htmlText,'text/plain':text})
-      ||writeBySelection(holder.cloneNode(true))){
-      flash(btn,true,'Copied ✓');return;
-    }
-    flash(btn,false,'Copy by hand');
-    manualCopy(holder,'This viewer blocks the clipboard. The content is already '
-      +'selected: press Ctrl+C (Cmd+C on Mac) and paste it into the canvas.');
-  }
-  async function copyQr(btn){
-    var canvas=btn.parentElement.querySelector('canvas');
-    if(!canvas){flash(btn,false,'Not available');return;}
-    var dataUrl=canvas.toDataURL('image/png');
-    var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/png');});
-    var img='<img src="'+dataUrl+'" alt="QR" width="150" height="150">';
-    if((blob&&await writeAsync({'image/png':blob}))
-      ||writeWithCopyEvent({'text/html':img})){
-      flash(btn,true,'QR copied ✓');return;
-    }
-    var node=document.createElement('img');node.src=dataUrl;node.alt='QR';
-    node.width=150;node.height=150;
-    flash(btn,false,'Copy by hand');
-    manualCopy(node,'This viewer blocks the clipboard. The QR is already selected: '
-      +'press Ctrl+C (Cmd+C on Mac).');
-  }
   function payloadFor(card){
-    var tpl=card.querySelector('template');
     var holder=document.createElement('div');
-    holder.appendChild(tpl.content.cloneNode(true));
+    holder.appendChild(card.querySelector('template').content.cloneNode(true));
     embedQrImages(card,holder);
     return holder;
   }
-  document.addEventListener('toggle',function(ev){
-    var d=ev.target;
-    if(!(d.classList&&d.classList.contains('slack-view'))||!d.open){return;}
-    var box=d.querySelector('.slack-cards');
-    if(!box.hasChildNodes()){box.appendChild(payloadFor(d.closest('article')));}
-  },true);
+  async function copyPayload(btn){
+    var holder=payloadFor(btn.closest('ion-card'));
+    var htmlText=holder.innerHTML,text=plainText(holder);
+    if(await ui.copyRich(
+        {'text/html':new Blob([htmlText],{type:'text/html'}),
+         'text/plain':new Blob([text],{type:'text/plain'})},
+        {'text/html':htmlText,'text/plain':text},holder.cloneNode(true))){
+      ui.notify(btn,true,'Copied for Slack ✓');return;
+    }
+    ui.notify(btn,false,'Copy by hand');
+    ui.manualCopy(holder,'This viewer blocks the clipboard. The content is already '
+      +'selected: press Ctrl+C (Cmd+C on Mac) and paste it into the canvas.');
+  }
+  async function copyQr(control){
+    var canvas=control.closest('ion-item').querySelector('.qr canvas');
+    if(!canvas){ui.notify(control,false,'Not available');return;}
+    var dataUrl=canvas.toDataURL('image/png');
+    var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/png');});
+    var img='<img src="'+dataUrl+'" alt="QR" width="150" height="150">';
+    if(await ui.copyRich(blob?{'image/png':blob}:null,{'text/html':img},null)){
+      ui.notify(control,true,'QR copied ✓');return;
+    }
+    var node=document.createElement('img');node.src=dataUrl;node.alt='QR';
+    node.width=150;node.height=150;
+    ui.notify(control,false,'Copy by hand');
+    ui.manualCopy(node,'This viewer blocks the clipboard. The QR is already selected: '
+      +'press Ctrl+C (Cmd+C on Mac).');
+  }
+  function fillSlackView(card){
+    var box=card&&card.querySelector('.slack-cards');
+    if(box&&!box.hasChildNodes()){box.appendChild(payloadFor(card));}
+  }
+  // Search and country tabs (available when Ionic is loaded).
+  var query='',country='all';
+  function applyFilters(){
+    var any=false;
+    document.querySelectorAll('section.country').forEach(function(section){
+      var countryOk=country==='all'||section.getAttribute('data-country')===country;
+      var sectionAny=false;
+      section.querySelectorAll('ion-card.client').forEach(function(card){
+        var cardAny=false;
+        card.querySelectorAll('ion-item.session').forEach(function(item){
+          var ok=countryOk&&(!query||item.getAttribute('data-search').indexOf(query)>=0);
+          item.hidden=!ok;cardAny=cardAny||ok;
+        });
+        card.hidden=!cardAny;sectionAny=sectionAny||cardAny;
+      });
+      section.hidden=!sectionAny;any=any||sectionAny;
+    });
+    var none=document.getElementById('no-results');if(none){none.hidden=any;}
+  }
+  document.addEventListener('ionInput',function(ev){
+    if(ev.target.tagName==='ION-SEARCHBAR'){
+      query=(ev.detail.value||'').trim().toLowerCase();applyFilters();}
+  });
+  document.addEventListener('ionChange',function(ev){
+    if(ev.target.tagName==='ION-SEGMENT'){country=ev.detail.value||'all';applyFilters();}
+    else if(ev.target.classList&&ev.target.classList.contains('slack-view')&&ev.detail.value){
+      fillSlackView(ev.target.closest('ion-card'));}
+  });
+  document.addEventListener('bts-open',function(ev){
+    if(ev.target.closest('.slack-view')){fillSlackView(ev.target.closest('ion-card'));}
+  });
   document.addEventListener('click',function(ev){
-    var b=ev.target.closest('button');if(!b){return;}
-    if(b.hasAttribute('data-close-manual')){
-      document.getElementById('manual-copy').hidden=true;return;}
+    var qr=ev.target.closest('.qr[data-text]');if(qr){copyQr(qr);return;}
+    var b=ev.target.closest('ion-button');if(!b){return;}
     if(b.hasAttribute('data-copy')){copyPayload(b);}
     else if(b.hasAttribute('data-copy-qr')){copyQr(b);}
   });

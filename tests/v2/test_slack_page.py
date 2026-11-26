@@ -128,17 +128,18 @@ class PageTest(unittest.TestCase):
         )
         template = re.search(r"<template[^>]*>(.*?)</template>", page, re.S).group(1)  # type: ignore[union-attr]
         self.assertNotIn("Send by e-mail", template)
-        self.assertNotIn("row-special", template)
+        self.assertNotIn("special", template)
+        self.assertNotIn("ion-", template)
         preview = page.replace(template, "")
         self.assertIn(
             "Send by e-mail separately:</b> Session 02 · Watched Person", preview
         )
-        self.assertIn('<tr class="row-special">', preview)
+        self.assertIn('class="session special"', preview)
         self.assertIn('data-copy="payload-client-table-', preview)
 
     def test_preview_draws_qr_locally_with_fallback(self) -> None:
         page = self.render([row(1, **{"QR-Code": QR})], {})
-        self.assertIn('class="qr" data-text="https://example.invalid/nps/1"', page)
+        self.assertIn('data-text="https://example.invalid/nps/1"', page)
         self.assertIn('data-fallback="https://api.qrserver.com/', page)
         self.assertIn(
             "cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js", page
@@ -170,8 +171,35 @@ class PageTest(unittest.TestCase):
 
     def test_each_client_can_show_how_it_looks_in_slack(self) -> None:
         page = self.render([row(1), row(2, Client="Other Client")], {})
-        self.assertEqual(page.count('<details class="slack-view">'), 2)
+        self.assertEqual(page.count('<ion-accordion-group class="slack-view">'), 2)
         self.assertIn("function payloadFor(", page)
+
+    def test_sessions_follow_payload_order(self) -> None:
+        # The copy script maps each payload QR (data-row) to the n-th session item.
+        page = self.render([row(3), row(1), row(2)], {})
+        items = re.findall(r'data-index="(\d)" data-search="[^"]*session (0\d)', page)
+        self.assertEqual(items, [("0", "01"), ("1", "02"), ("2", "03")])
+
+    def test_search_and_country_tabs(self) -> None:
+        page = self.render([row(1, Country="Brazil"), row(2, Country="Argentina")], {})
+        self.assertIn("<ion-searchbar", page)
+        tabs = re.findall(r'<ion-segment-button value="([^"]+)"', page)
+        self.assertEqual(tabs, ["all", "Argentina", "Brazil"])
+        self.assertIn('data-search="synthetic client session 01 facilitator one', page)
+
+    def test_only_http_links_are_rendered(self) -> None:
+        unsafe = row(
+            1,
+            **{
+                "Link NPS Survey": "javascript:alert(1)",
+                "Link Insights Facilitators": "data:text/html,x",
+                "Link for Results": "javascript:alert(2)",
+            },
+        )
+        preview = self.render([unsafe], {}).split("<template")[0]
+        self.assertNotIn("javascript:", preview)
+        self.assertNotIn("data:text/html", preview)
+        self.assertIn("Surveys not created yet", preview)
 
     def test_kpis_and_empty_state(self) -> None:
         page = self.render([], {})

@@ -1,9 +1,12 @@
-"""Slack page for V2: a BTS-styled preview plus a Slack-safe copy payload.
+"""Slack page for V2: an Ionic + BTS preview plus a Slack-safe copy payload.
 
 The page has two deliberately separate layers:
 
-* **Preview** (what you see): BTS look and feel, QR codes generated in the browser
-  (``qrcodejs``, like the ACT & SURVEYS tool), special-case notices as callouts.
+* **Preview** (what you see): built on the shared UI kit (``ui_kit``: Ionic, iOS mode,
+  BTS theme, mandatory fallback). Search by client, session or facilitator, tabs by
+  country, one card per client with its sessions, QR codes drawn in the browser
+  (``qrcodejs``; click a QR to copy it), special-case notices as callouts, and "See
+  how it looks in Slack".
 * **Copy payload** (what "Copy for Slack" puts on the clipboard): one card per
   session (title, date, facilitator, links, results and the QR image), in plain HTML
   that a Slack canvas accepts. A canvas table cannot hold images (verified by the
@@ -24,11 +27,18 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from engine.slack_canvas_renderer import (
-    SLACK_COLUMNS,
     build_client_table_id,
     get_record_sort_key,
-    render_cell,
     render_link,
+)
+from nps_v2.outputs.ui_kit import (
+    Tile,
+    attr,
+    brandbar,
+    kpi_tiles,
+    render_document,
+    safe_url,
+    text,
 )
 
 QRCODE_SCRIPT = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
@@ -118,84 +128,60 @@ def render_page(
         _country_section(country, grouped[country], special_cases)
         for country in countries
     )
-    body = (
-        _brandbar(context)
-        + _howto()
-        + _kpis(
-            len(rows), sum(len(c) for c in grouped.values()), len(special_rows), context
-        )
-        + (sections or '<p class="empty">No sessions are ready in this selection.</p>')
-    )
-    return (
-        '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
-        '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-        f"<title>Slack table · {html.escape(context.run_id)}</title>\n"
-        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
-        'family=Inter:wght@400;500;600;700&display=swap">\n'
-        f"<style>{_CSS}</style>\n</head>\n<body>\n"
-        f'<main class="shell">\n{body}\n</main>\n'
-        f"{_MANUAL_COPY}\n"
-        f'<script src="{QRCODE_SCRIPT}"></script>\n'
-        f"<script>{_JS}</script>\n</body>\n</html>\n"
-    )
-
-
-_MANUAL_COPY = (
-    '<div id="manual-copy" hidden><div class="mc-box" role="dialog" aria-modal="true">'
-    '<div class="mc-head"><p class="mc-msg"></p>'
-    '<button type="button" class="btn" data-close-manual>Close</button></div>'
-    '<div class="mc-area"></div></div></div>'
-)
-
-
-# --- sections ----------------------------------------------------------------------
-
-
-def _brandbar(context: PageContext) -> str:
-    return (
-        '<header class="brandbar"><span class="mark" aria-hidden="true">BTS</span>'
-        '<div class="bb-text"><h1>NPS · Slack table</h1>'
-        f"<p>{html.escape(context.title)} · run {html.escape(context.run_id)} · "
-        f"generated {html.escape(context.generated_at)}</p></div></header>"
-    )
-
-
-def _howto() -> str:
-    return (
-        '<section class="card howto"><h2 class="card-title">How to use</h2><ul>'
-        "<li><b>Copy for Slack</b> copies the client's sessions as cards (title, "
-        "date, facilitator, links and QR), ready to paste into the client's "
-        "canvas.</li>"
-        "<li><b>Copy QR</b> copies a single QR, in case one needs replacing.</li>"
-        "<li>Personalised e-mail notices are shown here and are <b>never</b> "
-        "copied.</li>"
-        "<li>If the viewer blocks copying (for example, a preview inside another "
-        "app), the content opens already selected: copy it with Ctrl+C. For the "
-        "best result, open this file in Chrome or Edge.</li>"
-        "</ul></section>"
-    )
-
-
-def _kpis(sessions: int, clients: int, special: int, context: PageContext) -> str:
-    tiles = (
-        ("Sessions ready", sessions, ""),
-        ("Clients", clients, ""),
-        ("Personalised e-mail", special, " tile-warn" if special else ""),
+    tiles = kpi_tiles(
         (
-            "Manual review",
-            context.review_count,
-            " tile-warn" if context.review_count else "",
-        ),
+            Tile("Sessions ready", len(rows)),
+            Tile("Clients", sum(len(c) for c in grouped.values())),
+            Tile("Personalised e-mail", len(special_rows), warn=True),
+            Tile("Manual review", context.review_count, warn=True),
+        )
+    )
+    empty = (
+        '<p class="empty">No sessions are ready in this selection.</p>'
+        if not sections
+        else '<p id="no-results" class="empty" hidden>No sessions match the search.</p>'
+    )
+    header = brandbar(
+        "NPS · Slack table",
+        f"{context.title} · run {context.run_id} · generated {context.generated_at}",
+    ) + _tools(countries)
+    return render_document(
+        title=f"Slack table · {context.run_id}",
+        header=header,
+        body=_HELP + tiles + sections + empty,
+        css=_CSS,
+        js=_JS,
+        scripts=(QRCODE_SCRIPT,),
+    )
+
+
+def _tools(countries: Sequence[str]) -> str:
+    tabs = "".join(
+        f'<ion-segment-button value="{attr(value)}"><ion-label>{text(label)}'
+        "</ion-label></ion-segment-button>"
+        for value, label in (("all", "All"), *((c, c) for c in countries))
     )
     return (
-        '<section class="kpis">'
-        + "".join(
-            f'<div class="tile{extra}"><span class="tile-n">{value}</span>'
-            f'<span class="tile-l">{label}</span></div>'
-            for label, value, extra in tiles
-        )
-        + "</section>"
+        '<div class="tools"><ion-searchbar placeholder="Search client, session or '
+        'facilitator" debounce="150" show-clear-button="focus"></ion-searchbar>'
+        f'<ion-segment value="all" scrollable="true">{tabs}</ion-segment></div>'
     )
+
+
+_HELP = (
+    '<ion-card class="help"><ion-accordion-group><ion-accordion value="help">'
+    '<ion-item slot="header" lines="none"><ion-label>How to use</ion-label></ion-item>'
+    '<div slot="content"><ul>'
+    "<li><b>Copy for Slack</b> copies the client's sessions as cards (title, date, "
+    "facilitator, links and QR), ready to paste into the client's canvas.</li>"
+    "<li>Click a QR (or <b>Copy QR</b>) to copy a single QR, in case one needs "
+    "replacing.</li>"
+    "<li>Personalised e-mail notices are shown here and are <b>never</b> copied.</li>"
+    "<li>If the viewer blocks copying (for example, a preview inside another app), "
+    "the content opens already selected: copy it with Ctrl+C. For the best result, "
+    "open this file in Chrome or Edge.</li>"
+    "</ul></div></ion-accordion></ion-accordion-group></ion-card>"
+)
 
 
 def _country_section(
@@ -209,66 +195,102 @@ def _country_section(
         for client in sorted(clients, key=str.casefold)
     )
     return (
-        f'<section class="country"><h2 class="country-title">{html.escape(country)}'
-        f'<span class="pill">{total}</span></h2>{blocks}</section>'
+        f'<section class="country" data-country="{attr(country)}">'
+        f'<h2 class="section-title country-title">{text(country)}'
+        f'<ion-badge class="count">{total}</ion-badge></h2>{blocks}</section>'
     )
 
 
 def _client_card(
     client: str, records: Sequence[Row], special_cases: Mapping[str, Sequence[str]]
 ) -> str:
-    table_id = build_client_table_id(client)
-    template_id = f"payload-{table_id}"
+    template_id = f"payload-{build_client_table_id(client)}"
     ordered = _sorted(records)
     notices = "".join(
         '<div class="callout"><b>Send by e-mail separately:</b> '
-        f"{html.escape(record.get('Session', ''))} · "
-        f"{html.escape(', '.join(special_cases[record.get('Project ID', '')]))}</div>"
+        f"{text(record.get('Session', ''))} · "
+        f"{text(', '.join(special_cases[record.get('Project ID', '')]))}</div>"
         for record in ordered
         if record.get("Project ID", "") in special_cases
     )
-    header = "".join(f"<th>{html.escape(c)}</th>" for c in SLACK_COLUMNS)
-    rows = "".join(_preview_row(record, special_cases) for record in ordered)
+    items = "".join(
+        _session_item(index, record, special_cases)
+        for index, record in enumerate(ordered)
+    )
+    count = len(records)
     return (
-        '<article class="card client">'
-        f'<div class="client-head"><h3>{html.escape(client)}'
-        f'<span class="badge">{len(records)}</span></h3>'
-        f'<button type="button" class="btn btn-primary" data-copy="{template_id}">'
-        "Copy for Slack</button></div>"
-        f"{notices}"
-        '<div class="table-wrap"><table class="preview">'
-        f"<thead><tr>{header}</tr></thead>"
-        f"<tbody>{rows}</tbody></table></div>"
+        f'<ion-card class="client" data-client="{attr(client)}">'
+        '<div class="card-head"><div>'
+        f"<ion-card-title>{text(client)}</ion-card-title>"
+        f"<ion-card-subtitle>{count} session{'s' if count != 1 else ''}"
+        "</ion-card-subtitle></div>"
+        f'<ion-button data-copy="{template_id}">{_COPY_ICON}Copy for Slack'
+        "</ion-button></div>"
+        f'{notices}<ion-list lines="full">{items}</ion-list>'
+        '<ion-accordion-group class="slack-view"><ion-accordion value="slack">'
+        '<ion-item slot="header" lines="none"><ion-label>See how it looks in Slack'
+        '</ion-label></ion-item><div slot="content" class="slack-cards"></div>'
+        "</ion-accordion></ion-accordion-group>"
         f'<template id="{template_id}">{payload_cards(records)}</template>'
-        '<details class="slack-view"><summary>See how it looks in Slack</summary>'
-        '<div class="slack-cards"></div></details>'
-        "</article>"
+        "</ion-card>"
     )
 
 
-def _preview_row(record: Row, special_cases: Mapping[str, Sequence[str]]) -> str:
-    special = record.get("Project ID", "") in special_cases
-    cells = []
-    for column in SLACK_COLUMNS:
-        if column == "QR-Code":
-            cells.append(_preview_qr(record))
-        else:
-            cells.append(f"<td>{render_cell(dict(record), column)}</td>")
-    css = ' class="row-special"' if special else ""
-    return f"<tr{css}>{''.join(cells)}</tr>"
-
-
-def _preview_qr(record: Row) -> str:
-    link = " ".join(record.get("Link NPS Survey", "").split())
-    hosted = " ".join(record.get("QR-Code", "").split())
-    if not link:
-        return '<td class="qr-cell"><span class="muted">—</span></td>'
+def _session_item(
+    index: int, record: Row, special_cases: Mapping[str, Sequence[str]]
+) -> str:
+    link = safe_url(record.get("Link NPS Survey", ""))
+    hosted = safe_url(record.get("QR-Code", ""))
+    qr = (
+        f'<div slot="start" class="qr" title="Click to copy this QR" '
+        f'data-text="{attr(link)}" data-fallback="{attr(hosted)}" data-no-label></div>'
+        if link
+        else '<div slot="start" class="qr qr-empty">No QR yet</div>'
+    )
+    chips = [
+        _chip_link(label, record.get(column, ""), "link")
+        for label, column in (
+            ("NPS", "Link NPS Survey"),
+            ("Facilitators", "Link Insights Facilitators"),
+        )
+        if safe_url(record.get(column, ""))
+    ] or ['<ion-chip class="pending">Surveys not created yet</ion-chip>']
+    results = f"Results: {' '.join(record.get('Results', '').split()) or 'NO'}"
+    chips.append(_chip_link(results, record.get("Link for Results", ""), "results"))
+    copy_qr = (
+        '<ion-button slot="end" fill="outline" size="small" data-copy-qr>Copy QR'
+        "</ion-button>"
+        if link
+        else ""
+    )
+    special = " special" if record.get("Project ID", "") in special_cases else ""
+    facilitator = text(record.get("Facilitator", "")) or "—"
+    search = " ".join(
+        record.get(k, "")
+        for k in ("Client", "Session", "Facilitator", "Date", "Country")
+    ).casefold()
     return (
-        '<td class="qr-cell">'
-        f'<div class="qr" data-text="{html.escape(link, quote=True)}" '
-        f'data-fallback="{html.escape(hosted, quote=True)}"></div>'
-        '<button type="button" class="btn btn-sm" data-copy-qr>Copy QR</button></td>'
+        f'<ion-item lines="full" class="session{special}" data-index="{index}" '
+        f'data-search="{attr(search)}">{qr}<ion-label class="ion-text-wrap">'
+        f"<h3>{text(record.get('Session', ''))}</h3>"
+        f"<p>{text(record.get('Date', ''))} · {facilitator}"
+        f'</p><div class="chips">{"".join(chips)}</div></ion-label>{copy_qr}</ion-item>'
     )
+
+
+def _chip_link(label: str, url: str, css: str) -> str:
+    chip = f'<ion-chip class="{css}" outline="true">{text(label)}</ion-chip>'
+    target = safe_url(url)
+    if not target:
+        return chip
+    return f'<a href="{attr(target)}" target="_blank" rel="noopener">{chip}</a>'
+
+
+_COPY_ICON = (
+    '<svg slot="start" class="ico" viewBox="0 0 24 24" aria-hidden="true">'
+    '<rect x="8" y="8" width="12" height="12" rx="2"/>'
+    '<path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>'
+)
 
 
 def _sorted(records: Sequence[Row]) -> list[Row]:
