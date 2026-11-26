@@ -19,7 +19,8 @@
     setTimeout(function(){btn.classList.remove('ok','fail');btn.textContent=original;},1600);
   }
   function plainText(holder){
-    return Array.from(holder.querySelectorAll('h3,p')).map(function(el){
+    return Array.from(holder.querySelectorAll('h3,p,hr')).map(function(el){
+      if(el.tagName==='HR'){return '';}
       return el.querySelector('img')?'[QR]':el.textContent.trim();}).join('\n');
   }
   function embedQrImages(card,holder){
@@ -71,10 +72,7 @@
     range.selectNodeContents(area);sel.removeAllRanges();sel.addRange(range);
   }
   async function copyPayload(btn){
-    var tpl=document.getElementById(btn.getAttribute('data-copy'));
-    var holder=document.createElement('div');
-    holder.appendChild(tpl.content.cloneNode(true));
-    embedQrImages(btn.closest('article'),holder);
+    var holder=payloadFor(btn.closest('article'));
     var htmlText=holder.innerHTML,text=plainText(holder);
     if(await writeAsync({'text/html':new Blob([htmlText],{type:'text/html'}),
         'text/plain':new Blob([text],{type:'text/plain'})})
@@ -102,6 +100,19 @@
     manualCopy(node,'Este visor bloquea el portapapeles. El QR ya está seleccionado: '
       +'presioná Ctrl+C (Cmd+C en Mac).');
   }
+  function payloadFor(card){
+    var tpl=card.querySelector('template');
+    var holder=document.createElement('div');
+    holder.appendChild(tpl.content.cloneNode(true));
+    embedQrImages(card,holder);
+    return holder;
+  }
+  document.addEventListener('toggle',function(ev){
+    var d=ev.target;
+    if(!(d.classList&&d.classList.contains('slack-view'))||!d.open){return;}
+    var box=d.querySelector('.slack-cards');
+    if(!box.hasChildNodes()){box.appendChild(payloadFor(d.closest('article')));}
+  },true);
   document.addEventListener('click',function(ev){
     var b=ev.target.closest('button');if(!b){return;}
     if(b.hasAttribute('data-close-manual')){

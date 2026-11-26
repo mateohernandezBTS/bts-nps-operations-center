@@ -47,22 +47,42 @@ class PayloadTest(unittest.TestCase):
         self.assertEqual(
             payload,
             "<h3>Session 01</h3>"
-            "<p>Fecha: 11/21/2026 · Facilitador: Facilitator One</p>"
-            '<p><a href="https://example.invalid/nps/1">NPS</a> · '
-            '<a href="https://example.invalid/sp/1">Facilitators</a> · Results: NO · '
-            '<a href="https://example.invalid/results/1">Home</a></p>'
+            "<p><b>Fecha:</b> 11/21/2026 · <b>Facilitador:</b> Facilitator One</p>"
+            '<p><b>Encuestas:</b> <a href="https://example.invalid/nps/1">NPS</a> · '
+            '<a href="https://example.invalid/sp/1">Facilitators</a></p>'
             '<p><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150'
             '&amp;data=https%3A%2F%2Fx" alt="QR" data-row="0" width="150" '
-            'height="150"></p>',
+            'height="150"></p>'
+            '<p><b>Link Resultados:</b> <a href="https://example.invalid/results/1">'
+            "Home</a></p>"
+            "<p><b>Resultados:</b> NO</p>"
+            "<hr>",
         )
 
     def test_missing_links_and_qr(self) -> None:
         payload = payload_cards(
-            [row(1, **{"Link Insights Facilitators": "", "Facilitator": ""})]
+            [
+                row(
+                    1,
+                    **{
+                        "Link Insights Facilitators": "",
+                        "Link NPS Survey": "",
+                        "Facilitator": "",
+                        "Link for Results": "",
+                    },
+                )
+            ]
         )
-        self.assertNotIn("Facilitators</a>", payload)
-        self.assertIn("Facilitador: —", payload)
-        self.assertIn("<p>QR: pendiente de crear la encuesta</p>", payload)
+        self.assertIn("<b>Encuestas:</b> pendientes", payload)
+        self.assertIn("<b>Facilitador:</b> —", payload)
+        self.assertIn("<p><b>QR:</b> pendiente de crear la encuesta</p>", payload)
+        self.assertIn("<p><b>Link Resultados:</b> —</p>", payload)
+        self.assertIn("<p><b>Resultados:</b> NO</p>", payload)
+
+    def test_every_card_keeps_the_results_marker(self) -> None:
+        payload = payload_cards([row(1), row(2), row(3, Results="")])
+        self.assertEqual(payload.count("<p><b>Resultados:</b> NO</p>"), 3)
+        self.assertEqual(payload.count("<hr>"), 3)
 
     def test_qr_placeholders_follow_card_order(self) -> None:
         payload = payload_cards(
@@ -140,6 +160,11 @@ class PageTest(unittest.TestCase):
         for function in ("writeAsync", "writeWithCopyEvent", "writeBySelection"):
             with self.subTest(function=function):
                 self.assertIn(f"function {function}(", page)
+
+    def test_each_client_can_show_how_it_looks_in_slack(self) -> None:
+        page = self.render([row(1), row(2, Client="Other Client")], {})
+        self.assertEqual(page.count('<details class="slack-view">'), 2)
+        self.assertIn("function payloadFor(", page)
 
     def test_kpis_and_empty_state(self) -> None:
         page = self.render([], {})

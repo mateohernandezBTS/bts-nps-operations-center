@@ -58,10 +58,17 @@ def payload_cards(records: Sequence[Row]) -> str:
 
 
 def _card(index: int, record: Row) -> str:
+    """One session card. Sections always appear in the same order, with bold labels:
+
+    Fecha / Facilitador · Encuestas (links) · QR · Link Resultados (Home) ·
+    Resultados (``NO`` until the result file exists; then the file replaces it) ·
+    divider. "Resultados: NO" is a stable marker a later step can find and fill.
+    """
+
     def text(column: str) -> str:
         return html.escape(" ".join(record.get(column, "").split()))
 
-    links = [
+    surveys = [
         render_link(label, record.get(column, ""))
         for label, column in (
             ("NPS", "Link NPS Survey"),
@@ -69,22 +76,24 @@ def _card(index: int, record: Row) -> str:
         )
         if record.get(column, "").strip()
     ]
-    links.append(f"Results: {text('Results') or '—'}")
-    if record.get("Link for Results", "").strip():
-        links.append(render_link("Home", record["Link for Results"]))
+    results_link = render_link("Home", record.get("Link for Results", "")) or "—"
 
     qr = " ".join(record.get("QR-Code", "").split())
     qr_block = (
         f'<p><img src="{html.escape(qr, quote=True)}" alt="QR" data-row="{index}" '
         f'width="{QR_PAYLOAD_SIZE}" height="{QR_PAYLOAD_SIZE}"></p>'
         if qr
-        else "<p>QR: pendiente de crear la encuesta</p>"
+        else "<p><b>QR:</b> pendiente de crear la encuesta</p>"
     )
     return (
         f"<h3>{text('Session')}</h3>"
-        f"<p>Fecha: {text('Date')} · Facilitador: {text('Facilitator') or '—'}</p>"
-        f"<p>{' · '.join(links)}</p>"
+        f"<p><b>Fecha:</b> {text('Date')} · "
+        f"<b>Facilitador:</b> {text('Facilitator') or '—'}</p>"
+        f"<p><b>Encuestas:</b> {' · '.join(surveys) or 'pendientes'}</p>"
         f"{qr_block}"
+        f"<p><b>Link Resultados:</b> {results_link}</p>"
+        f"<p><b>Resultados:</b> {text('Results') or 'NO'}</p>"
+        "<hr>"
     )
 
 
@@ -228,6 +237,8 @@ def _client_card(
         f"<thead><tr>{header}</tr></thead>"
         f"<tbody>{rows}</tbody></table></div>"
         f'<template id="{template_id}">{payload_cards(records)}</template>'
+        '<details class="slack-view"><summary>Ver cómo queda en Slack</summary>'
+        '<div class="slack-cards"></div></details>'
         "</article>"
     )
 
