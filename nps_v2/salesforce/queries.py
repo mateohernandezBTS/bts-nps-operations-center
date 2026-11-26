@@ -84,17 +84,12 @@ def build_survey_set_queries(
     chunk_size: int = SURVEY_SET_CHUNK_SIZE,
 ) -> list[Query]:
     """One query per chunk of project Ids (none when there are no projects)."""
-    if chunk_size < 1:
-        raise ValueError("chunk_size must be positive")
-    unique = _unique(project_ids)
     queries = []
-    for number, start in enumerate(range(0, len(unique), chunk_size), start=1):
-        chunk = unique[start : start + chunk_size]
-        ids = ", ".join(soql_string(str(project_id)) for project_id in chunk)
+    for number, chunk in enumerate(chunk_project_ids(project_ids, chunk_size), start=1):
         soql = (
             f"SELECT {', '.join(SURVEY_SET_FIELDS)} "
             f"FROM {SURVEY_SET_OBJECT} "
-            f"WHERE Project__c IN ({ids}) "
+            f"WHERE Project__c IN ({id_list(chunk)}) "
             "ORDER BY Project__c ASC, CreatedDate ASC, Id ASC "
             f"LIMIT {SURVEY_SET_QUERY_LIMIT}"
         )
@@ -106,6 +101,20 @@ def build_survey_set_queries(
             )
         )
     return queries
+
+
+def chunk_project_ids(
+    project_ids: Iterable[SalesforceId], chunk_size: int = SURVEY_SET_CHUNK_SIZE
+) -> list[Sequence[SalesforceId]]:
+    """Unique Ids in input order, split into chunks of at most ``chunk_size``."""
+    if chunk_size < 1:
+        raise ValueError("chunk_size must be positive")
+    unique = _unique(project_ids)
+    return [unique[i : i + chunk_size] for i in range(0, len(unique), chunk_size)]
+
+
+def id_list(project_ids: Iterable[SalesforceId]) -> str:
+    return ", ".join(soql_string(str(project_id)) for project_id in project_ids)
 
 
 def _unique(project_ids: Iterable[SalesforceId]) -> Sequence[SalesforceId]:
