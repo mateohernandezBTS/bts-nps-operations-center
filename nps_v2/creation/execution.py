@@ -9,7 +9,10 @@ is written. Order:
    the connector's user may create them (D-V2-4). The project update is not
    pre-checked (its describe is too large); if it fails, the survey already exists and
    ``reconcile`` reports the missing project link;
-2. per planned survey: check it does not exist yet → create the invitation → read its
+2. site check: the survey site (``Network``, the invitation's ``CommunityId``) must be
+   visible to that user, or Salesforce rejects the invitation with "insufficient access
+   rights on cross-reference id" (seen in the first pilot, 2026-11-27);
+3. per planned survey: check it does not exist yet → create the invitation → read its
    generated link → create the survey set → (NPS) point the project to the invitation.
 
 The state is plain data saved after every step, so a run can be inspected or resumed
@@ -60,6 +63,7 @@ class ExecutionError(ValueError):
 
 class StepKind(StrEnum):
     PREFLIGHT = "preflight"
+    SITE_CHECK = "site_check"
     CHECK = "check"
     CREATE_INVITATION = "create_invitation"
     READ_INVITATION = "read_invitation"
@@ -174,6 +178,7 @@ def start(plan: CreationPlan) -> ExecutionState:
     steps = [
         Step(StepKind.PREFLIGHT.value, INVITATION_OBJECT),
         Step(StepKind.PREFLIGHT.value, SURVEY_SET_OBJECT),
+        Step(StepKind.SITE_CHECK.value, SITE_OBJECT),
     ]
     for command in plan.commands:
         kinds = [
@@ -244,6 +249,15 @@ def next_call(
             TOOL_DESCRIBE,
             {"sobjectType": step.key, "compact": True},
             f"Check that you can {needs} {step.key} records (nothing is written).",
+        )
+    if kind is StepKind.SITE_CHECK:
+        return Call(
+            state.cursor,
+            kind.value,
+            step.key,
+            TOOL_QUERY,
+            {"query": _site_query(config)},
+            "Check that you can use the survey site (nothing is written).",
         )
     command = _command(plan, step.key)
     progress = state.commands[step.key]
@@ -369,6 +383,14 @@ def _apply(
                 "Missing Salesforce permissions: " + "; ".join(problems)
             )
         return
+    if kind is StepKind.SITE_CHECK:
+        if len(query_records(text)) != 1:
+            raise ResponseError(
+                f"This user cannot use the survey site (Network {config.community_id})"
+                ", so Salesforce would reject the invitations. Nothing was written. "
+                "Ask a Salesforce admin to give this user access to the site."
+            )
+        return
     progress = state.commands[call.key]
     command = _command(plan, call.key)
     if kind is StepKind.CHECK:
@@ -420,7 +442,7 @@ def _set_operator(state: ExecutionState, record: Mapping[str, Any]) -> None:
 def _fail(state: ExecutionState, call: Call, message: str) -> None:
     state.status = RunStatus.FAILED.value
     state.error = f"Step {call.step} ({call.kind}): {message}"
-    if call.kind != StepKind.PREFLIGHT.value:
+    if call.kind not in _RUN_CHECKS:
         progress = state.commands[call.key]
         wrote = bool(progress.invitation_id)
         progress.status = (
@@ -433,12 +455,20 @@ def _advance(state: ExecutionState) -> None:
     state.cursor += 1
     while state.cursor < len(state.steps):
         step = state.steps[state.cursor]
-        if step.kind == StepKind.PREFLIGHT.value:
+        if step.kind in _RUN_CHECKS:
             return
         if state.commands[step.key].status != CommandStatus.SKIPPED.value:
             return
         state.cursor += 1
     state.status = RunStatus.DONE.value
+
+
+_RUN_CHECKS = (StepKind.PREFLIGHT.value, StepKind.SITE_CHECK.value)
+SITE_OBJECT = "Network"
+
+
+def _site_query(config: CreationConfig) -> str:
+    return f"SELECT Id FROM {SITE_OBJECT} WHERE Id = {soql_string(config.community_id)}"
 
 
 def _check_plan(state: ExecutionState, plan: CreationPlan) -> None:

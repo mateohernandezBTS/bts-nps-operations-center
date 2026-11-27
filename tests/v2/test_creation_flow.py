@@ -26,6 +26,7 @@ class FakeSalesforce:
         self.projects: dict[str, str] = {}
         self.fail_on: str = ""
         self.existing_check: set[str] = set()
+        self.site_visible = True
 
     def _id(self, prefix: str) -> str:
         self.counter += 1
@@ -43,6 +44,11 @@ class FakeSalesforce:
                     "updateable": True,
                     "fields": [{"name": "Name", "createable": True}],
                 }
+            )
+        if tool == "salesforce_query" and call["kind"] == "site_check":
+            records = [{"Id": data["query"].split("'")[1]}] if self.site_visible else []
+            return json.dumps(
+                {"totalSize": len(records), "done": True, "records": records}
             )
         if tool == "salesforce_query" and call["kind"] == "check":
             found = call["key"] in self.existing_check
@@ -320,6 +326,25 @@ class CreationFlowTest(CliRunMixin):
         self.assertIn("not createable", out["error"])
         self.assertEqual(first["call"]["kind"], "preflight")
         self.assertEqual(self.fake.invitations, {})
+
+    def test_survey_site_not_visible_stops_before_any_write(self) -> None:
+        # First pilot (2026-11-27): the invitation was rejected with "insufficient
+        # access rights on cross-reference id" for the CommunityId. The site check
+        # now stops the run before the first write.
+        self.upcoming()
+        self.plan_and_approve()
+        self.fake.site_visible = False
+        out = self.run_all(self.cli("execute"))
+        self.assertEqual(out["run_status"], "failed")
+        self.assertIn("step 2 (site_check)".capitalize(), out["error"])
+        self.assertIn("cannot use the survey site", out["error"])
+        self.assertIn("Nothing was written", out["error"])
+        self.assertEqual(self.fake.invitations, {})
+        self.assertEqual(self.fake.survey_sets, [])
+        audit = json.loads(
+            (self.run_dir / "creation" / "state.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual({c["status"] for c in audit["commands"].values()}, {"pending"})
 
     def test_record_reads_the_transcript_and_refuses_double_writes(self) -> None:
         self.upcoming()

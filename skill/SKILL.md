@@ -212,6 +212,7 @@ exactly as returned to a file and run `record --run "$RUN_DIR" --response-file <
 | `does not match the current plan` | The approval code is not the plan's code | Show the plan again; ask for approval |
 | `no '...' call with exactly the printed input` | The tool was not run, or was run with a different input | Run it exactly as printed, then `record` again |
 | `run_status: failed` | A step failed; the run stopped | No retries: `reconcile` and report |
+| `cannot use the survey site` | The user has no access to the Salesforce survey site; nothing was written | Stop; a Salesforce admin must give access (run `reconcile` and report) |
 
 ## What is in this skill
 

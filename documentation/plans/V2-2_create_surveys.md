@@ -155,7 +155,20 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
 - [x] Step 6 — `reconcile` (`nps_v2/creation/reconcile.py`): fresh read-back, outcome per survey (created, already existed, partial, failed, not run), refreshed report and Slack page, `result.html`, `audit.json`, `creation_log.xlsx` (standard-library writer `nps_v2/outputs/xlsx.py`).
 - [x] Step 7 — creation log (part of step 6).
 - [x] Step 8 — `SKILL.md` section 8 "Create surveys (V2-2 — pilot)".
-- [ ] Pilot (section 8) — needs the §9 gate.
+- [ ] Pilot (section 8). **Attempt 1, 2026-11-27 (PO approved code `59ccbff4570c`,
+  session PLT - Session II, NPS + Facilitators, es): stopped safely at the first write.**
+  Preflight and checks passed; `salesforce_create` of the `SurveyInvitation` was rejected
+  with "insufficient access rights on cross-reference id: 0DB390000004Cy1" (the
+  `CommunityId`). The run stopped, reconcile reported 1 failed and 1 not run, and a
+  read-back confirmed **nothing was written** (no invitation, no survey set, project
+  pointer still empty). Findings, read-only: the connector runs as the operator
+  (`LoginHistory` shows only the PO's user: D-V2-4 confirmed); that user sees no
+  `Network` record and is not a `NetworkMember` of the site, so the API cannot reference
+  it; the UI screen flow can, presumably because it runs in system context.
+  **Change:** a site check (`SELECT Id FROM Network WHERE Id = …`) now runs after the
+  preflight and stops the run before any write when the site is not visible.
+  **Next:** a Salesforce admin either gives the operators access to the site (then retry
+  path A) or builds the invocable flow of path B (D-V2-13).
 
 Tested end to end with a simulated connector (`tests/v2/test_creation_flow.py`): happy path, wrong approval code, re-check changing the plan, survey found at its check, failed write, missing permissions and a write run twice. The connector's real answer format for `salesforce_create` / `salesforce_update` is confirmed in the pilot; `record` also accepts a plain-text answer with exactly one new Id.
 
@@ -191,6 +204,7 @@ Tested end to end with a simulated connector (`tests/v2/test_creation_flow.py`):
 
 | Date | Decision | Reason | Decided by |
 |---|---|---|---|
+| 2026-11-27 | Pilot attempt 1 stopped at the first write (site not accessible to the operator's user); nothing written. A site check is added before any write; path A needs site access for the operators, otherwise path B | Real Salesforce answer in the pilot | PO + architect |
 | 2026-11-27 | The skill is named `nps-operations-center` (was `nps-upcoming-selam`): it now does more than the Upcoming; the PO installed it with that name | One product name for every increment | PO |
 | 2026-11-26 | Plan approved; implementation of steps 1–8 starts (no real writes before the §9 gate) | PO approval in the session | PO |
 | 2026-11-26 | D-V2-2: the audit of each creation is its output — the refreshed Slack page plus an Excel creation log delivered with it; no separate audit store | The Slack page is what the team operates with; the Excel keeps the detail | PO |
