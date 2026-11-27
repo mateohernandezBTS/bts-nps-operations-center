@@ -23,6 +23,9 @@ border:1px solid var(--grey-light);border-radius:12px;max-width:620px}
 .slack-cards h3{margin:6px 0 4px;font-size:16px}
 .slack-cards p{margin:3px 0}
 .slack-cards img{border-radius:4px}
+.meta{margin:0 0 12px;color:var(--grey-text);font-size:13px}
+ion-card.email{border-color:#F2D2A6}
+.email-actions{display:flex;gap:6px;flex-wrap:wrap}
 @media (max-width:640px){
 .qr{width:60px;height:60px}
 .qr img,.qr canvas{width:50px!important;height:50px!important}

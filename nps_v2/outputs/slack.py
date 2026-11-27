@@ -17,6 +17,7 @@ from pathlib import Path
 from nps_v2.adapters import legacy_date
 from nps_v2.domain import SalesforceId
 from nps_v2.outputs.slack_page import PageContext, render_page
+from nps_v2.outputs.special_email import EmailLanguage
 from nps_v2.pipeline import WorklistEntry
 from nps_v2.registry import CountryRegistry
 from nps_v2.surveys.state import ProjectSurveys
@@ -81,6 +82,7 @@ def write_slack_table(
     page_context: PageContext,
     country_order: Sequence[str],
     special_cases: Mapping[str, Sequence[str]],
+    email_languages: Mapping[str, EmailLanguage] | None = None,
 ) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
     with (directory / WORKLIST_FILE).open("w", encoding="utf-8", newline="") as file:
@@ -103,6 +105,7 @@ def write_slack_table(
             context=page_context,
             country_order=country_order,
             special_cases=special_cases,
+            email_languages=email_languages,
         ),
         encoding="utf-8",
     )

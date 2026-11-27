@@ -40,7 +40,9 @@ def aggregate(
     return {"totalSize": len(records), "done": True, "records": records}
 
 
-class CliFlowTest(unittest.TestCase):
+class CliRunMixin(unittest.TestCase):
+    """Run-folder helpers shared by CLI tests (no tests of its own)."""
+
     def setUp(self) -> None:
         self.directory = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, self.directory)
@@ -87,6 +89,8 @@ class CliFlowTest(unittest.TestCase):
         self.assertEqual(code, 0, out)
         return out
 
+
+class CliFlowTest(CliRunMixin):
     def test_full_flow(self) -> None:
         out = self.select()
         self.assertEqual(
@@ -123,8 +127,54 @@ class CliFlowTest(unittest.TestCase):
         self.assertEqual(out["summary"]["pending"], 2)
         self.assertEqual(out["summary"]["out_of_scope"], 1)
         self.assertFalse(out["watchlist_configured"])
+        self.assertEqual(
+            set(out["outputs"]), {"report", "preview", "preview_html", "slack_html"}
+        )
         for path in out["outputs"].values():
             self.assertTrue(Path(path).exists(), path)
+
+    def test_e_mail_language_from_the_facilitator_office(self) -> None:
+        watchlist = self.directory / "watchlist.json"
+        watchlist.write_text(
+            json.dumps({"facilitators": ["Facilitator One", "Facilitator Three"]}),
+            encoding="utf-8",
+        )
+        self.select()
+        self.save("responses/projects.json", self.projects)
+        self.save(
+            "responses/projects_control.json", self.project_control(self.projects)
+        )
+        code, out = run_cli(
+            "surveys", "--run", str(self.run_dir), "--watchlist", str(watchlist)
+        )
+        self.assertEqual(code, 0, out)
+        lookup = out["queries"][-1]
+        self.assertEqual(lookup["name"], "facilitator_offices")
+        self.assertEqual(
+            lookup["soql"],
+            "SELECT Name, Department FROM User WHERE Name IN ('Facilitator One', "
+            "'Facilitator Three') ORDER BY Name ASC LIMIT 200",
+        )
+        self.save("responses/survey_sets_01.json", self.sets)
+        self.save("responses/survey_sets_01_control.json", self.set_control(self.sets))
+        # Facilitator One works in a Brazilian office; Facilitator Three is not a user.
+        self.save(
+            lookup["save_as"],
+            {
+                "totalSize": 1,
+                "done": True,
+                "records": [{"Name": "Facilitator One", "Department": "BR-Nexo"}],
+            },
+        )
+        code, out = run_cli(
+            "upcoming", "--run", str(self.run_dir), "--watchlist", str(watchlist)
+        )
+        self.assertEqual(code, 0, out)
+        page = Path(out["outputs"]["slack_html"]).read_text(encoding="utf-8")
+        self.assertIn("Portuguese (office BR-Nexo)", page)
+        self.assertIn("Olá Facilitator, tudo bem?", page)
+        self.assertIn("Spanish (session country Mexico)", page)
+        self.assertIn("Hola Facilitator, ¿cómo estás?", page)
 
     def test_capture_saves_responses_from_the_transcript(self) -> None:
         out = self.select()

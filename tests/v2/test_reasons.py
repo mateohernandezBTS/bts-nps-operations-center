@@ -192,6 +192,14 @@ class EnglishOutputsTest(unittest.TestCase):
                 self.assert_english(page)
                 self.assertIn('<html lang="en">', page)
 
+    def test_review_pages(self) -> None:
+        from tests.v2.test_ui_kit import review_pages
+
+        for name, page in review_pages().items():
+            with self.subTest(page=name):
+                self.assert_english(page)
+                self.assertIn('<html lang="en">', page)
+
     def test_comparison(self) -> None:
         ready = [*self.report["pending"], *self.report["complete"]]
         desktop = {

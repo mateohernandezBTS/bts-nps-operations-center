@@ -103,6 +103,27 @@ def build_survey_set_queries(
     return queries
 
 
+FACILITATOR_QUERY_NAME = "facilitator_offices"
+FACILITATOR_QUERY_LIMIT = 200
+
+
+def build_facilitator_office_query(names: Iterable[str]) -> Query | None:
+    """Office (``User.Department``, e.g. ``MX-Mexico City``) of the given staffing
+    names, used only to choose the language of personalised e-mails (D-V2-15).
+    ``None`` when there is nobody to look up."""
+    unique = sorted({" ".join(n.split()) for n in names if n.strip()}, key=str.casefold)
+    if not unique:
+        return None
+    if len(unique) >= FACILITATOR_QUERY_LIMIT:
+        raise ValueError("too many facilitator names for one query")
+    soql = (
+        "SELECT Name, Department FROM User "
+        f"WHERE Name IN ({', '.join(soql_string(n) for n in unique)}) "
+        f"ORDER BY Name ASC LIMIT {FACILITATOR_QUERY_LIMIT}"
+    )
+    return Query(name=FACILITATOR_QUERY_NAME, soql=soql, limit=FACILITATOR_QUERY_LIMIT)
+
+
 def chunk_project_ids(
     project_ids: Iterable[SalesforceId], chunk_size: int = SURVEY_SET_CHUNK_SIZE
 ) -> list[Sequence[SalesforceId]]:

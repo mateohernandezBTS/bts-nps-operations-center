@@ -122,6 +122,9 @@ class CompareCommandTest(unittest.TestCase):
         )
         self.assertTrue((self.run_dir / "compare.md").exists())
         self.assertTrue((self.run_dir / "compare.json").exists())
+        page = Path(out["outputs"]["compare_html"])
+        self.assertEqual(page, self.run_dir / "compare.html")
+        self.assertIn("To check", page.read_text(encoding="utf-8"))
 
     def test_requires_a_report(self) -> None:
         code, out = self.cli(

@@ -9,6 +9,7 @@ from nps_v2.domain import SalesforceId
 from nps_v2.registry import load_registry
 from nps_v2.salesforce.queries import (
     PROJECT_QUERY_LIMIT,
+    build_facilitator_office_query,
     build_projects_query,
     build_survey_set_queries,
     soql_string,
@@ -96,6 +97,24 @@ class SurveySetQueriesTest(unittest.TestCase):
             build_survey_set_queries([project_id(1)], chunk_size=0)
         with self.assertRaises(TypeError):
             build_survey_set_queries(["a0gAA0000000001AAA"])  # type: ignore[list-item]
+
+
+class FacilitatorOfficeQueryTest(unittest.TestCase):
+    def test_unique_sorted_escaped_names(self) -> None:
+        query = build_facilitator_office_query(
+            ["Zoe  Example", "ana o'Brien", "Zoe Example", " "]
+        )
+        assert query is not None
+        self.assertEqual(query.name, "facilitator_offices")
+        self.assertEqual(
+            query.soql,
+            "SELECT Name, Department FROM User WHERE Name IN ('ana o\\'Brien', "
+            "'Zoe Example') ORDER BY Name ASC LIMIT 200",
+        )
+
+    def test_nobody_to_look_up(self) -> None:
+        self.assertIsNone(build_facilitator_office_query([]))
+        self.assertIsNone(build_facilitator_office_query(["  "]))
 
 
 if __name__ == "__main__":

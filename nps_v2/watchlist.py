@@ -32,6 +32,25 @@ class Watchlist:
         staffing = normalize_text(project.all_staffings)
         return tuple(name for name in self.names if normalize_text(name) in staffing)
 
+    def staffing_names(self, project: ProjectSnapshot) -> dict[str, tuple[str, ...]]:
+        """Watch-list name → the project's staffing entries that contain it.
+
+        ``all_staffings`` lists full names separated by commas (or semicolons); a
+        watch-list entry may be a first name ("Ana" → "Ana Example").
+        """
+        entries = [
+            " ".join(part.split())
+            for part in project.all_staffings.replace(";", ",").split(",")
+            if part.strip()
+        ]
+        found = {}
+        for name in self.names:
+            wanted = normalize_text(name)
+            full = tuple(e for e in entries if wanted in normalize_text(e))
+            if full:
+                found[name] = full
+        return found
+
 
 def load_watchlist(path: Path | None = None) -> Watchlist | None:
     """The configured watch-list, or ``None`` when no file is installed."""

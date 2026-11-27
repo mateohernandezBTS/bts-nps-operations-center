@@ -26,7 +26,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-SKILL_NAME = "nps-upcoming-selam"
+SKILL_NAME = "nps-operations-center"
 
 ENGINE_FILES = (
     "engine/__init__.py",
@@ -43,6 +43,7 @@ CONFIG_FILES = (
     "config/v2/countries.json",
     "config/v2/report_scope.json",
     "config/v2/rule_labels.json",
+    "config/v2/creation.json",
     "config/v2/watchlist.example.json",
 )
 PACKAGE = "nps_v2"

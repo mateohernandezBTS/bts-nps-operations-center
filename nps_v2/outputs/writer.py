@@ -10,8 +10,10 @@ from typing import Any
 
 from nps_v2.domain import SalesforceId
 from nps_v2.outputs.preview import render_preview
+from nps_v2.outputs.review_pages import render_preview_page
 from nps_v2.outputs.slack import slack_rows, write_slack_table
 from nps_v2.outputs.slack_page import PageContext
+from nps_v2.outputs.special_email import languages_for
 from nps_v2.pipeline import PipelineResult
 from nps_v2.registry import CountryRegistry
 from nps_v2.selection import Selection
@@ -19,6 +21,7 @@ from nps_v2.surveys.state import ProjectSurveys
 
 REPORT_FILE = "report.json"
 PREVIEW_FILE = "preview.md"
+PREVIEW_PAGE_FILE = "preview.html"
 SLACK_DIRECTORY = "slack"
 
 
@@ -26,6 +29,7 @@ SLACK_DIRECTORY = "slack"
 class WrittenOutputs:
     report: Path
     preview: Path
+    preview_html: Path
     slack_html: Path
 
 
@@ -37,7 +41,10 @@ def write_outputs(
     registry: CountryRegistry,
     result: PipelineResult,
     surveys: Mapping[SalesforceId, ProjectSurveys],
+    facilitator_offices: Mapping[str, str] | None = None,
 ) -> WrittenOutputs:
+    """``facilitator_offices``: watch-list name → office (``User.Department``), used
+    only for the language of personalised e-mails."""
     run_directory.mkdir(parents=True, exist_ok=True)
     report_path = run_directory / REPORT_FILE
     report_path.write_text(
@@ -45,6 +52,13 @@ def write_outputs(
     )
     preview_path = run_directory / PREVIEW_FILE
     preview_path.write_text(render_preview(report), encoding="utf-8")
+    preview_page = run_directory / PREVIEW_PAGE_FILE
+    preview_page.write_text(
+        render_preview_page(
+            report, country_names={c.code: c.name for c in registry.countries}
+        ),
+        encoding="utf-8",
+    )
 
     run_id = str(report["run_id"])
     review_count = len(result.review) + len(result.worklist_review)
@@ -52,9 +66,17 @@ def write_outputs(
         case["project_id"]: tuple(case["matched_facilitators"])
         for case in report["special_cases"]
     }
+    rows = slack_rows(result.ready, surveys, registry, run_id)
+    email_languages = languages_for(
+        rows,
+        special_cases,
+        facilitator_offices or {},
+        language_by_code={c.code: c.language for c in registry.countries},
+        language_by_country={c.name: c.language for c in registry.countries},
+    )
     slack_html = write_slack_table(
         run_directory / SLACK_DIRECTORY,
-        slack_rows(result.ready, surveys, registry, run_id),
+        rows,
         run_id=run_id,
         date_from=selection.date_from,
         date_to=selection.date_to,
@@ -64,10 +86,15 @@ def write_outputs(
             title=selection.label,
             generated_at=str(report["generated_at"]),
             review_count=review_count,
+            week_start=selection.date_from,
         ),
         country_order=[country.name for country in registry.countries],
         special_cases=special_cases,
+        email_languages=email_languages,
     )
     return WrittenOutputs(
-        report=report_path, preview=preview_path, slack_html=slack_html
+        report=report_path,
+        preview=preview_path,
+        preview_html=preview_page,
+        slack_html=slack_html,
     )

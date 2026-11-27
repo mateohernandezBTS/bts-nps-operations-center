@@ -178,6 +178,9 @@ at API level, so the engine always sets every field explicitly.
 
 ### 6.2 Create surveys — increment 2
 
+Detailed plan, verified creation recipe and pilot protocol:
+`documentation/plans/V2-2_create_surveys.md` (D-V2-13).
+
 1. Steps 1–3 above, plus `write_plan.json` with `plan_hash`.
 2. Preview with one row per project: client, session, date, facilitator, country, language,
    surveys to create. The PO may remove projects (`nps plan --exclude <ids>` → new hash).
@@ -205,13 +208,38 @@ configuration, never committed; the test suite uses synthetic names). Matching p
 created normally, flagged in the preview, and get an ordered data package for a
 personalised e-mail; optional Outlook draft (never sent automatically).
 
+**V2-5 step 1 (2026-11-27, D-V2-14/15).** The Slack page writes one e-mail per
+watch-listed facilitator (subject `NPS week dd/mm/yy`, greeting, the Slack session
+cards with day-first dates and the QR, closing), to copy and paste into Outlook.
+Its language: the facilitator's office (`User.Department`, e.g. `MX-Mexico City`,
+looked up read-only by the `facilitator_offices` query that `surveys` adds when the
+watch-list matches someone) when it is a registry market; otherwise the language of
+the countries of their sessions (billing office); templates `es`, `pt-BR`, `en-US`.
+Salesforce has no nationality field: the office is the closest reliable signal
+(10/10 checked users had it; `Country` and locale are mostly empty or `en_US`).
+
+**Parked by the PO (2026-11-27): keep copy and paste; revisit later.** The notes
+below are kept for that future discussion.
+
+**Idea — sending the e-mails (V2-5 step 2/3).** Same safety model
+as V2-2: a send plan page (recipient, subject, language, sessions), an approval code
+typed by the user, one send per call, an audit in the run folder, and never from the
+scheduled run. Open points before designing it:
+
+- recipients: add `Email` to the office lookup (from `User`);
+- the Microsoft 365 connector's draft tool rejects images in HTML, so the QR cannot
+  travel embedded; options are a link to the hosted QR, a PNG attachment (if a tool
+  allows attachments), or keeping copy and paste for the QR;
+- send directly or create drafts for one click review (drafts first is safer);
+- who signs (the operator; the Outlook signature is not added to API drafts).
+
 ### 6.5 Scheduled Monday run — increment 1 extension (read-only)
 
 A scheduled task (a fresh Claude session each Monday, with the installed skill and the
 BTS connector) asks for "the scheduled weekly run". The skill then runs, without
 questions, exactly the standard week of today in Buenos Aires (`select --this-week`,
-fixed offset UTC−3; no filters, no extra days) and delivers the summary, `preview.md`
-and the Slack page in that session. Any error stops the run and is reported first.
+fixed offset UTC−3; no filters, no extra days) and delivers the summary, the preview
+page and the Slack page in that session. Any error stops the run and is reported first.
 Wider or filtered selections stay manual runs. Being read-only, it can run during the
 parallel run; it replaces neither the PO's review nor the desktop run until sign-off.
 
@@ -253,6 +281,10 @@ preview and approval in V2-2; later views) is built on one shared kit,
   so a viewer that blocks the CDN still gets a working BTS page (tests enforce it).
 - Shared behaviour (`window.BTSUI`): toast notices, clipboard with fallbacks, manual
   copy. What is copied or written elsewhere (Slack payload) never carries kit markup.
+- Views on the kit: the Slack page; the Upcoming preview (`preview.html`) and the
+  parallel-run comparison (`compare.html`), both with search and country tabs where
+  useful (`nps_v2/outputs/review_pages.py`); the creation plan and result pages.
+  `preview.md` and `compare.md` stay as plain-text copies of the same content.
 
 ## 7. Safety model
 
@@ -303,7 +335,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | V2-2 | Create surveys: plan, preview, approval, re-check, execution, reconcile | Salesforce `Survey_Set__c` | Salesforce write permission confirmed with PRO; single-project pilot; then one full week |
 | V2-3 | Slack publication levels + special-case e-mail drafts | Slack, Outlook drafts | canvas structure confirmed; draft level used ≥2 weeks |
 | V2-4 | Results + Data Quality/PRO + alerts (scheduled) + `survey-results-reports` integration | optional Ignore Reporting fixes (approved) | PRO validation |
-| V2-5 | Facilitator follow-up with language templates | Outlook drafts | PO approval of templates |
+| V2-5 | Facilitator follow-up with language templates. **Step 1 done (2026-11-27); sending parked by the PO, copy and paste stays:** the Slack page writes the personalised e-mail of each watch-listed facilitator (subject, greeting and the same session cards with QR) for copy and paste into Outlook | Step 1: none (copy and paste). Next: Outlook drafts | PO approval of templates |
 | V2-6 | Decommission desktop app and Power Automate | — | V2-1…V2-3 certified |
 
 ## 12. Open decisions and questions
@@ -311,9 +343,9 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | ID | Topic | Status |
 |---|---|---|
 | D-V2-1 | Report-equivalent sub-type exclusions (need the report filter panel) | open |
-| D-V2-2 | Audit store location (Box proposed) | open — required before V2-2 |
+| D-V2-2 | Audit of each creation: the refreshed Slack page plus an Excel creation log delivered to the user; Salesforce `CreatedBy`/`CreatedDate` as the durable trace (V2-2 plan §5) | **decided 2026-11-26** |
 | D-V2-3 | Canvas structure in `#latam-nps` (per project / per client; country sections) | open — read one canvas with PO permission |
-| D-V2-4 | Salesforce write permission and connector identity | open — PRO |
+| D-V2-4 | Salesforce write identity: the user operating the tool, through their own BTS connector (no fixed or technical account); permissions checked by a preflight `describe` | **decided 2026-11-26** |
 | D-V2-5 | NPS-004 (`meli` substring) and NPS-015 (generic coaching / 1:1) | open, carried over |
 | D-V2-6 | Days threshold for "Survey Invitation missing" alert | open (V2-4) |
 | D-V2-7 | Survey-kind detection by family (§5.2) | **decided 2026-11-25** |
@@ -321,6 +353,11 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-9 | "Results available" rule for §6.6 (minimum responses, days after the session) | open (V2-4) |
 | D-V2-10 | Results in the card: Box link or file; identity for Slack/Box writes | open (V2-4) |
 | D-V2-11 | Every HTML view uses the shared Ionic + BTS kit (§6.7): Ionic 8.8.19, iOS mode, mandatory fallback | **decided 2026-11-26** |
+| D-V2-12 | Approval mechanism for writes: the user confirms the plan hash in the chat (V2-2 plan §10) | proposed |
+| D-V2-13 | Survey creation path: A, reproduce the UI screen flow via API (recipe verified 48/48 by reading), proven by a one-project pilot; B, an admin-built invocable flow, as fallback | **decided 2026-11-26** |
+| D-V2-14 | Personalised e-mail for special cases: one per facilitator per run, subject `NPS week dd/mm/yy` (Monday of the report), short Spanish greeting, the Slack session cards (dates day-first) and a closing line; copied from the Slack page, never sent by the engine | proposed 2026-11-27 (PO to confirm the wording) |
+| D-V2-15 | Language of the personalised e-mail: facilitator office (`User.Department` prefix = registry market) first, then the countries of their sessions; English template when no market matches | proposed 2026-11-27 (PO asked for nationality, then billing office; office is the closest field) |
+| D-V2-16 | What the user gets: a run (manual or scheduled) delivers one page, the plan page (surveys to create with the approval code, plus the rest of the week); after creating, the Excel creation log and the Slack page. Preview, result page and the other files only on request | **decided 2026-11-27 (PO)** |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2
