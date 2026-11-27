@@ -191,6 +191,7 @@ Tested end to end with a simulated connector (`tests/v2/test_creation_flow.py`):
 
 | Date | Decision | Reason | Decided by |
 |---|---|---|---|
+| 2026-11-27 | The skill is named `nps-operations-center` (was `nps-upcoming-selam`): it now does more than the Upcoming; the PO installed it with that name | One product name for every increment | PO |
 | 2026-11-26 | Plan approved; implementation of steps 1–8 starts (no real writes before the §9 gate) | PO approval in the session | PO |
 | 2026-11-26 | D-V2-2: the audit of each creation is its output — the refreshed Slack page plus an Excel creation log delivered with it; no separate audit store | The Slack page is what the team operates with; the Excel keeps the detail | PO |
 | 2026-11-26 | D-V2-4: surveys are created with the identity of the user operating the tool (the connector's user), not a fixed or technical account | Same ownership as manual creation; the tool can be used by other people | PO |

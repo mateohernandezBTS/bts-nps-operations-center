@@ -26,7 +26,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-SKILL_NAME = "nps-upcoming-selam"
+SKILL_NAME = "nps-operations-center"
 
 ENGINE_FILES = (
     "engine/__init__.py",

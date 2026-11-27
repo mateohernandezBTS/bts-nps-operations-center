@@ -1,9 +1,9 @@
 ---
-name: nps-upcoming-selam
+name: nps-operations-center
 description: NPS Upcoming for BTS SELAM (AR, BR/Nexo, MX) from Salesforce: surveys to create, QR, exclusions, Slack cards; creates surveys after approval. Use for weekly NPS, "los NPS de la semana".
 ---
 
-# NPS Upcoming SELAM (V2-1 read-only; V2-2 create surveys, pilot)
+# NPS Operations Center — SELAM (V2-1 Upcoming read-only; V2-2 create surveys, pilot)
 
 Use this skill when the user asks for the week's NPS (or "los NPS de la semana"), for
 one day or a date range, to find sessions by client, project, facilitator or country,

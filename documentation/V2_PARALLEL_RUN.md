@@ -2,7 +2,7 @@
 
 Status: active from Monday 2026-11-30 until V2-1 sign-off. Owner: product owner (PE).
 
-V2-1 (the Claude skill `nps-upcoming-selam`) must prove, on real weeks, that it gives
+V2-1 (the Claude skill `nps-operations-center`) must prove, on real weeks, that it gives
 the same worklist as desktop v1.0.2. During the parallel run the desktop app remains
 the operational source; V2 is read-only and its outputs are compared, not used.
 
@@ -17,7 +17,7 @@ the operational source; V2 is read-only and its outputs are compared, not used.
    `dist/` is git-ignored. The watch-list (facilitators who need a personalised
    e-mail) holds real names and must live outside the repository; its format is
    `config/v2/watchlist.example.json`.
-2. Upload `dist/skill/nps-upcoming-selam.zip` in claude.ai: **Customize > Skills**, **+**,
+2. Upload `dist/skill/nps-operations-center.zip` in claude.ai: **Customize > Skills**, **+**,
    **Create skill**, **Upload a skill**, then turn it on. Code execution must be enabled
    (Settings > Capabilities). To update it, delete the old skill (**...** > **Delete**)
    and upload the new zip.
