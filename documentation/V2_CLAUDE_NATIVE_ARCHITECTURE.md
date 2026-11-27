@@ -218,7 +218,10 @@ the countries of their sessions (billing office); templates `es`, `pt-BR`, `en-U
 Salesforce has no nationality field: the office is the closest reliable signal
 (10/10 checked users had it; `Country` and locale are mostly empty or `en_US`).
 
-**Idea, not planned yet — sending the e-mails (V2-5 step 2/3).** Same safety model
+**Parked by the PO (2026-11-27): keep copy and paste; revisit later.** The notes
+below are kept for that future discussion.
+
+**Idea — sending the e-mails (V2-5 step 2/3).** Same safety model
 as V2-2: a send plan page (recipient, subject, language, sessions), an approval code
 typed by the user, one send per call, an audit in the run folder, and never from the
 scheduled run. Open points before designing it:
@@ -332,7 +335,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | V2-2 | Create surveys: plan, preview, approval, re-check, execution, reconcile | Salesforce `Survey_Set__c` | Salesforce write permission confirmed with PRO; single-project pilot; then one full week |
 | V2-3 | Slack publication levels + special-case e-mail drafts | Slack, Outlook drafts | canvas structure confirmed; draft level used ≥2 weeks |
 | V2-4 | Results + Data Quality/PRO + alerts (scheduled) + `survey-results-reports` integration | optional Ignore Reporting fixes (approved) | PRO validation |
-| V2-5 | Facilitator follow-up with language templates. **Step 1 done (2026-11-27):** the Slack page writes the personalised e-mail of each watch-listed facilitator (subject, greeting and the same session cards with QR) for copy and paste into Outlook | Step 1: none (copy and paste). Next: Outlook drafts | PO approval of templates |
+| V2-5 | Facilitator follow-up with language templates. **Step 1 done (2026-11-27); sending parked by the PO, copy and paste stays:** the Slack page writes the personalised e-mail of each watch-listed facilitator (subject, greeting and the same session cards with QR) for copy and paste into Outlook | Step 1: none (copy and paste). Next: Outlook drafts | PO approval of templates |
 | V2-6 | Decommission desktop app and Power Automate | — | V2-1…V2-3 certified |
 
 ## 12. Open decisions and questions
