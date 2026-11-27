@@ -57,7 +57,7 @@ def render_plan_page(
         f'<p class="code">{text(plan.short_hash)}</p></div>'
         "<p>Nothing has been written yet. To create <b>exactly</b> these "
         f"{len(commands)} surveys, reply in the chat with this code. Any change to the "
-        "plan produces a new code.</p></div></ion-card>"
+        "plan produces a new code.</p></div></ion-card>" + _CHECKLIST
     )
     extra = ""
     if plan.excluded_projects:
@@ -187,13 +187,24 @@ def _session_card(
         else ""
     )
     items = "".join(item(c) for c in commands)
+    facilitators = (
+        f" · {text(first.facilitators)}" if first.facilitators.strip() else ""
+    )
+    url = safe_url(first.salesforce_url)
+    salesforce = (
+        f'<a class="sf" href="{attr(url)}" target="_blank" rel="noopener">'
+        '<ion-chip class="link" outline="true">Open in Salesforce</ion-chip></a>'
+        if url
+        else ""
+    )
     return (
         f'<ion-card class="session-card" data-project="{attr(first.project_id)}">'
         '<div class="card-head"><div>'
         f"<ion-card-title>{text(first.project_name)}</ion-card-title>"
         f"<ion-card-subtitle>{text(first.client)} · "
-        f"{text(display_date(date.fromisoformat(first.start_date)))}</ion-card-subtitle>"
-        f'</div></div>{notice}<ion-list lines="full">{items}</ion-list></ion-card>'
+        f"{text(display_date(date.fromisoformat(first.start_date)))}"
+        f"{facilitators}</ion-card-subtitle></div>{salesforce}</div>"
+        f'{notice}<ion-list lines="full">{items}</ion-list></ion-card>'
     )
 
 
@@ -238,7 +249,24 @@ def _note_card(title: str, values: Sequence[str]) -> str:
     )
 
 
+_CHECKLIST = (
+    '<ion-card class="checklist"><div class="card-head"><div>'
+    "<ion-card-title>Check before approving</ion-card-title></div></div><ul>"
+    "<li>Every session below is confirmed and really needs these surveys "
+    "(open it in Salesforce).</li>"
+    "<li>Date, client and facilitators are right; NPS and Facilitators are the "
+    "surveys missing.</li>"
+    "<li>The language matches the country (es for Argentina and Mexico, pt-BR for "
+    "Brazil).</li>"
+    "<li>Nothing else should be created: if a session must not be included, ask to "
+    "remove it and a new code is produced.</li>"
+    "</ul></ion-card>"
+)
+
 _CSS = """
+.checklist ul{margin:0;padding:0 18px 16px 36px;font-size:13px;color:var(--grey-text)}
+.checklist li{margin:3px 0}
+a.sf{text-decoration:none;color:inherit}
 ion-card.approval{border-color:var(--magenta);
 box-shadow:0 8px 28px rgba(202,28,104,.12)}
 .approval-body{display:flex;gap:24px;align-items:center;padding:18px 22px;

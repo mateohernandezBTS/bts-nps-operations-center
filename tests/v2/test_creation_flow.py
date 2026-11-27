@@ -212,6 +212,21 @@ class CreationFlowTest(CliRunMixin):
         self.assertEqual(len(audit["surveys"]), created)
         self.assertTrue(all(c["result"] for c in audit["calls"]))
 
+    def test_pilot_plan_with_only_one_session(self) -> None:
+        self.upcoming()
+        report = json.loads((self.run_dir / "report.json").read_text(encoding="utf-8"))
+        target = report["pending"][0]["project_id"]
+        plan = self.cli("plan", "--only", target[:15])
+        self.assertEqual(plan["sessions"], 1)
+        self.assertEqual(
+            plan["surveys_to_create"], len(report["pending"][0]["surveys_to_create"])
+        )
+        code, out = run_cli(
+            "plan", "--run", str(self.run_dir), "--only", target, "--exclude", target
+        )
+        self.assertEqual(code, 2)
+        self.assertIn("either --exclude or --only", out["message"])
+
     def test_approval_must_match_the_current_plan(self) -> None:
         self.upcoming()
         self.cli("plan")

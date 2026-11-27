@@ -39,6 +39,8 @@ class SurveyCommand:
     survey_name: str
     language: str
     special_case: bool
+    facilitators: str = ""  # shown on the plan page for a manual check
+    salesforce_url: str = ""  # link to the project, for a manual check
 
 
 @dataclass(frozen=True, slots=True)
@@ -91,6 +93,27 @@ class CreationPlan:
         return plan
 
 
+def exclude_all_but(report: Mapping[str, Any], only: Iterable[str]) -> list[str]:
+    """Project Ids to exclude so that the plan keeps only ``only`` (pilot runs).
+
+    Every value must be a session with surveys to create, as for ``exclude``.
+    """
+    pending_ids = {
+        _key(row["project_id"]): row["project_id"] for row in report["pending"]
+    }
+    keep = set()
+    for value in only:
+        key = _key(value)
+        if key not in pending_ids:
+            raise PlanError(
+                f"Cannot keep {value!r}: it is not a session with surveys to create"
+            )
+        keep.add(key)
+    if not keep:
+        raise PlanError("--only needs at least one project Id")
+    return [str(pid) for key, pid in pending_ids.items() if key not in keep]
+
+
 def build_plan(
     report: Mapping[str, Any],
     *,
@@ -133,6 +156,8 @@ def build_plan(
                     survey_name=str(survey["survey_name"]),
                     language=str(survey["language"]),
                     special_case=bool(row.get("special_case")),
+                    facilitators=str(row.get("facilitators", "")),
+                    salesforce_url=str(row.get("salesforce_url", "")),
                 )
             )
     commands.sort(

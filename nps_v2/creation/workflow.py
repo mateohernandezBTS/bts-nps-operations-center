@@ -32,7 +32,7 @@ from nps_v2.creation.execution import (
     next_call,
     start,
 )
-from nps_v2.creation.plan import CreationPlan, PlanError, build_plan
+from nps_v2.creation.plan import CreationPlan, PlanError, build_plan, exclude_all_but
 from nps_v2.creation.recipe import SURVEY_SET_OBJECT, CreationConfig
 from nps_v2.domain import SalesforceId, SurveyKind
 from nps_v2.registry import CountryRegistry
@@ -120,12 +120,22 @@ class CreationFolder:
 # --- plan and approval ---------------------------------------------------------
 
 
-def make_plan(folder: CreationFolder, exclude: Iterable[str]) -> CreationPlan:
+def make_plan(
+    folder: CreationFolder, exclude: Iterable[str], only: Iterable[str] = ()
+) -> CreationPlan:
+    """Plan for the run. ``only`` (pilot) keeps just those sessions; it cannot be
+    combined with ``exclude``."""
     if folder.has_state():
         raise ExecutionError(
             "This run already started creating surveys: use 'reconcile', then a new run"
         )
-    plan = build_plan(folder.read_report(), exclude=exclude)
+    exclude, only = list(exclude), list(only)
+    if exclude and only:
+        raise PlanError("Use either --exclude or --only, not both")
+    report = folder.read_report()
+    if only:
+        exclude = exclude_all_but(report, only)
+    plan = build_plan(report, exclude=exclude)
     folder.write_plan(plan)
     folder.clear_approval()
     return plan

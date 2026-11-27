@@ -162,11 +162,15 @@ report e-mail: suggest checking them in Salesforce, without writing anything.
 
 Only when the user **explicitly asks to create the surveys** of a finished Upcoming
 run (step 4). During the pilot, create only for the sessions the user chooses
-(`--exclude` the others). The scheduled Monday run never creates anything.
+(`--only <project id>`, repeatable). The scheduled Monday run never creates anything.
 
-1. **Plan:** `plan --run "$RUN_DIR" [--exclude <project id> ...]`. Deliver `plan_html`
-   as a file and show the summary. Ask the user to approve by replying with the
-   `approval_code`. Do not suggest approving; wait for the user.
+1. **Plan:** `plan --run "$RUN_DIR" [--only <project id> ... | --exclude <project id> ...]`
+   (`--only` keeps just those sessions; `--exclude` leaves those out; never both).
+   Deliver `plan_html` as a file and show the summary: the list of sessions and
+   surveys to create, so the user can check them against Salesforce. Ask the user to
+   approve by replying with the `approval_code`. Do not suggest approving; wait for
+   the user. If the user wants a session removed or added, run `plan` again and
+   deliver the new page (the code changes).
 2. **Approve:** only with the code the user typed:
    `approve --run "$RUN_DIR" --code <code>`. A different code is an error: show the
    plan again. Then run the re-check query exactly as printed and

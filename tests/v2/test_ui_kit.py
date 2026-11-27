@@ -92,6 +92,11 @@ class UiKitTest(unittest.TestCase):
             with self.subTest(view=name):
                 self.assertEqual(used - covered, set())
 
+    def test_plan_page_shows_the_check_list_and_salesforce_links(self) -> None:
+        page = creation_pages()["plan page"]
+        self.assertIn("Check before approving", page)
+        self.assertIn("Open in Salesforce", page)
+
     def test_safe_url(self) -> None:
         self.assertEqual(safe_url(" https://a.b/c "), "https://a.b/c")
         self.assertEqual(safe_url("HTTP://a.b"), "HTTP://a.b")

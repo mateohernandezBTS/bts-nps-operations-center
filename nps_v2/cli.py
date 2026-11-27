@@ -196,7 +196,7 @@ def command_plan(args: argparse.Namespace) -> dict[str, Any]:
     from nps_v2.outputs.creation_pages import render_plan_page
 
     folder = CreationFolder(RunFolder(Path(args.run)))
-    plan = make_plan(folder, args.exclude)
+    plan = make_plan(folder, args.exclude, args.only)
     page = _write_plan_page(folder, plan, render_plan_page)
     return {
         "step": "plan",
@@ -620,6 +620,12 @@ def _parser() -> argparse.ArgumentParser:
     plan.add_argument("--run", required=True)
     plan.add_argument(
         "--exclude", action="append", default=[], help="project Id to leave out"
+    )
+    plan.add_argument(
+        "--only",
+        action="append",
+        default=[],
+        help="pilot: project Id to keep (all other sessions are left out)",
     )
     plan.set_defaults(handler=command_plan)
 

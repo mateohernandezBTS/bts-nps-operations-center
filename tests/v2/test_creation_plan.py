@@ -6,7 +6,7 @@ import copy
 import json
 import unittest
 
-from nps_v2.creation.plan import CreationPlan, PlanError, build_plan
+from nps_v2.creation.plan import CreationPlan, PlanError, build_plan, exclude_all_but
 from tests.v2.synthetic import scenario
 
 
@@ -69,6 +69,24 @@ class BuildPlanTest(unittest.TestCase):
                 with self.assertRaises(PlanError):
                     build_plan(self.report, exclude=[value])
 
+    def test_only_keeps_just_the_chosen_sessions(self) -> None:
+        pending = [row["project_id"] for row in self.report["pending"]]
+        self.assertGreater(len(pending), 1)
+        target = pending[0]
+        for value in (target, target[:15]):
+            with self.subTest(value=value):
+                exclude = exclude_all_but(self.report, [value])
+                self.assertEqual(sorted(exclude), sorted(pending[1:]))
+                plan = build_plan(self.report, exclude=exclude)
+                self.assertEqual({c.project_id for c in plan.commands}, {target})
+
+    def test_only_rejects_sessions_without_surveys_to_create(self) -> None:
+        complete = self.report["complete"][0]["project_id"]
+        for values in ([complete], ["nope"], []):
+            with self.subTest(values=values):
+                with self.assertRaises(PlanError):
+                    exclude_all_but(self.report, values)
+
     def test_round_trip_and_tamper_detection(self) -> None:
         document = json.loads(json.dumps(self.plan.to_dict()))
         self.assertEqual(CreationPlan.from_dict(document), self.plan)
@@ -85,6 +103,13 @@ class BuildPlanTest(unittest.TestCase):
         self.assertEqual(plan.already_created, (first.key,))
         self.assertEqual(len(plan.commands), len(self.plan.commands) - 1)
         self.assertNotEqual(plan.hash, self.plan.hash)
+
+    def test_commands_carry_what_the_user_checks(self) -> None:
+        for command in self.plan.commands:
+            with self.subTest(key=command.key):
+                self.assertTrue(command.salesforce_url.startswith("https://"))
+                self.assertIn(command.project_id, command.salesforce_url)
+                self.assertTrue(command.facilitators)
 
     def test_empty_plan(self) -> None:
         empty = {**copy.deepcopy(self.report), "pending": []}
