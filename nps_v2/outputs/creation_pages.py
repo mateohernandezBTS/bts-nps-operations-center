@@ -9,9 +9,11 @@ from __future__ import annotations
 from collections import defaultdict
 from collections.abc import Callable, Mapping, Sequence
 from datetime import date
+from typing import Any
 
 from nps_v2.creation.plan import CreationPlan, SurveyCommand
 from nps_v2.creation.reconcile import Outcome, SurveyOutcome, counts
+from nps_v2.outputs.review_pages import REVIEW_CSS, rest_of_week
 from nps_v2.outputs.ui_kit import (
     Tile,
     attr,
@@ -34,8 +36,15 @@ OUTCOME_CSS = {
 
 
 def render_plan_page(
-    plan: CreationPlan, *, country_names: Mapping[str, str], generated_at: str
+    plan: CreationPlan,
+    *,
+    country_names: Mapping[str, str],
+    generated_at: str,
+    report: Mapping[str, Any] | None = None,
 ) -> str:
+    """The weekly plan: the surveys to create (approval code, checklist, sessions) and,
+    with ``report``, the rest of the week (special cases, manual review, data quality,
+    already created, excluded, outside the scope). It is the one page of a run."""
     commands = plan.commands
     sessions = _group(commands)
     tiles = kpi_tiles(
@@ -71,6 +80,8 @@ def render_plan_page(
     body = approval + tiles + _sections(sessions, country_names, _plan_item) + extra
     if not commands:
         body = tiles + '<p class="empty">There are no surveys to create.</p>' + extra
+    if report is not None:
+        body += rest_of_week(report, country_names=country_names)
     return render_document(
         title=f"Create surveys · {plan.run_id}",
         header=brandbar(
@@ -78,7 +89,7 @@ def render_plan_page(
             f"{plan.selection_label} · run {plan.run_id} · generated {generated_at}",
         ),
         body=body,
-        css=_CSS,
+        css=_CSS + REVIEW_CSS,
     )
 
 

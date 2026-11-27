@@ -109,6 +109,62 @@ def render_preview_page(
     )
 
 
+def rest_of_week(report: Mapping[str, Any], *, country_names: Mapping[str, str]) -> str:
+    """Everything of the run except the sessions to create, for the plan page: special
+    cases, manual review and data quality open; already created, excluded and outside
+    the scope collapsed. Read-only content, same wording as the preview."""
+    summary = report["summary"]
+    tiles = kpi_tiles(
+        (
+            Tile("Already created", summary["complete"]),
+            Tile(
+                "Manual review",
+                summary["review"] + summary["worklist_review"],
+                warn=True,
+            ),
+            Tile("Excluded", summary["excluded"]),
+            Tile("Outside the scope", summary["out_of_scope"]),
+            Tile("Data-quality notes", summary["quality_notes"], warn=True),
+        )
+    )
+    note = (
+        ""
+        if report["watchlist_configured"]
+        else '<div class="callout"><b>Note:</b> the special-case list is not '
+        "installed; no facilitators were flagged for a personalised e-mail.</div>"
+    )
+    review_rows = [*report["review"], *report["worklist_review"]]
+    return (
+        '<h2 class="part-title">Rest of the week</h2>'
+        + note
+        + tiles
+        + _special_cases(report["special_cases"], country_names)
+        + _group("Manual review", review_rows, country_names, _review)
+        + _group("Data quality", report["quality"], country_names, _note("note"))
+        + _group(
+            "Already created",
+            report["complete"],
+            country_names,
+            _complete,
+            collapsed=True,
+        )
+        + _group(
+            "Excluded by rules",
+            report["excluded"],
+            country_names,
+            _note("reasons"),
+            collapsed=True,
+        )
+        + _group(
+            "Outside the report scope",
+            report["out_of_scope"],
+            country_names,
+            _note("reason"),
+            collapsed=True,
+        )
+    )
+
+
 def _pending(row: Row) -> tuple[str, str]:
     chips = "".join(
         f'<ion-chip class="pending" outline="true">{text(s["label"])} · '
@@ -454,4 +510,7 @@ ion-chip.warn{--color:#9a5b12;color:#9a5b12;--background:#FFF6EA;border-color:#F
 .meta{margin:0 0 12px;color:var(--grey-text);font-size:13px}
 .callout.case{line-height:1.6}
 .callout a{color:#CA1C68}
+.part-title{font-size:22px;font-weight:800;margin:34px 0 10px;padding-top:18px;
+border-top:1px solid var(--grey-light)}
 """
+REVIEW_CSS = _CSS

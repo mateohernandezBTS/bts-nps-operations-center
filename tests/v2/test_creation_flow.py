@@ -183,6 +183,15 @@ class CreationFlowTest(CliRunMixin):
             plan["surveys_to_create"], upcoming["summary"]["surveys_to_create"]
         )
         self.assertTrue(Path(plan["outputs"]["plan_html"]).exists())
+        # The weekly run delivers one page: the plan, with the rest of the week.
+        self.assertEqual(plan["deliver"], [plan["outputs"]["plan_html"]])
+        plan_page = Path(plan["outputs"]["plan_html"]).read_text(encoding="utf-8")
+        for title in (
+            "Check before approving",
+            "Rest of the week",
+            "Excluded by rules",
+        ):
+            self.assertIn(title, plan_page)
 
         first = self.cli("execute")
         self.assertEqual(first["call"]["tool"], "salesforce_describe")
@@ -207,6 +216,11 @@ class CreationFlowTest(CliRunMixin):
         for path in result["outputs"].values():
             self.assertTrue(Path(path).exists(), path)
         self.assertEqual(result["summary_after"]["pending"], 0)
+        # After creating: the Excel log and the Slack page are what the user gets.
+        self.assertEqual(
+            result["deliver"],
+            [result["outputs"]["creation_log"], result["outputs"]["slack_html"]],
+        )
         page = Path(result["outputs"]["result_html"]).read_text(encoding="utf-8")
         self.assertIn("Created", page)
         with zipfile.ZipFile(result["outputs"]["creation_log"]) as book:

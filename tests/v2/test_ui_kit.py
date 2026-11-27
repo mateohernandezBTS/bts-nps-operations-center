@@ -74,12 +74,15 @@ def creation_pages() -> dict[str, str]:
     from nps_v2.outputs.creation_pages import render_plan_page, render_result_page
     from tests.v2.synthetic import scenario
 
-    plan = build_plan(scenario().report)
+    report = scenario().report
+    plan = build_plan(report)
     names = {"AR": "Argentina", "BR": "Brazil", "MX": "Mexico"}
     state = ExecutionState(plan_hash=plan.hash, steps=[], commands={})
     outcomes = reconcile(plan, state, [], {})
     return {
-        "plan page": render_plan_page(plan, country_names=names, generated_at="t"),
+        "plan page": render_plan_page(
+            plan, country_names=names, generated_at="t", report=report
+        ),
         "result page": render_result_page(
             outcomes,
             plan=plan,
@@ -120,6 +123,16 @@ class UiKitTest(unittest.TestCase):
         page = creation_pages()["plan page"]
         self.assertIn("Check before approving", page)
         self.assertIn("Open in Salesforce", page)
+        for title in (
+            "Rest of the week",
+            "Special cases: personalised e-mail",
+            "Manual review",
+            "Data quality",
+            "Already created",
+            "Excluded by rules",
+            "Outside the report scope",
+        ):
+            self.assertIn(title, page)
 
     def test_preview_page_lists_every_group_with_search_and_tabs(self) -> None:
         from tests.v2.synthetic import scenario

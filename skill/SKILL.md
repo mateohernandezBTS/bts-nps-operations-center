@@ -15,7 +15,7 @@ orchestrate: run the commands, run in Salesforce **exactly** the queries the eng
 prints, and present the results.
 
 Talk to the user in the language they write in. The files the engine produces
-(preview, Slack page, comparison) are in English.
+(plan page, Slack page, Excel log, comparison) are in English.
 
 ## Non-negotiable rules
 
@@ -97,43 +97,44 @@ special-case facilitator is staffed, `facilitator_offices`, which only reads the
 office to choose the e-mail language) and then `capture --group survey_sets`, as in
 step 2.
 
-### 4. Result
+### 4. Result and plan
 
 ```bash
 ... python3 -m nps_v2 upcoming --run "$RUN_DIR"
+... python3 -m nps_v2 plan --run "$RUN_DIR"
 ```
 
-With `"status": "ok"`, `outputs` holds:
+Always run `plan` right after `upcoming` (no `--only` or `--exclude` unless the user
+asks). `plan` writes nothing to Salesforce: it builds the **plan page** (`plan_html`),
+the one page of a run. It holds the approval code, the "Check before approving" list,
+the sessions with surveys to create and, under "Rest of the week", special cases,
+manual review, data quality, already created, excluded and outside the scope.
 
-- `preview_html`: the preview page (surveys to create, already created, manual review,
-  excluded with reason, outside the report scope, special cases, data quality), with
-  search and country tabs. `preview` is the same content as plain text (Markdown).
-- `slack_html`: the Slack page (search, country tabs, one card per client with its
-  sessions and QR codes, and a "Copy for Slack" button per client). Never rewrite or
-  restyle it: all views come from the engine's shared UI kit.
+`upcoming` also writes `preview_html`, `preview` (Markdown) and `slack_html`; deliver
+them only if the user asks for them.
 
 ### 5. What to show the user
 
-1. A short table with the `summary`: surveys to create (sessions and surveys),
-   already created, manual review, excluded, outside the report scope, special
-   cases and data-quality notes.
+1. A short table with the `summary` of `upcoming`: surveys to create (sessions and
+   surveys), already created, manual review, excluded, outside the report scope,
+   special cases and data-quality notes.
 2. The sessions with surveys to create (country, date, client, session, what is
-   missing).
-3. The special cases: say they need a personalised e-mail. The Slack page has a
-   "Personalised e-mails" section with one e-mail per facilitator: the user clicks
-   "Copy subject" and "Copy e-mail" and pastes them into a new Outlook message. Each
-   card says the e-mail language and why (office or session country). Never send or
-   draft that e-mail yourself. If a session there has no surveys yet, say so.
+   missing) and the `approval_code`. Say that replying with the code creates exactly
+   those surveys, and that they can ask to remove (or keep only) some sessions first.
+   Do not suggest approving.
+3. The special cases: say they need a personalised e-mail, which comes in the Slack
+   page after the surveys are created (section 8).
 4. If `watchlist_configured` is `false`, say that the special-facilitator list is
    not installed and no special cases were flagged.
-5. Deliver the preview page (`preview_html`) and the Slack page **as files**, never
-   as text: the user must be able to open the page, not read its HTML. Use the file tool your
-   environment has, in this order:
+5. Deliver **only** the files in `deliver` of `plan` (the plan page). If there is
+   nothing to create, also deliver the run's `slack_html` (the week is ready to copy).
+   Deliver files **as files**, never as text: the user must be able to open the page,
+   not read its HTML. Use the file tool your environment has, in this order:
    - a tool that sends or presents files to the user (for example `SendUserFile` or
      `present_files`; copy the files to the outputs folder first if the tool needs it);
    - otherwise, publish the page as an artifact or attach it as a downloadable file.
    **Never paste the page's HTML (or the raw JSON) into the reply.** If no file tool is
-   available, say so and give the file paths. Remind the user that the page opens
+   available, say so and give the file paths. Remind the user that the pages open
    best in Chrome or Edge, and that if the viewer blocks copying it opens the content
    selected for Ctrl+C.
 
@@ -145,11 +146,13 @@ request says it is the scheduled weekly run:
 - Do not ask questions. Use exactly `select --this-week`, with no filters or extra
   days, and the run id `V2-<YYYYMMDD>-weekly` (today in Buenos Aires; add `-retry` for the
   single retry).
-- Follow steps 2–4 as usual. The rules above still apply: read-only, and stop on any
-  error (with the single `ControlMismatchError` retry).
-- End with the step 5 summary and deliver the preview page and the Slack page. If the run
-  stopped, say so first, with the error and the step where it happened.
+- Follow steps 2–4 as usual. The rules above still apply: stop on any error (with the
+  single `ControlMismatchError` retry).
+- End with the step 5 summary and deliver the plan page. If the run stopped, say so
+  first, with the error and the step where it happened.
 
+The scheduled Monday run never creates anything by itself: surveys are created only
+if the user later replies in that conversation with the approval code (section 8).
 More days, another country or a filter are never added to the scheduled run: the
 user asks for them in a normal (manual) run, with the arguments of step 1.
 
@@ -168,17 +171,14 @@ without writing anything.
 
 ### 8. Create surveys (V2-2 — pilot)
 
-Only when the user **explicitly asks to create the surveys** of a finished Upcoming
-run (step 4). During the pilot, create only for the sessions the user chooses
-(`--only <project id>`, repeatable). The scheduled Monday run never creates anything.
+Only when the user **replies with the approval code** of the current plan (or asks to
+create the surveys and then gives the code). The code is the approval: never create
+without it.
 
-1. **Plan:** `plan --run "$RUN_DIR" [--only <project id> ... | --exclude <project id> ...]`
-   (`--only` keeps just those sessions; `--exclude` leaves those out; never both).
-   Deliver `plan_html` as a file and show the summary: the list of sessions and
-   surveys to create, so the user can check them against Salesforce. Ask the user to
-   approve by replying with the `approval_code`. Do not suggest approving; wait for
-   the user. If the user wants a session removed or added, run `plan` again and
-   deliver the new page (the code changes).
+1. **Change the plan if asked:** `plan --run "$RUN_DIR" [--only <project id> ... |
+   --exclude <project id> ...]` (`--only` keeps just those sessions, as in a pilot;
+   `--exclude` leaves those out; never both). Deliver the new plan page: the code
+   changes, and only the new code is valid.
 2. **Approve:** only with the code the user typed:
    `approve --run "$RUN_DIR" --code <code>`. A different code is an error: show the
    plan again. Then run the re-check query exactly as printed and
@@ -193,9 +193,16 @@ run (step 4). During the pilot, create only for the sessions the user chooses
    anything else. Go to step 5 and show the user the error.
 5. **Reconcile:** `reconcile --run "$RUN_DIR"`; run the printed queries exactly,
    `capture --run "$RUN_DIR" --group creation_after`, then `reconcile` again.
-   Deliver as files: `result_html`, `creation_log` (Excel), and the refreshed
-   `slack_html` with the new links and QR codes. Summarise the counts (created,
-   already existed, partial, failed, not run) and any notes.
+   Deliver **only** the files in `deliver`: the Excel creation log (`creation_log`)
+   and the Slack page (`slack_html`, with the new links, QR codes and personalised
+   e-mails). Summarise in the reply the counts (created, already existed, partial,
+   failed, not run) and any error or note. The result page (`result_html`) is
+   delivered only if the user asks.
+
+In the Slack page, the "Personalised e-mails" section has one e-mail per special-case
+facilitator: the user clicks "Copy subject" and "Copy e-mail" and pastes them into a
+new Outlook message. Each card says the e-mail language and why (office or session
+country). Never send or draft that e-mail yourself.
 
 If `record` cannot find the result in the session log, save the tool's result
 exactly as returned to a file and run `record --run "$RUN_DIR" --response-file <file>`.

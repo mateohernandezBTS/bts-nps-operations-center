@@ -178,6 +178,10 @@ def command_upcoming(args: argparse.Namespace) -> dict[str, Any]:
             "preview_html": str(outputs.preview_html),
             "slack_html": str(outputs.slack_html),
         },
+        "next": (
+            "Run 'plan' and deliver only its plan page: it holds the surveys to create "
+            "and the rest of the week. The other files are for when the user asks."
+        ),
     }
 
 
@@ -217,11 +221,12 @@ def command_plan(args: argparse.Namespace) -> dict[str, Any]:
         "sessions": len({c.project_id for c in plan.commands}),
         "approval_code": plan.short_hash,
         "outputs": {"plan_html": str(page)},
+        "deliver": [str(page)],
         "next": (
-            "Deliver plan_html to the user as a file. Ask the user to approve by "
-            "replying with the approval code; then run 'approve --code <code>'."
+            "Deliver only plan_html to the user as a file. To create the surveys, the "
+            "user replies with the approval code; then run 'approve --code <code>'."
             if plan.commands
-            else "Nothing to create: tell the user and stop."
+            else "Nothing to create: deliver plan_html and the run's slack_html."
         ),
     }
 
@@ -257,6 +262,7 @@ def command_execute(args: argparse.Namespace) -> dict[str, Any]:
             "approval_code": outcome.changed_plan.short_hash,
             "surveys_to_create": len(outcome.changed_plan.commands),
             "outputs": {"plan_html": str(page)},
+            "deliver": [str(page)],
             "next": (
                 "Some planned surveys now exist in Salesforce, so the plan changed and "
                 "nothing was written. Deliver the new plan_html and ask for approval "
@@ -372,6 +378,7 @@ def command_reconcile(args: argparse.Namespace) -> dict[str, Any]:
             "preview": str(outputs.preview),
             "preview_html": str(outputs.preview_html),
         },
+        "deliver": [str(files.log), str(outputs.slack_html)],
         "summary_after": report["summary"],
     }
 
@@ -385,6 +392,7 @@ def _write_plan_page(folder: Any, plan: Any, render: Any) -> Path:
             plan,
             country_names={c.code: c.name for c in registry.countries},
             generated_at=_now(),
+            report=folder.read_report(),
         ),
         encoding="utf-8",
     )

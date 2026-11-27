@@ -204,6 +204,7 @@ Tested end to end with a simulated connector (`tests/v2/test_creation_flow.py`):
 
 | Date | Decision | Reason | Decided by |
 |---|---|---|---|
+| 2026-11-27 | D-V2-16: every run ends with the plan page as its only file (it also shows the rest of the week); creating is triggered by the user replying with the code; after creating, the deliverables are the Excel log and the Slack page | PO review of the skill in a separate chat: all steps behaved as expected, fewer files wanted | PO |
 | 2026-11-27 | Pilot attempt 1 stopped at the first write (site not accessible to the operator's user); nothing written. A site check is added before any write; path A needs site access for the operators, otherwise path B | Real Salesforce answer in the pilot | PO + architect |
 | 2026-11-27 | The skill is named `nps-operations-center` (was `nps-upcoming-selam`): it now does more than the Upcoming; the PO installed it with that name | One product name for every increment | PO |
 | 2026-11-26 | Plan approved; implementation of steps 1–8 starts (no real writes before the §9 gate) | PO approval in the session | PO |

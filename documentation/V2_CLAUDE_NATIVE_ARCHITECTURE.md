@@ -357,6 +357,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-13 | Survey creation path: A, reproduce the UI screen flow via API (recipe verified 48/48 by reading), proven by a one-project pilot; B, an admin-built invocable flow, as fallback | **decided 2026-11-26** |
 | D-V2-14 | Personalised e-mail for special cases: one per facilitator per run, subject `NPS week dd/mm/yy` (Monday of the report), short Spanish greeting, the Slack session cards (dates day-first) and a closing line; copied from the Slack page, never sent by the engine | proposed 2026-11-27 (PO to confirm the wording) |
 | D-V2-15 | Language of the personalised e-mail: facilitator office (`User.Department` prefix = registry market) first, then the countries of their sessions; English template when no market matches | proposed 2026-11-27 (PO asked for nationality, then billing office; office is the closest field) |
+| D-V2-16 | What the user gets: a run (manual or scheduled) delivers one page, the plan page (surveys to create with the approval code, plus the rest of the week); after creating, the Excel creation log and the Slack page. Preview, result page and the other files only on request | **decided 2026-11-27 (PO)** |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2
