@@ -78,6 +78,14 @@ class BuildPlanTest(unittest.TestCase):
         with self.assertRaises(PlanError):
             CreationPlan.from_dict({"run_id": "x"})
 
+    def test_surveys_found_by_a_recheck_leave_the_plan(self) -> None:
+        first = self.plan.commands[0]
+        plan = build_plan(self.report, already_created=[first.key])
+        self.assertNotIn(first.key, {c.key for c in plan.commands})
+        self.assertEqual(plan.already_created, (first.key,))
+        self.assertEqual(len(plan.commands), len(self.plan.commands) - 1)
+        self.assertNotEqual(plan.hash, self.plan.hash)
+
     def test_empty_plan(self) -> None:
         empty = {**copy.deepcopy(self.report), "pending": []}
         plan = build_plan(empty)

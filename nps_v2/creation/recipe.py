@@ -49,6 +49,7 @@ class CreationConfig:
     invitation_options: Mapping[str, bool]
     invitation_name_max_length: int
     ip_address_restricted: bool
+    key_prefixes: Mapping[str, str]  # object -> 3-character Id prefix
 
 
 def load_creation_config(path: Path | None = None) -> CreationConfig:
@@ -59,6 +60,7 @@ def load_creation_config(path: Path | None = None) -> CreationConfig:
         options = raw["invitation_options"]
         max_length = raw["invitation_name_max_length"]
         restricted = raw["ip_address_restricted"]
+        prefixes = raw["key_prefixes"]
     except (OSError, json.JSONDecodeError, KeyError, TypeError) as error:
         raise RecipeError(
             f"Cannot read creation config {config_file}: {error}"
@@ -76,11 +78,21 @@ def load_creation_config(path: Path | None = None) -> CreationConfig:
         raise RecipeError("invitation_name_max_length must be a positive integer")
     if not isinstance(restricted, bool):
         raise RecipeError("ip_address_restricted must be true or false")
+    if (
+        not isinstance(prefixes, dict)
+        or set(prefixes) != {INVITATION_OBJECT, SURVEY_SET_OBJECT}
+        or not all(isinstance(v, str) and len(v) == 3 for v in prefixes.values())
+    ):
+        raise RecipeError(
+            f"key_prefixes must map {INVITATION_OBJECT} and {SURVEY_SET_OBJECT} "
+            "to their 3-character Id prefix"
+        )
     return CreationConfig(
         community_id=community,
         invitation_options=dict(options),
         invitation_name_max_length=max_length,
         ip_address_restricted=restricted,
+        key_prefixes=dict(prefixes),
     )
 
 

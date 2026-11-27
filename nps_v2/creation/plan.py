@@ -47,6 +47,7 @@ class CreationPlan:
     selection_label: str
     commands: tuple[SurveyCommand, ...]
     excluded_projects: tuple[str, ...]
+    already_created: tuple[str, ...] = ()  # keys found in Salesforce by a re-check
 
     def canonical(self) -> dict[str, Any]:
         return {
@@ -55,6 +56,7 @@ class CreationPlan:
             "selection": self.selection_label,
             "commands": [asdict(c) for c in self.commands],
             "excluded_projects": list(self.excluded_projects),
+            "already_created": list(self.already_created),
         }
 
     @property
@@ -80,6 +82,7 @@ class CreationPlan:
                 selection_label=str(raw["selection"]),
                 commands=tuple(SurveyCommand(**c) for c in raw["commands"]),
                 excluded_projects=tuple(str(p) for p in raw["excluded_projects"]),
+                already_created=tuple(str(k) for k in raw.get("already_created", ())),
             )
         except (KeyError, TypeError) as error:
             raise PlanError(f"Invalid plan document: {error}") from error
@@ -89,8 +92,13 @@ class CreationPlan:
 
 
 def build_plan(
-    report: Mapping[str, Any], *, exclude: Iterable[str] = ()
+    report: Mapping[str, Any],
+    *,
+    exclude: Iterable[str] = (),
+    already_created: Iterable[str] = (),
 ) -> CreationPlan:
+    """Plan for the report. ``already_created``: command keys that a re-check found in
+    Salesforce; they are left out and listed, so the plan (and its hash) changes."""
     pending: Sequence[Mapping[str, Any]] = report["pending"]
     pending_keys = {_key(row["project_id"]): row for row in pending}
     excluded = set()
@@ -102,6 +110,7 @@ def build_plan(
             )
         excluded.add(key)
 
+    existing = set(already_created)
     commands = []
     for row in pending:
         key = _key(row["project_id"])
@@ -109,6 +118,8 @@ def build_plan(
             continue
         for survey in row["surveys_to_create"]:
             kind = SurveyKind(survey["kind"])
+            if f"{key}:{kind.value}" in existing:
+                continue
             commands.append(
                 SurveyCommand(
                     key=f"{key}:{kind.value}",
@@ -142,6 +153,7 @@ def build_plan(
         excluded_projects=tuple(
             sorted(str(pending_keys[k]["project_id"]) for k in excluded)
         ),
+        already_created=tuple(sorted(existing)),
     )
 
 

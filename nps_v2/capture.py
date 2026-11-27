@@ -39,26 +39,58 @@ def default_transcript(home: Path | None = None) -> Path:
     return candidates[-1]
 
 
-def connector_results(transcript: Path) -> dict[str, Any]:
-    """Latest successful result per SOQL text found in the transcript."""
-    pending: dict[str, str] = {}
-    results: dict[str, Any] = {}
+@dataclass(frozen=True, slots=True)
+class ToolCall:
+    """One connector call found in the transcript, with its result (if any)."""
+
+    name: str
+    input: Mapping[str, Any]
+    result_text: str | None
+    is_error: bool
+
+
+def tool_calls(transcript: Path) -> list[ToolCall]:
+    """Every tool call of the transcript in order, paired with its result."""
+    calls: list[ToolCall] = []
+    index: dict[str, int] = {}
     for entry in _entries(transcript):
         for block in _blocks(entry):
             kind = block.get("type")
-            if kind == "tool_use" and str(block.get("name", "")).endswith(
-                QUERY_TOOL_SUFFIX
-            ):
-                query = (block.get("input") or {}).get("query")
-                if isinstance(query, str):
-                    pending[str(block.get("id"))] = _normalize(query)
-            elif kind == "tool_result" and block.get("tool_use_id") in pending:
-                soql = pending.pop(str(block["tool_use_id"]))
-                if block.get("is_error"):
-                    continue
-                parsed = _parse(_text(block.get("content")))
-                if parsed is not None:
-                    results[soql] = parsed
+            if kind == "tool_use":
+                raw_input = block.get("input")
+                index[str(block.get("id"))] = len(calls)
+                calls.append(
+                    ToolCall(
+                        name=str(block.get("name", "")),
+                        input=raw_input if isinstance(raw_input, Mapping) else {},
+                        result_text=None,
+                        is_error=False,
+                    )
+                )
+            elif kind == "tool_result" and str(block.get("tool_use_id")) in index:
+                position = index.pop(str(block["tool_use_id"]))
+                call = calls[position]
+                calls[position] = ToolCall(
+                    name=call.name,
+                    input=call.input,
+                    result_text=_text(block.get("content")),
+                    is_error=bool(block.get("is_error")),
+                )
+    return calls
+
+
+def connector_results(transcript: Path) -> dict[str, Any]:
+    """Latest successful result per SOQL text found in the transcript."""
+    results: dict[str, Any] = {}
+    for call in tool_calls(transcript):
+        if not call.name.endswith(QUERY_TOOL_SUFFIX) or call.is_error:
+            continue
+        query = call.input.get("query")
+        if not isinstance(query, str) or call.result_text is None:
+            continue
+        parsed = _parse(call.result_text)
+        if parsed is not None:
+            results[_normalize(query)] = parsed
     return results
 
 

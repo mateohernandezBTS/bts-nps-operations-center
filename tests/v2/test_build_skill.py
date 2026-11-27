@@ -143,6 +143,19 @@ class SkillFrontmatterTest(unittest.TestCase):
         self.assertLessEqual(len(fields["name"]), 64)
         self.assertLessEqual(len(fields["description"]), 200)
 
+    def test_creation_rules_are_in_the_skill(self) -> None:
+        text = (REPOSITORY_ROOT / "skill" / "SKILL.md").read_text(encoding="utf-8")
+        for rule in (
+            "only after the user approves the exact plan code",
+            "Never delete anything, ever",
+            "with **exactly** that input",
+            "Never run a call twice",
+            "do not retry and do not write",
+            "The scheduled Monday run never creates anything",
+        ):
+            with self.subTest(rule=rule):
+                self.assertIn(rule, text)
+
     def test_outputs_are_delivered_as_files_not_pasted(self) -> None:
         text = (REPOSITORY_ROOT / "skill" / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("Never paste the page's HTML", text)

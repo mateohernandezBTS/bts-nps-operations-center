@@ -43,6 +43,30 @@ def slack_page() -> str:
     )
 
 
+def creation_pages() -> dict[str, str]:
+    from nps_v2.creation.execution import ExecutionState
+    from nps_v2.creation.plan import build_plan
+    from nps_v2.creation.reconcile import reconcile
+    from nps_v2.outputs.creation_pages import render_plan_page, render_result_page
+    from tests.v2.synthetic import scenario
+
+    plan = build_plan(scenario().report)
+    names = {"AR": "Argentina", "BR": "Brazil", "MX": "Mexico"}
+    state = ExecutionState(plan_hash=plan.hash, steps=[], commands={})
+    outcomes = reconcile(plan, state, [], {})
+    return {
+        "plan page": render_plan_page(plan, country_names=names, generated_at="t"),
+        "result page": render_result_page(
+            outcomes,
+            plan=plan,
+            operator="Synthetic User",
+            run_error="",
+            country_names=names,
+            generated_at="t",
+        ),
+    }
+
+
 class UiKitTest(unittest.TestCase):
     def test_ionic_version_is_exact_and_mode_is_ios(self) -> None:
         self.assertRegex(IONIC_VERSION, r"^\d+\.\d+\.\d+$")
@@ -61,7 +85,7 @@ class UiKitTest(unittest.TestCase):
 
     def test_every_ionic_tag_of_every_view_has_a_fallback(self) -> None:
         covered = set(FALLBACK_RULE.findall(ui_kit.KIT_CSS))
-        views = {"slack page": slack_page()}
+        views = {"slack page": slack_page(), **creation_pages()}
         for name, page in views.items():
             used = set(ION_TAG.findall(page))
             self.assertTrue(used, name)

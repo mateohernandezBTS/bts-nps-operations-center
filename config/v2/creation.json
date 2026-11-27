@@ -8,5 +8,9 @@
     "OptionsCollectAnonymousResponse": false
   },
   "invitation_name_max_length": 255,
-  "ip_address_restricted": false
+  "ip_address_restricted": false,
+  "key_prefixes": {
+    "SurveyInvitation": "0Ki",
+    "Survey_Set__c": "aHq"
+  }
 }

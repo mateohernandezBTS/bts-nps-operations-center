@@ -43,6 +43,7 @@ CONFIG = CreationConfig(
     },
     invitation_name_max_length=255,
     ip_address_restricted=False,
+    key_prefixes={"SurveyInvitation": "0Ki", "Survey_Set__c": "aHq"},
 )
 
 
@@ -194,6 +195,7 @@ class CreationConfigTest(unittest.TestCase):
             },
             "zero length": {**good, "invitation_name_max_length": 0},
             "restricted not bool": {**good, "ip_address_restricted": "false"},
+            "bad prefixes": {**good, "key_prefixes": {"SurveyInvitation": "0K"}},
         }
         for name, content in cases.items():
             path = self.directory / f"{name}.json"

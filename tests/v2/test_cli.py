@@ -40,7 +40,9 @@ def aggregate(
     return {"totalSize": len(records), "done": True, "records": records}
 
 
-class CliFlowTest(unittest.TestCase):
+class CliRunMixin(unittest.TestCase):
+    """Run-folder helpers shared by CLI tests (no tests of its own)."""
+
     def setUp(self) -> None:
         self.directory = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, self.directory)
@@ -87,6 +89,8 @@ class CliFlowTest(unittest.TestCase):
         self.assertEqual(code, 0, out)
         return out
 
+
+class CliFlowTest(CliRunMixin):
     def test_full_flow(self) -> None:
         out = self.select()
         self.assertEqual(
