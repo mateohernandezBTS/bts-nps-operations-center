@@ -17,6 +17,11 @@ from nps_v2.outputs.ui_kit import (
     safe_url,
 )
 
+
+def text_of(value: str) -> str:
+    return ui_kit.text(value)
+
+
 ION_TAG = re.compile(r"<(ion-[a-z-]+)")
 FALLBACK_RULE = re.compile(r"(ion-[a-z-]+)(?:\[[^\]]*\]|\.[\w-]+)*:not\(:defined\)")
 
@@ -41,6 +46,25 @@ def slack_page() -> str:
         country_order=["Argentina"],
         special_cases={"a0gAA0000000001": ("Someone",)},
     )
+
+
+def review_pages() -> dict[str, str]:
+    from nps_v2.compare import compare
+    from nps_v2.outputs.review_pages import render_compare_page, render_preview_page
+    from tests.v2.synthetic import scenario
+
+    report = scenario().report
+    names = {"AR": "Argentina", "BR": "Brazil", "MX": "Mexico"}
+    desktop = {report["excluded"][0]["project_id"][:15]: {"Session": "E"}}
+    return {
+        "preview page": render_preview_page(report, country_names=names),
+        "compare page": render_compare_page(
+            compare(report, desktop),
+            run_id="V2-X",
+            desktop_name="selam_worklist.csv",
+            generated_at="t",
+        ),
+    }
 
 
 def creation_pages() -> dict[str, str]:
@@ -85,7 +109,7 @@ class UiKitTest(unittest.TestCase):
 
     def test_every_ionic_tag_of_every_view_has_a_fallback(self) -> None:
         covered = set(FALLBACK_RULE.findall(ui_kit.KIT_CSS))
-        views = {"slack page": slack_page(), **creation_pages()}
+        views = {"slack page": slack_page(), **creation_pages(), **review_pages()}
         for name, page in views.items():
             used = set(ION_TAG.findall(page))
             self.assertTrue(used, name)
@@ -96,6 +120,35 @@ class UiKitTest(unittest.TestCase):
         page = creation_pages()["plan page"]
         self.assertIn("Check before approving", page)
         self.assertIn("Open in Salesforce", page)
+
+    def test_preview_page_lists_every_group_with_search_and_tabs(self) -> None:
+        from tests.v2.synthetic import scenario
+
+        report = scenario().report
+        page = review_pages()["preview page"]
+        for title in (
+            "Surveys to create",
+            "Already created",
+            "Manual review",
+            "Excluded by rules",
+            "Outside the report scope",
+            "Data quality",
+        ):
+            self.assertIn(title, page)
+        self.assertIn("<ion-searchbar", page)
+        self.assertIn('<ion-segment-button value="Brazil">', page)
+        self.assertIn("Read-only: nothing was created or published.", page)
+        for section in ("pending", "complete", "excluded", "out_of_scope"):
+            for row in report[section]:
+                with self.subTest(section=section, project=row["project"]):
+                    self.assertIn(text_of(row["project"]), page)
+
+    def test_compare_page_marks_what_to_check(self) -> None:
+        page = review_pages()["compare page"]
+        self.assertIn("Only on desktop", page)
+        self.assertIn("Only in V2", page)
+        self.assertIn(">To check</ion-chip>", page)
+        self.assertIn(">Explained</ion-chip>", page)
 
     def test_safe_url(self) -> None:
         self.assertEqual(safe_url(" https://a.b/c "), "https://a.b/c")

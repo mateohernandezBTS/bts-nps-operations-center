@@ -163,6 +163,7 @@ def command_upcoming(args: argparse.Namespace) -> dict[str, Any]:
         "outputs": {
             "report": str(outputs.report),
             "preview": str(outputs.preview),
+            "preview_html": str(outputs.preview_html),
             "slack_html": str(outputs.slack_html),
         },
     }
@@ -357,6 +358,7 @@ def command_reconcile(args: argparse.Namespace) -> dict[str, Any]:
             "audit": str(files.audit),
             "slack_html": str(outputs.slack_html),
             "preview": str(outputs.preview),
+            "preview_html": str(outputs.preview_html),
         },
         "summary_after": report["summary"],
     }
@@ -409,6 +411,7 @@ def _execution_payload(step: str, outcome: Any) -> dict[str, Any]:
 
 def command_compare(args: argparse.Namespace) -> dict[str, Any]:
     from nps_v2.compare import compare, read_desktop_ready, render_comparison
+    from nps_v2.outputs.review_pages import render_compare_page
 
     folder = RunFolder(Path(args.run))
     report_path = folder.path / "report.json"
@@ -428,13 +431,23 @@ def command_compare(args: argparse.Namespace) -> dict[str, Any]:
         ),
         encoding="utf-8",
     )
+    page = folder.path / "compare.html"
+    page.write_text(
+        render_compare_page(
+            comparison,
+            run_id=str(report["run_id"]),
+            desktop_name=desktop.name,
+            generated_at=_now(),
+        ),
+        encoding="utf-8",
+    )
     return {
         "step": "compare",
         "matching": comparison.matching,
         "only_desktop": len(comparison.only_desktop),
         "only_v2": len(comparison.only_v2),
         "to_review": comparison.unexplained,
-        "outputs": {"compare": str(markdown)},
+        "outputs": {"compare": str(markdown), "compare_html": str(page)},
     }
 
 

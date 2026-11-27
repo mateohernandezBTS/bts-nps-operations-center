@@ -103,8 +103,9 @@ It checks the projects against the control. Run each query in `queries` (pairs
 
 With `"status": "ok"`, `outputs` holds:
 
-- `preview.md`: the preview (surveys to create, already created, manual review,
-  excluded with reason, outside the report scope, special cases, data quality).
+- `preview_html`: the preview page (surveys to create, already created, manual review,
+  excluded with reason, outside the report scope, special cases, data quality), with
+  search and country tabs. `preview` is the same content as plain text (Markdown).
 - `slack_html`: the Slack page (search, country tabs, one card per client with its
   sessions and QR codes, and a "Copy for Slack" button per client). Never rewrite or
   restyle it: all views come from the engine's shared UI kit.
@@ -119,8 +120,8 @@ With `"status": "ok"`, `outputs` holds:
 3. The special cases: say they need a personalised e-mail.
 4. If `watchlist_configured` is `false`, say that the special-facilitator list is
    not installed and no special cases were flagged.
-5. Deliver `preview.md` and the Slack page **as files**, never as text: the user
-   must be able to open the page, not read its HTML. Use the file tool your
+5. Deliver the preview page (`preview_html`) and the Slack page **as files**, never
+   as text: the user must be able to open the page, not read its HTML. Use the file tool your
    environment has, in this order:
    - a tool that sends or presents files to the user (for example `SendUserFile` or
      `present_files`; copy the files to the outputs folder first if the tool needs it);
@@ -140,7 +141,7 @@ request says it is the scheduled weekly run:
   single retry).
 - Follow steps 2–4 as usual. The rules above still apply: read-only, and stop on any
   error (with the single `ControlMismatchError` retry).
-- End with the step 5 summary and deliver `preview.md` and the Slack page. If the run
+- End with the step 5 summary and deliver the preview page and the Slack page. If the run
   stopped, say so first, with the error and the step where it happened.
 
 More days, another country or a filter are never added to the scheduled run: the
@@ -154,9 +155,10 @@ If the user attaches the desktop app's `selam_worklist.csv` for the same week:
 ... python3 -m nps_v2 compare --run "$RUN_DIR" --desktop <path of the attached CSV>
 ```
 
-Deliver `compare.md`. "Only on desktop" differences come explained by V2; "Only in
-V2" ones (marked "To check") are usually sessions created or changed after the
-report e-mail: suggest checking them in Salesforce, without writing anything.
+Deliver `compare_html` (the comparison page) as a file. "Only on desktop" differences
+come explained by V2; "Only in V2" ones (marked "To check") are usually sessions
+created or changed after the report e-mail: suggest checking them in Salesforce,
+without writing anything.
 
 ### 8. Create surveys (V2-2 — pilot)
 

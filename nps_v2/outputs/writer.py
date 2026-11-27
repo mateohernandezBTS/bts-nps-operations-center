@@ -10,6 +10,7 @@ from typing import Any
 
 from nps_v2.domain import SalesforceId
 from nps_v2.outputs.preview import render_preview
+from nps_v2.outputs.review_pages import render_preview_page
 from nps_v2.outputs.slack import slack_rows, write_slack_table
 from nps_v2.outputs.slack_page import PageContext
 from nps_v2.pipeline import PipelineResult
@@ -19,6 +20,7 @@ from nps_v2.surveys.state import ProjectSurveys
 
 REPORT_FILE = "report.json"
 PREVIEW_FILE = "preview.md"
+PREVIEW_PAGE_FILE = "preview.html"
 SLACK_DIRECTORY = "slack"
 
 
@@ -26,6 +28,7 @@ SLACK_DIRECTORY = "slack"
 class WrittenOutputs:
     report: Path
     preview: Path
+    preview_html: Path
     slack_html: Path
 
 
@@ -45,6 +48,13 @@ def write_outputs(
     )
     preview_path = run_directory / PREVIEW_FILE
     preview_path.write_text(render_preview(report), encoding="utf-8")
+    preview_page = run_directory / PREVIEW_PAGE_FILE
+    preview_page.write_text(
+        render_preview_page(
+            report, country_names={c.code: c.name for c in registry.countries}
+        ),
+        encoding="utf-8",
+    )
 
     run_id = str(report["run_id"])
     review_count = len(result.review) + len(result.worklist_review)
@@ -69,5 +79,8 @@ def write_outputs(
         special_cases=special_cases,
     )
     return WrittenOutputs(
-        report=report_path, preview=preview_path, slack_html=slack_html
+        report=report_path,
+        preview=preview_path,
+        preview_html=preview_page,
+        slack_html=slack_html,
     )

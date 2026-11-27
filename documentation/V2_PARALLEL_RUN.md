@@ -24,14 +24,14 @@ the operational source; V2 is read-only and its outputs are compared, not used.
 3. Check that the BTS connector (Salesforce) is enabled in the Claude session.
 4. Optional: a scheduled task runs V2 every Monday on its own ("Run the scheduled weekly
    NPS Upcoming"; the skill uses `select --this-week`). Each run opens its own session
-   with the summary, `preview.md` and the Slack page.
+   with the summary, the preview page and the Slack page.
 
 ## 2. Each Monday
 
 | Step | Desktop v1.0.2 | V2 (Claude) |
 |---|---|---|
 | 1 | Run as usual after the subscribed reports arrive (~13:00 UTC). | In the same hour, ask Claude (in English or Spanish): "Run this week's NPS Upcoming", or open the session of the scheduled run. Claude follows the skill: select → queries → capture → surveys → upcoming. |
-| 2 | Keep `selam_worklist.csv` of the weekly run. | Review `preview.md` and the Slack page. Do **not** use them operationally yet. |
+| 2 | Keep `selam_worklist.csv` of the weekly run. | Review the preview page (`preview.html`) and the Slack page. Do **not** use them operationally yet. |
 | 3 | — | Attach the desktop `selam_worklist.csv` and ask Claude to compare: `python -m nps_v2 compare --run <run> --desktop selam_worklist.csv`. |
 | 4 | — | Explain every remaining difference (section 3) and record the run (section 4). |
 
@@ -42,7 +42,7 @@ by Salesforce changes after the report was sent.
 
 | Where | Typical cause | How to confirm |
 |---|---|---|
-| Only on desktop, "V2: excluded / manual review / outside the report scope" | Data changed after the report, or report-scope rule differs (D-V2-1) | Read the reason in `compare.md`; check the record in Salesforce |
+| Only on desktop, "V2: excluded / manual review / outside the report scope" | Data changed after the report, or report-scope rule differs (D-V2-1) | Read the reason in the comparison page (`compare.html`); check the record in Salesforce |
 | Only on desktop, "Not in Salesforce for this selection" | Record deleted, or start date / billing country changed after the report | Open the project in Salesforce (history) |
 | Only in V2, "To check" | Project created or modified after the report was sent | Check `CreatedDate` / `LastModifiedDate` in Salesforce |
 | Same session, different survey state | Survey created between the report and the V2 run | Survey Set `CreatedDate` |

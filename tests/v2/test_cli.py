@@ -127,6 +127,9 @@ class CliFlowTest(CliRunMixin):
         self.assertEqual(out["summary"]["pending"], 2)
         self.assertEqual(out["summary"]["out_of_scope"], 1)
         self.assertFalse(out["watchlist_configured"])
+        self.assertEqual(
+            set(out["outputs"]), {"report", "preview", "preview_html", "slack_html"}
+        )
         for path in out["outputs"].values():
             self.assertTrue(Path(path).exists(), path)
 

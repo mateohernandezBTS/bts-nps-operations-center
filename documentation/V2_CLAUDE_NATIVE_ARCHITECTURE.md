@@ -213,8 +213,8 @@ personalised e-mail; optional Outlook draft (never sent automatically).
 A scheduled task (a fresh Claude session each Monday, with the installed skill and the
 BTS connector) asks for "the scheduled weekly run". The skill then runs, without
 questions, exactly the standard week of today in Buenos Aires (`select --this-week`,
-fixed offset UTC−3; no filters, no extra days) and delivers the summary, `preview.md`
-and the Slack page in that session. Any error stops the run and is reported first.
+fixed offset UTC−3; no filters, no extra days) and delivers the summary, the preview
+page and the Slack page in that session. Any error stops the run and is reported first.
 Wider or filtered selections stay manual runs. Being read-only, it can run during the
 parallel run; it replaces neither the PO's review nor the desktop run until sign-off.
 
@@ -256,6 +256,10 @@ preview and approval in V2-2; later views) is built on one shared kit,
   so a viewer that blocks the CDN still gets a working BTS page (tests enforce it).
 - Shared behaviour (`window.BTSUI`): toast notices, clipboard with fallbacks, manual
   copy. What is copied or written elsewhere (Slack payload) never carries kit markup.
+- Views on the kit: the Slack page; the Upcoming preview (`preview.html`) and the
+  parallel-run comparison (`compare.html`), both with search and country tabs where
+  useful (`nps_v2/outputs/review_pages.py`); the creation plan and result pages.
+  `preview.md` and `compare.md` stay as plain-text copies of the same content.
 
 ## 7. Safety model
 
