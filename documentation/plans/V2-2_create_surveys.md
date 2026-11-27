@@ -145,6 +145,20 @@ The engine stays deterministic; Claude only runs what it prints, exactly as in V
    hash, one write at a time, stop on error, never delete).
 9. **Pilot** (§8), then **rollout** (§9).
 
+### Progress
+
+- [x] Step 1 — recipe (`nps_v2/creation/recipe.py`, `config/v2/creation.json`); checked against 48 real survey sets.
+- [x] Step 2 — plan with canonical hash (`nps_v2/creation/plan.py`).
+- [x] Step 3 — `plan` + preview page and `approve` + re-check (`nps_v2/creation/workflow.py`, `nps_v2/outputs/creation_pages.py`).
+- [x] Step 4 — re-check: surveys found before writing change the plan and its code (new approval needed).
+- [x] Step 5 — `execute` / `record` step machine (`nps_v2/creation/execution.py`): compact `describe` preflight of the two created objects (the project describe is too large; a failed project update is reported by reconcile), per-survey check, one call at a time, results read from the session log or a file, strict validation, duplicate-write detection, stop on first error.
+- [x] Step 6 — `reconcile` (`nps_v2/creation/reconcile.py`): fresh read-back, outcome per survey (created, already existed, partial, failed, not run), refreshed report and Slack page, `result.html`, `audit.json`, `creation_log.xlsx` (standard-library writer `nps_v2/outputs/xlsx.py`).
+- [x] Step 7 — creation log (part of step 6).
+- [x] Step 8 — `SKILL.md` section 8 "Create surveys (V2-2 — pilot)".
+- [ ] Pilot (section 8) — needs the §9 gate.
+
+Tested end to end with a simulated connector (`tests/v2/test_creation_flow.py`): happy path, wrong approval code, re-check changing the plan, survey found at its check, failed write, missing permissions and a write run twice. The connector's real answer format for `salesforce_create` / `salesforce_update` is confirmed in the pilot; `record` also accepts a plain-text answer with exactly one new Id.
+
 ## 8. Pilot protocol (one project, PO present)
 
 1. Pick one eligible pending project with both kinds missing, chosen by the PO.

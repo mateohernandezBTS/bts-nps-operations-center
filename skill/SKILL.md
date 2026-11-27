@@ -1,9 +1,9 @@
 ---
 name: nps-upcoming-selam
-description: Read-only NPS Upcoming for BTS SELAM (AR, BR/Nexo, MX) from Salesforce: surveys to create, QR and links, exclusions, Slack cards. Use for this week's NPS, "los NPS de la semana", #latam-nps.
+description: NPS Upcoming for BTS SELAM (AR, BR/Nexo, MX) from Salesforce: surveys to create, QR, exclusions, Slack cards; creates surveys after approval. Use for weekly NPS, "los NPS de la semana".
 ---
 
-# NPS Upcoming SELAM (V2-1, read-only)
+# NPS Upcoming SELAM (V2-1 read-only; V2-2 create surveys, pilot)
 
 Use this skill when the user asks for the week's NPS (or "los NPS de la semana"), for
 one day or a date range, to find sessions by client, project, facilitator or country,
@@ -19,9 +19,10 @@ Talk to the user in the language they write in. The files the engine produces
 
 ## Non-negotiable rules
 
-1. **Read-only.** Do not create, change or delete anything in Salesforce, Slack,
-   Outlook or Box. Do not post to Slack. (Creating surveys and publishing come in
-   V2-2 and V2-3.)
+1. **Read-only by default.** Do not create, change or delete anything in Salesforce,
+   Slack, Outlook or Box, and never post to Slack. The **only** exception is section
+   8 (create surveys), and only after the user approves the exact plan code.
+   Never delete anything, ever.
 2. **The engine writes the queries.** Copy each `soql` as is into `salesforce_query`
    (BTS connector). Do not reformat or "improve" it, and do not write queries of
    your own to fill in data.
@@ -157,6 +158,36 @@ Deliver `compare.md`. "Only on desktop" differences come explained by V2; "Only 
 V2" ones (marked "To check") are usually sessions created or changed after the
 report e-mail: suggest checking them in Salesforce, without writing anything.
 
+### 8. Create surveys (V2-2 — pilot)
+
+Only when the user **explicitly asks to create the surveys** of a finished Upcoming
+run (step 4). During the pilot, create only for the sessions the user chooses
+(`--exclude` the others). The scheduled Monday run never creates anything.
+
+1. **Plan:** `plan --run "$RUN_DIR" [--exclude <project id> ...]`. Deliver `plan_html`
+   as a file and show the summary. Ask the user to approve by replying with the
+   `approval_code`. Do not suggest approving; wait for the user.
+2. **Approve:** only with the code the user typed:
+   `approve --run "$RUN_DIR" --code <code>`. A different code is an error: show the
+   plan again. Then run the re-check query exactly as printed and
+   `capture --run "$RUN_DIR" --group creation_recheck`.
+3. **Execute, one call at a time:** `execute --run "$RUN_DIR"` prints one `call`
+   (`tool` + `input`). Run that connector tool with **exactly** that input — never
+   edit, add or reorder fields — then `record --run "$RUN_DIR"`. `record` prints the
+   next `call`; repeat until there is none. Never run a call twice and never run a
+   write that the engine did not print. If `execute` says `plan_changed`, nothing was
+   written: deliver the new plan and ask for approval of the new code.
+4. **If the run stops** (`run_status: failed`), do not retry and do not write
+   anything else. Go to step 5 and show the user the error.
+5. **Reconcile:** `reconcile --run "$RUN_DIR"`; run the printed queries exactly,
+   `capture --run "$RUN_DIR" --group creation_after`, then `reconcile` again.
+   Deliver as files: `result_html`, `creation_log` (Excel), and the refreshed
+   `slack_html` with the new links and QR codes. Summarise the counts (created,
+   already existed, partial, failed, not run) and any notes.
+
+If `record` cannot find the result in the session log, save the tool's result
+exactly as returned to a file and run `record --run "$RUN_DIR" --response-file <file>`.
+
 ## Common problems
 
 | Message | Meaning | What to do |
@@ -165,7 +196,10 @@ report e-mail: suggest checking them in Salesforce, without writing anything.
 | `ReaderError ... done is not true` or `may be truncated` | Incomplete or too large a response | Narrow the selection (fewer days or one country) |
 | `RunFolderError ... Missing response` | A response was not saved | Run that query and `capture` (or save it by hand) |
 | `run 'surveys' again` | The survey queries do not match the saved projects | Repeat step 3 |
-| `RegistryError` / `WatchlistError` / `ReasonTextsError` | Invalid skill configuration | Stop and say the skill must be reinstalled |
+| `RegistryError` / `WatchlistError` / `ReasonTextsError` / `RecipeError` | Invalid skill configuration | Stop and say the skill must be reinstalled |
+| `does not match the current plan` | The approval code is not the plan's code | Show the plan again; ask for approval |
+| `no '...' call with exactly the printed input` | The tool was not run, or was run with a different input | Run it exactly as printed, then `record` again |
+| `run_status: failed` | A step failed; the run stopped | No retries: `reconcile` and report |
 
 ## What is in this skill
 
