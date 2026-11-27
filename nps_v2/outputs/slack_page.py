@@ -24,6 +24,7 @@ import html
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 
 from engine.slack_canvas_renderer import (
@@ -31,6 +32,7 @@ from engine.slack_canvas_renderer import (
     get_record_sort_key,
     render_link,
 )
+from nps_v2.outputs import special_email
 from nps_v2.outputs.ui_kit import (
     Tile,
     attr,
@@ -53,6 +55,7 @@ class PageContext:
     title: str  # e.g. the selection label
     generated_at: str
     review_count: int
+    week_start: date | None = None  # first day of the selection (e-mail subject)
 
 
 def payload_cards(records: Sequence[Row]) -> str:
@@ -148,10 +151,68 @@ def render_page(
     return render_document(
         title=f"Slack table · {context.run_id}",
         header=header,
-        body=_HELP + tiles + sections + empty,
+        body=_HELP + tiles + _emails(rows, special_cases, context) + sections + empty,
         css=_CSS,
         js=_JS,
         scripts=(QRCODE_SCRIPT,),
+    )
+
+
+def _emails(
+    rows: Sequence[Row],
+    special_cases: Mapping[str, Sequence[str]],
+    context: PageContext,
+) -> str:
+    """One card per watch-listed facilitator: the personalised e-mail to copy."""
+    grouped = special_email.by_facilitator(_sorted(rows), special_cases)
+    if not grouped:
+        return ""
+    subject = special_email.subject(context.week_start)
+    cards = "".join(
+        _email_card(index, name, records, subject)
+        for index, (name, records) in enumerate(grouped.items())
+    )
+    return (
+        '<section class="emails"><h2 class="section-title">Personalised e-mails'
+        f'<ion-badge class="count">{len(grouped)}</ion-badge></h2>'
+        '<p class="meta">These facilitators get their links by e-mail. Copy the '
+        "subject and the e-mail, paste them into a new Outlook message and send it "
+        f"yourself.</p>{cards}</section>"
+    )
+
+
+def _email_card(index: int, name: str, sessions: Sequence[Row], subject: str) -> str:
+    template_id = f"email-{index}"
+    records = special_email.day_first(sessions)
+    missing = [r.get("Session", "") for r in records if not r.get("Link NPS Survey")]
+    warning = (
+        '<div class="callout"><b>Surveys not created yet:</b> '
+        f"{text('; '.join(missing))}. Create them first, or the e-mail goes without "
+        "their links and QR.</div>"
+        if missing
+        else ""
+    )
+    items = "".join(_session_item(i, record, {}) for i, record in enumerate(records))
+    count = len(records)
+    body = (
+        special_email.intro(name, count)
+        + payload_cards(records)
+        + special_email.CLOSING
+    )
+    return (
+        f'<ion-card class="email" data-facilitator="{attr(name)}">'
+        '<div class="card-head"><div>'
+        f"<ion-card-title>E-mail to {text(name)}</ion-card-title>"
+        f"<ion-card-subtitle>{count} session{'s' if count != 1 else ''} · "
+        f"Subject: {text(subject)}</ion-card-subtitle></div>"
+        '<div class="email-actions">'
+        f'<ion-button fill="outline" data-copy-subject="{attr(subject)}">'
+        "Copy subject</ion-button>"
+        f'<ion-button data-copy="{template_id}" data-done="E-mail copied ✓" '
+        'data-paste="a new Outlook message">'
+        f"{_COPY_ICON}Copy e-mail</ion-button></div></div>"
+        f'{warning}<ion-list lines="full">{items}</ion-list>'
+        f'<template id="{template_id}">{body}</template></ion-card>'
     )
 
 

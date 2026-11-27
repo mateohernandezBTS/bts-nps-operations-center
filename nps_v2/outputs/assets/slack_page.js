@@ -42,11 +42,22 @@
         {'text/html':new Blob([htmlText],{type:'text/html'}),
          'text/plain':new Blob([text],{type:'text/plain'})},
         {'text/html':htmlText,'text/plain':text},holder.cloneNode(true))){
-      ui.notify(btn,true,'Copied for Slack ✓');return;
+      ui.notify(btn,true,btn.getAttribute('data-done')||'Copied for Slack ✓');return;
     }
     ui.notify(btn,false,'Copy by hand');
     ui.manualCopy(holder,'This viewer blocks the clipboard. The content is already '
-      +'selected: press Ctrl+C (Cmd+C on Mac) and paste it into the canvas.');
+      +'selected: press Ctrl+C (Cmd+C on Mac) and paste it into '
+      +(btn.getAttribute('data-paste')||'the canvas')+'.');
+  }
+  async function copySubject(btn){
+    var subject=btn.getAttribute('data-copy-subject');
+    var node=document.createElement('span');node.textContent=subject;
+    if(await ui.copyRich(null,{'text/plain':subject},node)){
+      ui.notify(btn,true,'Subject copied ✓');return;
+    }
+    ui.notify(btn,false,'Copy by hand');
+    ui.manualCopy(node,'This viewer blocks the clipboard. The subject is already '
+      +'selected: press Ctrl+C (Cmd+C on Mac).');
   }
   async function copyQr(control){
     var canvas=control.closest('ion-item').querySelector('.qr canvas');
@@ -102,6 +113,7 @@
     var qr=ev.target.closest('.qr[data-text]');if(qr){copyQr(qr);return;}
     var b=ev.target.closest('ion-button');if(!b){return;}
     if(b.hasAttribute('data-copy')){copyPayload(b);}
+    else if(b.hasAttribute('data-copy-subject')){copySubject(b);}
     else if(b.hasAttribute('data-copy-qr')){copyQr(b);}
   });
   if(document.readyState==='loading'){

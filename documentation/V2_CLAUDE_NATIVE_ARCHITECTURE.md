@@ -310,7 +310,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | V2-2 | Create surveys: plan, preview, approval, re-check, execution, reconcile | Salesforce `Survey_Set__c` | Salesforce write permission confirmed with PRO; single-project pilot; then one full week |
 | V2-3 | Slack publication levels + special-case e-mail drafts | Slack, Outlook drafts | canvas structure confirmed; draft level used ≥2 weeks |
 | V2-4 | Results + Data Quality/PRO + alerts (scheduled) + `survey-results-reports` integration | optional Ignore Reporting fixes (approved) | PRO validation |
-| V2-5 | Facilitator follow-up with language templates | Outlook drafts | PO approval of templates |
+| V2-5 | Facilitator follow-up with language templates. **Step 1 done (2026-11-27):** the Slack page writes the personalised e-mail of each watch-listed facilitator (subject, greeting and the same session cards with QR) for copy and paste into Outlook | Step 1: none (copy and paste). Next: Outlook drafts | PO approval of templates |
 | V2-6 | Decommission desktop app and Power Automate | — | V2-1…V2-3 certified |
 
 ## 12. Open decisions and questions
@@ -330,6 +330,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-11 | Every HTML view uses the shared Ionic + BTS kit (§6.7): Ionic 8.8.19, iOS mode, mandatory fallback | **decided 2026-11-26** |
 | D-V2-12 | Approval mechanism for writes: the user confirms the plan hash in the chat (V2-2 plan §10) | proposed |
 | D-V2-13 | Survey creation path: A, reproduce the UI screen flow via API (recipe verified 48/48 by reading), proven by a one-project pilot; B, an admin-built invocable flow, as fallback | **decided 2026-11-26** |
+| D-V2-14 | Personalised e-mail for special cases: one per facilitator per run, subject `NPS week dd/mm/yy` (Monday of the report), short Spanish greeting, the Slack session cards (dates day-first) and a closing line; copied from the Slack page, never sent by the engine | proposed 2026-11-27 (PO to confirm the wording) |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2

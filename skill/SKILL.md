@@ -117,7 +117,10 @@ With `"status": "ok"`, `outputs` holds:
    cases and data-quality notes.
 2. The sessions with surveys to create (country, date, client, session, what is
    missing).
-3. The special cases: say they need a personalised e-mail.
+3. The special cases: say they need a personalised e-mail. The Slack page has a
+   "Personalised e-mails" section with one e-mail per facilitator: the user clicks
+   "Copy subject" and "Copy e-mail" and pastes them into a new Outlook message. Never
+   send or draft that e-mail yourself. If a session there has no surveys yet, say so.
 4. If `watchlist_configured` is `false`, say that the special-facilitator list is
    not installed and no special cases were flagged.
 5. Deliver the preview page (`preview_html`) and the Slack page **as files**, never

@@ -74,6 +74,7 @@ def write_outputs(
             title=selection.label,
             generated_at=str(report["generated_at"]),
             review_count=review_count,
+            week_start=selection.date_from,
         ),
         country_order=[country.name for country in registry.countries],
         special_cases=special_cases,
