@@ -109,6 +109,17 @@ class ReportSectionsTest(unittest.TestCase):
 
 
 class WatchlistTest(unittest.TestCase):
+    def test_staffing_names_give_the_full_names(self) -> None:
+        watchlist = Watchlist(("Ana", "Bruno Example"))
+        snapshot = project(1, all_staffings="Ána Example, Other Person;Bruno Example")
+        self.assertEqual(
+            watchlist.staffing_names(snapshot),
+            {"Ana": ("Ána Example",), "Bruno Example": ("Bruno Example",)},
+        )
+        self.assertEqual(
+            watchlist.staffing_names(project(2, all_staffings="Someone")), {}
+        )
+
     def test_matching_ignores_accents_and_case(self) -> None:
         watchlist = Watchlist(("José  Example",))
         self.assertEqual(

@@ -92,8 +92,10 @@ data. If it reports anything in `missing`, save the full response of that query
 ```
 
 It checks the projects against the control. Run each query in `queries` (pairs
-`survey_sets_NN` and `survey_sets_NN_control`; there may be none) and then
-`capture --group survey_sets`, as in step 2.
+`survey_sets_NN` and `survey_sets_NN_control`; there may be none; and, when a
+special-case facilitator is staffed, `facilitator_offices`, which only reads their
+office to choose the e-mail language) and then `capture --group survey_sets`, as in
+step 2.
 
 ### 4. Result
 
@@ -119,8 +121,9 @@ With `"status": "ok"`, `outputs` holds:
    missing).
 3. The special cases: say they need a personalised e-mail. The Slack page has a
    "Personalised e-mails" section with one e-mail per facilitator: the user clicks
-   "Copy subject" and "Copy e-mail" and pastes them into a new Outlook message. Never
-   send or draft that e-mail yourself. If a session there has no surveys yet, say so.
+   "Copy subject" and "Copy e-mail" and pastes them into a new Outlook message. Each
+   card says the e-mail language and why (office or session country). Never send or
+   draft that e-mail yourself. If a session there has no surveys yet, say so.
 4. If `watchlist_configured` is `false`, say that the special-facilitator list is
    not installed and no special cases were flagged.
 5. Deliver the preview page (`preview_html`) and the Slack page **as files**, never

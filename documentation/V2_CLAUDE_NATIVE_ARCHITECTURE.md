@@ -208,6 +208,28 @@ configuration, never committed; the test suite uses synthetic names). Matching p
 created normally, flagged in the preview, and get an ordered data package for a
 personalised e-mail; optional Outlook draft (never sent automatically).
 
+**V2-5 step 1 (2026-11-27, D-V2-14/15).** The Slack page writes one e-mail per
+watch-listed facilitator (subject `NPS week dd/mm/yy`, greeting, the Slack session
+cards with day-first dates and the QR, closing), to copy and paste into Outlook.
+Its language: the facilitator's office (`User.Department`, e.g. `MX-Mexico City`,
+looked up read-only by the `facilitator_offices` query that `surveys` adds when the
+watch-list matches someone) when it is a registry market; otherwise the language of
+the countries of their sessions (billing office); templates `es`, `pt-BR`, `en-US`.
+Salesforce has no nationality field: the office is the closest reliable signal
+(10/10 checked users had it; `Country` and locale are mostly empty or `en_US`).
+
+**Idea, not planned yet — sending the e-mails (V2-5 step 2/3).** Same safety model
+as V2-2: a send plan page (recipient, subject, language, sessions), an approval code
+typed by the user, one send per call, an audit in the run folder, and never from the
+scheduled run. Open points before designing it:
+
+- recipients: add `Email` to the office lookup (from `User`);
+- the Microsoft 365 connector's draft tool rejects images in HTML, so the QR cannot
+  travel embedded; options are a link to the hosted QR, a PNG attachment (if a tool
+  allows attachments), or keeping copy and paste for the QR;
+- send directly or create drafts for one click review (drafts first is safer);
+- who signs (the operator; the Outlook signature is not added to API drafts).
+
 ### 6.5 Scheduled Monday run — increment 1 extension (read-only)
 
 A scheduled task (a fresh Claude session each Monday, with the installed skill and the
@@ -331,6 +353,7 @@ keeps its run folders in the session workspace; required before V2-2 (first writ
 | D-V2-12 | Approval mechanism for writes: the user confirms the plan hash in the chat (V2-2 plan §10) | proposed |
 | D-V2-13 | Survey creation path: A, reproduce the UI screen flow via API (recipe verified 48/48 by reading), proven by a one-project pilot; B, an admin-built invocable flow, as fallback | **decided 2026-11-26** |
 | D-V2-14 | Personalised e-mail for special cases: one per facilitator per run, subject `NPS week dd/mm/yy` (Monday of the report), short Spanish greeting, the Slack session cards (dates day-first) and a closing line; copied from the Slack page, never sent by the engine | proposed 2026-11-27 (PO to confirm the wording) |
+| D-V2-15 | Language of the personalised e-mail: facilitator office (`User.Department` prefix = registry market) first, then the countries of their sessions; English template when no market matches | proposed 2026-11-27 (PO asked for nationality, then billing office; office is the closest field) |
 | — | `#latam-nps` scope = AR, BR (incl. Nexo), MX only | **decided 2026-11-25** |
 
 ## 13. Known issues affecting V2

@@ -52,6 +52,55 @@ class EmailTextTest(unittest.TestCase):
         self.assertEqual([r["Session"] for r in grouped["Bruno"]], ["Session 03"])
 
 
+LANG_BY_CODE = {"AR": "es", "BR": "pt-BR", "MX": "es"}
+LANG_BY_COUNTRY = {"Argentina": "es", "Brazil": "pt-BR", "Mexico": "es"}
+
+
+def choose(office: str, countries: list[str]) -> special_email.EmailLanguage:
+    return special_email.choose_language(
+        office,
+        countries,
+        language_by_code=LANG_BY_CODE,
+        language_by_country=LANG_BY_COUNTRY,
+    )
+
+
+class EmailLanguageTest(unittest.TestCase):
+    def test_office_of_a_market_wins(self) -> None:
+        self.assertEqual(
+            choose("MX-Mexico City", ["Brazil"]),
+            special_email.EmailLanguage("es", "office MX-Mexico City"),
+        )
+        self.assertEqual(choose(" BR-Nexo ", ["Mexico"]).code, "pt-BR")
+
+    def test_otherwise_the_countries_of_the_sessions(self) -> None:
+        self.assertEqual(
+            choose("", ["Brazil"]),
+            special_email.EmailLanguage("pt-BR", "session country Brazil"),
+        )
+        outside = choose("US-Boston", ["Mexico", "Brazil", "Mexico"])
+        self.assertEqual(outside.code, "es")
+        self.assertIn("office US-Boston is outside the markets", outside.source)
+        self.assertEqual(choose("", ["Brazil", "Mexico"]).code, "pt-BR")  # tie: first
+
+    def test_nothing_known_falls_back_to_english(self) -> None:
+        self.assertEqual(choose("", ["Chile"]).code, "en-US")
+        language = special_email.choose_language(
+            "", ["Italy"], language_by_code={}, language_by_country={"Italy": "it"}
+        )
+        self.assertEqual(language.code, "en-US")  # no Italian template
+
+    def test_templates(self) -> None:
+        self.assertIn("Olá Ana, tudo bem?", special_email.intro("Ana", 1, "pt-BR"))
+        self.assertIn("das suas sessões", special_email.intro("Ana", 2, "pt-BR"))
+        self.assertIn("Hi Ana, how are you?", special_email.intro("Ana", 1, "en-US"))
+        self.assertEqual(special_email.closing("pt-BR"), "<p>Abraço!</p>")
+        self.assertEqual(special_email.closing("es"), "<p>¡Gracias!</p>")
+        self.assertEqual(special_email.closing("xx"), "<p>Thanks!</p>")
+        for template in special_email.TEMPLATES.values():
+            self.assertIn("{name}", template.greeting)
+
+
 class EmailCardsTest(unittest.TestCase):
     def render(
         self, rows: list[dict[str, str]], cases: dict[str, tuple[str, ...]]

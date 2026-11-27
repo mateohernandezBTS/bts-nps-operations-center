@@ -40,22 +40,30 @@ from nps_v2.salesforce.control import (
     verify_survey_sets,
 )
 from nps_v2.salesforce.queries import (
+    FACILITATOR_QUERY_NAME,
     Query,
+    build_facilitator_office_query,
     build_projects_query,
     build_survey_set_queries,
 )
-from nps_v2.salesforce.readers import ReaderError, read_projects, read_survey_sets
+from nps_v2.salesforce.readers import (
+    ReaderError,
+    query_records,
+    read_projects,
+    read_survey_sets,
+)
 from nps_v2.selection import (
     SearchFilters,
     Selection,
     SelectionError,
     day_selection,
+    normalize_text,
     range_selection,
     standard_week_selection,
     today_in_buenos_aires,
 )
 from nps_v2.surveys.state import SurveyStateError, derive_survey_states
-from nps_v2.watchlist import WatchlistError, load_watchlist
+from nps_v2.watchlist import Watchlist, WatchlistError, load_watchlist
 
 if TYPE_CHECKING:
     from nps_v2.outputs.writer import WrittenOutputs
@@ -118,6 +126,10 @@ def command_surveys(args: argparse.Namespace) -> dict[str, Any]:
     folder = RunFolder(Path(args.run))
     projects = _verified_projects(folder)
     queries = _survey_set_queries(projects)
+    watchlist = load_watchlist(Path(args.watchlist) if args.watchlist else None)
+    offices = _facilitator_office_query(projects, watchlist)
+    if offices is not None:
+        queries.append(offices)
     folder.write_queries("survey_sets", queries)
     return {
         "step": "surveys",
@@ -139,7 +151,7 @@ def command_upcoming(args: argparse.Namespace) -> dict[str, Any]:
 
     queries = folder.read_queries("survey_sets")
     expected = _survey_set_queries(projects)
-    if [q.soql for q in queries] != [q.soql for q in expected]:
+    if [q.soql for q in _survey_set_only(queries)] != [q.soql for q in expected]:
         raise RunFolderError(
             "Survey-set queries do not match the saved projects; run 'surveys' again"
         )
@@ -466,28 +478,28 @@ def build_run_outputs(
     selection: Selection,
 ) -> tuple[dict[str, Any], WrittenOutputs]:
     """Verify the survey-set responses and write report, preview and Slack page."""
+    set_queries = _survey_set_only(survey_set_queries)
     data = [
         (q, folder.read_response(q))
-        for q in survey_set_queries
+        for q in set_queries
         if not q.name.endswith("_control")
     ]
     controls = [
-        (q, folder.read_response(q))
-        for q in survey_set_queries
-        if q.name.endswith("_control")
+        (q, folder.read_response(q)) for q in set_queries if q.name.endswith("_control")
     ]
     survey_sets = read_survey_sets(data)
     verify_survey_sets(survey_sets, controls)
 
     result = run_pipeline(projects, selection, registry, load_report_scope())
     surveys = derive_survey_states(projects, survey_sets, registry)
+    watchlist = load_watchlist(watchlist_path)
     report = build_report(
         context=context,
         selection=selection,
         registry=registry,
         result=result,
         surveys=surveys,
-        watchlist=load_watchlist(watchlist_path),
+        watchlist=watchlist,
         texts=load_reason_texts(),
     )
 
@@ -500,8 +512,60 @@ def build_run_outputs(
         registry=registry,
         result=result,
         surveys=surveys,
+        facilitator_offices=_facilitator_offices(folder, projects, watchlist),
     )
     return report, outputs
+
+
+def _survey_set_only(queries: Sequence[Query]) -> list[Query]:
+    return [q for q in queries if q.name != FACILITATOR_QUERY_NAME]
+
+
+def _facilitator_office_query(
+    projects: Sequence[ProjectSnapshot], watchlist: Watchlist | None
+) -> Query | None:
+    """Office lookup of the watch-listed staffing names (e-mail language only)."""
+    if watchlist is None:
+        return None
+    names = [
+        full
+        for project in projects
+        for fulls in watchlist.staffing_names(project).values()
+        for full in fulls
+    ]
+    return build_facilitator_office_query(names)
+
+
+def _facilitator_offices(
+    folder: RunFolder,
+    projects: Sequence[ProjectSnapshot],
+    watchlist: Watchlist | None,
+) -> dict[str, str]:
+    """Watch-list name → office, from the saved office lookup (empty when the lookup
+    was not run: the e-mail language then comes from the session country)."""
+    if watchlist is None:
+        return {}
+    try:
+        saved = folder.read_queries("survey_sets")
+    except RunFolderError:
+        return {}
+    query = next((q for q in saved if q.name == FACILITATOR_QUERY_NAME), None)
+    if query is None or not folder.response_path(query).exists():
+        return {}
+    by_name = {
+        normalize_text(str(r.get("Name") or "")): " ".join(
+            str(r.get("Department") or "").split()
+        )
+        for r in query_records(folder.read_response(query), query)
+    }
+    offices: dict[str, str] = {}
+    for project in projects:
+        for name, fulls in watchlist.staffing_names(project).items():
+            for full in fulls:
+                office = by_name.get(normalize_text(full), "")
+                if office and name not in offices:
+                    offices[name] = office
+    return offices
 
 
 def _now() -> str:
@@ -613,6 +677,9 @@ def _parser() -> argparse.ArgumentParser:
         "surveys", help="verify projects, print survey-set queries"
     )
     surveys.add_argument("--run", required=True)
+    surveys.add_argument(
+        "--watchlist", default="", help="special-case list (default: installed)"
+    )
     surveys.set_defaults(handler=command_surveys)
 
     capture = commands.add_parser(
